@@ -136,18 +136,18 @@ $(function() {
         console.log('SUCCESS')
     })
 
-    // $(window).on('load',function(){
-    //     const oHtml=document.getElementsByTagName('html')[0];
-    //     const aWidth=oHtml.clientWidth;
-    //     if(aWidth <= 750){
-    //         oHtml.style.fontSize=16*(aWidth/750)+'px';
-    //     }
-    // })
-    // $(window).on('resize',function(){
-    //     const oHtml=document.getElementsByTagName('html')[0];
-    //     const aWidth=oHtml.clientWidth;
-    //     if(aWidth <= 750){
-    //         oHtml.style.fontSize=16*(aWidth/750)+'px';
-    //     }
-    // })
+    // FB分享
+    $("#FB").on("click",function(){
+        var url="https://netlify.rptyy.xyz"
+        window.open('https://www.facebook.com/sharer/sharer.php?u='+url+'',"新龍之谷:十周年預熱活動",config="width=600,height=400")
+    })
+    $("#changemeta").on("click",function(){
+        var metas=document.getElementsByTagName("meta");
+        for(var i=0;i<metas.length;i++){
+            if(metas[i].getAttribute("property") == "og:description"){
+                metas[i].content="okdspskdkfpdfkpdsfsfpsofdkfs";
+                break;
+            }
+        }
+    })
 })

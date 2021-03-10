@@ -33,7 +33,7 @@
 			<a href="https://www.facebook.com/Gamania.LineageTW/?ref=ts&fref=ts" target="_blank">FB</a>
 			<button class="fbpage">Click</button>
 			<!-- <div id="fb-root"></div> -->
-			<div class="fb-comments" data-href="https://netlify.rptyy.xyz/" data-width="" data-numposts="5"></div>
+			<!-- <div class="fb-comments" data-href="https://netlify.rptyy.xyz/" data-width="" data-numposts="5"></div> -->
 		</div>
 		
 		<script>
@@ -47,7 +47,7 @@
 			console.log(GetServerTime())
 			
 			$("#time1").on("click",function(){
-				alert(GetServerTime(),+new Date(EVENT_TIME),new Date(EVENT_TIME).getTime())
+				alert(+new Date(EVENT_TIME),new Date(EVENT_TIME).getTime())
 				if(GetServerTime() >= +new Date(END_TIME)){
 					alert("《天堂R》勇士誕生祭壇活動已結束")
 					return;

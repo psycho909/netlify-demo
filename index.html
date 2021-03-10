@@ -47,6 +47,7 @@
 			console.log(GetServerTime())
 			
 			$("#time1").on("click",function(){
+				console.log(GetServerTime(),+new Date(END_TIME))
 				if(GetServerTime() >= +new Date(END_TIME)){
 					alert("《天堂R》勇士誕生祭壇活動已結束")
 					return;

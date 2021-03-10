@@ -37,7 +37,7 @@
 		
 		<script>
 			function GetServerTime(){
-				var serverTime = +new Date($.ajax({ async: false }).getResponseHeader("Date"));
+				var serverTime = new Date($.ajax({ async: false }).getResponseHeader("Date"));
 				return serverTime;
 			}
 

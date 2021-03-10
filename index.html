@@ -46,19 +46,19 @@
 			console.log(GetServerTime(),+new Date(EVENT_TIME),new Date(EVENT_TIME).getTime())
 			
 			$("#time1").on("click",function(){
-				alert(GetServerTime()+" "+(+new Date(EVENT_TIME))+" "+new Date(EVENT_TIME).getTime())
-				// if(GetServerTime() >= +new Date(END_TIME)){
-				// 	alert("《天堂R》勇士誕生祭壇活動已結束")
-				// 	return;
-				// }else{
-				// 	console.log(1)
-				// }
-				// if(GetServerTime() < +new Date(EVENT_TIME)){
-				// 	alert("尚未到領獎時間，領獎時間為 3/25 維護後")
-				// 	return;
-				// }else{
-				// 	console.log(2)
-				// }
+				// alert(GetServerTime()+" "+(+new Date(EVENT_TIME))+" "+new Date(EVENT_TIME).getTime())
+				if(GetServerTime() >= +new Date(END_TIME)){
+					alert("《天堂R》勇士誕生祭壇活動已結束")
+					return;
+				}else{
+					console.log(1)
+				}
+				if(GetServerTime() < +new Date(EVENT_TIME)){
+					alert("尚未到領獎時間，領獎時間為 3/25 維護後")
+					return;
+				}else{
+					console.log(2)
+				}
 			})
 			fbPage();
 

@@ -28,7 +28,8 @@
 
 	<body>
 		<div id="app">
-			<button id="time">TIME</button>
+			<button id="time1">TIME1</button>
+			<button id="time2">TIME2</button>
 			<a href="https://www.facebook.com/Gamania.LineageTW/?ref=ts&fref=ts" target="_blank">FB</a>
 			<button class="fbpage">Click</button>
 			<div id="fb-root"></div>
@@ -41,10 +42,12 @@
 				return serverTime;
 			}
 
-			$("#time").on("click",function(){
+			$("#time1").on("click",function(){
 				alert(GetServerTime())
 			})
-
+			$("#time2").on("click",function(){
+				alert(new Date())
+			})
 			fbPage();
 
 			function fbPage() {

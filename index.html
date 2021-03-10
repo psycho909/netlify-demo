@@ -10,56 +10,23 @@
 		<meta property="og:title" content="測試留言板功能" />
 		<meta property="og:description" content="測試留言板功能" />
 		<title>測試留言板功能</title>
-
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script>
-			window.fbAsyncInit = function () {
-				FB.init({
-					appId: "1361927494169720",
-					autoLogAppEvents: true,
-					xfbml: true,
-					version: "v9.0",
-				});
-			};
-		</script>
-		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js"></script>
 	</head>
 
 	<body>
 		<div id="app">
-			<button id="time1">TIME1</button>
-			<a href="https://www.facebook.com/Gamania.LineageTW/?ref=ts&fref=ts" target="_blank">FB</a>
+			<a class="link" href="https://www.facebook.com/kartriderTW/?ref=page_internal" target="_blank">LINK</a>
+			<a class="link" href="fb://profile/103801226391404" target="_blank">IOS</a>
+			<a class="link" href="fb://facewebmodal/f?href=https://www.facebook.com/103801226391404" target="_blank">Android</a>
+			<a class="link" href="fb://facewebmodal/f?href=https://www.facebook.com/103801226391404" target="_blank">Android2</a>
+			<a class="link" href="fb://facewebmodal/f?href=https://www.facebook.com/kartriderTW/?ref=page_internal" target="_blank">Android3</a>
 			<button class="fbpage">Click</button>
 			<!-- <div id="fb-root"></div> -->
 			<!-- <div class="fb-comments" data-href="https://netlify.rptyy.xyz/" data-width="" data-numposts="5"></div> -->
 		</div>
 		
 		<script>
-			var EVENT_TIME="2021/03/25 16:30:00";
-			var END_TIME="2021-05-06 16:30:00";
-
-			function GetServerTime(){
-				var serverTime = +new Date($.ajax({ async: false }).getResponseHeader("Date"));
-				return serverTime;
-			}
-			console.log(GetServerTime(),+new Date(EVENT_TIME),new Date(EVENT_TIME).getTime())
-			
-			$("#time1").on("click",function(){
-				// alert(GetServerTime()+" "+(+new Date(EVENT_TIME))+" "+new Date(EVENT_TIME).getTime())
-				if(GetServerTime() >= +new Date(END_TIME)){
-					alert("《天堂R》勇士誕生祭壇活動已結束")
-					return;
-				}else{
-					console.log(1)
-				}
-				if(GetServerTime() < +new Date(EVENT_TIME)){
-					alert("尚未到領獎時間，領獎時間為 3/25 維護後")
-					return;
-				}else{
-					console.log(2)
-				}
-			})
 			fbPage();
 
 			function fbPage() {

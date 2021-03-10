@@ -28,6 +28,7 @@
 
 	<body>
 		<div id="app">
+			<button id="time">TIME</button>
 			<a href="https://www.facebook.com/Gamania.LineageTW/?ref=ts&fref=ts" target="_blank">FB</a>
 			<button class="fbpage">Click</button>
 			<div id="fb-root"></div>
@@ -35,6 +36,15 @@
 		</div>
 		
 		<script>
+			function GetServerTime(){
+				var serverTime = +new Date($.ajax({ async: false }).getResponseHeader("Date"));
+				return serverTime;
+			}
+
+			$("#time").on("click",function(){
+				alert(GetServerTime())
+			})
+
 			fbPage();
 
 			function fbPage() {

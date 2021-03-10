@@ -29,7 +29,6 @@
 	<body>
 		<div id="app">
 			<button id="time1">TIME1</button>
-			<button id="time2">TIME2</button>
 			<a href="https://www.facebook.com/Gamania.LineageTW/?ref=ts&fref=ts" target="_blank">FB</a>
 			<button class="fbpage">Click</button>
 			<!-- <div id="fb-root"></div> -->
@@ -44,25 +43,22 @@
 				var serverTime = +new Date($.ajax({ async: false }).getResponseHeader("Date"));
 				return serverTime;
 			}
-			console.log(GetServerTime())
+			console.log(GetServerTime(),+new Date(EVENT_TIME),new Date(EVENT_TIME).getTime())
 			
 			$("#time1").on("click",function(){
-				alert(+new Date(EVENT_TIME),new Date(EVENT_TIME).getTime())
-				if(GetServerTime() >= +new Date(END_TIME)){
-					alert("《天堂R》勇士誕生祭壇活動已結束")
-					return;
-				}else{
-					console.log(1)
-				}
-				if(GetServerTime() < +new Date(EVENT_TIME)){
-					alert("尚未到領獎時間，領獎時間為 3/25 維護後")
-					return;
-				}else{
-					console.log(2)
-				}
-			})
-			$("#time2").on("click",function(){
-				alert(new Date())
+				alert(GetServerTime()+" "+(+new Date(EVENT_TIME))+" "+new Date(EVENT_TIME).getTime())
+				// if(GetServerTime() >= +new Date(END_TIME)){
+				// 	alert("《天堂R》勇士誕生祭壇活動已結束")
+				// 	return;
+				// }else{
+				// 	console.log(1)
+				// }
+				// if(GetServerTime() < +new Date(EVENT_TIME)){
+				// 	alert("尚未到領獎時間，領獎時間為 3/25 維護後")
+				// 	return;
+				// }else{
+				// 	console.log(2)
+				// }
 			})
 			fbPage();
 

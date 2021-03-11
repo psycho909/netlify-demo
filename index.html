@@ -10,8 +10,10 @@
 		<meta property="og:title" content="測試留言板功能" />
 		<meta property="og:description" content="測試留言板功能" />
 		<title>測試留言板功能</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/ouical/ouical.js"></script>
 		<style>
 			.link{
 				font-size: 30px;
@@ -27,23 +29,37 @@
 			<a class="link" href="fb://page/103801226391404" target="_blank">Android0</a>
 			<a class="link" href="fb://facewebmodal/f?href=https://www.facebook.com/103801226391404" target="_blank">Android1</a>
 			<a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=Title+of+the+event&details=My+event+description&dates=20200915T120000/20200915T130000&ctz=Europe/Rome&pli=1" class="link">GOOGLE</a>
-			<div class="default">
-				<a href="https://campaigns.litmus.com/_email/test/newnewyork.ics" class="cta btn-yellow" style="background-color: #F4D66C; font-size: 18px; font-family: Helvetica, Arial, sans-serif; font-weight:bold; text-decoration: none; padding: 14px 20px; color: #1D2025; border-radius: 5px; display:inline-block; mso-padding-alt:0; box-shadow:0 3px 6px rgba(0,0,0,.2);"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:30pt"> </i><![endif]--><span style="mso-text-raise:15pt;">Add to your Calendar</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%"> </i><![endif]--></a>
-				<p style="font-family: Helvetica, Arial, sans-serif; color: #fdfdfd; font-size: 18px; line-height: 24px; margin: 20px 0 0 0;">
-					 <a href="https://outlook.office.com/calendar/0/deeplink/compose?body=Learn%20all%20about%20the%20rules%20of%20the%20Motorway%20and%20how%20to%20access%20the%20fast%20lane.%0A%0Ahttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGridlock_%28Doctor_Who%29&amp;enddt=2022-01-12T20%3A00%3A00%2B00%3A00&amp;location=New%20Earth&amp;path=%2Fcalendar%2Faction%2Fcompose&amp;rru=addevent&amp;startdt=2022-01-12T18%3A00%3A00%2B00%3A00&amp;subject=Welcome%20to%20the%20Motorway" target="_blank" style="color: #fdfdfd; text-decoration: underline;">Outlook.com</a> |
-									 
-					 <a href="https://outlook.office.com/calendar/0/deeplink/compose?body=Learn%20all%20about%20the%20rules%20of%20the%20Motorway%20and%20how%20to%20access%20the%20fast%20lane.%0A%0Ahttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGridlock_%28Doctor_Who%29&amp;enddt=2022-01-12T20%3A00%3A00%2B00%3A00&amp;location=New%20Earth&amp;path=%2Fcalendar%2Faction%2Fcompose&amp;rru=addevent&amp;startdt=2022-01-12T18%3A00%3A00%2B00%3A00&amp;subject=Welcome%20to%20the%20Motorway" target="_blank" style="color: #fdfdfd; text-decoration: underline;">Office 365</a> |
-									 
-					 <a href="https://calendar.yahoo.com/?desc=Learn%20all%20about%20the%20rules%20of%20the%20Motorway%20and%20how%20to%20access%20the%20fast%20lane.%0A%0Ahttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGridlock_%28Doctor_Who%29&amp;et=20220112T200000Z&amp;in_loc=New%20Earth&amp;st=20220112T180000Z&amp;title=Welcome%20to%20the%20Motorway&amp;v=60" target="_blank" style="color: #fdfdfd; text-decoration: underline;">Yahoo</a> |
-									 
-					 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;dates=20220112T180000Z%2F20220112T200000Z&amp;details=Learn%20all%20about%20the%20rules%20of%20the%20Motorway%20and%20how%20to%20access%20the%20fast%20lane.%0A%0Ahttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGridlock_%28Doctor_Who%29&amp;location=New%20Earth&amp;text=Welcome%20to%20the%20Motorway" target="_blank" style="color: #fdfdfd; text-decoration: underline;">Google</a>
-				</p>
-		   </div>
+			<a href="" class="link calender">Open calender</a>
 			<!-- <div id="fb-root"></div> -->
 			<!-- <div class="fb-comments" data-href="https://netlify.rptyy.xyz/" data-width="" data-numposts="5"></div> -->
 		</div>
 		
 		<script>
+			function calenderCall(target, data) {
+			var _default = {
+				title: "",
+				start: new Date("2020/08/18 16:00:00"),
+				duration: 120,
+				end: new Date("2020/08/18 18:00:00"),
+				description: "",
+			};
+			var calenderData = $.extend(_default, data);
+			var myCalendar = createCalendar({
+				data: calenderData,
+			});
+			var calenderEvent = "";
+
+			calenderEvent = "webcal://"+myCalendar.ical;
+			$(target).attr("href", calenderEvent);
+		}
+
+		var _event = {
+			title: "天堂國際服 勇士誕生祭壇 領獎提醒", // 行事曆 標題 (可輸入可不輸入)
+			start: new Date("2021/03/25 17:00:00"), // 行事曆 什麼時候開始
+			end: new Date("2021/03/25 17:00:00"), // 行事曆 什麼時候結束
+			description: "天堂國際服 勇士誕生祭壇 領獎提醒", // 行事曆 描述 (可輸入可不輸入)
+		};
+		calenderCall($(".calender"), _event)
 		</script>
 	</body>
 </html>

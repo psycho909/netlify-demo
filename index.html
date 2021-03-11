@@ -31,11 +31,39 @@
 
 			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=TESTEVENT&dates=20210311/20210312&details=&location=&pli=1&uid=1615434001addeventcom&sf=true&output=xml" class="link calender">Open calender1</a>
 			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=天堂國際服&dates=20210311T090000/20210311T100000&ctz=Asia/Taipei&details=開服活動&location&pli=1&sf=true&output=xml" class="link calender">Open calender2</a>
+			<a href="" class="link calender2">Open calender3</a>
 			<!-- <div id="fb-root"></div> -->
 			<!-- <div class="fb-comments" data-href="https://netlify.rptyy.xyz/" data-width="" data-numposts="5"></div> -->
 		</div>
 		
 		<script>
+			function calenderCall(target, data) {
+			var _default = {
+				title: "",
+				start: new Date("2020/08/18 16:00:00"),
+				duration: 120,
+				end: new Date("2020/08/18 18:00:00"),
+				description: "",
+			};
+			var calenderData = $.extend(_default, data);
+			var myCalendar = createCalendar({
+				data: calenderData,
+			});
+			var calenderEvent = "";
+
+			calenderEvent = myCalendar.google;
+
+			$(target).attr("href", calenderEvent);
+		}
+
+		var _event = {
+			title: "天堂國際服 勇士誕生祭壇 領獎提醒", // 行事曆 標題 (可輸入可不輸入)
+			start: new Date("2021/03/25 17:00:00"), // 行事曆 什麼時候開始
+			end: new Date("2021/03/25 17:00:00"), // 行事曆 什麼時候結束
+			description: "天堂國際服 勇士誕生祭壇 領獎提醒", // 行事曆 描述 (可輸入可不輸入)
+		};
+
+		calenderCall($(".calender2"), _event);
 		</script>
 	</body>
 </html>

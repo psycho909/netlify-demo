@@ -29,7 +29,8 @@
 			<a class="link" href="fb://page/103801226391404" target="_blank">Android0</a>
 			<a class="link" href="fb://facewebmodal/f?href=https://www.facebook.com/103801226391404" target="_blank">Android1</a>
 			<a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=TESTEVENT&dates=20210311/20210312&details&location&pli=1&uid=1615433843addeventcom&sf=true&output=xml" class="link">GOOGLE</a>
-			<a href="" class="link calender">Open calender</a>
+			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=TESTEVENT&dates=20210311/20210312&details=&location=&pli=1&uid=1615434001addeventcom&sf=true&output=xml" class="link calender">Open calender</a>
+			<a href="https://calendar.google.com/calendar/r/eventedit?text=TESTEVENT&dates=20210311/20210312&details&location&pli=1&uid=1615434001addeventcom&sf=true&output=xml" class="link calender">Open calender</a>
 			<p style="margin:0px 0px 10px 0px;"><strong style="font-size:17px;line-height:150%;color:#000;">Add event to calendar</strong></p>
 			<p><a href="https://www.addevent.com/event/TW6153500+apple" title="Apple" target="_blank" style="color:#286efa;text-decoration:underline;font-size:15px;">Apple</a> &nbsp; <a href="https://www.addevent.com/event/TW6153500+google" title="Google" target="_blank" style="color:#286efa;text-decoration:underline;font-size:15px;">Google</a></p>
 			<!-- <div id="fb-root"></div> -->
@@ -37,31 +38,6 @@
 		</div>
 		
 		<script>
-			function calenderCall(target, data) {
-			var _default = {
-				title: "",
-				start: new Date("2020/08/18 16:00:00"),
-				duration: 120,
-				end: new Date("2020/08/18 18:00:00"),
-				description: "",
-			};
-			var calenderData = $.extend(_default, data);
-			var myCalendar = createCalendar({
-				data: calenderData,
-			});
-			var calenderEvent = "";
-
-			calenderEvent = "webcal://"+myCalendar.ical;
-			$(target).attr("href", calenderEvent);
-		}
-
-		var _event = {
-			title: "天堂國際服 勇士誕生祭壇 領獎提醒", // 行事曆 標題 (可輸入可不輸入)
-			start: new Date("2021/03/25 17:00:00"), // 行事曆 什麼時候開始
-			end: new Date("2021/03/25 17:00:00"), // 行事曆 什麼時候結束
-			description: "天堂國際服 勇士誕生祭壇 領獎提醒", // 行事曆 描述 (可輸入可不輸入)
-		};
-		calenderCall($(".calender"), _event)
 		</script>
 	</body>
 </html>

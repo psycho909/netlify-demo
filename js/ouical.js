@@ -55,7 +55,7 @@
 
       return href;
     },
-    
+
     ical: function(event) {
       return this.ics(event);
     },
@@ -64,11 +64,12 @@
       return this.ics(event);
     }
   };
-
+  
   var generateCalendars = function(event) {
     return {
       google: calendarGenerators.google(event),
       ical: calendarGenerators.ical(event),
+      ios: navigator.userAgent.match('CriOS')?calendarGenerators.google(event):calendarGenerators.ical(event),
       outlook: calendarGenerators.outlook(event)
     };
   };

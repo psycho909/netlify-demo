@@ -13,7 +13,7 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/ouical/ouical.js"></script>
+		<script type="text/javascript" src="js/ouical.js"></script>
 		<style>
 			.link{
 				font-size: 30px;
@@ -32,6 +32,7 @@
 			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=TESTEVENT&dates=20210311/20210312&details=&location=&pli=1&uid=1615434001addeventcom&sf=true&output=xml" class="link calender">Open calender1</a>
 			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=天堂國際服&dates=20210311T090000/20210311T100000&ctz=Asia/Taipei&details=開服活動&location&pli=1&sf=true&output=xml" class="link calender">Open calender2</a>
 			<a href="" class="link calender2">Open calender3</a>
+			<pre id="pre"></pre>
 			<!-- <div id="fb-root"></div> -->
 			<!-- <div class="fb-comments" data-href="https://netlify.rptyy.xyz/" data-width="" data-numposts="5"></div> -->
 		</div>
@@ -51,8 +52,11 @@
 			});
 			var calenderEvent = "";
 
-			alert(navigator.userAgent)
-			calenderEvent = myCalendar.google;
+			// alert(is.chrome())
+			// $("#pre").html(JSON.stringify(isMobile.apple))
+			// alert(navigator.userAgent)
+			// alert(navigator.userAgent.match('CriOS'))
+			calenderEvent = myCalendar.ios;
 
 			$(target).attr("href", calenderEvent);
 		}

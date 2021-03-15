@@ -23,8 +23,8 @@
 		<h1>HHH V2</h1>
 		<div id="app"></div>
 		<script defer>
-			Cookies.set('the_cookie', 'the_value', {  expires: 365, path: '/', secure: true, sameSite: 'none' })
-			window.location.replace(document.referrer);
+			document.cookie = 'myCookie=value; SameSite=None; Secure';
+			// window.location.replace(document.referrer);
 			function SetData(data) {
 				$.ajax({
 					type: "post",

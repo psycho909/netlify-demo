@@ -44,18 +44,21 @@
 			// 		run("show");
 			// 	}
 			// });
-			$.ajax({
-				url: "https://script.google.com/macros/s/AKfycbwBT8FeKNfh4keBYKCvTY133ZCVVnI_tt-QBunRhfzHL-tSN3VpU22WNjt94rosR5bG6Q/exec",
-				type: "POST",
-				data: {
-					order_time: +new Date(),
-				},
-				success: function (res) {
-					if (res === "成功") {
-						console.log("成功");
-					}
-				},
-			})
+			window.addEventListener("pagehide", function () {
+				alert("hide")
+			});
+			// $.ajax({
+			// 	url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
+			// 	type: "POST",
+			// 	data: {
+			// 		order_time: +new Date(),
+			// 	},
+			// 	success: function (res) {
+			// 		if (res === "成功") {
+			// 			console.log("成功");
+			// 		}
+			// 	},
+			// })
 		</script>
 	</body>
 </html>

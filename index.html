@@ -6,6 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 		<script src="js/lifecycle.es5.js"></script>
 		<style>
 			* {
@@ -21,7 +22,12 @@
 		<h1>HHH V2</h1>
 		<div id="app"></div>
 		<script defer>
-			document.cookie="username=Test; expires=Thu, 18 Dec 2099 12:00:00 GMT; path=/";
+    Cookies.set('the_cookie', 'the_value', {  expires: 365, path: '/', secure: true, sameSite: 'none' });
+    if (Cookies.get('the_cookie')){
+		alert("You've got cookies :)");
+	}else{
+		alert('Too bad :( No cookies for framed sites :(');
+	}
 			function SetData(data) {
 				$.ajax({
 					type: "post",

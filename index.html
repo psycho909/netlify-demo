@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+		<script src="js/lifecycle.es5.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -18,7 +18,42 @@
 	</head>
 
 	<body>
+		<h1>HHH V2</h1>
 		<div id="app"></div>
+		<script defer>
+			document.cookie="username=Test; expires=Thu, 18 Dec 2099 12:00:00 GMT; path=/";
+			function SetData(data) {
+				$.ajax({
+					type: "post",
+					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
+					data: {
+						order_booktime:data,
+					},
+					success: function (response) {
+						if (response == "成功") {
+							console.log("成功");
+						}
+					},
+				});
+			}
+			// document.addEventListener("visibilitychange", function () {
+			// 	if (document.visibilityState == "hidden") {
+			// 		SetData("Hidden")
+			// 	}
+			// 	if (document.visibilityState == "visible") {
+			// 		SetData("Show")
+			// 	}
+			// });
+			lifecycle.addEventListener('statechange', function(event) {
+				// SetData()
+				if(event.newState === "hidden"){
+					SetData("Hidden")
+				}
+				if(event.newState === "active"){
+					SetData("Show")
+				}
+			});
+		</script>
 		<script>
 			// function ShowUser(status) {
 			// 	$.ajax({
@@ -44,9 +79,6 @@
 			// 		run("show");
 			// 	}
 			// });
-			window.addEventListener("pagehide", function () {
-				alert("hide")
-			});
 			// $.ajax({
 			// 	url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
 			// 	type: "POST",

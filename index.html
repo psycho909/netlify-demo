@@ -41,7 +41,7 @@
 			}
 			if (isMobile.apple.device) {
 				if(!navigator.userAgent.match('CriOS')){
-					alert("IOS玩家使用Safari開啟頁面即可獲此提醒。")
+					// alert("IOS玩家使用Safari開啟頁面即可獲此提醒。")
 				}else{
 					calenderEvent = myCalendar.ical;
 				}
@@ -55,7 +55,7 @@
 			end: new Date("2021/05/20 10:30:00"), // 行事曆 什麼時候結束
 			description: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 描述 (可輸入可不輸入)
 		};
-
+		alert(navigator.userAgent.match('CriOS'))
 		calenderCall($("#link"), _event);
 		</script>
 	</body>

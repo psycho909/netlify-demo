@@ -6,9 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-		<!-- <script src="https://www.tinywebgallery.com/blog/wp-content/plugins/advanced-iframe/js/ai_external.js"></script> -->
-		<script src="js/lifecycle.es5.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/ouical/ouical.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -20,80 +18,44 @@
 	</head>
 
 	<body>
-		<h1>HHH V2</h1>
-		<div id="app"></div>
-		<script defer>
-			document.cookie = 'myCookie=value; SameSite=None; Secure';
-			// window.location.replace(document.referrer);
-			function SetData(data) {
-				$.ajax({
-					type: "post",
-					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
-					data: {
-						order_booktime:data,
-					},
-					success: function (response) {
-						if (response == "成功") {
-							console.log("成功");
-						}
-					},
-				});
-			}
-			// document.addEventListener("visibilitychange", function () {
-			// 	if (document.visibilityState == "hidden") {
-			// 		SetData("Hidden")
-			// 	}
-			// 	if (document.visibilityState == "visible") {
-			// 		SetData("Show")
-			// 	}
-			// });
-			// lifecycle.addEventListener('statechange', function(event) {
-			// 	// SetData()
-			// 	if(event.newState === "hidden"){
-			// 		SetData("Hidden")
-			// 	}
-			// 	if(event.newState === "active"){
-			// 		SetData("Show")
-			// 	}
-			// });
-		</script>
+		<a id="link" href="">我是連結</a>
 		<script>
-			// function ShowUser(status) {
-			// 	$.ajax({
-			// 		url: "https://randomuser.me/api/",
-			// 		dataType: "json",
-			// 		success: function (data) {
-			// 			$("#app").append(`<div>${status} : ${data.results[0].email}</div>`);
-			// 		},
-			// 	});
-			// }
-			// var timer;
-			// function run(status) {
-			// 	timer = setTimeout(() => {
-			// 		ShowUser(status);
-			// 	}, 3000);
-			// }
-			// document.addEventListener("visibilitychange", function () {
-			// 	clearTimeout(timer);
-			// 	if (document.visibilityState == "hidden") {
-			// 		run("hidden");
-			// 	}
-			// 	if (document.visibilityState == "visible") {
-			// 		run("show");
-			// 	}
-			// });
-			// $.ajax({
-			// 	url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
-			// 	type: "POST",
-			// 	data: {
-			// 		order_time: +new Date(),
-			// 	},
-			// 	success: function (res) {
-			// 		if (res === "成功") {
-			// 			console.log("成功");
-			// 		}
-			// 	},
-			// })
+		// 手機板領獎提醒
+		function calenderCall(target, data) {
+			var _default = {
+				title: "",
+				start: new Date("2020/08/18 16:00:00"),
+				duration: 120,
+				end: new Date("2020/08/18 18:00:00"),
+				description: "",
+			};
+			var calenderData = $.extend(_default, data);
+			var myCalendar = createCalendar({
+				data: calenderData,
+			});
+			var calenderEvent = "";
+
+			if (isMobile.android.device) {
+				calenderEvent = myCalendar.google;
+			}
+			if (isMobile.apple.device) {
+				if(!navigator.userAgent.match('CriOS')){
+					alert("IOS玩家使用Safari開啟頁面即可獲此提醒。")
+				}else{
+					calenderEvent = myCalendar.ical;
+				}
+			}
+			$(target).attr("href", calenderEvent);
+		}
+
+		var _event = {
+			title: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 標題 (可輸入可不輸入)
+			start: new Date("2021/04/08 16:30:00"), // 行事曆 什麼時候開始
+			end: new Date("2021/05/20 10:30:00"), // 行事曆 什麼時候結束
+			description: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 描述 (可輸入可不輸入)
+		};
+
+		calenderCall($("#link"), _event);
 		</script>
 	</body>
 </html>

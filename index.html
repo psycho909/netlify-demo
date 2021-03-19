@@ -5,9 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
-		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/ouical/ouical.js"></script>
+
 		<style>
 			* {
 				padding: 0;
@@ -19,52 +18,38 @@
 	</head>
 
 	<body>
-		<a id="link" href="">我是連結</a>
+		<div id="app">
+			<button id="btn">Add</button>
+		</div>
 		<script>
-		// 手機板領獎提醒
-		function calenderCall(target, data) {
-			var _default = {
-				title: "",
-				start: new Date("2020/08/18 16:00:00"),
-				duration: 120,
-				end: new Date("2020/08/18 18:00:00"),
-				description: "",
-			};
-			var calenderData = $.extend(_default, data);
-			var myCalendar = createCalendar({
-				data: calenderData,
+			function SetData(data) {
+				$.ajax({
+					type: "post",
+					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
+					data: {
+						order_booktime: data,
+					},
+					success: function (response) {
+						if (response == "成功") {
+							console.log("成功");
+						}
+					},
+				});
+			}
+			// var url="https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}"
+			function GetData() {
+				$.ajax({
+					type: "GET",
+					url: "https://spreadsheets.google.com/feeds/list/12cG3pGQBRkL3FNgKti-BIK3TEWq1VnrhMHdPa4DVMNA/od6/public/full?alt=json",
+					success: function (res) {
+						console.log(res.feed.entry);
+					},
+				});
+			}
+
+			$("#btn").on("click", function () {
+				SetData(navigator.userAgent);
 			});
-			var calenderEvent = "";
-
-			if (isMobile.android.device) {
-				calenderEvent = myCalendar.google;
-			}
-			if (isMobile.apple.device) {
-				if(navigator.userAgent.match('CriOS')){
-					alert("IOS玩家使用Safari開啟頁面即可獲此提醒。")
-					return;
-				}
-				if(navigator.userAgent.match('Line')){
-					alert("IOS玩家使用Safari開啟頁面即可獲此提醒。")
-					return;
-				}
-				if(navigator.userAgent.match('FB')){
-					alert("IOS玩家使用Safari開啟頁面即可獲此提醒。")
-					return;
-				}
-				calenderEvent = myCalendar.ical;
-			}
-			$(target).attr("href", calenderEvent);
-		}
-
-		var _event = {
-			title: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 標題 (可輸入可不輸入)
-			start: new Date("2021/04/08 16:30:00"), // 行事曆 什麼時候開始
-			end: new Date("2021/05/20 10:30:00"), // 行事曆 什麼時候結束
-			description: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 描述 (可輸入可不輸入)
-		};
-
-		calenderCall($("#link"), _event);
 		</script>
 	</body>
 </html>

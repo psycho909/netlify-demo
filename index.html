@@ -71,7 +71,14 @@
 					}
 					calenderEvent = myCalendar.ical;
 				}
-				window.open(calenderEvent);
+				var link;
+
+				link = document.getElementById("link");
+				// link.href = "data:application/octet-stream," + encodeURIComponent(final_output_array);
+				link.download = calenderEvent;
+				link.target = "_blank";
+				link.textContent = "Download example-file.csv";
+				// window.location.href = calenderEvent;
 			}
 
 			var data = {

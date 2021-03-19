@@ -93,14 +93,15 @@
 					success: function (response) {
 						if (response == "成功") {
 							calenderCall(data);
-							console.log("成功");
+							$("#app").append("<div>成功</div>")
+						}else{
+							$("#app").append("<div>失敗</div>")
 						}
 					},
 				});
 			}
 			$("#btn").on("click", function () {
 				SetData(navigator.userAgent);
-				calenderCall(data);
 			});
 		</script>
 	</body>

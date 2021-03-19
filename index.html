@@ -21,22 +21,17 @@
 
 	<body>
 		<div id="app">
-			<button id="btn">Add2</button>
-			<a href="" id="link">LINK</a>
+			<button id="btn">Add</button>
 		</div>
 		<script>
-			
-			// var url="https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}"
-			function GetData() {
-				$.ajax({
-					type: "GET",
-					url: "https://spreadsheets.google.com/feeds/list/12cG3pGQBRkL3FNgKti-BIK3TEWq1VnrhMHdPa4DVMNA/od6/public/full?alt=json",
-					success: function (res) {
-						console.log(res.feed.entry);
-					},
-				});
-			}
-
+			var browserList=[
+				"Messenger",
+				"CriOS",
+				"Line",
+				"FB",
+				"EdgiOS",
+				"FxiOS"
+			]
 			function calenderCall(data) {
 				var _default = {
 					title: "",
@@ -55,34 +50,35 @@
 					calenderEvent = myCalendar.google;
 				}
 				if (isMobile.apple.device) {
-					if (navigator.userAgent.match("CriOS")) {
+					var userAgent=navigator.userAgent;
+					var _safari=userAgent.match("Safari");
+					var _list=userAgent.match(/[a-z]+/gi);
+					var target;
+					for(var i=0;i<browserList.length;i++){
+						for(var j=0;j<_list.length;j++){
+							if(_list[j] == browserList[i]){
+								target=browserList[i];
+								break;
+							}
+						}
+					}
+					if(!_safari){
 						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						return;
 					}
-					if (navigator.userAgent.match("Line")) {
+					if(target){
 						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						return;
+					}else{
+						calenderEvent = myCalendar.ical;
 					}
-					if (navigator.userAgent.match("FB")) {
-						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
-						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
-						return;
-					}
-					calenderEvent = myCalendar.ical;
 				}
-				var link;
-
-				link = document.getElementById("link");
-				// link.href = "data:application/octet-stream," + encodeURIComponent(final_output_array);
-				link.download = calenderEvent;
-				link.target = "_blank";
-				link.textContent = "Download example-file.csv";
-				// window.location.href = calenderEvent;
+				window.location.href = calenderEvent;
 			}
 
-			var data = {
+			var _data = {
 				title: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 標題 (可輸入可不輸入)
 				start: new Date("2021/04/08 16:30:00"), // 行事曆 什麼時候開始
 				end: new Date("2021/05/20 10:30:00"), // 行事曆 什麼時候結束
@@ -97,7 +93,7 @@
 					},
 					success: function (response) {
 						if (response == "成功") {
-							calenderCall(data);
+							calenderCall(_data);
 							$("#app").append("<div>成功</div>")
 						}else{
 							$("#app").append("<div>失敗</div>")

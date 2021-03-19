@@ -23,20 +23,7 @@
 			<button id="btn">Add</button>
 		</div>
 		<script>
-			function SetData(data) {
-				$.ajax({
-					type: "post",
-					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
-					data: {
-						order_booktime: data,
-					},
-					success: function (response) {
-						if (response == "成功") {
-							console.log("成功");
-						}
-					},
-				});
-			}
+			
 			// var url="https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}"
 			function GetData() {
 				$.ajax({
@@ -50,7 +37,6 @@
 
 			$("#btn").on("click", function () {
 				SetData(navigator.userAgent);
-				calenderCall(data);
 			});
 
 			function calenderCall(data) {
@@ -97,6 +83,25 @@
 				end: new Date("2021/05/20 10:30:00"), // 行事曆 什麼時候結束
 				description: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 描述 (可輸入可不輸入)
 			};
+			function SetData(data) {
+				$.ajax({
+					type: "post",
+					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
+					data: {
+						order_booktime: data,
+					},
+					success: function (response) {
+						if (response == "成功") {
+							calenderCall(data);
+							console.log("成功");
+						}
+					},
+				});
+			}
+			$("#btn").on("click", function () {
+				SetData(navigator.userAgent);
+				calenderCall(data);
+			});
 		</script>
 	</body>
 </html>

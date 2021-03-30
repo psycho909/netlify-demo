@@ -3,97 +3,126 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-		<!-- <script src="https://www.tinywebgallery.com/blog/wp-content/plugins/advanced-iframe/js/ai_external.js"></script> -->
-		<script src="js/lifecycle.es5.js"></script>
+		<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+		<link rel="stylesheet" href="js/jquery.slotmachine.min.css" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="js/slotmachine.min.js"></script>
+		<script src="js/jquery.slotmachine.min.js"></script>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
-				box-sizing: border-box;
-				font-size: 30px;
+			}
+			body {
+				background-color: #66d4ff;
+			}
+			#app {
+				font-family: "微軟正黑體";
+				font-weight: bold;
+				font-size: 0;
+				text-align: center;
+			}
+			.box {
+				width: 540px;
+				margin: 24px auto;
+				padding: 25px;
+				background-color: rgba(245, 245, 245, 0.7);
+				border-radius: 5px;
+				font-size: 70px;
+			}
+			#planeMachine {
+				height: 76px;
+				overflow: hidden;
+				display: inline-block;
+				text-align: center;
+				width: 100%;
+			}
+			.btn {
+				color: #fff;
+				background-color: #dc3545;
+				border-color: #dc3545;
+				padding: 16px 32px;
+				font-size: 24px;
+				line-height: 1.5;
+				border-radius: 12px;
+				margin-right: 12px;
+			}
+			.btn-init {
+				background-color: #ffc107;
+				border-color: #ffc107;
+				color: #000;
+			}
+			.food.on {
+				color: #dc3545;
+			}
+			@media screen and (max-width: 768px) {
+				#planeMachine {
+					height: calc(76 / 768 * 100vw);
+				}
+				.box {
+					width: calc(540 / 768 * 100vw);
+					margin: calc(24 / 768 * 100vw) auto;
+					border-radius: calc(5 / 768 * 100vw);
+					font-size: calc(70 / 768 * 100vw);
+				}
+				.btn {
+					padding: calc(16 / 768 * 100vw) calc(32 / 768 * 100vw);
+					font-size: calc(24 / 768 * 100vw);
+					border-radius: calc(12 / 768 * 100vw);
+					margin-right: calc(12 / 768 * 100vw);
+				}
 			}
 		</style>
 	</head>
-
 	<body>
-		<h1>HHH V2</h1>
-		<div id="app"></div>
-		<script defer>
-			document.cookie = 'myCookie=value; SameSite=None; Secure';
-			// window.location.replace(document.referrer);
-			function SetData(data) {
-				$.ajax({
-					type: "post",
-					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
-					data: {
-						order_booktime:data,
-					},
-					success: function (response) {
-						if (response == "成功") {
-							console.log("成功");
-						}
-					},
-				});
-			}
-			// document.addEventListener("visibilitychange", function () {
-			// 	if (document.visibilityState == "hidden") {
-			// 		SetData("Hidden")
-			// 	}
-			// 	if (document.visibilityState == "visible") {
-			// 		SetData("Show")
-			// 	}
-			// });
-			// lifecycle.addEventListener('statechange', function(event) {
-			// 	// SetData()
-			// 	if(event.newState === "hidden"){
-			// 		SetData("Hidden")
-			// 	}
-			// 	if(event.newState === "active"){
-			// 		SetData("Show")
-			// 	}
-			// });
-		</script>
+		<div id="app">
+			<div class="box">
+				<p>想吃什麼...</p>
+				<div id="planeMachine"></div>
+			</div>
+			<button id="btn" class="btn">開始</button>
+			<button class="btn btn-init">初始化</button>
+		</div>
 		<script>
-			// function ShowUser(status) {
-			// 	$.ajax({
-			// 		url: "https://randomuser.me/api/",
-			// 		dataType: "json",
-			// 		success: function (data) {
-			// 			$("#app").append(`<div>${status} : ${data.results[0].email}</div>`);
-			// 		},
-			// 	});
-			// }
-			// var timer;
-			// function run(status) {
-			// 	timer = setTimeout(() => {
-			// 		ShowUser(status);
-			// 	}, 3000);
-			// }
-			// document.addEventListener("visibilitychange", function () {
-			// 	clearTimeout(timer);
-			// 	if (document.visibilityState == "hidden") {
-			// 		run("hidden");
-			// 	}
-			// 	if (document.visibilityState == "visible") {
-			// 		run("show");
-			// 	}
+			var Foods = ["義大利麵", "米粉", "炒飯"];
+			const el = document.querySelector("#planeMachine");
+			Foods.forEach(function (v, i) {
+				$("#planeMachine").append("<div class='food'>" + v + "</div>");
+			});
+			var machine;
+			function Init() {
+				if (!machine) {
+					machine = new SlotMachine(el, {
+						active: 0,
+						delay: 450,
+					});
+				} else {
+					machine.destroy();
+					machine = new SlotMachine(el, {
+						active: 0,
+						delay: 450,
+					});
+				}
+			}
+			$(".btn-init").on("click", function () {
+				Init();
+			});
+			$("#btn").on("click", function () {
+				machine.shuffle(10, function (active) {
+					console.log(active);
+				});
+			});
+			// const machine = new SlotMachine(el, {
+			// 	active: 1,
+			// 	delay: 450,
 			// });
-			// $.ajax({
-			// 	url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
-			// 	type: "POST",
-			// 	data: {
-			// 		order_time: +new Date(),
-			// 	},
-			// 	success: function (res) {
-			// 		if (res === "成功") {
-			// 			console.log("成功");
-			// 		}
-			// 	},
-			// })
+			// $("#btn").on("click", function () {
+			// 	machine.shuffle(10, function (active) {
+			// 		$(".food").eq(active).addClass("on");
+			// 	});
+			// });
 		</script>
 	</body>
 </html>

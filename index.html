@@ -112,6 +112,16 @@
 		</div>
 		<script>
 			fbq("track", "ViewContent");
+			fbq(
+				"track",
+				"Purchase",
+				// begin parameter object data
+				{
+					value: 115.0,
+					currency: "TWD",
+				}
+				// end parameter object data
+			);
 			var Foods = ["義大利麵", "米粉", "炒飯"];
 			const el = document.querySelector("#planeMachine");
 			Foods.forEach(function (v, i) {
@@ -135,29 +145,6 @@
 
 			$("#btn").on("click", function () {
 				machine.shuffle(5);
-				fbq(
-					"track",
-					"Purchase",
-					// begin parameter object data
-					{
-						value: 115.0,
-						currency: "USD",
-						contents: [
-							{
-								id: "301",
-								quantity: 1,
-							},
-							{
-								id: "401",
-								quantity: 2,
-							},
-						],
-						content_type: "product",
-						compared_product: "recommended-banner-shoes", // custom property
-						delivery_category: "in_store",
-					}
-					// end parameter object data
-				);
 			});
 			$("#init").on("click", function () {
 				Init();

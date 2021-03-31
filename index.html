@@ -160,7 +160,10 @@
 				);
 			});
 			$("#init").on("click", function () {
-				machine.destroy();
+				Init();
+			});
+			$("#test").on("click", function () {
+				fbq("trackCustom", "ShareDiscount", { promotion: "share_discount_10%" });
 			});
 		</script>
 	</body>

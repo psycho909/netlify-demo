@@ -24,14 +24,7 @@
 			<button id="btn">Add</button>
 		</div>
 		<script>
-			var browserList=[
-				"Messenger",
-				"CriOS",
-				"Line",
-				"FB",
-				"EdgiOS",
-				"FxiOS"
-			]
+			var browserList = ["Messenger", "CriOS", "Line", "FB", "EdgiOS", "FxiOS"];
 			function calenderCall(data) {
 				var _default = {
 					title: "",
@@ -50,28 +43,28 @@
 					calenderEvent = myCalendar.google;
 				}
 				if (isMobile.apple.device) {
-					var userAgent=navigator.userAgent;
-					var _safari=userAgent.match("Safari");
-					var _list=userAgent.match(/[a-z]+/gi);
+					var userAgent = navigator.userAgent;
+					var _safari = userAgent.match("Safari");
+					var _list = userAgent.match(/[a-z]+/gi);
 					var target;
-					for(var i=0;i<browserList.length;i++){
-						for(var j=0;j<_list.length;j++){
-							if(_list[j] == browserList[i]){
-								target=browserList[i];
+					for (var i = 0; i < browserList.length; i++) {
+						for (var j = 0; j < _list.length; j++) {
+							if (_list[j] == browserList[i]) {
+								target = browserList[i];
 								break;
 							}
 						}
 					}
-					if(!_safari){
+					if (!_safari) {
 						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						return;
 					}
-					if(target){
+					if (target) {
 						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
 						return;
-					}else{
+					} else {
 						calenderEvent = myCalendar.ical;
 					}
 				}
@@ -94,9 +87,9 @@
 					success: function (response) {
 						if (response == "成功") {
 							calenderCall(_data);
-							$("#app").append("<div>成功</div>")
-						}else{
-							$("#app").append("<div>失敗</div>")
+							$("#app").append("<div>成功</div>");
+						} else {
+							$("#app").append("<div>失敗</div>");
 						}
 					},
 				});

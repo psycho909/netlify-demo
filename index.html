@@ -96,7 +96,6 @@
 			})(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
 			fbq("init", "343788242861821");
 			fbq("track", "PageView");
-			fbq("track", "ViewContent");
 		</script>
 		<noscript><img height="1" width="1" style="display: none" src="https://www.facebook.com/tr?id=343788242861821&ev=PageView&noscript=1" /></noscript>
 		<!-- End Facebook Pixel Code -->
@@ -108,9 +107,11 @@
 				<div id="planeMachine"></div>
 			</div>
 			<button id="btn" class="btn">開始</button>
-			<button class="btn btn-init">初始化</button>
+			<button id="init" class="btn btn-init">初始化</button>
+			<button id="test" class="btn btn-init">測試</button>
 		</div>
 		<script>
+			fbq("track", "ViewContent");
 			var Foods = ["義大利麵", "米粉", "炒飯"];
 			const el = document.querySelector("#planeMachine");
 			Foods.forEach(function (v, i) {
@@ -131,6 +132,36 @@
 					});
 				}
 			}
+
+			$("#btn").on("click", function () {
+				machine.shuffle(5);
+				fbq(
+					"track",
+					"Purchase",
+					// begin parameter object data
+					{
+						value: 115.0,
+						currency: "USD",
+						contents: [
+							{
+								id: "301",
+								quantity: 1,
+							},
+							{
+								id: "401",
+								quantity: 2,
+							},
+						],
+						content_type: "product",
+						compared_product: "recommended-banner-shoes", // custom property
+						delivery_category: "in_store",
+					}
+					// end parameter object data
+				);
+			});
+			$("#init").on("click", function () {
+				machine.destroy();
+			});
 		</script>
 	</body>
 </html>

@@ -3,100 +3,109 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
-		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/ouical/ouical.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+		<link rel="stylesheet" href="js/jquery.slotmachine.min.css" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="js/slotmachine.min.js"></script>
+		<script src="js/jquery.slotmachine.min.js"></script>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
-				box-sizing: border-box;
-				font-size: 30px;
+			}
+			body {
+				background-color: #66d4ff;
+			}
+			#app {
+				font-family: "微軟正黑體";
+				font-weight: bold;
+				font-size: 0;
+				text-align: center;
+			}
+			.box {
+				width: 540px;
+				margin: 24px auto;
+				padding: 25px;
+				background-color: rgba(245, 245, 245, 0.7);
+				border-radius: 5px;
+				font-size: 70px;
+			}
+			#planeMachine {
+				height: 76px;
+				overflow: hidden;
+				display: inline-block;
+				text-align: center;
+				width: 100%;
+			}
+			.btn {
+				color: #fff;
+				background-color: #dc3545;
+				border-color: #dc3545;
+				padding: 16px 32px;
+				font-size: 24px;
+				line-height: 1.5;
+				border-radius: 12px;
+				margin-right: 12px;
+			}
+			.btn-init {
+				background-color: #ffc107;
+				border-color: #ffc107;
+				color: #000;
+			}
+			.food.on {
+				color: #dc3545;
+			}
+			@media screen and (max-width: 768px) {
+				#planeMachine {
+					height: calc(76 / 768 * 100vw);
+				}
+				.box {
+					width: calc(540 / 768 * 100vw);
+					margin: calc(24 / 768 * 100vw) auto;
+					border-radius: calc(5 / 768 * 100vw);
+					font-size: calc(70 / 768 * 100vw);
+				}
+				.btn {
+					padding: calc(16 / 768 * 100vw) calc(32 / 768 * 100vw);
+					font-size: calc(24 / 768 * 100vw);
+					border-radius: calc(12 / 768 * 100vw);
+					margin-right: calc(12 / 768 * 100vw);
+				}
 			}
 		</style>
 	</head>
-
 	<body>
 		<div id="app">
-			<button id="btn">Add</button>
+			<div class="box">
+				<p>想吃什麼...</p>
+				<div id="planeMachine"></div>
+			</div>
+			<button id="btn" class="btn">開始</button>
+			<button class="btn btn-init">初始化</button>
 		</div>
 		<script>
-			var browserList = ["Messenger", "CriOS", "Line", "FB", "EdgiOS", "FxiOS"];
-			function calenderCall(data) {
-				var _default = {
-					title: "",
-					start: new Date("2020/08/18 16:00:00"),
-					duration: 120,
-					end: new Date("2020/08/18 18:00:00"),
-					description: "",
-				};
-				var calenderData = $.extend(_default, data);
-				var myCalendar = createCalendar({
-					data: calenderData,
-				});
-				var calenderEvent = "";
-
-				if (isMobile.android.device) {
-					calenderEvent = myCalendar.google;
-				}
-				if (isMobile.apple.device) {
-					var userAgent = navigator.userAgent;
-					var _safari = userAgent.match("Safari");
-					var _list = userAgent.match(/[a-z]+/gi);
-					var target;
-					for (var i = 0; i < browserList.length; i++) {
-						for (var j = 0; j < _list.length; j++) {
-							if (_list[j] == browserList[i]) {
-								target = browserList[i];
-								break;
-							}
-						}
-					}
-					if (!_safari) {
-						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
-						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
-						return;
-					}
-					if (target) {
-						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
-						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
-						return;
-					} else {
-						calenderEvent = myCalendar.ical;
-					}
-				}
-				window.location.href = calenderEvent;
-			}
-
-			var _data = {
-				title: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 標題 (可輸入可不輸入)
-				start: new Date("2021/04/08 16:30:00"), // 行事曆 什麼時候開始
-				end: new Date("2021/05/20 10:30:00"), // 行事曆 什麼時候結束
-				description: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 描述 (可輸入可不輸入)
-			};
-			function SetData(data) {
-				$.ajax({
-					type: "post",
-					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
-					data: {
-						order_booktime: data,
-					},
-					success: function (response) {
-						if (response == "成功") {
-							calenderCall(_data);
-							$("#app").append("<div>成功</div>");
-						} else {
-							$("#app").append("<div>失敗</div>");
-						}
-					},
-				});
-			}
-			$("#btn").on("click", function () {
-				SetData(navigator.userAgent);
+			var Foods = ["義大利麵", "米粉", "炒飯"];
+			const el = document.querySelector("#planeMachine");
+			Foods.forEach(function (v, i) {
+				$("#planeMachine").append("<div class='food'>" + v + "</div>");
 			});
+			var machine;
+			function Init() {
+				if (!machine) {
+					machine = new SlotMachine(el, {
+						active: 0,
+						delay: 450,
+					});
+				} else {
+					machine.destroy();
+					machine = new SlotMachine(el, {
+						active: 0,
+						delay: 450,
+					});
+				}
+			}
 		</script>
 	</body>
 </html>

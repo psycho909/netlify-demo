@@ -61,6 +61,13 @@
 			a {
 				font-size: 24px;
 			}
+			.video-box {
+				width: 80vw;
+				margin: 0 auto;
+			}
+			.video-box video {
+				width: 100%;
+			}
 			@media screen and (max-width: 768px) {
 				#planeMachine {
 					height: calc(76 / 768 * 100vw);
@@ -118,6 +125,9 @@
 					<div id="home-video" data-video="3giAe2BKg5U"></div>
 				</div>
 				<!-- 修改end -->
+			</div>
+			<div class="video-box">
+				<video id="video" src="video/main-2.mp4"></video>
 			</div>
 			<a class="playVideo" href="javascript:;">播放</a>
 			<div class="box">
@@ -213,6 +223,7 @@
 
 			$(".playVideo").on("click", function () {
 				player.playVideo();
+				$("#video")[0].play();
 			});
 		</script>
 	</body>

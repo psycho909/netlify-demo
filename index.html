@@ -127,7 +127,7 @@
 				<!-- 修改end -->
 			</div>
 			<div class="video-box">
-				<video id="video" src="video/main-2.mp4"></video>
+				<video id="video" class="entry__video1" src="video/main-2.mp4" muted loop playsinline webkit-playsinline preload="auto"></video>
 			</div>
 			<a class="playVideo" href="javascript:;">播放</a>
 			<div class="box">
@@ -222,7 +222,7 @@
 			}
 
 			$(".playVideo").on("click", function () {
-				player.playVideo();
+				// player.playVideo();
 				$("#video")[0].play();
 			});
 		</script>

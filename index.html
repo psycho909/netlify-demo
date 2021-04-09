@@ -110,6 +110,16 @@
 			<div class="video-box">
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/VUsujMbZ-J0?autoplay=1&mute=1&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>
+			<div class="home__video">
+				<!-- 修改 -->
+				<div class="home__video-container video">
+					<!-- 版頭youtube背景影片使用 -->
+					<!-- 把data-video="" 空值就不會放影片 -->
+					<div id="home-video" data-video="3giAe2BKg5U"></div>
+				</div>
+				<!-- 修改end -->
+			</div>
+			<a class="playVideo" href="javascript:;">播放</a>
 			<div class="box">
 				<p>想吃什麼...</p>
 				<div id="planeMachine"></div>
@@ -159,6 +169,50 @@
 			});
 			$("#test").on("click", function () {
 				fbq("trackCustom", "ShareDiscount", { promotion: "share_discount_10%" });
+			});
+
+			var tag = document.createElement("script");
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName("script")[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			var player;
+			function onYouTubeIframeAPIReady(e) {
+				var videoId = document.getElementById("home-video").getAttribute("data-video");
+				if (!videoId) {
+					return false;
+				}
+				player = new YT.Player("home-video", {
+					videoId: videoId,
+					playerVars: {
+						controls: 0,
+						modestbranding: 0,
+						showinfo: 0,
+						rel: 0,
+						loop: 1,
+						start: 15,
+						fs: 0, // 顯示全螢幕按鈕
+						cc_load_policty: 0, // 隱藏字幕
+						iv_load_policy: 3, // 隱藏影片註解
+						autohide: 0, // 播放影片時隱藏影片控制列
+					},
+					events: {
+						onReady: function (e) {
+							// e.target.playVideo();
+							e.target.mute();
+							$(".home__video").addClass("start");
+						},
+						onStateChange: function (e) {
+							if (e.data === YT.PlayerState.ENDED) {
+								// player.playVideo();
+							}
+						},
+					},
+				});
+			}
+
+			$(".playVideo").on("click", function () {
+				player.playVideo();
 			});
 		</script>
 	</body>

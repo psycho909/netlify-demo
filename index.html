@@ -208,13 +208,13 @@
 					},
 					events: {
 						onReady: function (e) {
-							// e.target.playVideo();
+							e.target.playVideo();
 							e.target.mute();
 							$(".home__video").addClass("start");
 						},
 						onStateChange: function (e) {
 							if (e.data === YT.PlayerState.ENDED) {
-								// player.playVideo();
+								player.playVideo();
 							}
 						},
 					},

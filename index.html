@@ -48,12 +48,12 @@
 					<div>{{BTCUSDT.lastPrice}}</div>
 				</div>
 				<div class="col">
-					<div>DOGEBTC</div>
-					<div>{{DOGEBTC.lastPrice}}</div>
+					<div>ETHBTC</div>
+					<div>{{ETHBTC.lastPrice}}</div>
 				</div>
 				<div class="col">
-					<div>DOGEUSDT</div>
-					<div>{{DOGEUSDT.lastPrice}}</div>
+					<div>ETHUSDT</div>
+					<div>{{ETHUSDT.lastPrice}}</div>
 				</div>
 			</div>
 			<div class="row">
@@ -120,8 +120,8 @@
 					current: 0,
 					exchange: "A",
 					BTCUSDT: {},
-					DOGEBTC: {},
-					DOGEUSDT: {},
+					ETHBTC: {},
+					ETHUSDT: {},
 					timer: null,
 				},
 				computed: {
@@ -182,11 +182,11 @@
 									if (v.symbol == "BTCUSDT") {
 										_this.BTCUSDT = v;
 									}
-									if (v.symbol == "DOGEBTC") {
-										_this.DOGEBTC = v;
+									if (v.symbol == "ETHBTC") {
+										_this.ETHBTC = v;
 									}
-									if (v.symbol == "DOGEUSDT") {
-										_this.DOGEUSDT = v;
+									if (v.symbol == "ETHUSDT") {
+										_this.ETHUSDT = v;
 									}
 								});
 							},

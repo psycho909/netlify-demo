@@ -31,6 +31,8 @@
 			<div class="time2"></div>
 			<div class="data"></div>
 			<button id="btn">按鈕</button>
+			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde">https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde</a>
+			<a href="javascript:;" id="link">link</a>
 			<a href="javascript:void(0);" onclick="openWin()">FB分享</a>
 		</div>
 		<script>
@@ -43,7 +45,9 @@
 				winRef.location = "https://noise.cash/c/mei-shi-meng-gong-chang-8x1890ql";
 			};
 			$("#btn").on("click", function () {
-				window.open(calender.android, "_blank");
+				// window.open(calender.android, "_blank");
+				$("#link").attr("href", calender.android);
+				$("#link").text(calender.android);
 			});
 		</script>
 	</body>

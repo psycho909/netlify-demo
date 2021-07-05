@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script> -->
+		<script id="gama-calender" src="https://tw.hicdn.beanfun.com/plugins/ouical/v2/ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script>
+		<!-- <script id="gama-calender" src="ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script> -->
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.gama-calender {
+				width: 10vw;
+				height: 10vw;
+				background-color: #000;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="time1"></div>
+			<div class="time2"></div>
+			<div class="data"></div>
+			<button id="btn">按鈕</button>
+			<a href="javascript:void(0);" onclick="openWin()">FB分享</a>
+		</div>
+		<script>
+			$(".time1").html(new Date("2021/03/25 17:00:00"));
+			$(".time2").html(new Date("2021-03-25 17:00:00"));
+			$(".data").html(navigator.userAgent);
+			var openWin = function () {
+				var winRef = window.open("https://noise.cash/c/mei-shi-meng-gong-chang-8x1890ql", "_blank");
+				var fbhtml_url = window.location.toString();
+				winRef.location = "https://noise.cash/c/mei-shi-meng-gong-chang-8x1890ql";
+			};
+			$("#btn").on("click", function () {
+				window.open(calender.ios, "_blank");
+			});
+		</script>
+	</body>
+</html>

@@ -8,8 +8,8 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<!-- <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script> -->
-		<script id="gama-calender" src="https://tw.hicdn.beanfun.com/plugins/ouical/v2/ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script>
-		<!-- <script id="gama-calender" src="ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script> -->
+		<!-- <script id="gama-calender" src="https://tw.hicdn.beanfun.com/plugins/ouical/v2/ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script> -->
+		<script id="gama-calender" src="ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script>
 		<style>
 			* {
 				padding: 0;
@@ -36,6 +36,8 @@
 			<button id="btn">按鈕</button>
 			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde">https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde</a>
 			<a href="javascript:;" id="link">link</a>
+			<a href="https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=Event%201&body=The%20best%20event&startdt=2021-06-17T20%3A30%3A00Z&enddt=2021-06-17T21%3A00%3A00Z&location=Cabo%20Verde" id="ie">IE</a>
+			<a href="javascript:;" id="outlooklive">outlooklive</a>
 			<a href="javascript:void(0);" onclick="openWin()">FB分享</a>
 		</div>
 		<script>
@@ -51,6 +53,9 @@
 				// window.open(calender.android, "_blank");
 				$("#link").attr("href", calender.android);
 				$("#link").text(calender.android);
+				$("#ie").attr("href", calender.ios);
+				$("#outlooklive").attr("href", calender.outlooklive);
+				$("#ie").text(calender.ios);
 			});
 		</script>
 	</body>

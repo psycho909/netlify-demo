@@ -29,7 +29,6 @@
 	"undefined" != typeof module && module.exports && "undefined" == typeof window ? (module.exports = r) : "undefined" != typeof module && module.exports && "undefined" != typeof window ? (module.exports = s()) : "function" == typeof define && define.amd ? define("isMobile", [], (a.isMobile = s())) : (a.isMobile = s());
 })(this);
 (function (exports) {
-	var vConsole = new VConsole();
 	var MS_IN_MINUTES = 60 * 1000;
 	var CONFIG = {
 		selector: ".calendar-event",

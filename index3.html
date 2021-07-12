@@ -6,14 +6,15 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
-		<!-- <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script> -->
-		<!-- <script id="gama-calender" src="https://tw.hicdn.beanfun.com/plugins/ouical/v2/ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script> -->
-		<script id="gama-calender" src="ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/07/25 17:00:00" end="2021/07/25 17:00:00"></script>
+
+		<!-- <script src="./add-to-calendar.js"></script> -->
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/calendar-event/calendar-event.js"></script> -->
+		<script src="calendar-event.js"></script>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
+				font-size: 1.2rem;
 			}
 			.gama-calender {
 				width: 10vw;
@@ -30,33 +31,33 @@
 	</head>
 	<body>
 		<div id="app">
-			<div class="time1"></div>
-			<div class="time2"></div>
-			<div class="data"></div>
-			<button id="btn">按鈕</button>
-			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde">https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde</a>
-			<a href="javascript:;" id="link">link</a>
-			<a href="https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=Event%201&body=The%20best%20event&startdt=2021-06-17T20%3A30%3A00Z&enddt=2021-06-17T21%3A00%3A00Z&location=Cabo%20Verde" id="ie">IE</a>
-			<a href="javascript:;" id="outlooklive">outlooklive</a>
-			<a href="javascript:void(0);" onclick="openWin()">FB分享</a>
+			<div class="navigator"></div>
+			<div class="calendar-event">
+				<span class="google-name">Google 活動行事曆提醒1</span>
+				<span class="ios-name">IOS 活動行事曆提醒1</span>
+				<span class="outlook-name">OUTLOOK活動行事曆提醒1</span>
+				<span class="start">2021/07/19 10:00</span>
+				<span class="end">2021/07/19 12:00</span>
+				<span class="title">天堂活動頁</span>
+				<span class="description">Description of the event</span>
+				<span class="location">Location of the event</span>
+				<span class="download">download</span>
+			</div>
+			<div class="calendar-event me__calendar">
+				<span class="google-name">Google 活動行事曆提醒2</span>
+				<span class="ios-name">IOS 活動行事曆提醒2</span>
+				<span class="outlook-name">OUTLOOK活動行事曆提醒2</span>
+				<span class="start">2021/07/19 10:00</span>
+				<span class="end">2021/07/19 12:00</span>
+				<span class="title">天堂活動頁</span>
+				<span class="description">Description of the event</span>
+				<span class="location">Location of the event</span>
+				<span class="download">download</span>
+			</div>
 		</div>
 		<script>
-			$(".time1").html(new Date("2021/03/25 17:00:00"));
-			$(".time2").html(new Date("2021-03-25 17:00:00"));
-			$(".data").html(navigator.userAgent);
-			var openWin = function () {
-				var winRef = window.open("https://noise.cash/c/mei-shi-meng-gong-chang-8x1890ql", "_blank");
-				var fbhtml_url = window.location.toString();
-				winRef.location = "https://noise.cash/c/mei-shi-meng-gong-chang-8x1890ql";
-			};
-			$("#btn").on("click", function () {
-				// window.open(calender.android, "_blank");
-				$("#link").attr("href", calender.android);
-				$("#link").text(calender.android);
-				$("#ie").attr("href", calender.ios);
-				$("#outlooklive").attr("href", calender.outlooklive);
-				$("#ie").text(calender.ios);
-			});
+			var useragent = navigator.userAgent;
+			$(".navigator").html(useragent);
 		</script>
 	</body>
 </html>

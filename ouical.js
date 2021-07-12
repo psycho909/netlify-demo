@@ -1,6 +1,14 @@
 (function (exports) {
 	var MS_IN_MINUTES = 60 * 1000;
-
+	var escapeJSValue = function (text) {
+		return text
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/\"/g, "&quot;")
+			.replace(/\'/g, "\\'")
+			.replace(/(\r?\n|\r)/gm, "\\n");
+	};
 	var formatTime = function (date) {
 		return date.toISOString().replace(/-|:|\.\d+/g, "");
 	};
@@ -21,16 +29,28 @@
 		ics: function (event) {
 			var startTime = formatTime(event.start);
 			var endTime = calculateEndTime(event);
+			var cal = ["BEGIN:VCALENDAR", "PRODID:Calendar", "VERSION:2.0", "BEGIN:VEVENT", "CLASS:PUBLIC", "DESCRIPTION:" + (event.description || ""), "DTSTART:" + (startTime || ""), "DTEND:" + (endTime || ""), "SUMMARY:" + (event.title || ""), "TRANSP:TRANSPARENT", "BEGIN:VALARM", "ACTION:DISPLAY", "SUMMARY:" + (event.title || ""), "DESCRIPTION:" + (event.description || ""), "TRIGGER:-PT10M", "END:VALARM", "END:VEVENT", "END:VCALENDAR"].join("\n");
+
+			// return escapeJSValue(cal);
+			return cal;
+		},
+
+		ical: function (event) {
+			var startTime = formatTime(event.start);
+			var endTime = calculateEndTime(event);
 
 			var href = encodeURI("data:text/calendar;charset=utf8," + ["BEGIN:VCALENDAR", "PRODID:Calendar", "VERSION:2.0", "BEGIN:VEVENT", "CLASS:PUBLIC", "DESCRIPTION:" + (event.description || ""), "DTSTART:" + (startTime || ""), "DTEND:" + (endTime || ""), "SUMMARY:" + (event.title || ""), "TRANSP:TRANSPARENT", "BEGIN:VALARM", "ACTION:DISPLAY", "SUMMARY:" + (event.title || ""), "DESCRIPTION:" + (event.description || ""), "TRIGGER:-PT10M", "END:VALARM", "END:VEVENT", "END:VCALENDAR"].join("\n"));
 
 			return href;
 		},
+		ios: function (event) {
+			var startTime = formatTime(event.start);
+			var endTime = calculateEndTime(event);
 
-		ical: function (event) {
-			return this.ics(event);
+			var href = encodeURI("data:text/calendar;charset=utf8," + ["BEGIN:VCALENDAR", "PRODID:Calendar", "VERSION:2.0", "BEGIN:VEVENT", "CLASS:PUBLIC", "DESCRIPTION:" + (event.description || ""), "DTSTART:" + (startTime || ""), "DTEND:" + (endTime || ""), "SUMMARY:" + (event.title || ""), "TRANSP:TRANSPARENT", "BEGIN:VALARM", "ACTION:DISPLAY", "SUMMARY:" + (event.title || ""), "DESCRIPTION:" + (event.description || ""), "TRIGGER:-PT10M", "END:VALARM", "END:VEVENT", "END:VCALENDAR"].join("\n"));
+
+			return href;
 		},
-
 		outlook: function (event) {
 			return this.ics(event);
 		},
@@ -47,9 +67,10 @@
 		return {
 			google: calendarGenerators.google(event),
 			ical: calendarGenerators.ical(event),
-			ios: navigator.userAgent.match("CriOS") ? calendarGenerators.google(event) : calendarGenerators.ical(event),
+			ios: navigator.userAgent.match("CriOS") ? calendarGenerators.google(event) : calendarGenerators.ios(event),
 			outlook: calendarGenerators.outlook(event),
 			outlooklive: calendarGenerators.outlooklive(event),
+			ics: calendarGenerators.ics(event),
 		};
 	};
 
@@ -114,5 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		google: myCalendar.google,
 		outlooklive: myCalendar.outlooklive,
 		device: device,
+		ics: myCalendar.ics,
+		ical: myCalendar.ical,
 	};
 });

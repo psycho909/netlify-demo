@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script> -->
+		<!-- <script id="gama-calender" src="https://tw.hicdn.beanfun.com/plugins/ouical/v2/ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/03/25 17:00:00" end="2021/03/25 17:00:00"></script> -->
+		<script id="gama-calender" src="ouical.js" title="天堂國際服 勇士誕生祭壇 領獎提醒" start="2021/07/25 20:00:00" end="2021/07/25 21:00:00"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+		<link href="https://cdn.jsdelivr.net/gh/assisfery/buCalendar@1.0/css/buCalendar.min.css" rel="stylesheet" />
+		<script src="js/buCalendar.js"></script> -->
+
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.gama-calender {
+				width: 10vw;
+				height: 10vw;
+				background-color: #000;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			a {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="time1"></div>
+			<div class="time2"></div>
+			<div class="data"></div>
+			<button id="btn">按鈕</button>
+			<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde">https://calendar.google.com/calendar/render?action=TEMPLATE&text=Event%201&details=The%20best%20event&dates=20210617T203000Z/20210617T210000Z&location=Cabo%20Verde</a>
+			<a href="javascript:;" id="link">link</a>
+			<a href="javascript:;" id="ie">IE</a>
+			<a href="javascript:;" id="iee">IE2</a>
+			<a href="javascript:;" id="outlooklive" target="_blank">outlooklive</a>
+			<a href="javascript:void(0);" onclick="openWin()">FB分享</a>
+			<div id="buttons-area"></div>
+		</div>
+		<script>
+			$(".time1").html(new Date("2021/03/25 17:00:00"));
+			$(".time2").html(new Date("2021-03-25 17:00:00"));
+			$(".data").html(navigator.userAgent);
+			var openWin = function () {
+				var winRef = window.open("https://noise.cash/c/mei-shi-meng-gong-chang-8x1890ql", "_blank");
+				var fbhtml_url = window.location.toString();
+				winRef.location = "https://noise.cash/c/mei-shi-meng-gong-chang-8x1890ql";
+			};
+			function getUrl(data) {
+				var blob = new Blob([data], { type: "text/calendar" });
+				window.navigator.msSaveOrOpenBlob(blob, "1231231.ics");
+			}
+			$("#btn").on("click", function () {
+				// window.open(calender.android, "_blank");
+				$("#link").attr("href", calender.android);
+				$("#link").text(calender.android);
+				$("#ie").attr("href", calender.ios);
+				$("#outlooklive").attr("href", calender.ics);
+				$("#ie").text(calender.ios);
+			});
+			$("#iee").on("click", function () {
+				console.log(calender.ics);
+				getUrl(calender.ics);
+			});
+		</script>
+	</body>
+</html>

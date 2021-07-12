@@ -30,7 +30,6 @@
 })(this);
 (function (exports) {
 	var vConsole = new VConsole();
-	console.log("Hello World");
 	var MS_IN_MINUTES = 60 * 1000;
 	var CONFIG = {
 		selector: ".calendar-event",
@@ -132,9 +131,11 @@
 			outlook = calendarGenerators.outlook(event);
 		} else {
 			if (useragent.indexOf("BeaGo") > -1 || reg.test(useragent)) {
-				alert("Enter");
+				console.log("BeaGo");
 				return true;
 			} else {
+				console.log(useragent);
+				console.log("No BeaGo!!!");
 				if (isMobile.android.device) {
 					return {
 						google: google,

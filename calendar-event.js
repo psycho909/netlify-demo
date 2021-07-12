@@ -130,6 +130,7 @@
 			outlook = calendarGenerators.outlook(event);
 		} else {
 			if (useragent.indexOf("BeaGo") > -1 || reg.test(useragent)) {
+				alert("Enter");
 				return true;
 			} else {
 				if (isMobile.android.device) {

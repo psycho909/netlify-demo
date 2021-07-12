@@ -122,7 +122,7 @@
 	};
 	var generateCalendar = function (event) {
 		var useragent = navigator.userAgent;
-		var reg = /BeaGo/gi;
+		var reg = /BeanGo/gi;
 		var google = "";
 		var ios = "";
 		var outlook = "";
@@ -130,12 +130,13 @@
 			google = calendarGenerators.google(event);
 			outlook = calendarGenerators.outlook(event);
 		} else {
-			if (useragent.indexOf("BeaGo") > -1 || reg.test(useragent)) {
-				console.log("BeaGo");
-				return true;
+			if (useragent.indexOf("BeanGo") > -1 || reg.test(useragent)) {
+				return {
+					google: google,
+					ios: ios,
+					outlook: outlook,
+				};
 			} else {
-				console.log(useragent);
-				console.log("No BeaGo!!!");
 				if (isMobile.android.device) {
 					return {
 						google: google,

@@ -27,6 +27,9 @@
 		<div class="btn">Click on the screenshot</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.1.5/html2canvas.min.js" integrity="sha512-oQzeC9gIS3sN3QCshVeDWiRCC2tJbR9lqj1rolUtQkGJJeA+7L54y/DVZf0+T3NDZuLOkbInugg7dVNwvcEGow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<canvas id="canvas2" width="240" height="240" style="background-color: #808080"> </canvas>
+		<p></p>
+		<a id="download" download="myImage.jpg" href="" onclick="download_img(this);">Download to myImage.jpg</a>
 
 		<script>
 			$(".btn").on("click", function () {
@@ -40,6 +43,20 @@
 					a.click();
 				});
 			});
+			var canvas = document.getElementById("canvas2");
+			var ctx = canvas.getContext("2d");
+			var ox = canvas.width / 2;
+			var oy = canvas.height / 2;
+			ctx.font = "42px serif";
+			ctx.textAlign = "center";
+			ctx.textBaseline = "middle";
+			ctx.fillStyle = "#800";
+			ctx.fillRect(ox / 2, oy / 2, ox, oy);
+
+			download_img = function (el) {
+				var image = canvas.toDataURL("image/jpg");
+				el.href = image;
+			};
 		</script>
 	</body>
 </html>

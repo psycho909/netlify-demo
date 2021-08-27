@@ -9,7 +9,7 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<!-- <script src="./add-to-calendar.js"></script> -->
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/calendar-event/calendar-event.js"></script> -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.8.1/vconsole.min.js" integrity="sha512-TLMP7DXHl29riXDG6b9SsfY4GTaqg7SLWTyiy2WHqcaN7Sfrx3axIJmXhVYstwik7ZosTMccxbwBfby5B3GRfg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<script src="calendar-event.js"></script>
 		<style>
 			* {
@@ -40,75 +40,58 @@
 	</head>
 	<body>
 		<div id="app">
-			<a href="javascript:;" class="btn-share">分享</a>
-			<div class="navigator"></div>
-			<div class="calendar-event">
-				<span class="google-name">Google 活動行事曆提醒1</span>
-				<span class="ios-name">IOS 活動行事曆提醒1</span>
-				<span class="outlook-name">OUTLOOK活動行事曆提醒1</span>
+			<!-- <div class="calendar-event">
+				<span class="google-name">Google 活動行事曆提醒3</span>
+				<span class="ios-name">IOS 活動行事曆提醒3</span>
+				<span class="outlook-name">OUTLOOK活動行事曆提醒3</span>
 				<span class="start">2021/07/19 10:00</span>
 				<span class="end">2021/07/19 12:00</span>
 				<span class="title">天堂活動頁</span>
 				<span class="description">Description of the event</span>
 				<span class="location">Location of the event</span>
 				<span class="download">download</span>
-			</div>
+			</div> -->
 			<div class="calendar-event me__calendar">
+				<!-- chrome 瀏覽器上顯示的行事曆名稱 -->
 				<span class="google-name">Google 活動行事曆提醒2</span>
+				<!-- safari 瀏覽器上顯示的行事曆名稱 -->
 				<span class="ios-name">IOS 活動行事曆提醒2</span>
+				<!-- outlook下載 瀏覽器上顯示的行事曆名稱 -->
 				<span class="outlook-name">OUTLOOK活動行事曆提醒2</span>
+				<!-- 開始時間 -->
 				<span class="start">2021/07/19 10:00</span>
+				<!-- 結束時間 -->
 				<span class="end">2021/07/19 12:00</span>
+				<!-- 標題 -->
 				<span class="title">天堂活動頁</span>
+				<!-- 描述 -->
 				<span class="description">Description of the event</span>
+				<!-- 位置 -->
 				<span class="location">Location of the event</span>
+				<!-- outlook下載名稱 -->
 				<span class="download">download</span>
 			</div>
 		</div>
 		<script>
-			var useragent = navigator.userAgent;
-			$(".navigator").html(useragent);
-			var Share = {
-				getMeta: function () {
-					var meta = document.getElementsByTagName("meta");
-					var desc;
-					for (var i = 0; i < meta.length; i++) {
-						if (meta[i].name === "description") {
-							desc = meta[i].content;
-						}
-					}
-					return desc;
-				},
-				fb: function (url) {
-					var t = "";
-					if (isMobile.any) {
-						var winRef = window.open(url, "_blank");
-						winRef.location = "http://www.facebook.com/sharer/sharer.php?u=" + url;
-					} else {
-						window.open("http://www.facebook.com/sharer.php?u=" + encodeURIComponent(url) + "&t=" + encodeURIComponent(t), "sharer", "toolbar=0,status=0,width=626,height=436");
-					}
-				},
-				mobileShare: function (url) {
-					var url = url || location.href;
-					var t = this.getMeta();
-					var title = document.getElementsByTagName("title")[0].innerHTML;
-					var shareData = {
-						url: url, // 要分享的 URL
-						title: title, // 要分享的標題
-						text: t, // 要分享的文字內容
-					};
-					if (isMobile.any) {
-						if (navigator.share) {
-							navigator.share(shareData);
-						}
-					} else {
-						this.fb(url);
-					}
-				},
-			};
-			$(".btn-share").on("click", function () {
-				Share.mobileShare();
-			});
+			// var html = `
+			// 	<div>
+			// 		<h2>gbox</h2>
+			// 		<div class="calendar-event">
+			// 			<span class="google-name">Google 活動行事曆提醒1</span>
+			// 			<span class="ios-name">IOS 活動行事曆提醒1</span>
+			// 			<span class="outlook-name">OUTLOOK活動行事曆提醒1</span>
+			// 			<span class="start">2021/07/19 10:00</span>
+			// 			<span class="end">2021/07/19 12:00</span>
+			// 			<span class="title">天堂活動頁</span>
+			// 			<span class="description">Description of the event</span>
+			// 			<span class="location">Location of the event</span>
+			// 			<span class="download">download</span>
+			// 		</div>
+			// 	</div>
+			// `;
+			// $("#app").append(html);
+			// calendarInit()
+			// $.gbox.open(html);
 		</script>
 	</body>
 </html>

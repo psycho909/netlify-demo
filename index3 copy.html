@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<!-- <script src="./add-to-calendar.js"></script> -->
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/g-calendar/g-calendar.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script src="g-calendar.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				font-size: 1.2rem;
+			}
+			.gama-calender {
+				width: 10vw;
+				height: 10vw;
+				background-color: #000;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			a {
+				display: block;
+			}
+			.iframe-box {
+				width: 620px;
+				height: 372px;
+			}
+			.iframe-box iframe {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">
+				<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒3</a>
+				<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒3</a>
+				<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒3</a>
+			</div>
+		</div>
+		<script>
+			var html = `
+				<div>
+					<h2>Test</h2>
+					<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">
+						<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒4</a>
+						<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒4</a>
+						<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒4</a>
+					</div>
+				</div>
+			`;
+			$("#app").append(html);
+			calendarInit();
+			$.gbox.open(html);
+		</script>
+	</body>
+</html>

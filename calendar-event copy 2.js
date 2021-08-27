@@ -56,7 +56,7 @@
 			endTime = formatTime(event.end);
 			var href = encodeURI(["https://www.google.com/calendar/render", "?action=TEMPLATE", "&text=" + (event.title || ""), "&dates=" + (startTime || ""), "/" + (endTime || ""), "&ctz='Asia/Taipei'", "&details=" + (event.description || ""), "&location=" + (event.address || ""), "&sprop=&sprop=name:"].join(""));
 			calendarData.google = href;
-			return '<a class="calendar-google' + " " + event.cls + '" target="_blank" href="' + href + '">' + CONFIG.texts.google + "</a>";
+			return '<a class="calendar-google" target="_blank" href="' + href + '">' + CONFIG.texts.google + "</a>";
 		},
 		ics: function (event, eClass, calendarName) {
 			var startTime, endTime;
@@ -71,7 +71,7 @@
 			calendarData.ics = href;
 			calendarData.ios = href;
 			calendarData.outlook = href;
-			return '<a class="' + eClass + " " + event.cls + '" download="' + CONFIG.texts.download + '" href="' + href + '">' + calendarName + "</a>";
+			return '<a class="' + eClass + '" download="' + CONFIG.texts.download + '" href="' + href + '">' + calendarName + "</a>";
 		},
 		ios: function (event) {
 			return this.ics(event, "calendar-ios", CONFIG.texts.ios);
@@ -159,38 +159,13 @@
 			outlook: outlook,
 		};
 	};
-	var sanitizeParams = function (params) {
-		if (!params.data) {
-			params.data = {};
-		}
-		if (params.data.end) {
-			delete params.data.duration;
-		} else {
-			if (!params.data.duration) {
-				params.data.duration = CONFIG.duration;
-			}
-		}
-		if (params.data.duration) {
-			params.data.end = getEndDate(params.data.start, params.data.duration);
-		}
-
-		params.data.tzstart = params.data.start;
-		params.data.tzend = params.data.end;
-
-		if (!params.data.title) {
-			params.data.title = CONFIG.texts.title;
-		}
-		if (!params.data.download) {
-			params.data.download = CONFIG.texts.download + ".ics";
-		}
-	};
 	var validParams = function (params) {
 		return params.data !== undefined && params.data.start !== undefined && (params.data.end !== undefined || params.data.allday !== undefined);
 	};
 	var parseCalender = function (elm) {
 		var data = {},
 			node;
-
+		elm.setAttribute("data-init", 1);
 		var cls = elm.className
 			.split(" ")
 			.filter(function (v) {
@@ -252,6 +227,7 @@
 	exports.createCalendar = function (params) {
 		return addToCalendar(params);
 	};
+
 	exports.addToCalendar = function (params) {
 		if (params instanceof HTMLElement) {
 			return parseCalender(params);
@@ -259,11 +235,12 @@
 		if (params instanceof NodeList) {
 			var success = params.length > 0;
 			Array.prototype.forEach.call(params, function (node) {
-				success = success && addToCalendar(node);
+				if (!node.getAttribute("data-init")) {
+					success = success && addToCalendar(node);
+				}
 			});
 			return success;
 		}
-		sanitizeParams(params);
 		if (!validParams(params)) {
 			console.log("Event details missing.");
 			return;

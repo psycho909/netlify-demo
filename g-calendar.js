@@ -255,7 +255,27 @@
 	exports.calendarInit = function () {
 		addToCalendar(document.querySelectorAll(CONFIG.selector));
 	};
-	document.addEventListener("DOMContentLoaded", function (event) {
-		addToCalendar(document.querySelectorAll(CONFIG.selector));
-	});
+	var target = document.documentElement || document.body;
+	if (window.MutationObserver || window.WebKitMutationObserver) {
+		var observer = new MutationObserver(function (mutations) {
+			for (var i = 0; i < mutations.length; i++) {
+				for (var j = 0; j < mutations[i].addedNodes.length; j++) {
+					if (!(mutations[i].addedNodes[j] instanceof HTMLElement)) continue;
+					if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
+						calendarInit();
+					}
+				}
+			}
+		});
+		observer.observe(target, {
+			childList: true, // 观察直接子节点
+			subtree: true, // 及其更低的后代节点
+			characterDataOldValue: false, // 将旧的数据传递给回调
+		});
+	} else {
+		target.addEventListener("DOMSubtreeModified", function () {
+			console.log(123);
+			calendarInit();
+		});
+	}
 })(this);

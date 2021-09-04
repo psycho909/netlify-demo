@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			#app {
+				display: flex;
+				padding: 1rem;
+			}
+			.power-box {
+				margin-right: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="edger">
+			<div class="power-box">
+				<!-- Network power input and select -->
+				<div class="inputlabel">
+					<label class="spacing" for="network-power">Enter Network Power For Desired Coin</label>
+					<br class="spacerInput" />
+					<input class="inputCalc" type="number" step="any" id="network-power" v-model="networkPower" />
+					<select name="network-power-prefix" id="network-power-selector" v-model="network">
+						<option value="ghs">GH/s</option>
+						<option value="ths">TH/s</option>
+						<option value="phs">PH/s</option>
+						<option value="ehs">EH/s</option>
+					</select>
+				</div>
+				<!-- Goal power input and select -->
+				<div class="inputlabel">
+					<label for="goal-power" class="spacing">Enter Your Desired Goal Power</label>
+					<br class="spacerInput" />
+					<input class="inputCalc" type="number" name="goal-power-hash" id="goal-power" v-model="goalPower" />
+					<select name="goal-power-prefix" id="goal-power-selector" v-model="goal">
+						<option value="ghs">GH/s</option>
+						<option value="ths">TH/s</option>
+						<option value="phs" selected>PH/s</option>
+						<option value="ehs">EH/s</option>
+					</select>
+				</div>
+				<!-- Block type input and select -->
+				<div class="inputlabel">
+					<label for="block-reward" class="spacing">Enter Block Reward For Desired Coin</label>
+					<br class="spacerInput" />
+					<input class="inputCalc inputBlock" type="number" name="block-reward" id="block-reward" :value="blockAmount" />
+					<select name="block-type" id="block-type" v-model="block">
+						<option value="BTC">Bitcoin (BTC)</option>
+						<option value="DOGE">Doge (DOGE)</option>
+						<option value="ETH">Etherium (ETH)</option>
+						<option value="RLT">RollerToken (RLT)</option>
+					</select>
+				</div>
+				<input type="checkbox" v-model="double" />雙倍
+				<br />
+				<button id="calcbtn" style="margin-top: 10px" class="spacing" @click="calculateGoalPower">Calculate</button>
+			</div>
+
+			<div class="reward-box">
+				<span>每10分鐘: <span id="exp_reward">{{expReward}}</span></span>
+				<br />
+				<span>每天: <span id="daily">{{daily}}</span></span>
+				<br />
+				<span>每週: <span id="weekly">{{weekly}}</span></span>
+				<br />
+				<span>每個月: <span id="monthly">{{monthly}}</span></span>
+			</div>
+		</div>
+		<script>
+			var app = Vue.createApp({
+				mounted() {
+					this.getData();
+					this.runTime();
+				},
+				computed: {
+					blockAmount() {
+						if (this.block == "BTC") {
+							if (this.double) {
+								return 30000 * 2;
+							}
+							return 30000;
+						}
+						if (this.block == "DOGE") {
+							if (this.double) {
+								return 20 * 2;
+							}
+							return 20;
+						}
+						if (this.block == "ETH") {
+							if (this.double) {
+								return 0.005 * 2;
+							}
+							return 0.005;
+						}
+						if (this.block == "RLT") {
+							if (this.double) {
+								return 30 * 2;
+							}
+							return 30;
+						}
+					},
+				},
+				data() {
+					return {
+						network: "ehs",
+						networkPower: 0,
+						networkPowerTotal: 0,
+						goal: "phs",
+						goalPower: 0,
+						goalPowerTotal: 0,
+						block: "BTC",
+						expReward: "",
+						daily: "",
+						weekly: "",
+						monthly: "",
+						ghs: 1000000000,
+						ths: 1000000000000,
+						phs: 1000000000000000,
+						ehs: 1000000000000000000,
+						double: false,
+						BTCUSDT: {},
+						DOGEUSDT: {},
+						ETHUSDT: {},
+						timer: null,
+					};
+				},
+				watch: {
+					double(newVal, oldVal) {
+						this.calculateGoalPower();
+					},
+					networkPower(newVal, oldVal) {
+						if (this.network == "ghs") {
+							this.networkPowerTotal = newVal * this.ghs;
+						}
+						if (this.network == "ths") {
+							this.networkPowerTotal = newVal * this.ths;
+						}
+						if (this.network == "phs") {
+							this.networkPowerTotal = newVal * this.phs;
+						}
+						if (this.network == "ehs") {
+							this.networkPowerTotal = newVal * this.ehs;
+						}
+						this.calculateGoalPower();
+					},
+					goalPower(newVal, oldVal) {
+						if (this.goal == "ghs") {
+							this.goalPowerTotal = newVal * this.ghs;
+						}
+						if (this.goal == "ths") {
+							this.goalPowerTotal = newVal * this.ths;
+						}
+						if (this.goal == "phs") {
+							this.goalPowerTotal = newVal * this.phs;
+						}
+						if (this.goal == "ehs") {
+							this.goalPowerTotal = newVal * this.ehs;
+						}
+						this.calculateGoalPower();
+					},
+				},
+				methods: {
+					getData() {
+						var _this = this;
+						$.ajax({
+							url: "https://api1.binance.com/api/v3/ticker/24hr",
+							methods: "GET",
+							success: function (data) {
+								data.forEach((v, i) => {
+									if (v.symbol == "BTCUSDT") {
+										_this.BTCUSDT = v;
+									}
+									if (v.symbol == "DOGEUSDT") {
+										_this.DOGEUSDT = v;
+									}
+									if (v.symbol == "ETHUSDT") {
+										_this.ETHUSDT = v;
+									}
+								});
+							},
+						});
+						this.stopTime();
+						this.runTime();
+					},
+					runTime() {
+						var _this = this;
+						this.timer = setInterval(() => {
+							_this.getData();
+						}, 1000 * 30);
+					},
+					stopTime() {
+						clearInterval(this.timer);
+					},
+					calculateGoalPower() {
+						var exp_reward = this.blockAmount * (this.goalPowerTotal / this.networkPowerTotal);
+						//All timers are now the same 2021-04-19
+						const BlockTimer = 600;
+						const secFullDay = 86400;
+
+						const dailyBtcBlocks = secFullDay / BlockTimer;
+						const dailyDogeBlocks = secFullDay / BlockTimer;
+						const dailyEthBlocks = secFullDay / BlockTimer;
+						var btcResult = (exp_reward * dailyBtcBlocks).toFixed(4);
+						var dogeResult = (exp_reward * dailyDogeBlocks).toFixed(4);
+						var ethResult = (exp_reward * dailyEthBlocks).toFixed(4);
+						var rltResult = (exp_reward * dailyEthBlocks).toFixed(4);
+						if (this.block == "BTC") {
+							this.expReward = `${exp_reward.toFixed(4)} Satoshi`;
+							this.daily = `${btcResult} Satoshi = ${Math.round(btcResult) * 0.00000001 * this.BTCUSDT.lastPrice} USDT`;
+							this.weekly = `${(btcResult * 7).toFixed(4)} Satoshi = ${Math.round((btcResult * 7).toFixed(4)) * 0.00000001 * this.BTCUSDT.lastPrice} USDT`;
+							this.monthly = `${(btcResult * 30).toFixed(4)} Satoshi = ${Math.round((btcResult * 30).toFixed(4)) * 0.00000001 * this.BTCUSDT.lastPrice} USDT`;
+						}
+						if (this.block == "DOGE") {
+							this.expReward = `${exp_reward.toFixed(4)} Doge`;
+							this.daily = `${dogeResult} Doge = ${dogeResult * this.DOGEUSDT.lastPrice}`;
+							this.weekly = `${(dogeResult * 7).toFixed(4)} Doge = ${(dogeResult * 7).toFixed(4) * this.DOGEUSDT.lastPrice} USDT`;
+							this.monthly = `${(dogeResult * 30).toFixed(4)} Doge = ${(dogeResult * 30).toFixed(4) * this.DOGEUSDT.lastPrice} USDT`;
+						}
+						if (this.block == "ETH") {
+							this.expReward = `${exp_reward.toFixed(8)} Etherium`;
+							this.daily = `${ethResult}  Etherium = ${ethResult * this.ETHUSDT.lastPrice}`;
+							this.weekly = `${(ethResult * 7).toFixed(4)} Etherium = ${ethResult * 7 * this.ETHUSDT.lastPrice} USDT`;
+							this.monthly = `${(ethResult * 30).toFixed(4)} Etherium = ${ethResult * 30 * this.ETHUSDT.lastPrice} USDT`;
+						}
+						if (this.block == "RLT") {
+							this.expReward = `${exp_reward.toFixed(8)} Rollertoken`;
+							this.daily = `${rltResult} Rollertoken`;
+							this.weekly = `${(rltResult * 7).toFixed(4)} Rollertoken`;
+							this.monthly = `${(rltResult * 30).toFixed(4)} Rollertoken`;
+						}
+					},
+				},
+			}).mount("#app");
+
+			var list = [
+				{ date: "", type: "" },
+				{ date: "2019-10-20", type: "" },
+				{ date: "", type: "" },
+				{ date: "", type: "" },
+			];
+			var checkData = true;
+			var vaccineMsg = "";
+			var regDate = /^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/;
+
+			var hasData = list.some(function (v) {
+				return v.date || v.type;
+			});
+			$.each(list, function () {
+				if (hasData) {
+					if (this.date || this.type) {
+						if (this.date) {
+							if (!regDate.test(this.date)) {
+								vaccineMsg += "請輸入正確日期格式";
+							}
+						} else {
+							vaccineMsg += "請輸入日期";
+						}
+						if (!this.type) {
+							vaccineMsg += "請輸入類型";
+						}
+					}
+				} else {
+					vaccineMsg = "請輸入施打日期及類別";
+				}
+			});
+			console.log(vaccineMsg);
+		</script>
+	</body>
+</html>

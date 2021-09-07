@@ -50,6 +50,10 @@
 					<h3>DOGE</h3>
 					<div>{{DOGEUSDT.lastPrice}}</div>
 				</div>
+				<div class="crypto-doge__box mr-3">
+					<h3>BCH</h3>
+					<div>{{BCHUSDT.lastPrice}}</div>
+				</div>
 			</div>
 			<div class="RollerCoin-wrap mb-3">
 				<div class="power-box">
@@ -167,6 +171,7 @@
 						BTCUSDT: {},
 						DOGEUSDT: {},
 						ETHUSDT: {},
+						BCHUSDT: {},
 						timer: null,
 					};
 				},
@@ -221,6 +226,9 @@
 									}
 									if (v.symbol == "ETHUSDT") {
 										_this.ETHUSDT = v;
+									}
+									if (v.symbol == "BCHUSDT") {
+										_this.BCHUSDT = v;
 									}
 								});
 							},

@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>rollercoin 計算機</title>
+		<title>RollerCoin 計算機</title>
 
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
@@ -17,66 +17,94 @@
 				box-sizing: border-box;
 			}
 			#app {
-				display: flex;
+				display: grid;
+				grid-template-columns: 1fr;
 				padding: 1rem;
+			}
+			.crypto-price {
+				display: flex;
 			}
 			.power-box {
 				margin-right: 1rem;
 			}
+			.mr-3 {
+				margin-right: 1rem;
+			}
+			.mb-3 {
+				margin-bottom: 1rem;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="app" class="edger">
-			<div class="power-box">
-				<!-- Network power input and select -->
-				<div class="inputlabel">
-					<label class="spacing" for="network-power">Enter Network Power For Desired Coin</label>
-					<br class="spacerInput" />
-					<input class="inputCalc" type="number" step="any" id="network-power" v-model="networkPower" />
-					<select name="network-power-prefix" id="network-power-selector" v-model="network">
-						<option value="ghs">GH/s</option>
-						<option value="ths">TH/s</option>
-						<option value="phs">PH/s</option>
-						<option value="ehs">EH/s</option>
-					</select>
+		<div id="app">
+			<div class="crypto-price mb-3">
+				<div class="crypto-btc__box mr-3">
+					<h3>BTC</h3>
+					<div>{{BTCUSDT.lastPrice}}</div>
 				</div>
-				<!-- Goal power input and select -->
-				<div class="inputlabel">
-					<label for="goal-power" class="spacing">Enter Your Desired Goal Power</label>
-					<br class="spacerInput" />
-					<input class="inputCalc" type="number" name="goal-power-hash" id="goal-power" v-model="goalPower" />
-					<select name="goal-power-prefix" id="goal-power-selector" v-model="goal">
-						<option value="ghs">GH/s</option>
-						<option value="ths">TH/s</option>
-						<option value="phs" selected>PH/s</option>
-						<option value="ehs">EH/s</option>
-					</select>
+				<div class="crypto-eth__box mr-3">
+					<h3>ETH</h3>
+					<div>{{ETHUSDT.lastPrice}}</div>
 				</div>
-				<!-- Block type input and select -->
-				<div class="inputlabel">
-					<label for="block-reward" class="spacing">Enter Block Reward For Desired Coin</label>
-					<br class="spacerInput" />
-					<input class="inputCalc inputBlock" type="number" name="block-reward" id="block-reward" :value="blockAmount" />
-					<select name="block-type" id="block-type" v-model="block">
-						<option value="BTC">Bitcoin (BTC)</option>
-						<option value="DOGE">Doge (DOGE)</option>
-						<option value="ETH">Etherium (ETH)</option>
-						<option value="RLT">RollerToken (RLT)</option>
-					</select>
+				<div class="crypto-doge__box mr-3">
+					<h3>DOGE</h3>
+					<div>{{DOGEUSDT.lastPrice}}</div>
 				</div>
-				<input type="checkbox" v-model="double" />雙倍
-				<br />
-				<button id="calcbtn" style="margin-top: 10px" class="spacing" @click="calculateGoalPower">Calculate</button>
 			</div>
+			<div class="RollerCoin-wrap mb-3">
+				<div class="power-box">
+					<div class="inputlabel">
+						<label class="spacing" for="network-power">Enter Network Power For Desired Coin</label>
+						<br class="spacerInput" />
+						<input class="inputCalc" type="number" step="any" id="network-power" v-model="networkPower" />
+						<select name="network-power-prefix" id="network-power-selector" v-model="network">
+							<option value="ghs">GH/s</option>
+							<option value="ths">TH/s</option>
+							<option value="phs">PH/s</option>
+							<option value="ehs">EH/s</option>
+						</select>
+					</div>
+					<div class="inputlabel">
+						<label for="goal-power" class="spacing">Enter Your Desired Goal Power</label>
+						<br class="spacerInput" />
+						<input class="inputCalc" type="number" name="goal-power-hash" id="goal-power" v-model="goalPower" />
+						<select name="goal-power-prefix" id="goal-power-selector" v-model="goal">
+							<option value="ghs">GH/s</option>
+							<option value="ths">TH/s</option>
+							<option value="phs" selected>PH/s</option>
+							<option value="ehs">EH/s</option>
+						</select>
+					</div>
+					<div class="inputlabel">
+						<label for="block-reward" class="spacing">Enter Block Reward For Desired Coin</label>
+						<br class="spacerInput" />
+						<input class="inputCalc inputBlock" type="number" name="block-reward" id="block-reward" :value="blockAmount" />
+						<select name="block-type" id="block-type" v-model="block">
+							<option value="BTC">Bitcoin (BTC)</option>
+							<option value="DOGE">Doge (DOGE)</option>
+							<option value="ETH">Etherium (ETH)</option>
+							<option value="RLT">RollerToken (RLT)</option>
+						</select>
+					</div>
+					<input type="checkbox" v-model="double" />雙倍
+					<br />
+					<button id="calcbtn" style="margin-top: 10px" class="spacing" @click="calculateGoalPower">Calculate</button>
+				</div>
 
-			<div class="reward-box">
-				<span>每10分鐘: <span id="exp_reward">{{expReward}}</span></span>
-				<br />
-				<span>每天: <span id="daily">{{daily}}</span></span>
-				<br />
-				<span>每週: <span id="weekly">{{weekly}}</span></span>
-				<br />
-				<span>每個月: <span id="monthly">{{monthly}}</span></span>
+				<div class="reward-box">
+					<span>每10分鐘: <span id="exp_reward">{{expReward}}</span></span>
+					<br />
+					<span>每天: <span id="daily">{{daily}}</span></span>
+					<br />
+					<span>每週: <span id="weekly">{{weekly}}</span></span>
+					<br />
+					<span>每個月: <span id="monthly">{{monthly}}</span></span>
+				</div>
+			</div>
+			<div class="interest-box">
+				<div class="interest-price__box"><span>金額:</span><input type="text" v-model="interestPrice" /></div>
+				<div class="interest-rate__box"><span>年利率</span><input type="text" v-model="interestRate" /><span>%</span></div>
+				<div class="interest-total">{{interestTotal}}</div>
 			</div>
 		</div>
 		<script>
@@ -86,6 +114,9 @@
 					this.runTime();
 				},
 				computed: {
+					interestTotal() {
+						return (this.interestPrice * (this.interestRate / 100)) / 365;
+					},
 					blockAmount() {
 						if (this.block == "BTC") {
 							if (this.double) {
@@ -115,6 +146,8 @@
 				},
 				data() {
 					return {
+						interestPrice: 0,
+						interestRate: 0,
 						network: "ehs",
 						networkPower: 0,
 						networkPowerTotal: 0,

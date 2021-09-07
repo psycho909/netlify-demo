@@ -40,19 +40,19 @@
 			<div class="crypto-price mb-3">
 				<div class="crypto-btc__box mr-3">
 					<h3>BTC</h3>
-					<div>{{BTCUSDT.lastPrice.toFixed(2)}}</div>
+					<div>{{toPoint(BTCUSDT.lastPrice,2)}}</div>
 				</div>
 				<div class="crypto-eth__box mr-3">
 					<h3>ETH</h3>
-					<div>{{ETHUSDT.lastPrice.toFixed(2)}}</div>
+					<div>{{toPoint(ETHUSDT.lastPrice,2)}}</div>
 				</div>
 				<div class="crypto-doge__box mr-3">
 					<h3>DOGE</h3>
-					<div>{{DOGEUSDT.lastPrice.toFixed(4)}}</div>
+					<div>{{toPoint(DOGEUSDT.lastPrice,4)}}</div>
 				</div>
 				<div class="crypto-doge__box mr-3">
 					<h3>BCH</h3>
-					<div>{{BCHUSDT.lastPrice.toFixed(2)}}</div>
+					<div>{{toPoint(BCHUSDT.lastPrice,2)}}</div>
 				</div>
 			</div>
 			<div class="RollerCoin-wrap mb-3">
@@ -211,6 +211,13 @@
 					},
 				},
 				methods: {
+					toPoint(value, point) {
+						if (value) {
+							return Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
 					getData() {
 						var _this = this;
 						$.ajax({

@@ -36,6 +36,12 @@
 			.RollerCoin-wrap {
 				display: flex;
 			}
+			.red {
+				color: red;
+			}
+			.green {
+				color: green;
+			}
 		</style>
 	</head>
 	<body>
@@ -45,11 +51,13 @@
 					<h3>BTC</h3>
 					<div>{{toPoint(BTCUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(BTCUSDT.priceChangePercent,2)}}</div>
+					<div :class="[toPointPercent(BTCUSDT.priceChangePercent,2)>41000?'green':'red']">> 41000</div>
 				</div>
 				<div class="crypto-eth__box mr-3">
 					<h3>ETH</h3>
 					<div>{{toPoint(ETHUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(ETHUSDT.priceChangePercent,2)}}</div>
+					<div :class="[toPointPercent(ETHUSDT.priceChangePercent,2)<3050?'green':'red']">< 3050</div>
 				</div>
 				<div class="crypto-doge__box mr-3">
 					<h3>DOGE</h3>
@@ -60,6 +68,11 @@
 					<h3>BCH</h3>
 					<div>{{toPoint(BCHUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(BCHUSDT.priceChangePercent,2)}}</div>
+				</div>
+				<div class="crypto-doge__box mr-3">
+					<h3>CAKE</h3>
+					<div>{{toPoint(CAKEUSDT.lastPrice,2)}}</div>
+					<div>{{toPointPercent(CAKEUSDT.priceChangePercent,2)}}</div>
 				</div>
 			</div>
 			<div class="RollerCoin-wrap mb-3">
@@ -119,6 +132,44 @@
 			</div>
 		</div>
 		<script>
+			var ID_TOKEN = "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8";
+			var API = `https://spreadsheets.google.com/feeds/list/${ID_TOKEN}/1/public/values?alt=json`;
+			var apiContent = () => {
+				const getData = (route) => {
+					$.ajax({
+						url: route,
+						method: "GET",
+						success: function (data) {
+							var arr = [];
+							// data.feed.entry.forEach((v, i) => {
+							// 	arr.push({
+							// 		name: v.gsx$name.$t,
+							// 		phone: v.gsx$phone.$t,
+							// 		need: v.gsx$need.$t,
+							// 	});
+							// });
+							console.log(data);
+						},
+					});
+				};
+
+				const postData = (route, params, gData) => {
+					$.ajax({
+						url: route,
+						data: params,
+						success: function (res) {
+							if (res === "成功") {
+								setTimeout(function () {
+									getData(gData);
+								}, 1000);
+							}
+						},
+					});
+				};
+				return { getData, postData };
+			};
+
+			apiContent().getData(API);
 			var app = Vue.createApp({
 				mounted() {
 					this.getData();
@@ -179,6 +230,7 @@
 						DOGEUSDT: {},
 						ETHUSDT: {},
 						BCHUSDT: {},
+						CAKEUSDT: {},
 						timer: null,
 					};
 				},
@@ -250,6 +302,9 @@
 									}
 									if (v.symbol == "BCHUSDT") {
 										_this.BCHUSDT = v;
+									}
+									if (v.symbol == "CAKEUSDT") {
+										_this.CAKEUSDT = v;
 									}
 								});
 							},

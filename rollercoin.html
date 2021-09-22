@@ -51,13 +51,13 @@
 					<h3>BTC</h3>
 					<div>{{toPoint(BTCUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(BTCUSDT.priceChangePercent,2)}}</div>
-					<div :class="[toPointPercent(BTCUSDT.priceChangePercent,2)>41000?'green':'red']">> 41000</div>
+					<div :class="[toPointPercent(BTCUSDT.priceChangePercent,2)>BTC?'green':'red']">大於{{BTC}}</div>
 				</div>
 				<div class="crypto-eth__box mr-3">
 					<h3>ETH</h3>
 					<div>{{toPoint(ETHUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(ETHUSDT.priceChangePercent,2)}}</div>
-					<div :class="[toPointPercent(ETHUSDT.priceChangePercent,2)<3050?'green':'red']">< 3050</div>
+					<div :class="[toPointPercent(ETHUSDT.priceChangePercent,2)<ETH?'green':'red']">小於{{ETH}}</div>
 				</div>
 				<div class="crypto-doge__box mr-3">
 					<h3>DOGE</h3>
@@ -232,6 +232,8 @@
 						BCHUSDT: {},
 						CAKEUSDT: {},
 						timer: null,
+						BTC: 41000,
+						ETH: 3050,
 					};
 				},
 				watch: {

@@ -1,9 +1,9 @@
 {
-	"short_name": "CKedit!",
-	"name": "CKedit!",
+	"short_name": "RollerCoin 計算機",
+	"name": "RollerCoin 計算機",
 	"icons": [
 		{
-			"src": "icons/192.png",
+			"src": "icons/icon.png",
 			"sizes": "192×192",
 			"type": "image/png"
 		}

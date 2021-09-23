@@ -51,13 +51,13 @@
 					<h3>BTC</h3>
 					<div>{{toPoint(BTCUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(BTCUSDT.priceChangePercent,2)}}</div>
-					<div :class="[toPointPercent(BTCUSDT.priceChangePercent,2)>BTC?'green':'red']">大於{{BTC}}</div>
+					<div :class="[DualCurrencyBTC()?'green':'red']">大於{{BTC}}</div>
 				</div>
 				<div class="crypto-eth__box mr-3">
 					<h3>ETH</h3>
 					<div>{{toPoint(ETHUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(ETHUSDT.priceChangePercent,2)}}</div>
-					<div :class="[toPointPercent(ETHUSDT.priceChangePercent,2)<ETH?'green':'red']">小於{{ETH}}</div>
+					<div :class="[DualCurrencyETH()?'green':'red']">小於{{ETH}}</div>
 				</div>
 				<div class="crypto-doge__box mr-3">
 					<h3>DOGE</h3>
@@ -132,44 +132,6 @@
 			</div>
 		</div>
 		<script>
-			var ID_TOKEN = "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8";
-			var API = `https://spreadsheets.google.com/feeds/list/${ID_TOKEN}/1/public/values?alt=json`;
-			var apiContent = () => {
-				const getData = (route) => {
-					$.ajax({
-						url: route,
-						method: "GET",
-						success: function (data) {
-							var arr = [];
-							// data.feed.entry.forEach((v, i) => {
-							// 	arr.push({
-							// 		name: v.gsx$name.$t,
-							// 		phone: v.gsx$phone.$t,
-							// 		need: v.gsx$need.$t,
-							// 	});
-							// });
-							console.log(data);
-						},
-					});
-				};
-
-				const postData = (route, params, gData) => {
-					$.ajax({
-						url: route,
-						data: params,
-						success: function (res) {
-							if (res === "成功") {
-								setTimeout(function () {
-									getData(gData);
-								}, 1000);
-							}
-						},
-					});
-				};
-				return { getData, postData };
-			};
-
-			apiContent().getData(API);
 			var app = Vue.createApp({
 				mounted() {
 					this.getData();
@@ -272,6 +234,12 @@
 					},
 				},
 				methods: {
+					DualCurrencyBTC() {
+						return this.BTCUSDT.lastPrice > this.BTC;
+					},
+					DualCurrencyETH() {
+						return this.ETHUSDT.lastPrice < this.ETH;
+					},
 					toPoint(value, point) {
 						if (value) {
 							return Number(value).toFixed(point);

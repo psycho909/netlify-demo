@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>RollerCoin 計算機</title>
-
+		<link rel="manifest" href="manifest.json" />
 		<link rel="stylesheet" href="rollercoin.css" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
 	</head>
@@ -112,6 +112,17 @@
 			</div>
 		</div>
 		<script>
+			if ("serviceWorker" in navigator) {
+				console.log("Will service worker register?");
+				navigator.serviceWorker
+					.register("service-worker.js")
+					.then((reg) => {
+						console.log("Yes it did.");
+					})
+					.catch((err) => {
+						console.log("No it didt, This happened: ", err);
+					});
+			}
 			var app = Vue.createApp({
 				mounted() {
 					this.getData();
@@ -280,13 +291,10 @@
 									}
 								});
 							});
-						this.stopTime();
-						this.runTime();
 					},
 					runTime() {
-						var _this = this;
 						this.timer = setInterval(() => {
-							_this.getData();
+							this.getData();
 						}, 3000);
 					},
 					stopTime() {

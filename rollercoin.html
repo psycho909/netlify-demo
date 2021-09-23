@@ -6,77 +6,55 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>RollerCoin 計算機</title>
 
+		<link rel="stylesheet" href="rollercoin.css" />
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
-		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
-		<style>
-			* {
-				padding: 0;
-				margin: 0;
-				box-sizing: border-box;
-			}
-			#app {
-				display: grid;
-				grid-template-columns: 1fr;
-				padding: 1rem;
-			}
-			.crypto-price {
-				display: flex;
-			}
-			.power-box {
-				margin-right: 1rem;
-			}
-			.mr-3 {
-				margin-right: 1rem;
-			}
-			.mb-3 {
-				margin-bottom: 1rem;
-			}
-			.RollerCoin-wrap {
-				display: flex;
-			}
-			.red {
-				color: red;
-				position: relative;
-			}
-			.green {
-				color: green;
-				position: relative;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="app">
 			<div class="crypto-price mb-3">
-				<div class="crypto-btc__box mr-3">
-					<h3>BTC</h3>
-					<div>{{toPoint(BTCUSDT.lastPrice,2)}}</div>
-					<div>{{toPointPercent(BTCUSDT.priceChangePercent,2)}}</div>
-					<div v-if="DualCurrency[0] > 0" :class="[BTCUSDT.lastPrice < DualCurrency[0]?'green':'red']">BTC {{BTCUSDT.lastPrice < DualCurrency[0]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[0]}}</div>
-					<div v-if="DualCurrency[1] > 0" :class="[BTCUSDT.lastPrice > DualCurrency[1]?'green':'red']">BTC-U {{BTCUSDT.lastPrice > DualCurrency[1]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[1]}}</div>
+				<div class="crypto-price__box mr-3 btc">
+					<h3 class="crypto-price__title">
+						<span></span>
+						<span>BTC</span>
+					</h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BTCUSDT.lastPrice,2)}}</div>
+						<div :class="[BTCUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(BTCUSDT.priceChangePercent,2)}}%</div>
+					</div>
+					<div v-if="DualCurrency[0] > 0" class="crypto-price__dual"><span>BTC</span><span :class="[DualCurrencyBTC?'green':'red']">{{DualCurrency[0]}}</span><span>{{DualCurrencyBTC?'&#128512;':'&#9888;&#65039;'}}</span></div>
+					<div v-if="DualCurrency[1] > 0" class="crypto-price__dual"><span>BTC-U</span><span :class="[DualCurrencyBTCU?'green':'red']">{{DualCurrency[1]}}</span><span>{{DualCurrencyBTCU?'&#128512;':'&#9888;&#65039;'}}</span></div>
 				</div>
-				<div class="crypto-eth__box mr-3">
-					<h3>ETH</h3>
-					<div>{{toPoint(ETHUSDT.lastPrice,2)}}</div>
-					<div>{{toPointPercent(ETHUSDT.priceChangePercent,2)}}</div>
-					<div v-if="DualCurrency[2] > 0" :class="[ETHUSDT.lastPrice < DualCurrency[3]?'green':'red']">ETH {{ETHUSDT.lastPrice < DualCurrency[3]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[2]}}</div>
-					<div v-if="DualCurrency[3] > 0" :class="[ETHUSDT.lastPrice > DualCurrency[4]?'green':'red']">ETH-U {{ETHUSDT.lastPrice > DualCurrency[4]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[3]}}</div>
+				<div class="crypto-price__box mr-3 eth">
+					<h3 class="crypto-price__title"><span></span><span>ETH</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(ETHUSDT.lastPrice,2)}}</div>
+						<div :class="[ETHUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(ETHUSDT.priceChangePercent,2)}}%</div>
+					</div>
+					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
+					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
 				</div>
-				<div class="crypto-doge__box mr-3">
-					<h3>DOGE</h3>
-					<div>{{toPoint(DOGEUSDT.lastPrice,4)}}</div>
-					<div>{{toPointPercent(DOGEUSDT.priceChangePercent,2)}}</div>
+				<div class="crypto-price__box mr-3 doge">
+					<h3 class="crypto-price__title"><span></span><span>DOGE</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(DOGEUSDT.lastPrice,4)}}</div>
+						<div :class="[DOGEUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(DOGEUSDT.priceChangePercent,2)}}%</div>
+					</div>
 				</div>
-				<div class="crypto-doge__box mr-3">
-					<h3>BCH</h3>
-					<div>{{toPoint(BCHUSDT.lastPrice,2)}}</div>
-					<div>{{toPointPercent(BCHUSDT.priceChangePercent,2)}}</div>
+				<div class="crypto-price__box mr-3 bch">
+					<h3 class="crypto-price__title"><span></span><span>BCH</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BCHUSDT.lastPrice,2)}}</div>
+						<div :class="[BCHUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(BCHUSDT.priceChangePercent,2)}}%</div>
+					</div>
 				</div>
-				<div class="crypto-doge__box mr-3">
-					<h3>CAKE</h3>
-					<div>{{toPoint(CAKEUSDT.lastPrice,2)}}</div>
-					<div>{{toPointPercent(CAKEUSDT.priceChangePercent,2)}}</div>
+				<div class="crypto-price__box mr-3 cake">
+					<h3 class="crypto-price__title"><span></span><span>CAKE</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(CAKEUSDT.lastPrice,2)}}</div>
+						<div :class="[CAKEUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(CAKEUSDT.priceChangePercent,2)}}%</div>
+					</div>
 				</div>
 			</div>
 			<div class="RollerCoin-wrap mb-3">
@@ -143,6 +121,18 @@
 					this.GetDualCurrency();
 				},
 				computed: {
+					DualCurrencyBTC() {
+						return this.BTCUSDT.lastPrice < this.DualCurrency[0];
+					},
+					DualCurrencyBTCU() {
+						return this.BTCUSDT.lastPrice > this.DualCurrency[1];
+					},
+					DualCurrencyETH() {
+						return this.ETHUSDT.lastPrice < this.DualCurrency[2];
+					},
+					DualCurrencyETHU() {
+						return this.ETHUSDT.lastPrice > this.DualCurrency[3];
+					},
 					interestTotal() {
 						return (this.interestPrice * (this.interestRate / 100)) / 365;
 					},
@@ -251,12 +241,7 @@
 							},
 						});
 					},
-					DualCurrencyBTC() {
-						return this.BTCUSDT.lastPrice > this.BTC;
-					},
-					DualCurrencyETH() {
-						return this.ETHUSDT.lastPrice < this.ETH;
-					},
+
 					toPoint(value, point) {
 						if (value) {
 							return Number(value).toFixed(point);
@@ -266,7 +251,7 @@
 					},
 					toPointPercent(value, point) {
 						if (value) {
-							return Number(value).toFixed(point) + "%";
+							return Number(value).toFixed(point);
 						} else {
 							return 0;
 						}

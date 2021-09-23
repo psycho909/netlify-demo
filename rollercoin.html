@@ -38,9 +38,11 @@
 			}
 			.red {
 				color: red;
+				position: relative;
 			}
 			.green {
 				color: green;
+				position: relative;
 			}
 		</style>
 	</head>
@@ -51,13 +53,15 @@
 					<h3>BTC</h3>
 					<div>{{toPoint(BTCUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(BTCUSDT.priceChangePercent,2)}}</div>
-					<div :class="[DualCurrencyBTC()?'green':'red']">大於{{BTC}}</div>
+					<div v-if="DualCurrency[0] > 0" :class="[BTCUSDT.lastPrice < DualCurrency[0]?'green':'red']">BTC {{BTCUSDT.lastPrice < DualCurrency[0]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[0]}}</div>
+					<div v-if="DualCurrency[1] > 0" :class="[BTCUSDT.lastPrice > DualCurrency[1]?'green':'red']">BTC-U {{BTCUSDT.lastPrice > DualCurrency[1]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[1]}}</div>
 				</div>
 				<div class="crypto-eth__box mr-3">
 					<h3>ETH</h3>
 					<div>{{toPoint(ETHUSDT.lastPrice,2)}}</div>
 					<div>{{toPointPercent(ETHUSDT.priceChangePercent,2)}}</div>
-					<div :class="[DualCurrencyETH()?'green':'red']">小於{{ETH}}</div>
+					<div v-if="DualCurrency[2] > 0" :class="[ETHUSDT.lastPrice < DualCurrency[3]?'green':'red']">ETH {{ETHUSDT.lastPrice < DualCurrency[3]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[2]}}</div>
+					<div v-if="DualCurrency[3] > 0" :class="[ETHUSDT.lastPrice > DualCurrency[4]?'green':'red']">ETH-U {{ETHUSDT.lastPrice > DualCurrency[4]?'&#128512;':'&#9888;&#65039;'}}{{DualCurrency[3]}}</div>
 				</div>
 				<div class="crypto-doge__box mr-3">
 					<h3>DOGE</h3>
@@ -136,6 +140,7 @@
 				mounted() {
 					this.getData();
 					this.runTime();
+					this.GetDualCurrency();
 				},
 				computed: {
 					interestTotal() {
@@ -194,8 +199,10 @@
 						BCHUSDT: {},
 						CAKEUSDT: {},
 						timer: null,
-						BTC: 41000,
-						ETH: 3050,
+						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
+						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
+						Sheet_Name: "DualCurrency",
+						DualCurrency: [],
 					};
 				},
 				watch: {
@@ -234,6 +241,16 @@
 					},
 				},
 				methods: {
+					GetDualCurrency() {
+						var _this = this;
+						$.ajax({
+							url: `https://sheets.googleapis.com/v4/spreadsheets/${this.ID_TOKEN}/values/${this.Sheet_Name}?alt=json&key=${this.API_KEY}`,
+							method: "GET",
+							success: function (data) {
+								_this.DualCurrency = data.values[1];
+							},
+						});
+					},
 					DualCurrencyBTC() {
 						return this.BTCUSDT.lastPrice > this.BTC;
 					},

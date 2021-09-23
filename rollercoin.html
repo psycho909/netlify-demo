@@ -7,53 +7,51 @@
 		<title>RollerCoin 計算機</title>
 
 		<link rel="stylesheet" href="rollercoin.css" />
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
 	</head>
 	<body>
 		<div id="app">
 			<div class="crypto-price mb-3">
-				<div class="crypto-price__box mr-3 btc">
+				<div class="crypto-price__box btc">
 					<h3 class="crypto-price__title">
 						<span></span>
 						<span>BTC</span>
 					</h3>
 					<div class="crypto-price__price">
 						<div>${{toPoint(BTCUSDT.lastPrice,2)}}</div>
-						<div :class="[BTCUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(BTCUSDT.priceChangePercent,2)}}%</div>
+						<div :class="[BTCUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(BTCUSDT.priceChangePercent)}}{{toPointPercent(BTCUSDT.priceChangePercent,2)}}%</div>
 					</div>
 					<div v-if="DualCurrency[0] > 0" class="crypto-price__dual"><span>BTC</span><span :class="[DualCurrencyBTC?'green':'red']">{{DualCurrency[0]}}</span><span>{{DualCurrencyBTC?'&#128512;':'&#9888;&#65039;'}}</span></div>
 					<div v-if="DualCurrency[1] > 0" class="crypto-price__dual"><span>BTC-U</span><span :class="[DualCurrencyBTCU?'green':'red']">{{DualCurrency[1]}}</span><span>{{DualCurrencyBTCU?'&#128512;':'&#9888;&#65039;'}}</span></div>
 				</div>
-				<div class="crypto-price__box mr-3 eth">
+				<div class="crypto-price__box eth">
 					<h3 class="crypto-price__title"><span></span><span>ETH</span></h3>
 					<div class="crypto-price__price">
 						<div>${{toPoint(ETHUSDT.lastPrice,2)}}</div>
-						<div :class="[ETHUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(ETHUSDT.priceChangePercent,2)}}%</div>
+						<div :class="[ETHUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(ETHUSDT.priceChangePercent)}}{{toPointPercent(ETHUSDT.priceChangePercent,2)}}%</div>
 					</div>
 					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
 					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
 				</div>
-				<div class="crypto-price__box mr-3 doge">
+				<div class="crypto-price__box doge">
 					<h3 class="crypto-price__title"><span></span><span>DOGE</span></h3>
 					<div class="crypto-price__price">
 						<div>${{toPoint(DOGEUSDT.lastPrice,4)}}</div>
-						<div :class="[DOGEUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(DOGEUSDT.priceChangePercent,2)}}%</div>
+						<div :class="[DOGEUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(DOGEUSDT.priceChangePercent)}}{{toPointPercent(DOGEUSDT.priceChangePercent,2)}}%</div>
 					</div>
 				</div>
-				<div class="crypto-price__box mr-3 bch">
+				<div class="crypto-price__box bch">
 					<h3 class="crypto-price__title"><span></span><span>BCH</span></h3>
 					<div class="crypto-price__price">
 						<div>${{toPoint(BCHUSDT.lastPrice,2)}}</div>
-						<div :class="[BCHUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(BCHUSDT.priceChangePercent,2)}}%</div>
+						<div :class="[BCHUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(BCHUSDT.priceChangePercent)}}{{toPointPercent(BCHUSDT.priceChangePercent,2)}}%</div>
 					</div>
 				</div>
-				<div class="crypto-price__box mr-3 cake">
+				<div class="crypto-price__box cake">
 					<h3 class="crypto-price__title"><span></span><span>CAKE</span></h3>
 					<div class="crypto-price__price">
 						<div>${{toPoint(CAKEUSDT.lastPrice,2)}}</div>
-						<div :class="[CAKEUSDT.priceChangePercent > 0?'green':'red']">{{toPointPercent(CAKEUSDT.priceChangePercent,2)}}%</div>
+						<div :class="[CAKEUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(CAKEUSDT.priceChangePercent)}}{{toPointPercent(CAKEUSDT.priceChangePercent,2)}}%</div>
 					</div>
 				</div>
 			</div>
@@ -231,15 +229,18 @@
 					},
 				},
 				methods: {
+					GetSymbol(num) {
+						return num > 0 ? "+" : "-";
+					},
 					GetDualCurrency() {
-						var _this = this;
-						$.ajax({
-							url: `https://sheets.googleapis.com/v4/spreadsheets/${this.ID_TOKEN}/values/${this.Sheet_Name}?alt=json&key=${this.API_KEY}`,
-							method: "GET",
-							success: function (data) {
-								_this.DualCurrency = data.values[1];
-							},
-						});
+						var API = `https://sheets.googleapis.com/v4/spreadsheets/${this.ID_TOKEN}/values/${this.Sheet_Name}?alt=json&key=${this.API_KEY}`;
+						fetch(API)
+							.then((res) => {
+								return res.json();
+							})
+							.then((data) => {
+								this.DualCurrency = data.values[1];
+							});
 					},
 
 					toPoint(value, point) {
@@ -257,30 +258,28 @@
 						}
 					},
 					getData() {
-						var _this = this;
-						$.ajax({
-							url: "https://api1.binance.com/api/v3/ticker/24hr",
-							methods: "GET",
-							success: function (data) {
+						var API = "https://api1.binance.com/api/v3/ticker/24hr";
+						fetch(API)
+							.then((res) => res.json())
+							.then((data) => {
 								data.forEach((v, i) => {
 									if (v.symbol == "BTCUSDT") {
-										_this.BTCUSDT = v;
+										this.BTCUSDT = v;
 									}
 									if (v.symbol == "DOGEUSDT") {
-										_this.DOGEUSDT = v;
+										this.DOGEUSDT = v;
 									}
 									if (v.symbol == "ETHUSDT") {
-										_this.ETHUSDT = v;
+										this.ETHUSDT = v;
 									}
 									if (v.symbol == "BCHUSDT") {
-										_this.BCHUSDT = v;
+										this.BCHUSDT = v;
 									}
 									if (v.symbol == "CAKEUSDT") {
-										_this.CAKEUSDT = v;
+										this.CAKEUSDT = v;
 									}
 								});
-							},
-						});
+							});
 						this.stopTime();
 						this.runTime();
 					},
@@ -333,39 +332,6 @@
 					},
 				},
 			}).mount("#app");
-
-			var list = [
-				{ date: "", type: "" },
-				{ date: "2019-10-20", type: "" },
-				{ date: "", type: "" },
-				{ date: "", type: "" },
-			];
-			var checkData = true;
-			var vaccineMsg = "";
-			var regDate = /^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/;
-
-			var hasData = list.some(function (v) {
-				return v.date || v.type;
-			});
-			$.each(list, function () {
-				if (hasData) {
-					if (this.date || this.type) {
-						if (this.date) {
-							if (!regDate.test(this.date)) {
-								vaccineMsg += "請輸入正確日期格式";
-							}
-						} else {
-							vaccineMsg += "請輸入日期";
-						}
-						if (!this.type) {
-							vaccineMsg += "請輸入類型";
-						}
-					}
-				} else {
-					vaccineMsg = "請輸入施打日期及類別";
-				}
-			});
-			console.log(vaccineMsg);
 		</script>
 	</body>
 </html>

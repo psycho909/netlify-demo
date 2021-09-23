@@ -16,6 +16,13 @@
 }
 .crypto-price {
 	display: flex;
+	&__box {
+		text-align: right;
+		margin-right: 1rem;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
 }
 .power-box {
 	margin-right: 1rem;
@@ -28,6 +35,9 @@
 }
 .RollerCoin-wrap {
 	display: flex;
+	@include media {
+		display: none;
+	}
 }
 .red {
 	color: red;
@@ -64,9 +74,7 @@
 			padding: vw(24);
 			font-size: vw(32);
 			border-bottom: 1px solid #222222;
-			&.mr-3 {
-				margin-right: 0;
-			}
+			margin-right: 0;
 			&.btc {
 				.crypto-price__title {
 					span:nth-child(1) {

@@ -1,0 +1,15 @@
+{
+	"short_name": "CKedit!",
+	"name": "CKedit!",
+	"icons": [
+		{
+			"src": "icons/192.png",
+			"sizes": "192×192",
+			"type": "image/png"
+		}
+	],
+	"start_url": "https://thirsty-boyd-9fa09d.netlify.app/",
+	"background_color": "#000",
+	"theme_color": "#536878",
+	"display": "standalone"
+}

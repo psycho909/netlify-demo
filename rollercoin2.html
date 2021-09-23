@@ -5,50 +5,341 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>RollerCoin 計算機</title>
+		<link rel="manifest" href="manifest.json" />
 		<link rel="stylesheet" href="rollercoin.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
 	</head>
 	<body>
+		<div id="app">
+			<div class="crypto-price mb-3">
+				<div class="crypto-price__box btc">
+					<h3 class="crypto-price__title">
+						<span></span>
+						<span>BTC</span>
+					</h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BTCUSDT.c,2)}}</div>
+						<div :class="[BTCUSDT.P > 0?'green':'red']">{{GetSymbol(BTCUSDT.P)}}{{toPointPercent(BTCUSDT.P,2)}}%</div>
+					</div>
+					<div v-if="DualCurrency[0] > 0" class="crypto-price__dual"><span>BTC</span><span :class="[DualCurrencyBTC?'green':'red']">{{DualCurrency[0]}}</span><span>{{DualCurrencyBTC?'&#128512;':'&#9888;&#65039;'}}</span></div>
+					<div v-if="DualCurrency[1] > 0" class="crypto-price__dual"><span>BTC-U</span><span :class="[DualCurrencyBTCU?'green':'red']">{{DualCurrency[1]}}</span><span>{{DualCurrencyBTCU?'&#128512;':'&#9888;&#65039;'}}</span></div>
+				</div>
+				<div class="crypto-price__box eth">
+					<h3 class="crypto-price__title"><span></span><span>ETH</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(ETHUSDT.c,2)}}</div>
+						<div :class="[ETHUSDT.P > 0?'green':'red']">{{GetSymbol(ETHUSDT.P)}}{{toPointPercent(ETHUSDT.P,2)}}%</div>
+					</div>
+					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
+					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
+				</div>
+				<div class="crypto-price__box doge">
+					<h3 class="crypto-price__title"><span></span><span>DOGE</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(DOGEUSDT.c,4)}}</div>
+						<div :class="[DOGEUSDT.P > 0?'green':'red']">{{GetSymbol(DOGEUSDT.P)}}{{toPointPercent(DOGEUSDT.P,2)}}%</div>
+					</div>
+				</div>
+				<div class="crypto-price__box bch">
+					<h3 class="crypto-price__title"><span></span><span>BCH</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BCHUSDT.c,2)}}</div>
+						<div :class="[BCHUSDT.P > 0?'green':'red']">{{GetSymbol(BCHUSDT.P)}}{{toPointPercent(BCHUSDT.P,2)}}%</div>
+					</div>
+				</div>
+				<div class="crypto-price__box cake">
+					<h3 class="crypto-price__title"><span></span><span>CAKE</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(CAKEUSDT.c,2)}}</div>
+						<div :class="[CAKEUSDT.P > 0?'green':'red']">{{GetSymbol(CAKEUSDT.P)}}{{toPointPercent(CAKEUSDT.P,2)}}%</div>
+					</div>
+				</div>
+			</div>
+			<div class="RollerCoin-wrap mb-3">
+				<div class="power-box mr-3">
+					<div class="inputlabel">
+						<label class="spacing" for="network-power">Enter Network Power For Desired Coin</label>
+						<br class="spacerInput" />
+						<input class="inputCalc" type="number" step="any" id="network-power" v-model="networkPower" />
+						<select name="network-power-prefix" id="network-power-selector" v-model="network">
+							<option value="ghs">GH/s</option>
+							<option value="ths">TH/s</option>
+							<option value="phs">PH/s</option>
+							<option value="ehs">EH/s</option>
+						</select>
+					</div>
+					<div class="inputlabel">
+						<label for="goal-power" class="spacing">Enter Your Desired Goal Power</label>
+						<br class="spacerInput" />
+						<input class="inputCalc" type="number" name="goal-power-hash" id="goal-power" v-model="goalPower" />
+						<select name="goal-power-prefix" id="goal-power-selector" v-model="goal">
+							<option value="ghs">GH/s</option>
+							<option value="ths">TH/s</option>
+							<option value="phs" selected>PH/s</option>
+							<option value="ehs">EH/s</option>
+						</select>
+					</div>
+					<div class="inputlabel">
+						<label for="block-reward" class="spacing">Enter Block Reward For Desired Coin</label>
+						<br class="spacerInput" />
+						<input class="inputCalc inputBlock" type="number" name="block-reward" id="block-reward" :value="blockAmount" />
+						<select name="block-type" id="block-type" v-model="block">
+							<option value="BTC">Bitcoin (BTC)</option>
+							<option value="DOGE">Doge (DOGE)</option>
+							<option value="ETH">Etherium (ETH)</option>
+							<option value="RLT">RollerToken (RLT)</option>
+						</select>
+					</div>
+					<input type="checkbox" v-model="double" />雙倍
+					<br />
+					<button id="calcbtn" style="margin-top: 10px" class="spacing" @click="calculateGoalPower">Calculate</button>
+				</div>
+
+				<div class="reward-box">
+					<span>每10分鐘: <span id="exp_reward">{{expReward}}</span></span>
+					<br />
+					<span>每天: <span id="daily">{{daily}}</span></span>
+					<br />
+					<span>每週: <span id="weekly">{{weekly}}</span></span>
+					<br />
+					<span>每個月: <span id="monthly">{{monthly}}</span></span>
+				</div>
+			</div>
+			<div class="interest-box">
+				<div class="interest-price__box"><span>金額:</span><input type="text" v-model="interestPrice" /></div>
+				<div class="interest-rate__box"><span>年利率</span><input type="text" v-model="interestRate" /><span>%</span></div>
+				<div class="interest-total">{{interestTotal}}</div>
+			</div>
+		</div>
 		<script>
-			let streams = ["ethbtc@miniTicker", "bnbbtc@miniTicker", "wavesbtc@miniTicker", "bchabcbtc@miniTicker", "bchsvbtc@miniTicker", "xrpbtc@miniTicker", "tusdbtc@miniTicker", "eosbtc@miniTicker", "trxbtc@miniTicker", "ltcbtc@miniTicker", "xlmbtc@miniTicker", "bcptbtc@miniTicker", "adabtc@miniTicker", "zilbtc@miniTicker", "xmrbtc@miniTicker", "stratbtc@miniTicker", "zecbtc@miniTicker", "qkcbtc@miniTicker", "neobtc@miniTicker", "dashbtc@miniTicker", "zrxbtc@miniTicker"];
-
-			let trackedStreams = [];
-
-			//let ws = new WebSocket("wss://stream.binance.com:9443/ws/" + streams.join('/'));
-			let ws = new WebSocket("wss://stream.binance.com:9443/ws/!miniTicker@arr");
-
-			ws.onopen = function () {
-				console.log("Binance connected...");
-			};
-
-			ws.onmessage = function (evt) {
-				try {
-					let msgs = JSON.parse(evt.data);
-					if (Array.isArray(msgs)) {
-						for (let msg of msgs) {
-							handleMessage(msg);
-						}
-					} else {
-						handleMessage(msgs);
-					}
-				} catch (e) {
-					console.log("Unknown message: " + evt.data, e);
-				}
-			};
-
-			ws.onclose = function () {
-				console.log("Binance disconnected");
-			};
-
-			function handleMessage(msg) {
-				const stream = msg.s;
-				if (trackedStreams.indexOf(stream) === -1) {
-					document.getElementById("streams").innerHTML += "<br/>" + stream + ': <span id="stream_' + stream + '"></span>';
-					trackedStreams.push(stream);
-					document.getElementById("totalstreams").innerText = trackedStreams.length;
-				}
-
-				document.getElementById("stream_" + stream).innerText = msg.v;
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.register("service-worker.js");
 			}
+			var app = Vue.createApp({
+				mounted() {
+					this.getData();
+					// this.runTime();
+					this.GetDualCurrency();
+				},
+				computed: {
+					DualCurrencyBTC() {
+						return this.BTCUSDT.c < this.DualCurrency[0];
+					},
+					DualCurrencyBTCU() {
+						return this.BTCUSDT.c > this.DualCurrency[1];
+					},
+					DualCurrencyETH() {
+						return this.ETHUSDT.c < this.DualCurrency[2];
+					},
+					DualCurrencyETHU() {
+						return this.ETHUSDT.c > this.DualCurrency[3];
+					},
+					interestTotal() {
+						return (this.interestPrice * (this.interestRate / 100)) / 365;
+					},
+					blockAmount() {
+						if (this.block == "BTC") {
+							if (this.double) {
+								return 30000 * 2;
+							}
+							return 30000;
+						}
+						if (this.block == "DOGE") {
+							if (this.double) {
+								return 20 * 2;
+							}
+							return 20;
+						}
+						if (this.block == "ETH") {
+							if (this.double) {
+								return 0.005 * 2;
+							}
+							return 0.005;
+						}
+						if (this.block == "RLT") {
+							if (this.double) {
+								return 30 * 2;
+							}
+							return 30;
+						}
+					},
+				},
+				data() {
+					return {
+						interestPrice: 0,
+						interestRate: 0,
+						network: "ehs",
+						networkPower: 0,
+						networkPowerTotal: 0,
+						goal: "phs",
+						goalPower: 0,
+						goalPowerTotal: 0,
+						block: "BTC",
+						expReward: "",
+						daily: "",
+						weekly: "",
+						monthly: "",
+						ghs: 1000000000,
+						ths: 1000000000000,
+						phs: 1000000000000000,
+						ehs: 1000000000000000000,
+						double: false,
+						BTCUSDT: {},
+						DOGEUSDT: {},
+						ETHUSDT: {},
+						BCHUSDT: {},
+						CAKEUSDT: {},
+						timer: null,
+						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
+						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
+						Sheet_Name: "DualCurrency",
+						DualCurrency: [],
+					};
+				},
+				watch: {
+					double(newVal, oldVal) {
+						this.calculateGoalPower();
+					},
+					networkPower(newVal, oldVal) {
+						if (this.network == "ghs") {
+							this.networkPowerTotal = newVal * this.ghs;
+						}
+						if (this.network == "ths") {
+							this.networkPowerTotal = newVal * this.ths;
+						}
+						if (this.network == "phs") {
+							this.networkPowerTotal = newVal * this.phs;
+						}
+						if (this.network == "ehs") {
+							this.networkPowerTotal = newVal * this.ehs;
+						}
+						this.calculateGoalPower();
+					},
+					goalPower(newVal, oldVal) {
+						if (this.goal == "ghs") {
+							this.goalPowerTotal = newVal * this.ghs;
+						}
+						if (this.goal == "ths") {
+							this.goalPowerTotal = newVal * this.ths;
+						}
+						if (this.goal == "phs") {
+							this.goalPowerTotal = newVal * this.phs;
+						}
+						if (this.goal == "ehs") {
+							this.goalPowerTotal = newVal * this.ehs;
+						}
+						this.calculateGoalPower();
+					},
+				},
+				methods: {
+					GetSymbol(num) {
+						return num > 0 ? "+" : "-";
+					},
+					GetDualCurrency() {
+						var API = `https://sheets.googleapis.com/v4/spreadsheets/${this.ID_TOKEN}/values/${this.Sheet_Name}?alt=json&key=${this.API_KEY}`;
+						fetch(API)
+							.then((res) => {
+								return res.json();
+							})
+							.then((data) => {
+								this.DualCurrency = data.values[1];
+							});
+					},
+
+					toPoint(value, point) {
+						if (value) {
+							return Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					toPointPercent(value, point) {
+						if (value) {
+							return Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					getData() {
+						var API = "https://api1.binance.com/api/v3/ticker/24hr";
+						let ws = new WebSocket("wss://stream.binance.com:9443/ws/!ticker@arr");
+						var _this = this;
+						ws.onopen = function () {
+							console.log("Binance connected...");
+						};
+						ws.onmessage = function (event) {
+							let data = JSON.parse(event.data);
+							data.forEach((v, i) => {
+								if (v.s == "BTCUSDT") {
+									_this.BTCUSDT = v;
+								}
+								if (v.s == "DOGEUSDT") {
+									_this.DOGEUSDT = v;
+								}
+								if (v.s == "ETHUSDT") {
+									_this.ETHUSDT = v;
+								}
+								if (v.s == "BCHUSDT") {
+									_this.BCHUSDT = v;
+								}
+								if (v.s == "CAKEUSDT") {
+									_this.CAKEUSDT = v;
+								}
+							});
+						};
+
+						ws.onclose = function () {
+							console.log("Binance disconnected");
+						};
+					},
+					runTime() {
+						this.timer = setInterval(() => {
+							this.getData();
+						}, 5000);
+					},
+					stopTime() {
+						clearInterval(this.timer);
+					},
+					calculateGoalPower() {
+						var exp_reward = this.blockAmount * (this.goalPowerTotal / this.networkPowerTotal);
+						//All timers are now the same 2021-04-19
+						const BlockTimer = 600;
+						const secFullDay = 86400;
+
+						const dailyBtcBlocks = secFullDay / BlockTimer;
+						const dailyDogeBlocks = secFullDay / BlockTimer;
+						const dailyEthBlocks = secFullDay / BlockTimer;
+						var btcResult = (exp_reward * dailyBtcBlocks).toFixed(4);
+						var dogeResult = (exp_reward * dailyDogeBlocks).toFixed(4);
+						var ethResult = (exp_reward * dailyEthBlocks).toFixed(4);
+						var rltResult = (exp_reward * dailyEthBlocks).toFixed(4);
+						if (this.block == "BTC") {
+							this.expReward = `${exp_reward.toFixed(4)} Satoshi`;
+							this.daily = `${btcResult} Satoshi = ${Math.round(btcResult) * 0.00000001 * this.BTCUSDT.c} USDT`;
+							this.weekly = `${(btcResult * 7).toFixed(4)} Satoshi = ${Math.round((btcResult * 7).toFixed(4)) * 0.00000001 * this.BTCUSDT.c} USDT`;
+							this.monthly = `${(btcResult * 30).toFixed(4)} Satoshi = ${Math.round((btcResult * 30).toFixed(4)) * 0.00000001 * this.BTCUSDT.c} USDT`;
+						}
+						if (this.block == "DOGE") {
+							this.expReward = `${exp_reward.toFixed(4)} Doge`;
+							this.daily = `${dogeResult} Doge = ${dogeResult * this.DOGEUSDT.c}`;
+							this.weekly = `${(dogeResult * 7).toFixed(4)} Doge = ${(dogeResult * 7).toFixed(4) * this.DOGEUSDT.c} USDT`;
+							this.monthly = `${(dogeResult * 30).toFixed(4)} Doge = ${(dogeResult * 30).toFixed(4) * this.DOGEUSDT.c} USDT`;
+						}
+						if (this.block == "ETH") {
+							this.expReward = `${exp_reward.toFixed(8)} Etherium`;
+							this.daily = `${ethResult}  Etherium = ${ethResult * this.ETHUSDT.c}`;
+							this.weekly = `${(ethResult * 7).toFixed(4)} Etherium = ${ethResult * 7 * this.ETHUSDT.c} USDT`;
+							this.monthly = `${(ethResult * 30).toFixed(4)} Etherium = ${ethResult * 30 * this.ETHUSDT.c} USDT`;
+						}
+						if (this.block == "RLT") {
+							this.expReward = `${exp_reward.toFixed(8)} Rollertoken`;
+							this.daily = `${rltResult} Rollertoken`;
+							this.weekly = `${(rltResult * 7).toFixed(4)} Rollertoken`;
+							this.monthly = `${(rltResult * 30).toFixed(4)} Rollertoken`;
+						}
+					},
+				},
+			}).mount("#app");
 		</script>
 	</body>
 </html>

@@ -257,13 +257,18 @@
 						}
 					},
 					getData() {
-						let ws = new WebSocket("wss://stream.binance.com:9443/ws/!ticker@arr");
+						var API = "wss://stream.binance.com:9443/ws/!ticker@arr";
+						let ws = new WebSocket(API);
 						var _this = this;
+						ws.addEventListener("error", function (event) {
+							console.log("WebSocket error: ", event);
+						});
 						ws.onopen = function () {
 							console.log("Binance connected...");
 						};
 						ws.onmessage = function (event) {
 							let data = JSON.parse(event.data);
+							console.log(data);
 							data.forEach((v, i) => {
 								if (v.s == "BTCUSDT") {
 									_this.BTCUSDT = v;

@@ -257,7 +257,6 @@
 						}
 					},
 					getData() {
-						var API = "https://api1.binance.com/api/v3/ticker/24hr";
 						let ws = new WebSocket("wss://stream.binance.com:9443/ws/!ticker@arr");
 						var _this = this;
 						ws.onopen = function () {

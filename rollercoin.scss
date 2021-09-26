@@ -110,6 +110,13 @@
 					}
 				}
 			}
+			&.bnb {
+				.crypto-price__title {
+					span:nth-child(1) {
+						background-image: url("../images/bnb.png");
+					}
+				}
+			}
 		}
 		&__price {
 			width: 45%;

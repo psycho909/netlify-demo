@@ -265,14 +265,14 @@
 						}
 					},
 					getData() {
-						var API = "wss://ftx.com/ws/";
+						var API = "wss://api.hbdm.com/option-ws";
 						let ws = new WebSocket(API);
 						var _this = this;
 						ws.addEventListener("error", function (event) {
 							console.log("WebSocket error: ", event);
 						});
 						ws.onopen = function () {
-							var str = JSON.stringify({ op: "subscribe", channel: "trades", market: "BTC-PERP" });
+							var str = JSON.stringify({ op: "subscribe", channel: "ticker", market: "BTC-USDT" });
 							ws.send(str);
 							console.log("Binance connected...");
 						};

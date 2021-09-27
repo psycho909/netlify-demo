@@ -265,20 +265,14 @@
 						}
 					},
 					getData() {
-						var API = "wss://stream.crypto.com/v2/market";
+						var API = "wss://ftx.com/ws/";
 						let ws = new WebSocket(API);
 						var _this = this;
 						ws.addEventListener("error", function (event) {
 							console.log("WebSocket error: ", event);
 						});
 						ws.onopen = function () {
-							var str = JSON.stringify({
-								id: 11,
-								method: "subscribe",
-								params: {
-									channels: ["ticker.BTC_USDT", "ticker.ETH_USDT", "ticker.DOGE_USDT", "ticker.BCH_USDT"],
-								},
-							});
+							var str = JSON.stringify({ op: "subscribe", channel: "trades", market: "BTC-PERP" });
 							ws.send(str);
 							console.log("Binance connected...");
 						};

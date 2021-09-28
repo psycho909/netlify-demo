@@ -229,7 +229,7 @@
 				},
 				methods: {
 					GetSymbol(num) {
-						return num > 0 ? "+" : "-";
+						return num > 0 ? "+" : "";
 					},
 					GetDualCurrency() {
 						var API = `https://sheets.googleapis.com/v4/spreadsheets/${this.ID_TOKEN}/values/${this.Sheet_Name}?alt=json&key=${this.API_KEY}`;

@@ -53,6 +53,20 @@
 						<div :class="[CAKEUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(CAKEUSDT.priceChangePercent)}}{{toPointPercent(CAKEUSDT.priceChangePercent,2)}}%</div>
 					</div>
 				</div>
+				<div class="crypto-price__box bnb">
+					<h3 class="crypto-price__title"><span></span><span>BNB</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BNBUSDT.lastPrice,2)}}</div>
+						<div :class="[BNBUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(BNBUSDT.priceChangePercent)}}{{toPointPercent(BNBUSDT.priceChangePercent,2)}}%</div>
+					</div>
+				</div>
+				<div class="crypto-price__box alpaca">
+					<h3 class="crypto-price__title"><span></span><span>ALPACA</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(ALPACAUSDT.lastPrice,2)}}</div>
+						<div :class="[ALPACAUSDT.priceChangePercent > 0?'green':'red']">{{GetSymbol(ALPACAUSDT.priceChangePercent)}}{{toPointPercent(ALPACAUSDT.priceChangePercent,2)}}%</div>
+					</div>
+				</div>
 			</div>
 			<div class="RollerCoin-wrap mb-3">
 				<div class="power-box mr-3">
@@ -185,6 +199,8 @@
 						ETHUSDT: {},
 						BCHUSDT: {},
 						CAKEUSDT: {},
+						BNBUSDT: {},
+						ALPACAUSDT: {},
 						timer: null,
 						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
 						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
@@ -276,6 +292,12 @@
 									}
 									if (v.symbol == "CAKEUSDT") {
 										this.CAKEUSDT = v;
+									}
+									if (v.symbol == "BNBUSDT") {
+										this.BNBUSDT = v;
+									}
+									if (v.symbol == "ALPACAUSDT") {
+										this.ALPACAUSDT = v;
 									}
 								});
 							});

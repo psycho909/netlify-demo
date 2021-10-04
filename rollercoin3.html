@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 	<head>
@@ -216,47 +217,6 @@
 						}
 					},
 					getData() {
-<<<<<<< .mine
-						var API = "wss://contract.mexc.com/ws";
-						let ws = new WebSocket(API);
-						var _this = this;
-						ws.addEventListener("error", function (event) {
-							console.log("WebSocket error: ", event);
-						});
-						ws.onopen = function () {
-							var str = JSON.stringify({ method: "sub.tickers" });
-							ws.send(str);
-							console.log("Binance connected...");
-						};
-						ws.onmessage = function (event) {
-							let data = JSON.parse(event.data);
-							console.log(data);
-							data.data.forEach((v, i) => {
-								if (v.symbol == "BTC_USDT") {
-									_this.BTCUSDT = v;
-								}
-								if (v.symbol == "DOGE_USDT") {
-									_this.DOGEUSDT = v;
-								}
-								if (v.symbol == "ETH_USDT") {
-									_this.ETHUSDT = v;
-								}
-								if (v.symbol == "BCH_USDT") {
-									_this.BCHUSDT = v;
-								}
-								if (v.symbol == "CAKE_USDT") {
-									_this.CAKEUSDT = v;
-								}
-								if (v.symbol == "BNB_USDT") {
-									_this.BNBUSDT = v;
-								}
-							});
-						};
-
-						ws.onclose = function () {
-							console.log("Binance disconnected");
-						};
-=======
 						var API = "https://www.mexc.com/open/api/v2/market/ticker";
 						fetch(API)
 							.then((res) => res.json())
@@ -267,36 +227,6 @@
 									}
 								});
 							});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
 					},
 					runTime() {
 						this.timer = setInterval(() => {

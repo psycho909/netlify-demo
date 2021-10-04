@@ -67,6 +67,7 @@
 				height: vw(50);
 				margin-right: vw(12);
 				flex-shrink: 0;
+				border-radius: 50%;
 			}
 		}
 		&__box {
@@ -76,52 +77,80 @@
 			font-size: vw(32);
 			border-bottom: 1px solid #222222;
 			margin-right: 0;
-			&.btc {
+			&.btc,
+			&.BTC {
 				.crypto-price__title {
 					span:nth-child(1) {
 						background-image: url("../images/btc.png");
 					}
 				}
 			}
-			&.eth {
+			&.eth,
+			&.ETH {
 				.crypto-price__title {
 					span:nth-child(1) {
 						background-image: url("../images/eth.png");
 					}
 				}
 			}
-			&.cake {
+			&.cake,
+			&.CAKE {
 				.crypto-price__title {
 					span:nth-child(1) {
 						background-image: url("../images/cake.png");
 					}
 				}
 			}
-			&.doge {
+			&.doge,
+			&.DOGE {
 				.crypto-price__title {
 					span:nth-child(1) {
 						background-image: url("../images/doge.png");
 					}
 				}
 			}
-			&.bch {
+			&.bch,
+			&.BCH {
 				.crypto-price__title {
 					span:nth-child(1) {
 						background-image: url("../images/bch.png");
 					}
 				}
 			}
-			&.bnb {
+			&.bnb,
+			&.BNB {
 				.crypto-price__title {
 					span:nth-child(1) {
 						background-image: url("../images/bnb.png");
 					}
 				}
 			}
-			&.alpaca {
+			&.alpaca,
+			&.ALPACA {
 				.crypto-price__title {
 					span:nth-child(1) {
 						background-image: url("../images/alpaca.webp");
+					}
+				}
+			}
+			&.BSW {
+				.crypto-price__title {
+					span:nth-child(1) {
+						background-image: url("../images/BSW.png");
+					}
+				}
+			}
+			&.BABY {
+				.crypto-price__title {
+					span:nth-child(1) {
+						background-image: url("../images/BABY.png");
+					}
+				}
+			}
+			&.ZOO {
+				.crypto-price__title {
+					span:nth-child(1) {
+						background-image: url("../images/ZOO.png");
 					}
 				}
 			}

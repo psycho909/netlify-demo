@@ -1,0 +1,17 @@
+{
+	"name": "netlify-dev",
+	"version": "1.0.0",
+	"description": "",
+	"main": "add-to-calendar.js",
+	"dependencies": {
+		"node-fetch": "^3.0.0",
+		"netlify-cli": "^6.9.28"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}

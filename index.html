@@ -106,7 +106,13 @@
 			</div>
 		</div>
 		<script>
-			alert("test")
+			$.ajax({
+				url: "/api/hello",
+				methods: "GET",
+				success: function (data) {
+					console.log(data);
+				},
+			});
 			var vm = new Vue({
 				el: "#app",
 				created() {},

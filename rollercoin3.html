@@ -11,55 +11,9 @@
 	<body>
 		<div id="app">
 			<div class="crypto-price mb-3">
-				<div class="crypto-price__box btc">
-					<h3 class="crypto-price__title">
-						<span></span>
-						<span>BTC</span>
-					</h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(BTCUSDT.c,2)}}</div>
-						<div :class="[BTCUSDT.P > 0?'green':'red']">{{GetSymbol(BTCUSDT.P)}}{{toPointPercent(BTCUSDT.P,2)}}%</div>
-					</div>
-					<div v-if="DualCurrency[0] > 0" class="crypto-price__dual"><span>BTC</span><span :class="[DualCurrencyBTC?'green':'red']">{{DualCurrency[0]}}</span><span>{{DualCurrencyBTC?'&#128512;':'&#9888;&#65039;'}}</span></div>
-					<div v-if="DualCurrency[1] > 0" class="crypto-price__dual"><span>BTC-U</span><span :class="[DualCurrencyBTCU?'green':'red']">{{DualCurrency[1]}}</span><span>{{DualCurrencyBTCU?'&#128512;':'&#9888;&#65039;'}}</span></div>
-				</div>
-				<div class="crypto-price__box eth">
-					<h3 class="crypto-price__title"><span></span><span>ETH</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(ETHUSDT.c,2)}}</div>
-						<div :class="[ETHUSDT.P > 0?'green':'red']">{{GetSymbol(ETHUSDT.P)}}{{toPointPercent(ETHUSDT.P,2)}}%</div>
-					</div>
-					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
-					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
-				</div>
-				<div class="crypto-price__box doge">
-					<h3 class="crypto-price__title"><span></span><span>DOGE</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(DOGEUSDT.c,4)}}</div>
-						<div :class="[DOGEUSDT.P > 0?'green':'red']">{{GetSymbol(DOGEUSDT.P)}}{{toPointPercent(DOGEUSDT.P,2)}}%</div>
-					</div>
-				</div>
-				<div class="crypto-price__box bch">
-					<h3 class="crypto-price__title"><span></span><span>BCH</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(BCHUSDT.c,2)}}</div>
-						<div :class="[BCHUSDT.P > 0?'green':'red']">{{GetSymbol(BCHUSDT.P)}}{{toPointPercent(BCHUSDT.P,2)}}%</div>
-					</div>
-				</div>
-				<div class="crypto-price__box cake">
-					<h3 class="crypto-price__title"><span></span><span>CAKE</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(CAKEUSDT.c,2)}}</div>
-						<div :class="[CAKEUSDT.P > 0?'green':'red']">{{GetSymbol(CAKEUSDT.P)}}{{toPointPercent(CAKEUSDT.P,2)}}%</div>
-					</div>
-				</div>
-				<div class="crypto-price__box bnb">
-					<h3 class="crypto-price__title"><span></span><span>BNB</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(BNBUSDT.c,2)}}</div>
-						<div :class="[BNBUSDT.P > 0?'green':'red']">{{GetSymbol(BNBUSDT.P)}}{{toPointPercent(BNBUSDT.P,2)}}%</div>
-					</div>
-				</div>
+				<template v-if="Object.keys(CRYPTOS_JSON).length">
+					<price v-for="c in CRYPTOS" :crypto="CRYPTOS_JSON[c]"></price>
+				</template>
 			</div>
 			<div class="RollerCoin-wrap mb-3">
 				<div class="power-box mr-3">
@@ -187,12 +141,8 @@
 						phs: 1000000000000000,
 						ehs: 1000000000000000000,
 						double: false,
-						BTCUSDT: {},
-						DOGEUSDT: {},
-						ETHUSDT: {},
-						BCHUSDT: {},
-						CAKEUSDT: {},
-						BNBUSDT: {},
+						CRYPTOS: ["BTC_USDT", "DOGE_USDT", "ETH_USDT", "BCH_USDT", "CAKE_USDT", "BNB_USDT", "ALPACA_USDT", "BSW_USDT", "BABY_USDT"],
+						CRYPTOS_JSON: {},
 						timer: null,
 						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
 						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
@@ -259,12 +209,14 @@
 					},
 					toPointPercent(value, point) {
 						if (value) {
-							return Number(value).toFixed(point);
+							var _value = value * 100;
+							return Number(_value).toFixed(point);
 						} else {
 							return 0;
 						}
 					},
 					getData() {
+<<<<<<< .mine
 						var API = "wss://contract.mexc.com/ws";
 						let ws = new WebSocket(API);
 						var _this = this;
@@ -304,6 +256,47 @@
 						ws.onclose = function () {
 							console.log("Binance disconnected");
 						};
+=======
+						var API = "https://www.mexc.com/open/api/v2/market/ticker";
+						fetch(API)
+							.then((res) => res.json())
+							.then((data) => {
+								data.data.forEach((v, i) => {
+									if (this.CRYPTOS.indexOf(v.symbol) > -1) {
+										this.CRYPTOS_JSON[v.symbol] = v;
+									}
+								});
+							});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
 					},
 					runTime() {
 						this.timer = setInterval(() => {
@@ -352,7 +345,45 @@
 						}
 					},
 				},
-			}).mount("#app");
+			});
+			app.component("price", {
+				props: ["crypto"],
+				template: `
+					<div class="crypto-price__box" :class="SliceName(crypto.symbol)">
+						<h3 class="crypto-price__title"><span></span><span>{{SliceName(crypto.symbol)}}</span></h3>
+						<div class="crypto-price__price">
+							<div>{{toPoint(crypto.bid,2)}}</div>
+							<div :class="[crypto.change_rate > 0?'green':'red']">{{GetSymbol(crypto.change_rate)}}{{toPointPercent(crypto.change_rate,2)}}%</div>
+						</div>
+					</div>
+				`,
+				methods: {
+					SliceName(name) {
+						if (name) {
+							return name.slice(0, -5);
+						}
+					},
+					GetSymbol(num) {
+						return num > 0 ? "+" : "";
+					},
+					toPoint(value, point) {
+						if (value) {
+							return "$" + Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					toPointPercent(value, point) {
+						if (value) {
+							var _value = value * 100;
+							return Number(_value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+				},
+			});
+			app.mount("#app");
 		</script>
 	</body>
 </html>

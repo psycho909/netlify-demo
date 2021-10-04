@@ -265,40 +265,40 @@
 						}
 					},
 					getData() {
-						var API = "wss://api.hbdm.com/option-ws";
+						var API = "wss://contract.mexc.com/ws";
 						let ws = new WebSocket(API);
 						var _this = this;
 						ws.addEventListener("error", function (event) {
 							console.log("WebSocket error: ", event);
 						});
 						ws.onopen = function () {
-							var str = JSON.stringify({ op: "subscribe", channel: "ticker", market: "BTC-USDT" });
+							var str = JSON.stringify({ method: "sub.tickers" });
 							ws.send(str);
 							console.log("Binance connected...");
 						};
 						ws.onmessage = function (event) {
 							let data = JSON.parse(event.data);
 							console.log(data);
-							// data.forEach((v, i) => {
-							// 	if (v.s == "BTCUSDT") {
-							// 		_this.BTCUSDT = v;
-							// 	}
-							// 	if (v.s == "DOGEUSDT") {
-							// 		_this.DOGEUSDT = v;
-							// 	}
-							// 	if (v.s == "ETHUSDT") {
-							// 		_this.ETHUSDT = v;
-							// 	}
-							// 	if (v.s == "BCHUSDT") {
-							// 		_this.BCHUSDT = v;
-							// 	}
-							// 	if (v.s == "CAKEUSDT") {
-							// 		_this.CAKEUSDT = v;
-							// 	}
-							// 	if (v.s == "BNBUSDT") {
-							// 		_this.BNBUSDT = v;
-							// 	}
-							// });
+							data.data.forEach((v, i) => {
+								if (v.symbol == "BTC_USDT") {
+									_this.BTCUSDT = v;
+								}
+								if (v.symbol == "DOGE_USDT") {
+									_this.DOGEUSDT = v;
+								}
+								if (v.symbol == "ETH_USDT") {
+									_this.ETHUSDT = v;
+								}
+								if (v.symbol == "BCH_USDT") {
+									_this.BCHUSDT = v;
+								}
+								if (v.symbol == "CAKE_USDT") {
+									_this.CAKEUSDT = v;
+								}
+								if (v.symbol == "BNB_USDT") {
+									_this.BNBUSDT = v;
+								}
+							});
 						};
 
 						ws.onclose = function () {

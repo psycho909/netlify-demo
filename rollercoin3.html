@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>RollerCoin 計算機</title>
+		<title>RollerCoin 計算機3</title>
 		<link rel="stylesheet" href="rollercoin.css" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
 	</head>
@@ -73,10 +73,12 @@
 		</div>
 		<script>
 			var app = Vue.createApp({
-				mounted() {
+				created() {
 					this.getData();
-					this.runTime();
 					this.GetDualCurrency();
+				},
+				mounted() {
+					this.runTime();
 				},
 				computed: {
 					DualCurrencyBTC() {
@@ -141,14 +143,14 @@
 						phs: 1000000000000000,
 						ehs: 1000000000000000000,
 						double: false,
-						CRYPTOS: ["BTC_USDT", "DOGE_USDT", "ETH_USDT", "BCH_USDT", "CAKE_USDT", "BNB_USDT", "ALPACA_USDT", "BSW_USDT", "BABY_USDT", "ZOO_USDT"],
+						CRYPTOS: ["BTC_USDT", "ETH_USDT", "BCH_USDT", "CAKE_USDT", "BNB_USDT", "ALPACA_USDT", "BSW_USDT", "BABY_USDT", "ZOO_USDT"],
 						CRYPTOS_JSON: {},
 						timer: null,
 						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
 						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
 						Sheet_Name: "DualCurrency",
 						DualCurrency: [],
-						duration: 2000,
+						duration: 1000,
 					};
 				},
 				watch: {

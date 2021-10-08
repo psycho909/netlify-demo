@@ -93,6 +93,7 @@
 							<option value="BTC">Bitcoin (BTC)</option>
 							<option value="DOGE">Doge (DOGE)</option>
 							<option value="ETH">Etherium (ETH)</option>
+							<option value="BNB">Binance Coin (BNB)</option>
 							<option value="RLT">RollerToken (RLT)</option>
 						</select>
 					</div>
@@ -158,6 +159,12 @@
 								return 0.005 * 2;
 							}
 							return 0.005;
+						}
+						if (this.block == "BNB") {
+							if (this.double) {
+								return 0.012 * 2;
+							}
+							return 0.012;
 						}
 						if (this.block == "RLT") {
 							if (this.double) {
@@ -319,10 +326,12 @@
 						const dailyBtcBlocks = secFullDay / BlockTimer;
 						const dailyDogeBlocks = secFullDay / BlockTimer;
 						const dailyEthBlocks = secFullDay / BlockTimer;
+						const dailyBnbBlocks = secFullDay / BlockTimer;
 						var btcResult = (exp_reward * dailyBtcBlocks).toFixed(4);
 						var dogeResult = (exp_reward * dailyDogeBlocks).toFixed(4);
-						var ethResult = (exp_reward * dailyEthBlocks).toFixed(4);
-						var rltResult = (exp_reward * dailyEthBlocks).toFixed(4);
+						var ethResult = (exp_reward * dailyEthBlocks).toFixed(6);
+						var bnbResult = (exp_reward * dailyEthBlocks).toFixed(6);
+						var rltResult = (exp_reward * dailyBnbBlocks).toFixed(4);
 						if (this.block == "BTC") {
 							this.expReward = `${exp_reward.toFixed(4)} Satoshi`;
 							this.daily = `${btcResult} Satoshi = ${Math.round(btcResult) * 0.00000001 * this.BTCUSDT.c} USDT`;
@@ -340,6 +349,12 @@
 							this.daily = `${ethResult}  Etherium = ${ethResult * this.ETHUSDT.c}`;
 							this.weekly = `${(ethResult * 7).toFixed(4)} Etherium = ${ethResult * 7 * this.ETHUSDT.c} USDT`;
 							this.monthly = `${(ethResult * 30).toFixed(4)} Etherium = ${ethResult * 30 * this.ETHUSDT.c} USDT`;
+						}
+						if (this.block == "BNB") {
+							this.expReward = `${exp_reward.toFixed(8)} BNB`;
+							this.daily = `${bnbResult}  BNB = ${bnbResult * this.BNBUSDT.c}`;
+							this.weekly = `${(bnbResult * 7).toFixed(4)} BNB = ${bnbResult * 7 * this.BNBUSDT.c} USDT`;
+							this.monthly = `${(bnbResult * 30).toFixed(4)} BNB = ${bnbResult * 30 * this.BNBUSDT.c} USDT`;
 						}
 						if (this.block == "RLT") {
 							this.expReward = `${exp_reward.toFixed(8)} Rollertoken`;

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="description" content="跑跑國慶蛋糕-跑跑卡丁車改版再進化<由超可愛的角色、超酷炫的卡丁車陪你一起軋車甩尾!" />
+		<!-- 除了H5活動頁以外都要加上 -->
+		<meta name="open-default-browser" content="true" />
+
+		<!-- fb meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="跑跑卡丁車-跑跑國慶蛋糕" />
+		<meta property="og:description" content="跑跑國慶蛋糕-跑跑卡丁車改版再進化" />
+		<!-- Safari 數字過常會變成可撥打電話 -->
+		<meta name="format-detection" content="telephone=no" />
+
+		<title>跑跑卡丁車-跑跑國慶蛋糕</title>
+		<!-- CSS -->
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" />
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/css/default.css" />
+
+		<!-- JS -->
+		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/konva/8.1.3/konva.min.js"></script>
+		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
+		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
+		<!-- GTM -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({
+					"gtm.start": new Date().getTime(),
+					event: "gtm.js",
+				});
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-5S5J44P");
+		</script>
+	</head>
+
+	<body>
+		<!-- GTM -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5S5J44P" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+
+		<!-- 內容開始 -->
+		<form>
+			<div id="app">
+				<!-- 說明介紹 -->
+				<div class="step-box">
+					<a href="javascript:;" class="step-next"></a>
+					<div class="step show" data-step="1"></div>
+					<div class="step" data-step="2"></div>
+					<div class="step" data-step="3"></div>
+				</div>
+				<a href="javascript:;" class="logo">跑跑卡丁車LOGO</a>
+				<!-- 選單 -->
+				<a href="javascript:;" class="menu-toggle">選單</a>
+				<nav class="menu-list">
+					<span class="menu-list__btn" data-btn="qa">活動說明</span>
+					<span class="menu-list__btn" data-btn="screenshot">蛋糕截圖</span>
+					<span class="menu-list__btn" data-btn="reward" data-reward="none">獎勵領取</span>
+					<span class="menu-list__btn" data-btn="save">蛋糕保存</span>
+					<span class="menu-list__btn" data-btn="reset">蛋糕重置</span>
+				</nav>
+				<!-- 帳號資訊 -->
+				<div class="account-box">
+					<span>蛋糕師傅</span>
+					<span class="account-info"></span>
+					<span>登入中</span>
+				</div>
+				<!-- 製作蛋糕區 -->
+				<div id="container"></div>
+				<!-- 裝飾品區 -->
+				<div class="decoration-wrap">
+					<div class="decoration-tabs">
+						<div class="decoration-tab decoration-tab__cake curr" data-tab="cake">蛋糕體</div>
+						<div class="decoration-tab decoration-tab__deco" data-tab="deco">裝飾物</div>
+					</div>
+					<div class="decoration-contents">
+						<div class="decoration-content decoration-content__cakes curr" data-content="cake">
+							<div class="decoration-content__cakes-box">
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake on">
+										<span data-id="white" data-color="white" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[247,244,223]"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="blue" data-color="blue" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[16,167,230]"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="pink" data-color="pink" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[255,146,146]"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="yellow" data-color="yellow" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[255,194,76]"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="brown" data-color="brown" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[111,77,40]"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="purple" data-color="purple" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[131,64,194]"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="green" data-color="green" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[96,193,91]"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="red" data-color="red" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/white.png" data-rgb="[255,63,63]"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="wood1" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/wood1.png"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="wood2" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/wood2.png"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="marble" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/marble.png"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="rock" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/rock.png"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="star" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/star.png"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="sea" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/sea.png"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="grid" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/grid.png"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="firework" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/cake/firework.png"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="decoration-content decoration-content__decos" data-content="deco">
+							<div class="decoration-content__decos-box">
+								<div class="decoration-content__deco" data-id="candle0" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/candle0.png"></div>
+								<div class="decoration-content__deco" data-id="candle1" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/candle1.png"></div>
+								<div class="decoration-content__deco" data-id="candle11" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/candle11.png"></div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="bow" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/bow.png"></div>
+									<div class="decoration-content__deco" data-id="strawberry" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/strawberry.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="bean" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/bean.png"></div>
+									<div class="decoration-content__deco" data-id="banana1" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/banana1.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="cloud" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/cloud.png"></div>
+									<div class="decoration-content__deco" data-id="banana2" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/banana2.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="face" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/face.png"></div>
+									<div class="decoration-content__deco" data-id="blueball" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/blueball.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="ufo" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/ufo.png"></div>
+									<div class="decoration-content__deco" data-id="shield" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/shield.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="flyball" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/flyball.png"></div>
+									<div class="decoration-content__deco" data-id="fly" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/fly.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="magnet" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/magnet.png"></div>
+									<div class="decoration-content__deco" data-id="n20plus" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/n20plus.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="n20" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/n20.png"></div>
+									<div class="decoration-content__deco" data-id="light" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/light.png"></div>
+								</div>
+								<div class="decoration-content__deco-box">
+									<div class="decoration-content__deco" data-id="bomb" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/bomb.png"></div>
+									<div class="decoration-content__deco" data-id="crystal" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/crystal.png"></div>
+								</div>
+								<div class="decoration-content__deco" data-id="red" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/red.png"></div>
+								<div class="decoration-content__deco" data-id="blue" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/blue.png"></div>
+								<div class="decoration-content__deco" data-id="yellow" data-src="https://tw.hicdn.beanfun.com/beanfun/promo/KR/E20211008_H5/images/deco/yellow.png"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<script src="js/lightbox.js"></script>
+		<script src="js/api.js"></script>
+		<script src="js/default.js"></script>
+	</body>
+</html>

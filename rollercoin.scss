@@ -52,6 +52,9 @@
 		background-color: #14121d;
 		color: #fff;
 	}
+	input {
+		display: none;
+	}
 	.crypto-price {
 		flex-direction: column;
 		padding: vw(16);

@@ -12,7 +12,7 @@
 		<div id="app">
 			<div class="crypto-price mb-3">
 				<template v-if="Object.keys(CRYPTOS_JSON).length">
-					<price v-for="c in CRYPTOS" :crypto="CRYPTOS_JSON[c]"></price>
+					<price v-for="c in CRYPTOS" :crypto="CRYPTOS_JSON[c]" @changecrypto="changetitle"></price>
 				</template>
 			</div>
 			<div class="RollerCoin-wrap mb-3">
@@ -143,7 +143,7 @@
 						phs: 1000000000000000,
 						ehs: 1000000000000000000,
 						double: false,
-						CRYPTOS: ["BTC_USDT", "ETH_USDT", "BCH_USDT", "CAKE_USDT", "BNB_USDT", "ALPACA_USDT", "BSW_USDT", "BABY_USDT", "ZOO_USDT"],
+						CRYPTOS: ["BTC_USDT", "ETH_USDT", "DOGE_USDT", "BCH_USDT", "CAKE_USDT", "BNB_USDT", "ALPACA_USDT", "BSW_USDT", "BABY_USDT", "ZOO_USDT"],
 						CRYPTOS_JSON: {},
 						timer: null,
 						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
@@ -151,6 +151,7 @@
 						Sheet_Name: "DualCurrency",
 						DualCurrency: [],
 						duration: 1000,
+						Title: "ETH_USDT",
 					};
 				},
 				watch: {
@@ -189,6 +190,14 @@
 					},
 				},
 				methods: {
+					changetitle(data) {
+						this.Title = data;
+					},
+					GetTitle() {
+						if (Object.keys(this.CRYPTOS_JSON).length) {
+							document.title = this.CRYPTOS_JSON[this.Title].bid;
+						}
+					},
 					GetSymbol(num) {
 						return num > 0 ? "+" : "";
 					},
@@ -233,6 +242,7 @@
 					runTime() {
 						this.timer = setInterval(() => {
 							this.getData();
+							this.GetTitle();
 						}, this.duration);
 					},
 					stopTime() {
@@ -285,16 +295,32 @@
 						default: {},
 					},
 				},
+				data() {
+					return {
+						title: "",
+					};
+				},
+				watch: {
+					title(newVal) {
+						this.ChangeCrypto(newVal);
+					},
+				},
 				template: `
 					<div v-if="Object.keys(crypto).length" class="crypto-price__box" :class="SliceName(crypto.symbol)">
-						<h3 class="crypto-price__title"><span></span><span>{{SliceName(crypto.symbol)}}</span></h3>
-						<div class="crypto-price__price">
-							<div>{{toPoint(crypto.bid,2)}}</div>
-							<div :class="[crypto.change_rate > 0?'green':'red']">{{GetSymbol(crypto.change_rate)}}{{toPointPercent(crypto.change_rate,2)}}%</div>
-						</div>
+						<label :for="crypto.symbol">
+							<input type="radio" :id="crypto.symbol" name="crypto" :value="crypto.symbol" v-model="title" />
+							<h3 class="crypto-price__title"><span></span><span>{{SliceName(crypto.symbol)}}</span></h3>
+							<div class="crypto-price__price">
+								<div>{{toPoint(crypto.bid,2)}}</div>
+								<div :class="[crypto.change_rate > 0?'green':'red']">{{GetSymbol(crypto.change_rate)}}{{toPointPercent(crypto.change_rate,2)}}%</div>
+							</div>
+						</label>
 					</div>
 				`,
 				methods: {
+					ChangeCrypto(data) {
+						this.$emit("changecrypto", data);
+					},
 					SliceName(name) {
 						if (name) {
 							return name.slice(0, -5);

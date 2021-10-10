@@ -190,8 +190,10 @@
 	}
 	&-token {
 		display: flex;
-		&__name {
-			width: 30%;
+		span {
+			&:nth-child(1) {
+				width: 30%;
+			}
 		}
 	}
 }

@@ -32,15 +32,6 @@
 					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
 					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
 				</div>
-				<div class="crypto-price__box eth">
-					<h3 class="crypto-price__title"><span></span><span>BNBETH</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(BNBETH.c,4)}}</div>
-						<div :class="[BNBETH.P > 0?'green':'red']">{{GetSymbol(BNBETH.P)}}{{toPointPercent(BNBETH.P,2)}}%</div>
-					</div>
-					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
-					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
-				</div>
 				<div class="crypto-price__box doge">
 					<h3 class="crypto-price__title"><span></span><span>DOGE</span></h3>
 					<div class="crypto-price__price">
@@ -76,23 +67,14 @@
 					<input type="text" v-model="holdPrice" />
 				</div>
 				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">ETHUSDT</span>
-					<span>{{toPoint(holdPrice*ETHUSDT.c,4)}}</span>
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">BNBETH</span>
-					<span>{{toPoint(holdPrice/BNBETH.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdPrice/BNBETH.c,4)<1.46?'red':'green']">1.46</span>
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">BNBUSDT</span>
+					<span class="holdPrice-token__name">BNB</span>
 					<span>{{toPoint(holdPrice*ETHUSDT.c/BNBUSDT.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdPrice*ETHUSDT.c/BNBUSDT.c,4)<1.46?'red':'green']">1.46</span>
+					<span class="holdPrice-token__hope" :class="[toPoint(holdPrice*ETHUSDT.c/BNBUSDT.c,4)<1.37?'red':'green']">1.37</span>
 				</div>
 				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">CAKEUSDT</span>
+					<span class="holdPrice-token__name">CAKE</span>
 					<span>{{toPoint(holdPrice*ETHUSDT.c/CAKEUSDT.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdPrice*ETHUSDT.c/CAKEUSDT.c,4)<31.9?'red':'green']">31.9</span>
+					<span class="holdPrice-token__hope" :class="[toPoint(holdPrice*ETHUSDT.c/CAKEUSDT.c,4)<29.4?'red':'green']">29.4</span>
 				</div>
 			</div>
 			<div class="interest-box">
@@ -141,7 +123,7 @@
 						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
 						Sheet_Name: "DualCurrency",
 						DualCurrency: [],
-						holdPrice: 0.17312224,
+						holdPrice: 0.1624253,
 					};
 				},
 				watch: {},

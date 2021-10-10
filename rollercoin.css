@@ -46,4 +46,6 @@
 
 .holdPrice-token { display: -webkit-box; display: -ms-flexbox; display: flex; }
 
-.holdPrice-token__name { width: 30%; }
+.holdPrice-token__name { width: 25%; }
+
+.holdPrice-token__hope { margin-left: auto; }

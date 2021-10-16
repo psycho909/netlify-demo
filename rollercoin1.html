@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>RollerCoin 計算機</title>
+		<title>Crypto特別版</title>
 		<link rel="stylesheet" href="rollercoin.css" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
 	</head>
@@ -111,6 +111,10 @@
 					<span class="holdPrice-token__hope" :class="[toPoint(holdUSDT/CAKEUSDT.c,4)<31.9?'red':'green']">31.9</span>
 				</div>
 			</div>
+			<div class="date-switch">
+				<input type="text" v-model.lazy="date" />
+				<span>{{SwitchDate}}</span>
+			</div>
 			<div class="interest-box">
 				<div class="interest-price__box"><span>金額:</span><input type="text" v-model="interestPrice" /></div>
 				<div class="interest-rate__box"><span>年利率</span><input type="text" v-model="interestRate" /><span>%</span></div>
@@ -140,6 +144,13 @@
 					interestTotal() {
 						return (this.interestPrice * (this.interestRate / 100)) / 365;
 					},
+					SwitchDate() {
+						var d = `${this.date} UTC`;
+						var now = new Date(d);
+						if (this.date) {
+							return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours() < 10 ? "0" + now.getHours() : now.getHours()}:${now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes()}:00`;
+						}
+					}
 				},
 				data() {
 					return {
@@ -159,6 +170,7 @@
 						DualCurrency: [],
 						holdETH: 0.17312224,
 						holdUSDT: 627,
+						date: ""
 					};
 				},
 				watch: {},
@@ -239,8 +251,8 @@
 					},
 					stopTime() {
 						clearInterval(this.timer);
-					},
-				},
+					}
+				}
 			}).mount("#app");
 		</script>
 	</body>

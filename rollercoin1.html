@@ -72,43 +72,8 @@
 			</div>
 			<div class="mb-3 holdPrice-box">
 				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">ETH</span>
-					<input type="text" v-model="holdETH" />
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">ETHUSDT</span>
-					<span>{{toPoint(holdETH*ETHUSDT.c,4)}}</span>
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">BNBETH</span>
-					<span>{{toPoint(holdETH/BNBETH.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdETH/BNBETH.c,4)<1.46?'red':'green']">1.46</span>
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">BNBUSDT</span>
-					<span>{{toPoint(holdETH*ETHUSDT.c/BNBUSDT.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdETH*ETHUSDT.c/BNBUSDT.c,4)<1.46?'red':'green']">1.46</span>
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">CAKEUSDT</span>
-					<span>{{toPoint(holdETH*ETHUSDT.c/CAKEUSDT.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdETH*ETHUSDT.c/CAKEUSDT.c,4)<31.9?'red':'green']">31.9</span>
-				</div>
-			</div>
-			<div class="mb-3 holdPrice-box">
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">USDT</span>
-					<input type="text" v-model="holdUSDT" />
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">BNBUSDT</span>
-					<span>{{toPoint(holdUSDT/BNBUSDT.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdUSDT/BNBUSDT.c,4)<1.46?'red':'green']">1.46</span>
-				</div>
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">CAKEUSDT</span>
-					<span>{{toPoint(holdUSDT/CAKEUSDT.c,4)}}</span>
-					<span class="holdPrice-token__hope" :class="[toPoint(holdUSDT/CAKEUSDT.c,4)<31.9?'red':'green']">31.9</span>
+					<span class="holdPrice-token__name">BNB/{{hold.name}}</span>
+					<span>{{toPoint(hold.price*DOGEUSDT.c/BNBUSDT.c,4)}}</span>
 				</div>
 			</div>
 			<div class="date-switch">
@@ -126,7 +91,7 @@
 				mounted() {
 					this.getData();
 					// this.runTime();
-					this.GetDualCurrency();
+					// this.GetDualCurrency();
 				},
 				computed: {
 					DualCurrencyBTC() {
@@ -168,8 +133,10 @@
 						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
 						Sheet_Name: "DualCurrency",
 						DualCurrency: [],
-						holdETH: 0.17312224,
-						holdUSDT: 627,
+						hold: {
+							name: "DOGE",
+							price: 1375.7137
+						},
 						date: ""
 					};
 				},

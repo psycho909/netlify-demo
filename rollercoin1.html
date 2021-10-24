@@ -157,7 +157,7 @@
 				},
 				template: `
 					<div v-if="Object.keys(crypto).length" class="crypto-price__box" :class="SliceName(crypto.s)">
-						<h3 class="crypto-price__title"><span></span><span>{{crypto.s}}</span></h3>
+						<h3 class="crypto-price__title"><span></span><span>{{SliceName(crypto.s)}}</span></h3>
 						<div class="crypto-price__price">
 							<div>{{toPoint(crypto.c,2)}}</div>
 							<div :class="[crypto.P > 0?'green':'red']">{{GetSymbol(crypto.P)}}{{toPointPercent(crypto.P,2)}}%</div>

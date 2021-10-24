@@ -15,12 +15,6 @@
 					<price v-for="c in CRYPTOS" :crypto="CRYPTOS_JSON[c]"></price>
 				</template>
 			</div>
-			<div class="mb-3 holdPrice-box">
-				<div class="holdPrice-token">
-					<span class="holdPrice-token__name">BNB/{{hold.name}}</span>
-					<span>{{toPoint(hold.price*DOGEUSDT.c/BNBUSDT.c,4)}}</span>
-				</div>
-			</div>
 			<div class="date-switch">
 				<input type="text" v-model.lazy="date" />
 				<span>{{SwitchDate}}</span>
@@ -147,7 +141,7 @@
 			app.component("price", {
 				props: {
 					crypto: {
-						type: Function,
+						type: Object,
 						default: {}
 					}
 				},

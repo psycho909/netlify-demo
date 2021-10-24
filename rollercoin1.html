@@ -41,20 +41,6 @@
 					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
 					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
 				</div>
-				<div class="crypto-price__box doge">
-					<h3 class="crypto-price__title"><span></span><span>DOGE</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(DOGEUSDT.c,4)}}</div>
-						<div :class="[DOGEUSDT.P > 0?'green':'red']">{{GetSymbol(DOGEUSDT.P)}}{{toPointPercent(DOGEUSDT.P,2)}}%</div>
-					</div>
-				</div>
-				<div class="crypto-price__box bch">
-					<h3 class="crypto-price__title"><span></span><span>BCH</span></h3>
-					<div class="crypto-price__price">
-						<div>${{toPoint(BCHUSDT.c,2)}}</div>
-						<div :class="[BCHUSDT.P > 0?'green':'red']">{{GetSymbol(BCHUSDT.P)}}{{toPointPercent(BCHUSDT.P,2)}}%</div>
-					</div>
-				</div>
 				<div class="crypto-price__box cake">
 					<h3 class="crypto-price__title"><span></span><span>CAKE</span></h3>
 					<div class="crypto-price__price">

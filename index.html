@@ -64,8 +64,8 @@
 				console.log(e);
 			}
 			function PostImageToFacebook(authToken) {
-				var canvas = document.getElementById("c");
-				var imageData = canvas.toDataURL("image/png");
+				var canvas = document.getElementById("canvas");
+				var imageData = canvas.toDataURL("./images/FB1200.jpg");
 				try {
 					blob = dataURItoBlob(imageData);
 				} catch (e) {

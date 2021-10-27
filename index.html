@@ -10,7 +10,7 @@
 		<title></title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -109,9 +109,21 @@
 					console.log(e);
 				}
 			}
-
+			const postRandomQuote = () => {
+				axios
+					.post("https://graph.facebook.com/102329958564659/photos?", {
+						message: "https://source.unsplash.com/weekly?water",
+						access_token: "EAATWqnRZC9HgBAIFoRLczbFY6mFB4eKgKmBgoR62wjCdgFY4mvmrfj7uBIHQtjoIZCxLwaSc7SDjri34cA4TakO19NZBVjcc780u8J2OENU22OyvJ7WjwUwnXwUor6j6ybYO8zabfLulQEEwN5QWPcNBPktAvu3Dji4PuIsVIsRl4MmYbZCgG1F07t0ZBOa75KZABZB3XKmKQtYpMukSBbX"
+					})
+					.then((res) => {
+						const result = res.data;
+						console.log(result);
+						console.log("success!!!");
+					});
+			};
 			document.getElementById("btn").addEventListener("click", function () {
-				PostImageToFacebook("607fb7424a6b999280ab4b4e32569b98");
+				// PostImageToFacebook("607fb7424a6b999280ab4b4e32569b98");
+				postRandomQuote();
 			});
 		</script>
 	</body>

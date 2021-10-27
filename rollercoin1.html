@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Crypto特別版</title>
+		<link rel="stylesheet" href="rollercoin.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="crypto-price mb-3">
+				<template v-if="Object.keys(CRYPTOS_JSON).length">
+					<price v-for="c in CRYPTOS" :crypto="CRYPTOS_JSON[c]"></price>
+				</template>
+			</div>
+			<div class="date-switch">
+				<input type="text" v-model.lazy="date" />
+				<span>{{SwitchDate}}</span>
+			</div>
+			<div class="interest-box">
+				<div class="interest-price__box"><span>金額:</span><input type="text" v-model="interestPrice" /></div>
+				<div class="interest-rate__box"><span>年利率</span><input type="text" v-model="interestRate" /><span>%</span></div>
+				<div class="interest-total">{{interestTotal}}</div>
+			</div>
+		</div>
+		<script>
+			var app = Vue.createApp({
+				mounted() {
+					this.getData();
+					// this.runTime();
+					// this.GetDualCurrency();
+				},
+				computed: {
+					DualCurrencyBTC() {
+						return this.BTCUSDT.c < this.DualCurrency[0];
+					},
+					DualCurrencyBTCU() {
+						return this.BTCUSDT.c > this.DualCurrency[1];
+					},
+					DualCurrencyETH() {
+						return this.ETHUSDT.c < this.DualCurrency[2];
+					},
+					DualCurrencyETHU() {
+						return this.ETHUSDT.c > this.DualCurrency[3];
+					},
+					interestTotal() {
+						return (this.interestPrice * (this.interestRate / 100)) / 365;
+					},
+					SwitchDate() {
+						var d = `${this.date} UTC`;
+						var now = new Date(d);
+						if (this.date) {
+							return `${now.getMonth() + 1}-${now.getDate()} ${now.getHours() < 10 ? "0" + now.getHours() : now.getHours()}:${now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes()}`;
+						}
+					}
+				},
+				data() {
+					return {
+						interestPrice: 0,
+						interestRate: 0,
+						CRYPTOS: ["BTCUSDT", "ETHUSDT", "CAKEUSDT", "BNBUSDT"],
+						CRYPTOS_JSON: {},
+						timer: null,
+						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
+						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
+						Sheet_Name: "DualCurrency",
+						DualCurrency: [],
+						hold: {
+							name: "DOGE",
+							price: 1375.7137
+						},
+						date: ""
+					};
+				},
+				watch: {},
+				methods: {
+					GetSymbol(num) {
+						return num > 0 ? "+" : "";
+					},
+					GetDualCurrency() {
+						var API = `https://sheets.googleapis.com/v4/spreadsheets/${this.ID_TOKEN}/values/${this.Sheet_Name}?alt=json&key=${this.API_KEY}`;
+						fetch(API)
+							.then((res) => {
+								return res.json();
+							})
+							.then((data) => {
+								this.DualCurrency = data.values[1];
+							});
+					},
+
+					toPoint(value, point) {
+						if (value) {
+							return Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					toPointPercent(value, point) {
+						if (value) {
+							return Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					getData() {
+						var API = "wss://stream.binance.com:9443/ws/!ticker@arr";
+						let ws = new WebSocket(API);
+						var _this = this;
+						ws.addEventListener("error", function (event) {
+							console.log("WebSocket error: ", event);
+						});
+						ws.onopen = function () {
+							console.log("Binance connected...");
+						};
+						ws.onmessage = function (event) {
+							let data = JSON.parse(event.data);
+
+							data.forEach((v, i) => {
+								if (_this.CRYPTOS.indexOf(v.s) > -1) {
+									_this.CRYPTOS_JSON[v.s] = v;
+								}
+							});
+						};
+
+						ws.onclose = function () {
+							console.log("Binance disconnected");
+						};
+					},
+					runTime() {
+						this.timer = setInterval(() => {
+							this.getData();
+						}, 5000);
+					},
+					stopTime() {
+						clearInterval(this.timer);
+					}
+				}
+			});
+			app.component("price", {
+				props: {
+					crypto: {
+						type: Object,
+						default: {}
+					}
+				},
+				data() {
+					return {
+						title: ""
+					};
+				},
+				watch: {
+					title(newVal) {
+						this.ChangeCrypto(newVal);
+					}
+				},
+				template: `
+					<div v-if="Object.keys(crypto).length" class="crypto-price__box" :class="SliceName(crypto.s)">
+						<h3 class="crypto-price__title"><span></span><span>{{SliceName(crypto.s)}}</span></h3>
+						<div class="crypto-price__price">
+							<div>{{toPoint(crypto.c,2)}}</div>
+							<div :class="[crypto.P > 0?'green':'red']">{{GetSymbol(crypto.P)}}{{toPointPercent(crypto.P,2)}}%</div>
+						</div>
+					</div>
+				`,
+				methods: {
+					ChangeCrypto(data) {
+						this.$emit("changecrypto", data);
+					},
+					SliceName(name) {
+						if (name) {
+							return name.replace("USDT", "");
+						}
+					},
+					GetSymbol(num) {
+						return num > 0 ? "+" : "";
+					},
+					toPoint(value, point) {
+						if (value) {
+							return "$" + Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					toPointPercent(value, point) {
+						if (value) {
+							return value;
+						} else {
+							return 0;
+						}
+					}
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

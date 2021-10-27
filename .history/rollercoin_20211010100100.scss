@@ -186,15 +186,14 @@
 }
 .holdPrice {
 	&-box {
-		width: 400px;
+		width: 300px;
 	}
 	&-token {
 		display: flex;
-		&__name {
-			width: 25%;
-		}
-		&__hope {
-			margin-left: auto;
+		span {
+			&:nth-child(1) {
+				width: 30%;
+			}
 		}
 	}
 }

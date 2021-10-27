@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>RollerCoin 計算機</title>
+		<link rel="stylesheet" href="rollercoin.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="crypto-price mb-3">
+				<div class="crypto-price__box btc">
+					<h3 class="crypto-price__title">
+						<span></span>
+						<span>BTC</span>
+					</h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BTCUSDT.c,2)}}</div>
+						<div :class="[BTCUSDT.P > 0?'green':'red']">{{GetSymbol(BTCUSDT.P)}}{{toPointPercent(BTCUSDT.P,2)}}%</div>
+					</div>
+					<div v-if="DualCurrency[0] > 0" class="crypto-price__dual"><span>BTC</span><span :class="[DualCurrencyBTC?'green':'red']">{{DualCurrency[0]}}</span><span>{{DualCurrencyBTC?'&#128512;':'&#9888;&#65039;'}}</span></div>
+					<div v-if="DualCurrency[1] > 0" class="crypto-price__dual"><span>BTC-U</span><span :class="[DualCurrencyBTCU?'green':'red']">{{DualCurrency[1]}}</span><span>{{DualCurrencyBTCU?'&#128512;':'&#9888;&#65039;'}}</span></div>
+				</div>
+				<div class="crypto-price__box eth">
+					<h3 class="crypto-price__title"><span></span><span>ETH</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(ETHUSDT.c,2)}}</div>
+						<div :class="[ETHUSDT.P > 0?'green':'red']">{{GetSymbol(ETHUSDT.P)}}{{toPointPercent(ETHUSDT.P,2)}}%</div>
+					</div>
+					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
+					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
+				</div>
+				<div class="crypto-price__box eth">
+					<h3 class="crypto-price__title"><span></span><span>BNBETH</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BNBETH.c,4)}}</div>
+						<div :class="[BNBETH.P > 0?'green':'red']">{{GetSymbol(BNBETH.P)}}{{toPointPercent(BNBETH.P,2)}}%</div>
+					</div>
+					<div v-if="DualCurrency[2] > 0" class="crypto-price__dual"><span>ETH</span><span :class="[DualCurrencyETH?'green':'red']">{{DualCurrency[2]}}</span><span>{{DualCurrencyETH?'&#128512;':'&#9888;&#65039;'}}</span></div>
+					<div v-if="DualCurrency[3] > 0" class="crypto-price__dual"><span>ETH-U</span><span :class="[DualCurrencyETHU?'green':'red']">{{DualCurrency[3]}}</span><span>{{DualCurrencyETHU?'&#128512;':'&#9888;&#65039;'}}</span></div>
+				</div>
+				<div class="crypto-price__box doge">
+					<h3 class="crypto-price__title"><span></span><span>DOGE</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(DOGEUSDT.c,4)}}</div>
+						<div :class="[DOGEUSDT.P > 0?'green':'red']">{{GetSymbol(DOGEUSDT.P)}}{{toPointPercent(DOGEUSDT.P,2)}}%</div>
+					</div>
+				</div>
+				<div class="crypto-price__box bch">
+					<h3 class="crypto-price__title"><span></span><span>BCH</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BCHUSDT.c,2)}}</div>
+						<div :class="[BCHUSDT.P > 0?'green':'red']">{{GetSymbol(BCHUSDT.P)}}{{toPointPercent(BCHUSDT.P,2)}}%</div>
+					</div>
+				</div>
+				<div class="crypto-price__box cake">
+					<h3 class="crypto-price__title"><span></span><span>CAKE</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(CAKEUSDT.c,2)}}</div>
+						<div :class="[CAKEUSDT.P > 0?'green':'red']">{{GetSymbol(CAKEUSDT.P)}}{{toPointPercent(CAKEUSDT.P,2)}}%</div>
+					</div>
+				</div>
+				<div class="crypto-price__box bnb">
+					<h3 class="crypto-price__title"><span></span><span>BNB</span></h3>
+					<div class="crypto-price__price">
+						<div>${{toPoint(BNBUSDT.c,2)}}</div>
+						<div :class="[BNBUSDT.P > 0?'green':'red']">{{GetSymbol(BNBUSDT.P)}}{{toPointPercent(BNBUSDT.P,2)}}%</div>
+					</div>
+				</div>
+			</div>
+			<div class="mb-3 holdPrice-box">
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">ETH</span>
+					<input type="text" v-model="holdETH" />
+				</div>
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">ETHUSDT</span>
+					<span>{{toPoint(holdETH*ETHUSDT.c,4)}}</span>
+				</div>
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">BNBETH</span>
+					<span>{{toPoint(holdETH/BNBETH.c,4)}}</span>
+					<span class="holdPrice-token__hope" :class="[toPoint(holdETH/BNBETH.c,4)<1.46?'red':'green']">1.46</span>
+				</div>
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">BNBUSDT</span>
+					<span>{{toPoint(holdETH*ETHUSDT.c/BNBUSDT.c,4)}}</span>
+					<span class="holdPrice-token__hope" :class="[toPoint(holdETH*ETHUSDT.c/BNBUSDT.c,4)<1.46?'red':'green']">1.46</span>
+				</div>
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">CAKEUSDT</span>
+					<span>{{toPoint(holdETH*ETHUSDT.c/CAKEUSDT.c,4)}}</span>
+					<span class="holdPrice-token__hope" :class="[toPoint(holdETH*ETHUSDT.c/CAKEUSDT.c,4)<31.9?'red':'green']">31.9</span>
+				</div>
+			</div>
+			<div class="mb-3 holdPrice-box">
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">USDT</span>
+					<input type="text" v-model="holdUSDT" />
+				</div>
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">BNBUSDT</span>
+					<span>{{toPoint(holdUSDT/BNBUSDT.c,4)}}</span>
+					<span class="holdPrice-token__hope" :class="[toPoint(holdUSDT/BNBUSDT.c,4)<1.46?'red':'green']">1.46</span>
+				</div>
+				<div class="holdPrice-token">
+					<span class="holdPrice-token__name">CAKEUSDT</span>
+					<span>{{toPoint(holdUSDT/CAKEUSDT.c,4)}}</span>
+					<span class="holdPrice-token__hope" :class="[toPoint(holdUSDT/CAKEUSDT.c,4)<31.9?'red':'green']">31.9</span>
+				</div>
+			</div>
+			<div class="interest-box">
+				<div class="interest-price__box"><span>金額:</span><input type="text" v-model="interestPrice" /></div>
+				<div class="interest-rate__box"><span>年利率</span><input type="text" v-model="interestRate" /><span>%</span></div>
+				<div class="interest-total">{{interestTotal}}</div>
+			</div>
+		</div>
+		<script>
+			var app = Vue.createApp({
+				mounted() {
+					this.getData();
+					// this.runTime();
+					this.GetDualCurrency();
+				},
+				computed: {
+					DualCurrencyBTC() {
+						return this.BTCUSDT.c < this.DualCurrency[0];
+					},
+					DualCurrencyBTCU() {
+						return this.BTCUSDT.c > this.DualCurrency[1];
+					},
+					DualCurrencyETH() {
+						return this.ETHUSDT.c < this.DualCurrency[2];
+					},
+					DualCurrencyETHU() {
+						return this.ETHUSDT.c > this.DualCurrency[3];
+					},
+					interestTotal() {
+						return (this.interestPrice * (this.interestRate / 100)) / 365;
+					},
+				},
+				data() {
+					return {
+						interestPrice: 0,
+						interestRate: 0,
+						BTCUSDT: {},
+						DOGEUSDT: {},
+						ETHUSDT: {},
+						BCHUSDT: {},
+						CAKEUSDT: {},
+						BNBUSDT: {},
+						BNBETH: {},
+						timer: null,
+						ID_TOKEN: "1YXtM-dGqnu5wy8iI3xxl0h92QstxFW5CQ1cyOHQ_nk8",
+						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
+						Sheet_Name: "DualCurrency",
+						DualCurrency: [],
+						holdETH: 0.17312224,
+						holdUSDT: 627,
+					};
+				},
+				watch: {},
+				methods: {
+					GetSymbol(num) {
+						return num > 0 ? "+" : "";
+					},
+					GetDualCurrency() {
+						var API = `https://sheets.googleapis.com/v4/spreadsheets/${this.ID_TOKEN}/values/${this.Sheet_Name}?alt=json&key=${this.API_KEY}`;
+						fetch(API)
+							.then((res) => {
+								return res.json();
+							})
+							.then((data) => {
+								this.DualCurrency = data.values[1];
+							});
+					},
+
+					toPoint(value, point) {
+						if (value) {
+							return Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					toPointPercent(value, point) {
+						if (value) {
+							return Number(value).toFixed(point);
+						} else {
+							return 0;
+						}
+					},
+					getData() {
+						var API = "wss://stream.binance.com:9443/ws/!ticker@arr";
+						let ws = new WebSocket(API);
+						var _this = this;
+						ws.addEventListener("error", function (event) {
+							console.log("WebSocket error: ", event);
+						});
+						ws.onopen = function () {
+							console.log("Binance connected...");
+						};
+						ws.onmessage = function (event) {
+							let data = JSON.parse(event.data);
+							data.forEach((v, i) => {
+								if (v.s == "BTCUSDT") {
+									_this.BTCUSDT = v;
+								}
+								if (v.s == "DOGEUSDT") {
+									_this.DOGEUSDT = v;
+								}
+								if (v.s == "ETHUSDT") {
+									_this.ETHUSDT = v;
+								}
+								if (v.s == "BCHUSDT") {
+									_this.BCHUSDT = v;
+								}
+								if (v.s == "CAKEUSDT") {
+									_this.CAKEUSDT = v;
+								}
+								if (v.s == "BNBUSDT") {
+									_this.BNBUSDT = v;
+								}
+								if (v.s == "BNBETH") {
+									_this.BNBETH = v;
+								}
+							});
+						};
+
+						ws.onclose = function () {
+							console.log("Binance disconnected");
+						};
+					},
+					runTime() {
+						this.timer = setInterval(() => {
+							this.getData();
+						}, 5000);
+					},
+					stopTime() {
+						clearInterval(this.timer);
+					},
+				},
+			}).mount("#app");
+		</script>
+	</body>
+</html>

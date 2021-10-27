@@ -32,6 +32,17 @@
 		</style>
 	</head>
 	<body>
+		<script>
+			window.fbAsyncInit = function () {
+				FB.init({
+					appId: "607fb7424a6b999280ab4b4e32569b98",
+					autoLogAppEvents: true,
+					xfbml: true,
+					version: "v12.0"
+				});
+			};
+		</script>
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 		<div id="app" class="pb-3 container">
 			<img id="img" src="./images/FB1200.jpg" />
 			<div id="poster"></div>
@@ -100,7 +111,7 @@
 			}
 
 			document.getElementById("btn").addEventListener("click", function () {
-				PostImageToFacebook("4bda31129a355361dd7f9e4574966a78");
+				PostImageToFacebook("607fb7424a6b999280ab4b4e32569b98");
 			});
 		</script>
 	</body>

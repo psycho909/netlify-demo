@@ -15,6 +15,11 @@
 					<price v-for="c in CRYPTOS" :crypto="CRYPTOS_JSON[c]"></price>
 				</template>
 			</div>
+			<div class="current">
+				<input type="text" v-model="holdUSDT" />
+				<p v-if="CRYPTOS_JSON['CAKEUSDT']">{{holdUSDT/CRYPTOS_JSON["CAKEUSDT"].c}}</p>
+			</div>
+			<br />
 			<div class="date-switch">
 				<input type="text" v-model.lazy="date" />
 				<span>{{SwitchDate}}</span>
@@ -67,10 +72,7 @@
 						API_KEY: "AIzaSyDTc1HMsxlYTyCeGgKRs3GzLSieQtoOQ3I",
 						Sheet_Name: "DualCurrency",
 						DualCurrency: [],
-						hold: {
-							name: "DOGE",
-							price: 1375.7137
-						},
+						holdUSDT: 109.53226927094264928,
 						date: ""
 					};
 				},

@@ -40,13 +40,13 @@
 			google: "Google 活動行事曆提醒",
 			ios: "IOS 活動行事曆提醒",
 			outlook: "Outlook 活動行事曆提醒",
-			ienoblob: "Sorry, your browser does not support downloading Calendar events.",
-		},
+			ienoblob: "Sorry, your browser does not support downloading Calendar events."
+		}
 	};
 	var calendarData = {
 		google: "",
 		ios: "",
-		outlook: "",
+		outlook: ""
 	};
 	var ieCanDownload = "msSaveOrOpenBlob" in window.navigator;
 	var ieMustDownload = /\b(MSIE |Trident.*?rv:|Edge\/)(\d+)/.exec(navigator.userAgent);
@@ -77,7 +77,7 @@
 		},
 		outlook: function (event) {
 			return this.ics(event);
-		},
+		}
 	};
 	var formatTime = function (date) {
 		return date.toISOString().replace(/-|:|\.\d+/g, "");
@@ -164,7 +164,7 @@
 		return {
 			google: google,
 			ios: ios,
-			outlook: outlook,
+			outlook: outlook
 		};
 	};
 	var validParams = function (params) {
@@ -224,8 +224,6 @@
 		if (ieCanDownload) {
 			var blob = new Blob([cal], { type: "text/calendar" });
 			window.navigator.msSaveOrOpenBlob(blob, CONFIG.texts.download);
-		} else {
-			alert(CONFIG.texts.ienoblob);
 		}
 	};
 	exports.createCalendar = function (params) {
@@ -246,7 +244,6 @@
 			return success;
 		}
 		if (!validParams(params)) {
-			console.log("Event details missing.");
 			return;
 		}
 		return generateMarkup(params, generateCalendar(params.data));
@@ -268,13 +265,12 @@
 			}
 		});
 		observer.observe(target, {
-			childList: true, // 观察直接子节点
-			subtree: true, // 及其更低的后代节点
-			characterDataOldValue: false, // 将旧的数据传递给回调
+			childList: true,
+			subtree: true,
+			characterDataOldValue: false
 		});
 	} else {
 		target.addEventListener("DOMSubtreeModified", function () {
-			console.log(123);
 			calendarInit();
 		});
 	}

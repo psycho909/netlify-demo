@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="exampleContents">
+				<h1>Sharing an Image</h1>
+				<img src="./images/header1.jpg" alt='Nacho Libre saying "take it easy"' />
+				<button id="btn" class="pure-button pure-button-primary share-button">Share Image</button>
+			</div>
+		</div>
+		<script>
+			async function onShare() {
+				const response = await fetch("./images/header1.jpg");
+				const blob = await response.blob();
+				const filesArray = [new File([blob], "./images/header1.jpg", { type: "image/jpeg", lastModified: new Date().getTime() })];
+				const shareData = {
+					files: filesArray,
+					title: "MDN",
+					text: "Learn web development on MDN!",
+					url: "https://developer.mozilla.org"
+				};
+				navigator.share(shareData).then(() => {
+					console.log("Shared successfully");
+				});
+			}
+			document.getElementById("btn").addEventListener("click", function () {
+				onShare();
+			});
+		</script>
+	</body>
+</html>

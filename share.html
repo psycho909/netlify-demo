@@ -15,6 +15,14 @@
 	</head>
 	<body>
 		<div id="app">
+			<div class="container">
+				<div class="row">
+					<input id="upload" type="file" accept="image/*" />
+				</div>
+				<div class="row">
+					<img id="upload-img" />
+				</div>
+			</div>
 			<div class="exampleContents">
 				<h1>Sharing an Image</h1>
 				<img src="./images/header1.jpg" alt='Nacho Libre saying "take it easy"' />
@@ -22,10 +30,33 @@
 			</div>
 		</div>
 		<script>
+			const uploadButton = document.getElementById("upload");
+			const imgDOM = document.getElementById("upload-img");
+
+			function createImageFromFile(img, file) {
+				return new Promise((resolve, rejfect) => {
+					img.src = URL.createObjectURL(file);
+					img.onload = () => {
+						URL.revokeObjectURL(img.src);
+						resolve(img);
+					};
+					img.onerror = () => reject("Failure to load image.");
+				});
+			}
+
+			function handleFiles() {
+				const fileList = this.files;
+				const [file] = fileList;
+				console.log(file);
+				createImageFromFile(imgDOM, file).then((img) => console.log(img));
+			}
+
+			uploadButton.addEventListener("change", handleFiles, false);
 			async function onShare() {
 				const response = await fetch("./images/header1.jpg");
 				const blob = await response.blob();
-				const filesArray = [new File([blob], "./images/header1.jpg", { type: "image/jpeg", lastModified: new Date().getTime() })];
+				const filesArray = [new File([blob], "header1.jpg", { type: "image/jpeg", lastModified: new Date().getTime() })];
+				console.log(filesArray);
 				const shareData = {
 					files: filesArray,
 					title: "MDN",

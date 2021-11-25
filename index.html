@@ -3,13 +3,11 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>exchange</title>
-		<link rel="icon" type="image/svg+xml" href="exchange.svg" />
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous" />
+
+		<title></title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://unpkg.com/vue/dist/vue.js"></script>
-
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -32,187 +30,50 @@
 	</head>
 	<body>
 		<div id="app" class="pb-3 container">
-			<div class="row">
-				<div class="col bg-primary py-3"></div>
-			</div>
-			<div class="row">
-				<div class="col py-3">
-					<button class="btn btn-primary" @click="getData()">立即更新</button>
-				</div>
-				<div class="col py-3">
-					<button class="btn btn-primary" @click="stopTime()">OFF</button>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<div>BTCUSDT</div>
-					<div>{{BTCUSDT.lastPrice}}</div>
-				</div>
-				<div class="col">
-					<div>ETHBTC</div>
-					<div>{{ETHBTC.lastPrice}}</div>
-				</div>
-				<div class="col">
-					<div>ETHUSDT</div>
-					<div>{{ETHUSDT.lastPrice}}</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-check col py-2">
-					<input class="form-check-input" type="radio" name="switchA" id="switchA" value="A" v-model="exchange" />
-					<label class="form-check-label" for="switchA">A to B</label>
-				</div>
-				<div class="form-check col py-2">
-					<input class="form-check-input" type="radio" name="switchB" id="switchB" value="B" v-model="exchange" />
-					<label class="form-check-label" for="switchB">B to A</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col py-2">當前</div>
-				<div class="col py-2">
-					<input class="form-control" type="number" v-model="current" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col py-2">買入價格</div>
-				<div class="col py-2">賣出價格</div>
-			</div>
-			<div class="row">
-				<div class="col py-2">
-					<input class="form-control" type="number" v-model="buy" />
-				</div>
-				<div class="col py-2">
-					<input class="form-control" type="number" v-model="sell" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col py-2">換得</div>
-				<div class="col py-2">{{buyCanGet}}</div>
-			</div>
-			<div class="row">
-				<div class="col py-2">賣出</div>
-				<div class="col py-2">{{sellCanGet}}</div>
-				<div class="col py-2">{{switchSellGet()}}</div>
-			</div>
-			<div class="row">
-				<div class="col py-2">漲幅%</div>
-				<div class="col py-2">漲幅</div>
-				<div class="col py-2">可獲得</div>
-			</div>
-			<div class="row" v-for="(f,index) in forecast">
-				<div class="col py-2">{{percent[index]}}%</div>
-				<div class="col py-2">{{f}}</div>
-				<div class="col py-2">{{switchFGet(f)}}</div>
-			</div>
+			<canvas id="canvas"></canvas>
 		</div>
 		<script>
-			$.ajax({
-				url: "/api/hello",
-				methods: "GET",
-				success: function (data) {
-					console.log(data);
-				},
-			});
-			var vm = new Vue({
-				el: "#app",
-				created() {},
-				mounted() {
-					this.getData();
-					this.runTime();
-				},
-				data: {
-					percent: [0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05],
-					forecast: [],
-					buy: 0,
-					sell: 0,
-					current: 0,
-					exchange: "A",
-					BTCUSDT: {},
-					ETHBTC: {},
-					ETHUSDT: {},
-					timer: null,
-				},
-				computed: {
-					buyCanGet() {
-						if (this.current === 0 || this.buy === 0) {
-							return 0;
-						}
-						if (this.exchange == "A") {
-							return this.current / this.buy;
-						} else {
-							return this.current * this.buy;
-						}
-					},
-					sellCanGet() {
-						if (this.current === 0 || this.sell === 0) {
-							return 0;
-						}
-						if (this.exchange == "A") {
-							return this.sell * this.buyCanGet;
-						} else {
-							return this.sell * this.current;
-						}
-					},
-				},
-				watch: {
-					buy: {
-						immediate: false,
-						handler(newV, olV) {
-							this.forecast = [];
-							this.percent.forEach((v, i) => {
-								this.forecast.push(+newV + +newV * v);
-							});
-						},
-					},
-				},
-				methods: {
-					switchSellGet() {
-						if (this.exchange == "A") {
-							return this.sellCanGet - this.current;
-						} else {
-							return this.sellCanGet - this.buyCanGet;
-						}
-					},
-					switchFGet(f) {
-						if (this.exchange == "A") {
-							return f * this.buyCanGet;
-						} else {
-							return f * this.current - this.buyCanGet;
-						}
-					},
-					getData() {
-						var _this = this;
-						$.ajax({
-							url: "https://api1.binance.com/api/v3/ticker/24hr",
-							methods: "GET",
-							success: function (data) {
-								data.forEach((v, i) => {
-									if (v.symbol == "BTCUSDT") {
-										_this.BTCUSDT = v;
-									}
-									if (v.symbol == "ETHBTC") {
-										_this.ETHBTC = v;
-									}
-									if (v.symbol == "ETHUSDT") {
-										_this.ETHUSDT = v;
-									}
-								});
-							},
-						});
-						this.stopTime();
-						this.runTime();
-					},
-					runTime() {
-						var _this = this;
-						this.timer = setInterval(() => {
-							_this.getData();
-						}, 1000 * 30);
-					},
-					stopTime() {
-						clearInterval(this.timer);
-					},
-				},
-			});
+			function dataURItoBlob(dataURI) {
+				var byteString;
+				if (dataURI.split(",")[0].indexOf("base64") >= 0) byteString = atob(dataURI.split(",")[1]);
+				else byteString = unescape(dataURI.split(",")[1]);
+
+				var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+
+				var ia = new Uint8Array(byteString.length);
+				for (var i = 0; i < byteString.length; i++) {
+					ia[i] = byteString.charCodeAt(i);
+				}
+
+				return new Blob([ia], { type: mimeString });
+			}
+			var canvas = document.getElementById("canvas");
+			canvas.width = 300;
+			canvas.height = 300;
+			var ctx = canvas.getContext("2d");
+			ctx.rect(80, 80, 50, 50);
+			ctx.fillStyle = "red";
+			ctx.fill();
+			var dataURL = canvas.toDataURL("image/png", 0.5);
+			console.log(dataURL);
+			console.log(dataURL.length);
+			// var imageData = canvas.toDataURL("./images/FB1200.jpg");
+			// var eleAppend = document.getElementById("app");
+
+			// try {
+			// 	var img = document.createElement("img");
+			// 	blob = dataURItoBlob(imageData);
+			// 	img.onload = function (e) {
+			// 		window.URL.revokeObjectURL(img.src); // 清除释放
+			// 	};
+			// 	img.src = window.URL.createObjectURL(blob);
+			// 	eleAppend.appendChild(img);
+			// 	console.log(blob);
+			// } catch (e) {
+			// 	console.log(e);
+			// }
+
+			// document.getElementById("btn").addEventListener("click", function () {});
 		</script>
 	</body>
 </html>

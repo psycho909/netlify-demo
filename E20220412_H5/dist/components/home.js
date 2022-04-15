@@ -22,7 +22,7 @@ let home = {
 		const { MapShow } = until();
 		const { RewardList, EventNotice, SelectName, MessageLB } = lightbox();
 		const eventDate = Vue.ref("4/19 10:00 ~ 5/10 23:59");
-		SelectName();
+		// SelectName();
 		const openLB = (e) => {
 			let type = e.target.dataset.type;
 			switch (type) {
@@ -41,7 +41,7 @@ let home = {
 			}
 		};
 		return { eventDate, openLB };
-	},
+	}
 };
 
 export default home;

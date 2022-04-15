@@ -1,0 +1,77 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-family: $font-family;
+	box-sizing: border-box;
+}
+// 防止ios double tap螢幕放大
+html,
+body {
+	touch-action: manipulation;
+}
+@supports (-webkit-touch-callout: none) {
+	body {
+		/* The hack for Safari */
+		height: -webkit-fill-available;
+	}
+}
+a {
+	display: inline-block;
+	&:focus-visible {
+		outline: none;
+	}
+}
+a[href] {
+	cursor: pointer;
+}
+.cur-p {
+	cursor: pointer;
+}
+[hidden] {
+	display: none !important;
+}
+.d-hide,
+.d-hidden,
+.d-none,
+.hide,
+.hidden {
+	display: none !important;
+}
+.v-hide {
+	visibility: hidden;
+}
+
+[data-open="true"] {
+	opacity: 1;
+	visibility: visible;
+	transform: translate(0);
+	transition: all 0.6s;
+}
+[data-open="false"] {
+	opacity: 0;
+	visibility: hidden;
+	transform: translate(0);
+	transition: all 0.6s;
+}
+.clearfix {
+	overflow: hidden;
+	&::after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+}
+
+button {
+	background: none;
+	border: none;
+	color: inherit;
+	font: inherit;
+	outline: none;
+	padding: 0;
+}
+.text-ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

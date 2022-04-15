@@ -1,0 +1,8 @@
+$font-family: "PingFangTC-Regular", "Heiti TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$bg-color: #fff;
+$min-w: 1200px;
+
+@mixin body($type: "rwd") {
+	@if ($type == "rwd") {
+	}
+}

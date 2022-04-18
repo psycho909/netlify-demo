@@ -29,21 +29,20 @@ import fight from "../components/fight.js";
 import home from "../components/home.js";
 import bossMap from "../components/map.js";
 import store from "../store/index.js";
-
 const app = Vue.createApp({
 	components: {
 		home,
 		bossMap,
-		fight,
+		fight
 	},
 	setup() {
 		const store = Vuex.useStore();
 
 		store.dispatch("bossInit", {
 			BossLevel: 2,
-			BossHealth: 10,
+			BossHealth: 10
 		});
-	},
+	}
 });
 app.use(store);
 app.mount("#app");

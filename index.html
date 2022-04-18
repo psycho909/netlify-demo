@@ -32,12 +32,31 @@
 	</head>
 	<body>
 		<div id="app" class="pb-3 container">
-			<img src="https://i.imgur.com/2cPUcja.png" alt="" />
+			<img src="" alt="" id="img1" />
 			<a href="https://line.me/R/msg/text/?印尼漁工染疫搭機赴澎湖%0D%0Ahttps://www.nownews.com/news/5477714" target="_blank">分享 LINE</a>
 			<a href="https://www.facebook.com/sharer/sharer.php?u=https://thirsty-boyd-9fa09d.netlify.app/" target="_blank"> Share on Facebook </a>
 			<canvas id="canvas"></canvas>
 		</div>
 		<script>
+			function toDataURL(src, callback) {
+				var img = new Image();
+				var dataURL = "";
+				// img.crossOrigin = "Anonymous";
+				img.onload = function () {
+					var canvas = document.createElement("canvas");
+					var ctx = canvas.getContext("2d");
+					var dataURL;
+					canvas.width = this.width;
+					canvas.height = this.height;
+					ctx.drawImage(this, 0, 0);
+					dataURL = canvas.toDataURL();
+					callback(dataURL);
+				};
+				img.src = src;
+			}
+			toDataURL("https://i.imgur.com/2cPUcja.png", function (dataURL) {
+				document.getElementById("img1").src = dataURL;
+			});
 			var Share = {
 				getMeta: function () {
 					var meta = document.getElementsByTagName("meta");

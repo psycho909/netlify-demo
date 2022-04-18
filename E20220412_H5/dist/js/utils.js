@@ -32,10 +32,11 @@ export default function () {
 	};
 	const MapShow = (ele) => {
 		gsap.set(ele, {
-			display: "block"
+			display: "block",
+			x: 0,
 		});
 		gsap.to(ele, 0.5, {
-			opacity: 1
+			opacity: 1,
 		});
 	};
 	const MapHide = (ele) => {
@@ -43,13 +44,13 @@ export default function () {
 			opacity: 0,
 			onComplete: function () {
 				gsap.set(ele, {
-					display: "none"
+					display: "none",
 				});
-			}
+			},
 		});
 	};
 	return {
 		MapShow,
-		MapHide
+		MapHide,
 	};
 }

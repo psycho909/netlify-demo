@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+	</head>
+	<body>
+		<a href="javascript:;" class="btn-play">播放影片</a>
+		<script>
+			// Loading顯示
+			function loadingShow() {
+				$("#loadingProgress").show();
+			}
+			// Loading隱藏
+			function loadingHide() {
+				$("#loadingProgress").hide();
+			}
+			var tag = document.createElement("script");
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName("script")[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			var config = {
+				addClass: "default",
+				hasCloseBtn: true,
+				hasActionBtn: false,
+				clickBgClose: true,
+				afterOpen: function () {
+					var player;
+					var videoId = document.getElementById("player").getAttribute("data-video");
+					if (!videoId) {
+						return false;
+					}
+					player = new YT.Player("player", {
+						height: "390",
+						width: "640",
+						videoId: videoId,
+						playerVars: {
+							autoplay: 1,
+							playsinline: 1
+						},
+						events: {
+							onReady: onPlayerReady
+						}
+					});
+					function onPlayerReady(e) {
+						e.target.playVideo();
+						if (isMobile.any) {
+							e.target.mute();
+						}
+					}
+				},
+				afterClose: function () {
+					$.gbox.close();
+				}
+			};
+
+			// function OpenVideo() {
+			// 	var videoLB = '<div class="video-lb">\
+			// 		<div class="video-lb__content"><iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/QFvKldJCYmw?playsinline=1&amp;autoplay=1&amp;mute=0&amp;rel=0;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>\
+			// 	</div>';
+
+			// 	$.gbox.open(videoLB, config);
+			// }
+			function OpenVideo() {
+				var videoLB = '<div class="video-lb">\
+		<div class="video-lb__content"><div id="player" data-video="UdiUHkJsQU0"></div></div>\
+	</div>';
+
+				$.gbox.open(videoLB, config);
+			}
+			$(".btn-play").on("click", function () {
+				OpenVideo();
+			});
+		</script>
+	</body>
+</html>

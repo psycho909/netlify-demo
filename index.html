@@ -59,6 +59,7 @@
 		<!-- End Google Tag Manager -->
 	</head>
 	<body>
+		<a href="javascript:;" id="oBtn">Alert</a>
 		<div id="app" class="pb-3 container">
 			<button id="btn">我是按鈕</button>
 			<img src="" alt="" id="img1" />
@@ -67,6 +68,9 @@
 			<canvas id="canvas"></canvas>
 		</div>
 		<script>
+			document.getElementById("oBtn").addEventListener("click",function(){
+				alert("ALERT")
+			})
 			function toDataURL(src, callback) {
 				var img = new Image();
 				var dataURL = "";

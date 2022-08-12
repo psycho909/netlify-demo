@@ -1,12 +1,12 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
 	<channel>
 		<title>《週年回饋》龍谷聖光轉轉樂</title>
 		<description>消費大回饋！盛夏轉一波豪禮放送！</description>
 		<pubDate>Fri, 12 Aug 2022 16:19:00 +0800</pubDate>
 		<link>https://thirsty-boyd-9fa09d.netlify.app/</link>
-<item>
+		<item>
 			<title> 8 Best Ways to Create a New React Application </title>
 			<guid>https://blog.bitsrc.io/6-best-ways-to-create-a-new-react-application-57b17e5d331a</guid>
 			<link> https://blog.bitsrc.io/6-best-ways-to-create-a-new-react-application-57b17e5d331a </link>

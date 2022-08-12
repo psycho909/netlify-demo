@@ -1,17 +1,20 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">sad
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>《週年回饋》龍谷聖光轉轉樂</title>
 		<description>消費大回饋！盛夏轉一波豪禮放送！</description>
 		<pubDate>Fri, 12 Aug 2022 15:00:00 +0800</pubDate>
 		<link>https://thirsty-boyd-9fa09d.netlify.app/</link>
-		<image>
-			<link>https://thirsty-boyd-9fa09d.netlify.app/</link>
-			<url>https://tw.adnew.beanfun.com/ad_image/BFWebCommon_Image/1660112830912.jpg</url>
-			<title>《週年回饋》龍谷聖光轉轉樂</title>
-		</image>
-
+		<item>
+			<title> [EchoJS] blog.openreplay.com </title>
+			<guid>http://www.echojs.com/news/40959</guid>
+			<link> http://www.echojs.com/news/40959 </link>
+			<description>
+			<![CDATA[ <a href="http://www.echojs.com/news/40959">Comments</a> ]]>
+			</description>
+			<comments>http://www.echojs.com/news/40959</comments>
+		</item>
 		<item>
 			<title>文章1</title>
 			<link>https://tw.beanfun.com/</link>
@@ -21,7 +24,7 @@
 			<pubDate>Fri, 12 Aug 2022 15:00:00 +0800</pubDate>
 			<guid>http://www.runoob.com/rss/item0768</guid>
 		</item>
-	<item>
+		<item>
 			<title>213123轉蛋機獎勵共分為史詩/傳奇/上古/神話/代幣.</title>
 			<link>https://tw.beanfun.com/</link>
 			<description><![CDATA[<ul>

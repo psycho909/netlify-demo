@@ -13,6 +13,15 @@
 		</image>
 
 		<item>
+			<title>文章1</title>
+			<link>https://tw.beanfun.com/</link>
+			<description><![CDATA[<ul>
+							<li>轉蛋機獎勵共分為史詩/傳奇/上古/神話/代幣，可於[獎勵介紹]確認各級別所包含的獎勵。</li>
+						</ul></description>]]>
+			<pubDate>Fri, 12 Aug 2022 15:00:00 +0800</pubDate>
+			<guid>http://www.runoob.com/rss/item0768</guid>
+		</item>
+	<item>
 			<title>213123轉蛋機獎勵共分為史詩/傳奇/上古/神話/代幣.</title>
 			<link>https://tw.beanfun.com/</link>
 			<description><![CDATA[<ul>
@@ -31,6 +40,5 @@
 						</ul></description>]]>
 			<pubDate>Fri, 12 Aug 2022 15:00:00 +0800</pubDate>
 		</item>
-
 	</channel>
 </rss>

@@ -1,26 +1,20 @@
-
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
-	<channel>
-		<title>《週年回饋》龍谷聖光轉轉樂</title>
-		<description>消費大回饋！盛夏轉一波豪禮放送！</description>
-		<pubDate>Fri, 12 Aug 2022 15:00:00 +0800</pubDate>
-		<link>https://thirsty-boyd-9fa09d.netlify.app/</link>
-		<atom:link href="https://thirsty-boyd-9fa09d.netlify.app/index.xml" rel="self" type="application/rss+xml" />
-		<generator>https://fetchrss.com</generator>
-		<image>
-			<link>https://thirsty-boyd-9fa09d.netlify.app/</link>
-			<url>https://tw.adnew.beanfun.com/ad_image/BFWebCommon_Image/1660112830912.jpg</url>
-			<title>《週年回饋》龍谷聖光轉轉樂</title>
-		</image>
 
-		<item>
-			<title>轉蛋機獎勵共分為史詩/傳奇/上古/神話/代幣.</title>
-			<link>https://tw.beanfun.com/</link>
-			<description>New XML tutorial on W3Schools</description>
-			<<pubDate>Fri, 12 Aug 2022 15:00:00 +0800</pubDate>
-			<guid isPermaLink="false">https://thirsty-boyd-9fa09d.netlify.app/</guid>
-		</item>
+<channel>
+  <title>W3Schools Home Page</title>
+  <link>https://www.w3schools.com</link>
+  <description>Free web building tutorials</description>
+  <item>
+    <title>RSS Tutorial</title>
+    <link>https://www.w3schools.com/xml/xml_rss.asp</link>
+    <description>New RSS tutorial on W3Schools</description>
+  </item>
+  <item>
+    <title>XML Tutorial</title>
+    <link>https://www.w3schools.com/xml</link>
+    <description>New XML tutorial on W3Schools</description>
+  </item>
+</channel>
 
-	</channel>
 </rss>

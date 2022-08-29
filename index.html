@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-Hant-TW">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!-- ios safari處理 -->
-		<meta name="format-detection" content="date=no" />
-		<meta name="format-detection" content="telephone=no" />
-		<meta name="format-detection" content="address=no" />
-		<meta name="format-detection" content="email=no" />
-		<meta name="open-default-browser" content="true" />
-		<title>《週年回饋》龍谷聖光轉轉樂</title>
-		<meta name="description" content="消費大回饋！盛夏轉一波豪禮放送！" />
-		<!-- 社群 -->
-		<meta property="og:title" content="《週年回饋》龍谷聖光轉轉樂" />
-		<meta property="og:description" content="消費大回饋！盛夏轉一波豪禮放送！" />
-		<meta property="og:url" />
-		<meta property="og:type" content="website" />
-		<style></style>
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
 	</head>
 	<body>
-		<h2 class="title">This is a HomePage</h2>
-		<div class="content">This is a content</div>
+		<div id="app"></div>
+		<script>
+			if (window.localStorage.getItem("name")) {
+				var name = window.localStorage.getItem("name");
+				$("#app").html(name);
+			} else {
+				window.localStorage.setItem("name", "HELLO WORLD");
+			}
+		</script>
 	</body>
 </html>

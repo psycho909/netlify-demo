@@ -15,12 +15,13 @@
 	</head>
 	<body>
 		<div id="app">
+			<div class="text"></div>
 			<button type="button" class="clip">複製</button>
 		</div>
 		<script>
 			if (window.localStorage.getItem("name")) {
 				var name = window.localStorage.getItem("name");
-				$("#app").html(name);
+				$(".text").html(name);
 			} else {
 				window.localStorage.setItem("name", "HELLO WORLD");
 			}

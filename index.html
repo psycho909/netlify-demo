@@ -14,7 +14,9 @@
 		</style>
 	</head>
 	<body>
-		<div id="app"></div>
+		<div id="app">
+			<button type="button" class="clip">複製</button>
+		</div>
 		<script>
 			if (window.localStorage.getItem("name")) {
 				var name = window.localStorage.getItem("name");
@@ -22,6 +24,12 @@
 			} else {
 				window.localStorage.setItem("name", "HELLO WORLD");
 			}
+			$(".clip").on("click", function () {
+				navigator.clipboard.writeText("sadasdkasodkpasdoasd");
+				navigator.clipboard.readText().then((clipText) => {
+					console.log(clipText);
+				});
+			});
 		</script>
 	</body>
 </html>

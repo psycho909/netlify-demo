@@ -824,11 +824,11 @@ loadingProgress({
 			getTarget(hash);
 		}
 		if (!mbOpen) {
-			$(".entry__video1")[0].load();
+			// $(".entry__video1")[0].load();
 			$(".entry__video1")[0].play();
 		} else {
 			// 測試
-			$(".entry__video1")[0].load();
+			// $(".entry__video1")[0].load();
 			$(".entry__video1")[0].play();
 		}
 		var footerHTML = "";

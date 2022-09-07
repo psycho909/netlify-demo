@@ -3,7 +3,15 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>這是測試網站</title>
+		<!-- fb meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="這是測試網站" />
+		<meta property="og:description" content="這是測試網站123321" />
+		<!-- Safari 數字過常會變成可撥打電話 -->
+		<meta name="format-detection" content="telephone=no" />
+		<!-- 1200x628 -->
+		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20220124LineageMOASIS/images/og-image.jpg" />
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
@@ -28,12 +36,27 @@
 		</style>
 	</head>
 	<body>
+		<button type="button" id="btn">BTN</button>
 		<div id="next"></div>
 		<div id="app">
 			<div class="text"></div>
 			<button type="button" class="clip">複製</button>
 		</div>
 		<script>
+			const btn = document.getElementById("btn");
+			const shareData = {
+				title: document.title,
+				text: "我想與你分享" + document.title + "的精彩內容!",
+				url: document.location.href
+			};
+
+			btn.addEventListener("click", async () => {
+				try {
+					await navigator.share(shareData);
+				} catch (err) {
+					console.log("Error: " + err);
+				}
+			});
 			if (window.localStorage.getItem("name")) {
 				var name = window.localStorage.getItem("name");
 				$(".text").html(name);

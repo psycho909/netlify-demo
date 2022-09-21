@@ -41,6 +41,7 @@
 		<div id="app">
 			<div class="text"></div>
 			<button type="button" class="clip">複製</button>
+			<button type="button" class="share">Share</button>
 		</div>
 		<script>
 			const btn = document.getElementById("btn");
@@ -68,6 +69,17 @@
 				navigator.clipboard.readText().then((clipText) => {
 					console.log(clipText);
 				});
+			});
+
+			$(".share").on("click", function () {
+				navigator
+					.share({
+						title: "標題",
+						text: "文字描述",
+						url: "https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20220912_hapysssk/index.html"
+					})
+					.then(() => console.log("成功！"))
+					.catch((error) => console.log("發生錯誤", error));
 			});
 		</script>
 	</body>

@@ -16,7 +16,7 @@
 				<div class="col"><input class="form-control" type="number" inputmode="numeric" v-model="p.price" /></div>
 				<div class="col-1">x</div>
 				<div class="col">
-					<div class="col"><input class="form-control" type="number" inputmode="numeric" v-model="p.discount" /></div>
+					<div class="col"><input class="form-control" type="number" inputmode="decimal" v-model="p.discount" /></div>
 				</div>
 				<div class="col">= {{ p.price * p.discount*0.1}}</div>
 			</div>

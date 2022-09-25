@@ -16,11 +16,9 @@
 				<div class="col"><input class="form-control" type="number" inputmode="numeric" v-model="p.price" /></div>
 				<div class="col-1">x</div>
 				<div class="col">
-					<select class="form-select" v-model="discount">
-						<option :value="d" v-for="d in discounts">{{d}}</option>
-					</select>
+					<div class="col"><input class="form-control" type="number" inputmode="numeric" v-model="p.discount" /></div>
 				</div>
-				<div class="col">= {{ p.price * discount*0.1}}</div>
+				<div class="col">= {{ p.price * p.discount*0.1}}</div>
 			</div>
 			<div>Total:{{getTotal}}</div>
 		</div>
@@ -28,19 +26,17 @@
 			var app = Vue.createApp({
 				setup() {
 					let priceList = Vue.ref([]);
-					let discounts = Vue.ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-					let discount = Vue.ref(10);
 					let add = () => {
-						priceList.value.push({ price: 0 });
+						priceList.value.push({ price: 0, discount: 10 });
 					};
 					let getTotal = Vue.computed(() => {
 						if (priceList.value.length > 0) {
 							return priceList.value.reduce((p, v, i) => {
-								return p + v.price;
+								return p + v.price * v.discount * 0.1;
 							}, 0);
 						}
 					});
-					return { priceList, discounts, discount, add, getTotal };
+					return { priceList, add, getTotal };
 				}
 			});
 			app.mount("#app");

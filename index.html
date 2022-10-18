@@ -12,15 +12,20 @@
 		<meta name="format-detection" content="telephone=no" />
 		<!-- 1200x628 -->
 		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20220124LineageMOASIS/images/og-image2.png" />
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/beanfun/promo/Moonlight/E20221018/css/app.css" />
+		<!-- <script src="https://use.typekit.net/orz4pfx.js" async=""></script>、 -->
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;900&display=swap");
+		</style>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
 			}
 			body {
-				background-color: #000;
+				background-color: #fff;
 			}
 			#next {
 				box-sizing: border-box;
@@ -33,9 +38,16 @@
 				height: 2.73438vw;
 				background-size: 2.47396vw 2.73438vw !important;
 			}
+			.font {
+				font-family: "Noto Sans TC", sans-serif;
+				font-size: 45px;
+				color: #332f2f;
+				font-weight: 900;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="font">決戰國際服</div>
 		<a href="https://forum.framework7.io/t/external-link-not-opening-in-safari-on-iphone/10354" target="_blank">典籍我</a>
 		<button type="button" id="btn">BTN</button>
 		<div id="next"></div>
@@ -50,17 +62,18 @@
 					var body = document.getElementsByTagName("body")[0];
 					var _script = document.createElement("script");
 					_script.src = "https://www.googletagmanager.com/gtag/js?id=UA-124678311-1";
-					_script.async=true
+					_script.async = true;
 					body.insertAdjacentElement("afterbegin", _script);
-					 window.dataLayer = window.dataLayer || [];
-					  function gtag(){dataLayer.push(arguments);}
-					  gtag('js', new Date());
+					window.dataLayer = window.dataLayer || [];
+					function gtag() {
+						dataLayer.push(arguments);
+					}
+					gtag("js", new Date());
 
-					  gtag('config', 'UA-124678311-1');
+					gtag("config", "UA-124678311-1");
 				});
 			}
 			InitGTM("GTM-W3397MP");
-		</script>
 			const btn = document.getElementById("btn");
 			const shareData = {
 				title: document.title,

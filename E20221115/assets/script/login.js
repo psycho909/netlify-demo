@@ -124,7 +124,7 @@ const login = {
 							<option v-for="server in serverOption" :value="server.value">{{server.text}}</option>
 						</select>
 					</div>
-					<input type="text" class="login-inputControl" v-model="username" />
+					<input type="text" class="login-inputControl" />
 					<input type="text" class="login-inputControl" v-model="gold" placeholder="請輸入持有金幣數量後五碼" />
 					<input type="text" class="login-inputControl" v-model="gamaAccount" placeholder="請輸入遊戲橘子帳號" />
 					<input type="text" class="login-inputControl" v-model="gameId" placeholder="請輸入遊戲ID" />

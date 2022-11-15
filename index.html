@@ -18,7 +18,7 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-124678311-1"></script>
-
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<style>
 			@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;900&display=swap");
 		</style>
@@ -54,7 +54,7 @@
 	</head>
 	<body>
 		<div class="font">決戰國際服</div>
-		<input type="text" id="input" />
+
 		<textarea name="" id="textarea1" cols="30" rows="10"></textarea>
 		<textarea name="" id="textarea2" cols="30" rows="10"></textarea>
 		<button type="button" class="copy">copy</button>
@@ -67,11 +67,15 @@
 			<button type="button" class="share">Share</button>
 		</div>
 		<script>
+			function onGbox() {
+				let HTML = `<input type="text" id="input" />`;
+				$.gbox.open(HTML);
+			}
 			document.addEventListener("DOMContentLoaded", function () {
-				var onInput = document.getElementById("input");
-				setTimeout(() => {
-					onInput.focus();
-				}, 1000);
+				// var onInput = document.getElementById("input");
+				// setTimeout(() => {
+				// 	onInput.focus();
+				// }, 1000);
 			});
 			document.querySelector(".copy").addEventListener("click", function () {
 				var script = $("#textarea1").val();
@@ -111,11 +115,12 @@
 			};
 
 			btn.addEventListener("click", async () => {
-				try {
-					await navigator.share(shareData);
-				} catch (err) {
-					console.log("Error: " + err);
-				}
+				onGbox();
+				// try {
+				// 	await navigator.share(shareData);
+				// } catch (err) {
+				// 	console.log("Error: " + err);
+				// }
 			});
 			if (window.localStorage.getItem("name")) {
 				var name = window.localStorage.getItem("name");

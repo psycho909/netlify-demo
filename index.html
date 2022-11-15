@@ -28,6 +28,18 @@
 				margin: 0;
 				font-size: 12px;
 			}
+			html,
+			body {
+				touch-action: manipulation;
+				touch-callout: none;
+				-webkit-touch-callout: none;
+			}
+			@supports (-webkit-touch-callout: none) {
+				body {
+					/* The hack for Safari */
+					height: -webkit-fill-available;
+				}
+			}
 			body {
 				background-color: #fff;
 			}

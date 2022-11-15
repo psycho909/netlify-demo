@@ -60,17 +60,17 @@
 				color: #332f2f;
 				font-weight: 900;
 			}
-			#input {
+			.input {
 				font-size: 20px;
 			}
-			#input:focus {
+			.input:focus {
 				border: 1px solid red;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="font">決戰國際服</div>
-
+		<input type="text" class="input" />
 		<textarea name="" id="textarea1" cols="30" rows="10"></textarea>
 		<textarea name="" id="textarea2" cols="30" rows="10"></textarea>
 		<button type="button" class="copy">copy</button>
@@ -84,7 +84,7 @@
 		</div>
 		<script>
 			function onGbox() {
-				let HTML = `<input type="text" id="input" />`;
+				let HTML = `<input type="text" class="input" />`;
 				$.gbox.open(HTML);
 			}
 			document.addEventListener("DOMContentLoaded", function () {

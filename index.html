@@ -47,10 +47,14 @@
 				color: #332f2f;
 				font-weight: 900;
 			}
+			#input:focus {
+				border: 1px solid red;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="font">決戰國際服</div>
+		<input type="text" id="input" />
 		<textarea name="" id="textarea1" cols="30" rows="10"></textarea>
 		<textarea name="" id="textarea2" cols="30" rows="10"></textarea>
 		<button type="button" class="copy">copy</button>
@@ -63,6 +67,12 @@
 			<button type="button" class="share">Share</button>
 		</div>
 		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				var onInput = document.getElementById("input");
+				setTimeout(() => {
+					onInput.focus();
+				}, 1000);
+			});
 			document.querySelector(".copy").addEventListener("click", function () {
 				var script = $("#textarea1").val();
 				$("#textarea2").val(script);

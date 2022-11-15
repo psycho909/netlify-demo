@@ -1,0 +1,501 @@
+@keyframes star {
+	from,
+	50%,
+	to {
+		opacity: 1;
+	}
+
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
+.lottery {
+	width: 100%;
+	background-image: url("./img/lottery/bg.jpg");
+	background-position: center 0;
+	background-size: 1920px 870px;
+	position: relative;
+	overflow: hidden;
+	@include media {
+		background-size: vw(768) vw(1408);
+		background-image: url("./img/lottery/m-bg.jpg");
+	}
+	&-head {
+		width: 100%;
+		height: 576px;
+		position: relative;
+		background-repeat: no-repeat;
+		background-size: 1920px 576px;
+		background-image: url("./img/lottery/header.jpg");
+		background-position: center 0;
+		overflow: hidden;
+		@include media {
+			height: vw(576);
+			background-size: vw(1920) vw(576);
+		}
+		&Box {
+			width: 1920px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			@include media {
+				width: vw(768);
+			}
+		}
+		&Anim1 {
+			width: 38px;
+			height: 47px;
+			background-image: url("./img/lottery/anim1.png");
+			background-size: 100%;
+			position: absolute;
+			top: 409px;
+			left: 756px;
+			animation: star 1s alternate infinite;
+			@include media {
+				width: vw(38);
+				height: vw(47);
+				top: vw(409);
+				left: vw(185);
+			}
+		}
+		&Anim2 {
+			width: 20px;
+			height: 30px;
+			background-image: url("./img/lottery/anim2.png");
+			background-size: 100%;
+			position: absolute;
+			top: 351px;
+			left: 872px;
+			animation: star 1.6s alternate infinite;
+			animation-delay: 0.3s;
+			@include media {
+				width: vw(20);
+				height: vw(30);
+				top: vw(351);
+				left: vw(296);
+			}
+		}
+		&Anim3 {
+			width: 36px;
+			height: 45px;
+			background-image: url("./img/lottery/anim3.png");
+			background-size: 100%;
+			position: absolute;
+			top: 348px;
+			left: 1066px;
+			animation: star 1.4s alternate infinite;
+			@include media {
+				width: vw(36);
+				height: vw(45);
+				top: vw(348);
+				left: vw(494);
+			}
+		}
+		&Anim4 {
+			width: 22px;
+			height: 33px;
+			background-image: url("./img/lottery/anim4.png");
+			background-size: 100%;
+			position: absolute;
+			top: 437px;
+			left: 1145px;
+			animation: star 1s alternate infinite;
+			animation-delay: 0.1s;
+			@include media {
+				width: vw(22);
+				height: vw(33);
+				top: vw(437);
+				left: vw(566);
+			}
+		}
+	}
+	&-container {
+		max-width: 1200px;
+		width: 100%;
+		margin: 0 auto;
+		position: relative;
+		padding-top: 114px;
+		padding-bottom: 101px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		@include media {
+			padding-top: vw(101);
+			padding-bottom: vw(130);
+		}
+	}
+	&-info {
+		margin-bottom: 50px;
+		text-align: center;
+		line-height: 1.5;
+		@include media {
+			margin-bottom: vw(46);
+		}
+		&Text {
+			font-size: 20px;
+			font-weight: bold;
+			color: #000;
+			@include media {
+				font-size: vw(20);
+			}
+			span {
+				display: inline-block;
+				@include media {
+					display: block;
+				}
+			}
+		}
+	}
+	&-loginBtn {
+		margin-bottom: 50px;
+		width: 246px;
+		height: 116px;
+		font-size: 0;
+		display: block;
+		background-size: 200%;
+		background-image: url("./img/lottery/btn-login.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(246);
+			height: vw(116);
+			margin-bottom: vw(50);
+		}
+	}
+	&-content {
+		margin-bottom: 54px;
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		@include media {
+			margin-bottom: vw(54);
+		}
+	}
+	&-contentBox {
+		max-width: calc(var(--w) * 1px);
+		width: 100%;
+		background-image: linear-gradient(to bottom, #d3cfc1 40px, #7e7770 41px, #7e7770 42px, #e7e4dd 43px, #e7e4dd 100%);
+		border-radius: 20px;
+		border: 2px solid #7e7770;
+		box-sizing: border-box;
+		padding: 94px 20px 50px 20px;
+		box-shadow: 0 0 0 4px #ffc23b;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 55px;
+		@include media {
+			max-width: calc(var(--mw) / 768 * 100vw);
+			background-image: linear-gradient(to bottom, #ffa300 vw(40), #7e7770 vw(41), #7e7770 vw(42), #e7e4dd vw(43), #e7e4dd 100%);
+			box-shadow: 0 0 0 vw(4) #ffc23b;
+			padding: vw(94) vw(20) vw(50) vw(20);
+			border-radius: vw(20);
+			margin-bottom: vw(55);
+		}
+		&:before {
+			content: "";
+			width: 84px;
+			height: 20px;
+			background-size: 100%;
+			background-image: url("./img/lottery/desc.png");
+			position: absolute;
+			top: 10px;
+			right: 24px;
+			@include media {
+				width: vw(84);
+				height: vw(20);
+				top: vw(10);
+				right: vw(24);
+			}
+		}
+		&-title {
+			font-size: 40px;
+			margin-bottom: 48px;
+			color: #2d2d2d;
+			font-weight: bold;
+			@include media {
+				font-size: vw(40);
+				margin-bottom: vw(48);
+			}
+		}
+		&Bn {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			@include media {
+				flex-direction: column;
+				align-items: center;
+			}
+			.lottery-contentBox {
+				margin-bottom: 0;
+				padding: 62px 20px 20px 20px;
+				img {
+					width: 100%;
+				}
+				&:first-child {
+					margin-right: 81px;
+					@include media {
+						margin-right: 0;
+					}
+				}
+				@include media {
+					margin-bottom: vw(46);
+					padding: vw(62) vw(20) vw(20) vw(20);
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+	&-btn {
+		&Group {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+		}
+		&Lottery {
+			width: 436px;
+			height: 74px;
+			background-size: 200%;
+			background-image: url("./img/lottery/btn-lottery.png");
+			display: block;
+			font-size: 0;
+			margin-bottom: 30px;
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				width: vw(436);
+				height: vw(74);
+				margin-bottom: vw(30);
+			}
+		}
+		&Task {
+			width: 201px;
+			height: 66px;
+			background-size: 200%;
+			background-image: url("./img/lottery/btn-task.png");
+			display: block;
+			font-size: 0;
+			margin-right: 30px;
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				width: vw(201);
+				height: vw(66);
+			}
+		}
+		&History {
+			width: 201px;
+			height: 66px;
+			background-size: 200%;
+			background-image: url("./img/lottery/btn-history.png");
+			display: block;
+			font-size: 0;
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				width: vw(201);
+				height: vw(66);
+			}
+		}
+	}
+	&-rewardBox {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		&Group {
+			// display: flex;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-row-gap: 30px;
+			justify-items: center;
+			margin-top: 50px;
+			width: 100%;
+			@include media {
+				width: 100%;
+				margin-top: vw(30);
+				grid-template-columns: repeat(1, 1fr);
+				grid-row-gap: 0;
+			}
+			.lottery-rewardBox-name {
+				width: 200px;
+				text-align: center;
+				@include media {
+					width: 100%;
+				}
+			}
+			.lottery-rewardBox {
+				// margin-right: 78px;
+				// &:last-child {
+				// 	margin-right: 0;
+				// }
+				@include media {
+					margin-right: 0;
+					margin-bottom: vw(30);
+					display: grid;
+					grid-template-columns: vw(181) 1fr;
+					grid-column-gap: vw(20);
+					grid-template-areas:
+						"item label"
+						"item name";
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+			.lottery-rewardBox-label {
+				@include media {
+					grid-area: label;
+					justify-self: flex-start;
+					margin-bottom: 0;
+				}
+			}
+			.lottery-rewardBox-item {
+				@include media {
+					grid-area: item;
+				}
+			}
+			.lottery-rewardBox-bottom {
+				@include media {
+					grid-area: name;
+					align-self: flex-start;
+					align-items: flex-start;
+				}
+			}
+			.lottery-rewardBox-name {
+				@include media {
+					text-align: left;
+				}
+			}
+		}
+		&-bottom {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		&-label {
+			min-width: 146px;
+			padding: 9px 26px;
+			height: 42px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 24px;
+			background-color: #605b55;
+			border-radius: 100vmax;
+			margin-bottom: 13px;
+			color: #fff;
+			box-sizing: border-box;
+			@include media {
+				min-width: vw(146);
+				padding: vw(9) vw(26);
+				height: vw(42);
+				font-size: vw(24);
+				margin-bottom: vw(13);
+			}
+		}
+		&-item {
+			width: 253px;
+			height: 252px;
+			background-size: 100%;
+			background-image: url("./img/lottery/reward-bg2.png");
+			margin-bottom: 11px;
+			position: relative;
+			@include media {
+				width: vw(181);
+				height: vw(180);
+				background-image: url("./img/lottery/m-reward-bg2.png");
+				margin-bottom: 0;
+			}
+			&SP {
+				width: 577px;
+				height: 300px;
+				background-size: 100%;
+				background-image: url("./img/lottery/reward-bg1.png");
+				position: relative;
+				margin-bottom: 8px;
+				@include media {
+					width: vw(577);
+					height: vw(300);
+					margin-bottom: vw(8);
+				}
+				.lottery-rewardBox-imgBox {
+					width: 490px;
+					height: 215px;
+					top: 33px;
+					left: 33px;
+					@include media {
+						width: vw(490);
+						height: vw(215);
+						top: vw(33);
+						left: vw(33);
+					}
+				}
+			}
+		}
+		&-imgBox {
+			width: 180px;
+			height: 180px;
+			position: absolute;
+			top: 28px;
+			left: 28px;
+			border: 1px solid #000;
+			background-color: #f5f5f7;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			img {
+				height: 100%;
+			}
+			@include media {
+				width: vw(130);
+				height: vw(130);
+				top: vw(18);
+				left: vw(18);
+			}
+		}
+		&-name {
+			margin-bottom: 11px;
+			font-size: 20px;
+			color: #000;
+			@include media {
+				font-size: vw(20);
+				margin-bottom: vw(11);
+			}
+		}
+		&-total {
+			min-width: 114px;
+			height: 30px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 16px;
+			background-color: #b8b29e;
+			border-radius: 100vmax;
+			color: #fff;
+			@include media {
+				min-width: vw(84);
+				height: vw(30);
+				font-size: vw(16);
+				padding: vw(2) vw(4);
+			}
+		}
+	}
+	&-ruleBtn {
+		color: #4f4f4f;
+		font-size: 24px;
+		@include media {
+			font-size: vw(24);
+		}
+	}
+}

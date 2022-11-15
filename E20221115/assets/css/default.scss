@@ -1,0 +1,41 @@
+@charset "UTF-8";
+@import "./_normalize.scss";
+@import "./_mixins.scss";
+@import "./_lightbox.scss";
+@import "./_login.scss";
+@import "./_front.scss";
+@import "./_navbar.scss";
+@import "./_gamedata.scss";
+@import "./_lottery.scss";
+@import "./_footer.scss";
+@import "./_top.scss";
+@import "./_loading.scss";
+@import "./inner.css";
+$color: #2d2d2d;
+$title: #fff;
+$orange: #ff9d00;
+
+/*=============================================
+Value
+=============================================*/
+/*=============================================
+Base  
+=============================================*/
+body {
+	font-size: 0;
+	padding: 0;
+	width: 100%;
+	background: #000;
+	font-family: "PingFangTC-Regular", "Heiti TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@media (max-width: 768px) {
+	.section {
+		min-width: 0;
+		width: 100%;
+		height: auto;
+		padding-bottom: vw(60);
+		background-size: cover;
+		background-position: center top;
+	}
+}

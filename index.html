@@ -10,8 +10,6 @@
 		<meta property="og:description" content="這是測試網站1" />
 		<!-- Safari 數字過常會變成可撥打電話 -->
 		<meta name="format-detection" content="telephone=no" />
-		<!-- 1200x628 -->
-		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20220124LineageMOASIS/images/og-image2.png" />
 		<script>
 			window.onload = function () {
 				fetch("https://jsonplaceholder.typicode.com/todos/1")
@@ -19,7 +17,6 @@
 					.then((json) => {
 						document.querySelectorAll("meta[property='og:title']")[0].setAttribute("content", "這是動態og:title");
 						document.querySelectorAll("meta[property='og:description']")[0].setAttribute("content", "這是動態og:description");
-						document.querySelectorAll("meta[property='og:image']")[0].setAttribute("content", "https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20220124LineageMOASIS/images/og-image.png");
 					});
 			};
 		</script>

@@ -28,7 +28,9 @@
 					.then((json) => {
 						console.log("ajax2");
 						document.querySelectorAll("meta[property='og:title']")[0].setAttribute("content", "這是動態og:title");
+						document.querySelectorAll("meta[property='og:title']")[0].setAttribute("name", "這是動態og:title");
 						document.querySelectorAll("meta[property='og:description']")[0].setAttribute("content", "這是動態og:description");
+						document.querySelectorAll("meta[property='og:description']")[0].setAttribute("name", "這是動態og:description");
 					});
 			};
 		</script>

@@ -2,6 +2,10 @@
 <html lang="zh-Hant-TW">
 	<head>
 		<script>
+			var fbxhr = new XMLHttpRequest ();
+			fbxhr.open ("POST", "https://graph.facebook.com", true);
+			fbxhr.setRequestHeader ("Content-type", "application / x-www-form-urlencoded");
+			fbxhr.send ("id = http: //you_site.com/&scrape=true");:
 			fetch("https://jsonplaceholder.typicode.com/todos/1")
 				.then((response) => response.json())
 				.then((json) => {

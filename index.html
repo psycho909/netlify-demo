@@ -4,14 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>這是測試網站1</title>
-		<!-- fb meta -->
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="這是測試網站1" />
-		<meta property="og:description" content="這是測試網站1" />
+
 		<!-- Safari 數字過常會變成可撥打電話 -->
 		<meta name="format-detection" content="telephone=no" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script>
-			window.onload = function () {
+			$(document).ready(function () {
 				var fbxhr = new XMLHttpRequest();
 				fbxhr.open("POST", "https://graph.facebook.com", true);
 				fbxhr.setRequestHeader("Content-type", "application / x-www-form-urlencoded");
@@ -40,8 +39,12 @@
 						fbxhr.setRequestHeader("Content-type", "application / x-www-form-urlencoded");
 						fbxhr.send("id=https://thirsty-boyd-9fa09d.netlify.app/?scrape=true");
 					});
-			};
+			});
 		</script>
+		<!-- fb meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="這是測試網站1" />
+		<meta property="og:description" content="這是測試網站1" />
 		<style>
 			* {
 				padding: 0;

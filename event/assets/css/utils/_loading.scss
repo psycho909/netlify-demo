@@ -1,0 +1,30 @@
+.loading {
+	&-module {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999;
+		background-color: rgba(0, 0, 0, 0.6);
+	}
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 80px;
+	height: 80px;
+	margin-top: -40px;
+	margin-left: -40px;
+	border-radius: 50%;
+	border: 10px solid #fff;
+	border-top-color: transparent;
+	transform: rotate(0deg);
+	@media screen and (max-width: 768px) {
+		width: vw(80);
+		height: vw(80);
+		margin-top: vw(-40);
+		margin-left: vw(-40);
+		border-radius: 50%;
+		border: vw(10) solid #fff;
+	}
+}

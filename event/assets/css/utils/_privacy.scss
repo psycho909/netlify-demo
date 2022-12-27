@@ -1,0 +1,112 @@
+.privacypop{
+    .gbox-wrap {
+        max-width: 1200px;
+        width: 100%;
+        padding: 0px;
+        margin-top: 82px;
+        margin-bottom: 82px;
+        background-color: rgba(255,255,255,.8);
+        font-size: 30px;
+        color: #fff;
+    }
+    .gbox-content {
+        position: relative;
+        padding: 0px;
+        width: 100%;
+        padding: 94px 44px;
+        color:#000;
+        text-align: left;
+    }
+    .gbox-close {
+        width: 50px;
+        height: 50px;
+        font-size: 0;
+        top: 25px;
+        right: 20px;
+        &:before {
+            content: "";
+            width: 1px;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%) rotate(45deg);
+            background-color: #000;
+        }
+        &:after {
+            content: "";
+            width: 1px;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            background-color: #000;
+        }
+    }
+    &-b{
+        line-height: 1.5;
+        margin-bottom: 40px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}
+
+.privacy{
+    width: 100%;
+    background-color: rgba(#000,.7);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    &-box{
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 46px 44px;
+        font-size: 0;
+    }
+    &-text{
+        display: inline-block;
+        margin-right: 27px;
+        vertical-align: middle;
+        span{
+            display: block;
+            font-size: 26px;
+            color:#fff;
+            letter-spacing: -1px;
+        }
+        a{
+            color:#5ac832;
+        }
+    }
+    &-btn{
+        &__agree{
+            font-size: 26px;
+            display: inline-block;
+            color:#fff;
+            text-decoration: none;
+            padding: 15px 26px;
+            background-color: #5AC832;
+            vertical-align: middle;
+        }
+    }
+    @include media{
+        &-box{
+            padding: vw(46) vw(44);
+        }
+        &-text{
+            margin-right: vw(27);
+            span{
+                font-size: vw(26);
+            }
+        }
+        &-btn{
+            &__agree{
+                font-size: vw(26);
+                padding: vw(15) vw(26);
+            }
+        }
+    }
+}

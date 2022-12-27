@@ -1,0 +1,135 @@
+.sec2 {
+	&-con {
+		width: 100%;
+		height: 1080px;
+		background-size: cover;
+		// background-image: url("./img/sec2-bg.jpg");
+		background-position: center center;
+		@include media {
+			height: vw(1562);
+			background-image: url("./img/m/sec2-bg.jpg");
+			background-size: cover;
+		}
+		.btn-scroll {
+			display: none;
+			@include media {
+				display: block;
+			}
+		}
+		.sec-logo {
+			display: none;
+			@include media {
+				display: block;
+				width: vw(137);
+				height: vw(112);
+				background-image: url("./img/m/logo.png");
+				display: block;
+				position: absolute;
+				top: vw(68);
+				left: 50%;
+				margin-left: 0;
+				transform: translateX(-50%);
+			}
+		}
+		.sec-desc {
+			display: none;
+			@include media {
+				display: block;
+				position: absolute;
+				top: 0;
+				left: vw(36);
+				width: vw(158);
+				height: vw(182);
+				background-size: cover;
+				background-image: url("./img/m/sec-deco.png");
+			}
+		}
+	}
+	&-tab {
+		width: 493px;
+		height: 635px;
+		background-image: url("./img/sec2-tab.png");
+		background-size: cover;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 370px;
+		position: absolute;
+		top: 215px;
+		left: 50%;
+		margin-left: -522px;
+		@include media {
+			width: vw(634);
+			height: vw(817);
+			background-image: url("./img/m/sec2-content.png");
+			margin-left: 0;
+			transform: translateX(-50%);
+			top: vw(440);
+			padding-top: vw(428);
+		}
+		&-btn1 {
+			width: 300px;
+			height: 57px;
+			background-size: 200%;
+			background-image: url("./img/sec2-btn1.png");
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				background-image: none;
+				width: vw(496);
+				height: vw(64);
+				margin-bottom: vw(36);
+			}
+		}
+		&-btn2 {
+			width: 300px;
+			height: 57px;
+			background-size: 200%;
+			background-image: url("./img/sec2-btn2.png");
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				background-image: none;
+				width: vw(496);
+				height: vw(64);
+			}
+		}
+	}
+
+	&-title {
+		width: 253px;
+		height: 179px;
+		background-image: url("./img/sec2-title.png");
+		background-size: cover;
+		position: absolute;
+		top: 133px;
+		left: 50%;
+		margin-left: calc(-253px / 2);
+		z-index: 1;
+		margin-top: 100%;
+		@include media {
+			width: vw(288);
+			height: vw(196);
+			background-image: url("./img/m/sec2-title.png");
+			top: vw(258);
+			margin-left: 0;
+			transform: translateX(-50%);
+		}
+	}
+	&-title {
+		margin-top: 10%;
+		opacity: 0;
+		@include media {
+			margin-top: 0;
+			opacity: 1;
+		}
+	}
+	&-info {
+		opacity: 0;
+		@include media {
+			opacity: 1;
+		}
+	}
+}

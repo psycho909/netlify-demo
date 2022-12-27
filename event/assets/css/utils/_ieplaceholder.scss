@@ -1,0 +1,39 @@
+.form{
+    &-group{
+        margin-bottom: 20px;
+        position: relative;
+        @media screen and (max-width:768px){
+            margin-bottom: getvw(24);
+        }
+        label{
+            color:#666;
+            font-size: 24px;
+            position: absolute;
+            top: 13px;
+            left: 20px;
+            @media screen and (max-width:768px){
+                font-size: getvw(30);
+                top: getvw(13);
+                left: getvw(20);
+            }
+        }
+    }
+    &-input{
+        width: 100%;
+        background-color: #2E2205;
+        border:1px solid #AD9567;
+        border-radius: 5px;
+        padding: 13px 20px;
+        font-size: 24px;
+        color:#fff;
+        cursor: text;
+        &:focus + label{
+            display: none;
+        }
+        @media screen and (max-width:768px){
+            font-size: getvw(30);
+            padding: getvw(13) getvw(20);
+            border-radius: getvw(5);
+        }
+    }
+}

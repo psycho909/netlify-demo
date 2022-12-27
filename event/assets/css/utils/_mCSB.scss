@@ -1,0 +1,35 @@
+// Bar條控制
+.mCSB_scrollTools {
+	top: 4px;
+	right: 22px;
+	opacity: 1;
+	@include media {
+		top: vw(4);
+		right: vw(22);
+	}
+	// 滾動軸設定
+	.mCSB_draggerRail {
+		width: 12px;
+		background-color: #484545 !important;
+		@include media {
+			width: vw(12);
+		}
+	}
+	.mCSB_dragger {
+		// 滾動軸中心控制
+		.mCSB_dragger_bar {
+			width: 12px;
+			background-color: #ba0d00 !important;
+			box-shadow: 0 0 0 4px #ba0d00;
+			left: 50%;
+			transform: translateX(-50%);
+			box-sizing: content-box;
+			border: 2px solid #e4b872;
+			@include media {
+				width: vw(26);
+				box-shadow: 0 0 0 vw(4) #ba0d00;
+				border-width: vw(2);
+			}
+		}
+	}
+}

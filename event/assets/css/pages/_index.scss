@@ -1,0 +1,194 @@
+$bgColor: #100514;
+// safari
+:root {
+	--safe-area-left: 0;
+	--safe-area-right: 0;
+	--safe-area-top: 0;
+	--safe-area-bottom: 0;
+}
+@supports (bottom: env(safe-area-inset-top)) {
+	:root {
+		--safe-area-left: env(safe-area-inset-left);
+		--safe-area-right: env(safe-area-inset-right);
+		--safe-area-top: env(safe-area-inset-top);
+		--safe-area-bottom: env(safe-area-inset-bottom);
+	}
+}
+#header {
+	padding-top: calc(1em + var(--safe-area-top));
+}
+#footer {
+	bottom: calc(1em + var(--safe-area-bottom));
+}
+body {
+	background-color: #100514;
+	position: relative;
+	width: 100%;
+}
+
+#app {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.logo {
+	width: 88px;
+	height: 73px;
+	background-size: cover;
+	background-image: url("./img/logo.png");
+	font-size: 0;
+	position: absolute;
+	top: 12px;
+	left: 50%;
+	margin-left: -565px;
+	z-index: 99;
+	display: none;
+	@include media {
+		display: none;
+	}
+}
+.sec-logo {
+	background-size: cover;
+}
+.btn-scroll {
+	width: 19px;
+	height: 27px;
+	background-size: cover;
+	background-image: url("./img/btn-scroll.png");
+	z-index: 99;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	@include media {
+		width: vw(76);
+		height: vw(107);
+		background-image: url("./img/m/btn-scroll.png");
+	}
+}
+.btn-top {
+	width: 58px;
+	height: 58px;
+	background-size: cover;
+	background-image: url("./img/btn-top.png");
+	position: fixed;
+	bottom: 16px;
+	right: 50%;
+	margin-right: -554px;
+	z-index: 99;
+	cursor: pointer;
+	display: none;
+	@include media {
+		width: vw(125);
+		height: vw(125);
+		background-image: url("./img/m/btn-top.png");
+		margin-right: 0;
+		right: vw(34);
+		bottom: vw(120);
+	}
+}
+.bg {
+	position: fixed;
+	width: 3000px;
+	height: 100%;
+	top: 0;
+	left: 50%;
+	margin-left: -1500px;
+	display: none;
+	background-size: auto 100%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	transform: scale(1.5);
+	@include media {
+		display: none;
+	}
+	.video-bg {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		video {
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+		}
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: auto 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+	}
+}
+.bg2 {
+	.video-bg {
+		&:after {
+			background-image: url("./img/sec2-bg-mask.png");
+		}
+	}
+}
+.bg3 {
+	background-image: url("./img/sec3-bg.jpg");
+}
+.bg4 {
+	.video-bg {
+		&:after {
+			background-image: url("./img/sec4-bg.png");
+		}
+	}
+}
+.bg5 {
+	.video-bg {
+		&:after {
+			background-image: url("./img/sec5-bg.png");
+		}
+	}
+}
+.bg6 {
+	background-image: url("./img/sec6-bg.jpg");
+}
+.nav {
+	width: 100%;
+	position: absolute;
+	top: 52px;
+	left: 0;
+	z-index: 99;
+	display: none;
+	@include media {
+		display: none;
+	}
+	&-list {
+		max-width: 1000px;
+		margin: 0 auto;
+		font-size: 18px;
+		font-weight: bold;
+		display: flex;
+		list-style: none;
+		&__li {
+			padding: 0 36px;
+			&.active {
+				a {
+					color: #fff;
+				}
+			}
+			a {
+				text-decoration: none;
+				display: block;
+				color: rgba(#929292, 0.8);
+				@include hover {
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+.sec-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}

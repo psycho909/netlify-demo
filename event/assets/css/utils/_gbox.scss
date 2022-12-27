@@ -73,10 +73,10 @@
 			.mCSB_dragger {
 				// 滾動軸中心控制
 				.mCSB_dragger_bar {
-					width: vw(39);
-					height: vw(38);
+					width: vw(38);
+					height: vw(39);
 					background: no-repeat center url("./img/m/scroll.png") !important;
-					background-size: cover;
+					background-size: 100% !important;
 					position: absolute;
 					top: 50%;
 					left: 50%;
@@ -255,7 +255,7 @@
 			&4 {
 				.lb-pop {
 					@include media {
-						height: vw(982);
+						height: vw(980);
 						background-image: url("./img/m/sec4-tab1-pop4-bg.png");
 					}
 				}

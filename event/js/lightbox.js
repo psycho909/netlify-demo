@@ -15,6 +15,9 @@ function Gallery(className, movie, scroll = true) {
 					advanced: { extraDraggableSelectors: ".lb-pop" },
 				});
 			}
+			if (movie) {
+				$(".lb-info video")[0].play();
+			}
 		},
 		afterClose: function () {
 			$.gbox.close();
@@ -24,7 +27,7 @@ function Gallery(className, movie, scroll = true) {
 	if (movie) {
 		movie = `./assets/css/video/${movie}.mp4`;
 	}
-	var HTML = `<div class="lb-content lb-pop"><div class="lb-info">${movie ? '<video src="' + movie + '" muted autoplay playsinline loop></video>' : ""}</div></div>`;
+	var HTML = `<div class="lb-content lb-pop"><div class="lb-info">${movie ? '<video src="' + movie + '" muted autoplay playsinline webkit-playsinline loop></video>' : ""}</div></div>`;
 	$.gbox.open(HTML, defaultObj);
 }
 

@@ -7,41 +7,9 @@
 
 		<!-- Safari 數字過常會變成可撥打電話 -->
 		<meta name="format-detection" content="telephone=no" />
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script>
-			$(document).ready(function () {
-				var fbxhr = new XMLHttpRequest();
-				fbxhr.open("POST", "https://graph.facebook.com", true);
-				fbxhr.setRequestHeader("Content-type", "application / x-www-form-urlencoded");
-				fbxhr.send("https://thirsty-boyd-9fa09d.netlify.app/?scrape=true");
-				console.log(document.querySelector("meta[property='og:title']").getAttribute("content"));
-				document.querySelectorAll("meta[property='og:title']")[0].setAttribute("content", "這是動態og:title");
-				// document.querySelectorAll("meta[name='og:title']")[0].setAttribute("content", "這是動態og:title");
-				document.querySelectorAll("meta[property='og:description']")[0].setAttribute("content", "這是動態og:description");
-				// document.querySelectorAll("meta[name='og:description']")[0].setAttribute("content", "這是動態og:description");
-				console.log(document.querySelector("meta[property='og:title']").getAttribute("content"));
-				var fbxhr = new XMLHttpRequest();
-				fbxhr.open("POST", "https://graph.facebook.com", true);
-				fbxhr.setRequestHeader("Content-type", "application / x-www-form-urlencoded");
-				fbxhr.send("id=https://thirsty-boyd-9fa09d.netlify.app/?scrape=true");
-				fetch("https://jsonplaceholder.typicode.com/todos/1")
-					.then((response) => response.json())
-					.then((json) => {
-						console.log("ajax2");
-						document.querySelectorAll("meta[property='og:title']")[0].setAttribute("content", "這是動態og:title");
-						// document.querySelectorAll("meta[name='og:title']")[0].setAttribute("content", "這是動態og:title");
-						document.querySelectorAll("meta[property='og:description']")[0].setAttribute("content", "這是動態og:description");
-						// document.querySelectorAll("meta[name='og:description']")[0].setAttribute("content", "這是動態og:description");
-						console.log(document.querySelector("meta[property='og:title']").getAttribute("content"));
-						var fbxhr = new XMLHttpRequest();
-						fbxhr.open("POST", "https://graph.facebook.com", true);
-						fbxhr.setRequestHeader("Content-type", "application / x-www-form-urlencoded");
-						fbxhr.send("id=https://thirsty-boyd-9fa09d.netlify.app/?scrape=true");
-					});
-			});
-		</script>
-		<!-- fb meta -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script> -->
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="這是測試網站1" />
 		<meta property="og:description" content="這是測試網站1" />
@@ -59,9 +27,17 @@
 		</style>
 	</head>
 	<body>
+		<div id="app"></div>
 		<select id="select">
 			<option value="-1">select1</option>
 			<option value="1">select2</option>
 		</select>
+		<script>
+			let el = document.getElementById("app");
+			let s = "<script>alert(1)<\/script>";
+			var script = "<script>console.log('hello');";
+
+			el.insertAdjacentHTML("beforebegin", script);
+		</script>
 	</body>
 </html>

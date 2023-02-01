@@ -5,209 +5,213 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<meta name="description" content="最華麗的職業、全新劇情、稱號、神秘的NPC，一同絢麗登場！" />
+		<meta name="description" content="{{description}}" />
 		<!-- 除了H5活動頁以外都要加上 -->
 		<meta name="open-default-browser" content="true" />
 
 		<!-- fb meta -->
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="新瑪奇Mabinogi ｜NEXT 第2波｜華麗絢爛的新才能" />
-		<meta property="og:description" content="最華麗的職業、全新劇情、稱號、神秘的NPC，一同絢麗登場！" />
+		<meta property="og:title" content="{{title}}" />
+		<meta property="og:description" content="{{description}}" />
 		<!-- Safari 數字過常會變成可撥打電話 -->
 		<meta name="format-detection" content="telephone=no" />
 		<!-- 1200x628 -->
-		<meta property="og:image" content="https://thirsty-boyd-9fa09d.netlify.app/event/assets/img/og-image.jpg" />
+		<meta property="og:image" content="{{url}}/assets/img/og-image.jpg" />
 
-		<title>新瑪奇Mabinogi ｜NEXT 第2波｜華麗絢爛的新才能</title>
+		<title>{{title}}</title>
 		<!-- CSS -->
-		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css" />
-		<link href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
-		<link href="https://tw.hicdn.beanfun.com/plugins/tiny-slider2.9.2/tiny-slider.css" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="./assets/css/default.css" />
 
 		<!-- JS -->
 		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/lodash/4.17.15/lodash.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/fullpage/scrolloverflow.js"></script>
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
-		<!-- 背景飄動翅膀用 -->
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/pixi.js/5.3.3/pixi.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/tiny-slider2.9.2/tiny-slider.js"></script>
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/topBar/topbar.js" id="top-bar" prod="新瑪奇"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/3.1.1/vuex.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+
 		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
 		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
+		<!-- GTM -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({
+					"gtm.start": new Date().getTime(),
+					event: "gtm.js",
+				});
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-5P58ZS2");
+		</script>
 	</head>
 
 	<body>
+		<!-- GTM -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5P58ZS2" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
 		<!-- 內容開始 -->
 		<div id="app">
-			<div class="bg bg1"></div>
-			<div class="bg bg2">
-				<div class="video-bg">
-					<video src="./assets/css/video/sec2-video.mp4" muted loop playsinline></video>
-				</div>
-			</div>
-			<div class="bg bg3"></div>
-			<div class="bg bg4">
-				<div class="video-bg">
-					<video src="./assets/css/video/sec4-video.mp4" muted loop playsinline></video>
-				</div>
-			</div>
-			<div class="bg bg5">
-				<div class="video-bg">
-					<video src="./assets/css/video/sec5-video.mp4" muted loop playsinline></video>
-				</div>
-			</div>
-			<div class="bg bg6"></div>
-			<!-- 右側選單 -->
-			<div class="menu">
-				<div class="wrap">
-					<div class="menu-title">
-						<a href="https://tw.beanfun.com/game_zone/default.aspx?service_code=600309&service_region=A2" target="_blank">GAME START</a>
-						<a href="https://tw.beanfun.com/mabinogi/4_download.aspx" target="_blank">下載專區</a>
-					</div>
-					<div class="menu1-link-title"></div>
-					<a class="menu1-link menu1-link1" href="" target="_blank">第二波</a>
-					<a class="menu1-link menu1-link2" href="https://tw.hicdn.beanfun.com/beanfun/promo/Mabi/E20221208_next_1st/index.html" target="_blank">第一波</a>
-					<a class="menu1-link menu1-link3" href="" target="_blank">出席簽到2</a>
-					<a class="menu1-text menu1-text1" href="" target="_blank">-直播同樂會-</a>
-					<a class="menu1-text menu1-text2" href="" target="_blank">-主題店登場-</a>
-					<a class="menu1-text menu1-text3" href="https://tw.beanfun.com/mabinogi/main.aspx" target="_blank">-新瑪奇官網-</a>
-				</div>
-				<div class="toggle"></div>
-			</div>
-
-			<!-- fullpage選單 -->
-			<div id="menu" class="nav">
-				<ol class="nav-list">
-					<li class="nav-list__li" data-menuanchor="section2"><a href="#section2">祕法</a></li>
-					<li class="nav-list__li" data-menuanchor="section3"><a href="#section3">歐萊克能力開發事業</a></li>
-					<li class="nav-list__li" data-menuanchor="section4"><a href="#section4">魔劍士</a></li>
-					<li class="nav-list__li" data-menuanchor="section5"><a href="#section5">聖歌隊</a></li>
-					<li class="nav-list__li" data-menuanchor="section6"><a href="#section6">強化祕法</a></li>
-				</ol>
-			</div>
-			<div class="logo" href="https://tw.beanfun.com/mabinogi/main.aspx" target="_blank"></div>
-			<a class="btn-top" href="#section1"></a>
-			<!-- fullpage內容 -->
-			<div id="fullpage">
-				<!-- 首頁 -->
-				<div class="section" data-anchor="section1">
-					<div class="sec sec1-con">
-						<div class="sec-inner">
-							<a class="sec-logo" href="https://tw.beanfun.com/mabinogi/main.aspx" target="_blank"></a>
-							<div class="sec-anim sec1-logo"></div>
-							<div class="sec-anim sec1-slogan"></div>
-							<div class="sec-anim sec1-text"></div>
-							<div class="sec-anim sec1-deco"></div>
-							<div class="sec-anim sec1-char1"></div>
-							<div class="sec-anim sec1-char2"></div>
-							<div class="sec-anim sec1-char3"></div>
-							<a href="#section2" class="btn-scroll"></a>
+			<!-- 主頁面 -->
+			<div class="home" v-if=" getStatus == 0">
+				<div class="home-container">
+					<div class="home-deco"></div>
+					<div class="home-title">快速升級劵</div>
+					<div class="home-content">
+						<div class="home-content__title">取得快速升級券抽最高 1 萬樂豆點</div>
+						<div class="home-content__info">
+							<p>簡單兩步驟！</p>
+							<p>將遊戲帳號和 beanfun! 帳號進行資料對齊</p>
+							<p>即可取得快速升級券</p>
+						</div>
+						<div class="home-content__event">
+							<a href="javascript:;" class="home-content__event-btn">立即索取</a>
+							<a href="javascript:;" class="home-content__event-link">了解更多活動內容</a>
 						</div>
 					</div>
 				</div>
-				<!-- 祕法 -->
-				<div class="section" data-anchor="section2">
-					<div class="sec sec2-con">
-						<div class="sec-inner">
-							<div class="sec-logo"></div>
-							<div class="sec-desc"></div>
-							<div class="sec-anim sec2-title"></div>
-							<div class="sec-anim sec2-tab sec2-info">
-								<a href="javascript:;" class="lb-btn sec2-tab-btn1" data-pop="sec2-pop1"></a>
-								<a href="javascript:;" class="lb-btn sec2-tab-btn2" data-pop="sec2-pop2"></a>
+			</div>
+			<!-- 狀態1 -->
+			<div class="main" v-if=" getStatus == 1">
+				<div class="main-container">
+					<div class="main-title">快速升級加入新世界！</div>
+					<div class="main-info">
+						<p>完成手機簡訊驗證，輕鬆兩步驟取得快速升級券</p>
+						<p>現在完成加碼抽1萬樂豆！</p>
+					</div>
+					<!-- step1 -->
+					<div class="main-step" data-step="2" :class="[step1PhoneStatus == 3 && step1OTPStatue == 3?'complete':'']">
+						<div class="main-step__title">
+							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+							</svg>
+							Step1、核對您的進階驗證資料
+						</div>
+						<div class="main-step__input-group">
+							<div class="main-step__input-title">請輸入原進階驗證之號碼</div>
+							<div class="main-step__input-text">您的手機門號 <span>0911*****6</span></div>
+							<div class="main-step__input-type1" :class="[step1PhoneStatus == 2?'check':step1PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step1Phone" @input="phoneCheck('step1',$event)" :disabled="step1PhoneStatus == 3" /></div>
+							<div class="main-step__input-msg" v-if="step1PhoneError">{{step1PhoneError}}</div>
+							<a href="javascript:;" class="main-step__btn" :class="[step1PhoneStatus == 1 ?'':step1PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step1')">確認</a>
+						</div>
+						<div class="main-step__input-group">
+							<div class="main-step__input-title">請輸入信箱驗證碼</div>
+							<div class="main-step__input-text">驗證信會寄發至您的驗證信箱 <span>a************4@gmail.com</span></div>
+							<div class="main-step__input-type2">
+								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" ref="otp1" v-for="(i,index) in 6" />
+							</div>
+							<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
+							<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
+							<div class="main-step__re">
+								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step1')" v-if="intervalId1 == null">重發簡訊</a>
+								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step1}})</a>
+								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
+							</div>
+						</div>
+					</div>
+					<!-- step2 -->
+					<div class="main-step" data-step="2" :class="[step2PhoneStatus == 3 && step2OTPStatue == 3?'complete':'']">
+						<div class="main-step__title">
+							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+							</svg>
+							Step2、更換您的進階驗證資料為 beanfun! 註冊門號
+						</div>
+						<div class="main-step__input-group">
+							<div class="main-step__input-title">請輸入正確 beanfun! 註冊門號</div>
+							<div class="main-step__input-text">您的 beanfun! 註冊門號為 <span>0911*****6</span></div>
+							<div class="main-step__input-type1" :class="[step2PhoneStatus == 2?'check':step2PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step2Phone" @input="phoneCheck('step2',$event)" :disabled="step2PhoneStatus == 3" /></div>
+							<div class="main-step__input-msg" v-if="step2PhoneError">{{step2PhoneError}}</div>
+							<a href="javascript:;" class="main-step__btn" :class="[step2PhoneStatus == 1 ?'':step2PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step2')">確認</a>
+						</div>
+						<div class="main-step__input-group">
+							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
+							<div class="main-step__input-type2">
+								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" v-for="(i,index) in 6" />
+							</div>
+							<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
+							<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>
+							<div class="main-step__re">
+								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step2')" v-if="intervalId2 == null">重發簡訊</a>
+								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step2}})</a>
+								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 歐萊克能力開發事業 -->
-				<div class="section" data-anchor="section3">
-					<div class="sec sec3-con">
-						<div class="sec-inner">
-							<div class="sec-logo"></div>
-							<div class="sec-desc"></div>
-							<div class="sec-anim sec3-title"></div>
-							<div class="sec-anim sec3-content sec3-info"></div>
-							<div class="sec-anim sec3-btn-group sec3-info">
-								<a href="javascript:;" class="lb-btn sec3-btn sec3-btn1" data-pop="sec3-pop1" data-scroll="false"></a>
-								<a href="javascript:;" class="lb-btn sec3-btn sec3-btn2" data-pop="sec3-pop2" data-scroll="false"></a>
-								<a href="javascript:;" class="lb-btn sec3-btn sec3-btn3" data-pop="sec3-pop3" data-scroll="false"></a>
+			</div>
+			<!-- 狀態2 -->
+			<div class="main" v-if=" getStatus == 2">
+				<div class="main-container">
+					<div class="main-title">快速升級加入新世界！</div>
+					<div class="main-info">
+						<p>完成手機簡訊驗證，輕鬆兩步驟取得快速升級券</p>
+						<p>現在完成加碼抽1萬樂豆！</p>
+					</div>
+					<!-- step1 -->
+					<div class="main-step" data-step="1" :class="[step1OTPStatue == 3?'complete':'']">
+						<div class="main-step__title">
+							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+							</svg>
+							Step1、核對您的進階驗證資料
+						</div>
+						<div class="main-step__input-group">
+							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
+							<div class="main-step__input-text">已將驗證碼發送到您的手機門號 <span>0988*****5</span></div>
+							<div class="main-step__input-type2">
+								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" ref="otp1" v-for="(i,index) in 6" />
+							</div>
+							<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
+							<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
+							<div class="main-step__re">
+								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step1')" v-if="intervalId1 == null">重發簡訊</a>
+								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step1}})</a>
+								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- 魔劍士 -->
-				<div class="section" data-anchor="section4">
-					<div class="sec sec4-con">
-						<div class="sec-inner">
-							<div class="sec-logo"></div>
-							<div class="sec-desc"></div>
-							<div class="sec4-title sec-anim"></div>
-							<div class="sec4-tab1 sec-anim sec4-info">
-								<div class="sec4-tab1__title"></div>
-								<div class="sec4-tab1__btn-group">
-									<a href="javascript:;" class="lb-btn sec4-tab1__btn sec4-tab1__btn-1" data-pop="sec4-tab1-pop1"></a>
-									<a href="javascript:;" class="lb-btn sec4-tab1__btn sec4-tab1__btn-2" data-pop="sec4-tab1-pop2"></a>
-									<a href="javascript:;" class="lb-btn sec4-tab1__btn sec4-tab1__btn-3" data-pop="sec4-tab1-pop3"></a>
-									<a href="javascript:;" class="lb-btn sec4-tab1__btn sec4-tab1__btn-4" data-pop="sec4-tab1-pop4" data-movie="sec4-pop4-video"></a>
-									<a href="javascript:;" class="lb-btn sec4-tab1__btn sec4-tab1__btn-5" data-pop="sec4-tab1-pop5" data-movie="sec4-pop5-video"></a>
-									<a href="javascript:;" class="lb-btn sec4-tab1__btn sec4-tab1__btn-6" data-pop="sec4-tab1-pop6" data-movie="sec4-pop6-video"></a>
-									<a href="javascript:;" class="lb-btn sec4-tab1__btn sec4-tab1__btn-7" data-pop="sec4-tab1-pop7" data-movie="sec4-pop7-video"></a>
-								</div>
-								<div class="sec4-tab2__title"></div>
-								<a href="javascript:;" class="lb-btn sec4-tab2__btn" data-pop="sec4-tab2-pop" data-scroll="false"></a>
-							</div>
+					<!-- step2 -->
+					<div class="main-step" data-step="2" :class="[step2PhoneStatus == 3 && step2OTPStatue == 3?'complete':'']">
+						<div class="main-step__title">
+							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+							</svg>
+							Step2、更換您的進階驗證資料為 beanfun! 註冊門號
 						</div>
-					</div>
-				</div>
-				<!-- 聖歌隊 -->
-				<div class="section" data-anchor="section5">
-					<div class="sec sec5-con">
-						<div class="sec-inner">
-							<div class="sec-logo"></div>
-							<div class="sec-desc"></div>
-							<div class="sec5-title sec-anim"></div>
-							<div class="sec5-tab1 sec-anim sec5-info">
-								<div class="sec5-tab1__title"></div>
-								<div class="sec5-tab1__btn-group">
-									<a href="javascript:;" class="lb-btn sec5-tab1__btn sec5-tab1__btn-1" data-pop="sec5-tab1-pop1"></a>
-									<a href="javascript:;" class="lb-btn sec5-tab1__btn sec5-tab1__btn-2" data-pop="sec5-tab1-pop2" data-movie="sec5-pop2-video"></a>
-									<a href="javascript:;" class="lb-btn sec5-tab1__btn sec5-tab1__btn-3" data-pop="sec5-tab1-pop3"></a>
-									<a href="javascript:;" class="lb-btn sec5-tab1__btn sec5-tab1__btn-4" data-pop="sec5-tab1-pop4" data-movie="sec5-pop4-video"></a>
-									<a href="javascript:;" class="lb-btn sec5-tab1__btn sec5-tab1__btn-5" data-pop="sec5-tab1-pop5" data-movie="sec5-pop5-video"></a>
-									<a href="javascript:;" class="lb-btn sec5-tab1__btn sec5-tab1__btn-6" data-pop="sec5-tab1-pop6" data-movie="sec5-pop6-video"></a>
-									<a href="javascript:;" class="lb-btn sec5-tab1__btn sec5-tab1__btn-7" data-pop="sec5-tab1-pop7" data-movie="sec5-pop7-video"></a>
-								</div>
-								<div class="sec5-tab2__title"></div>
-								<a href="javascript:;" class="lb-btn sec5-tab2__btn" data-pop="sec5-tab2-pop"></a>
-							</div>
-							<a href="#section6" class="btn-scroll"></a>
+						<div class="main-step__input-group">
+							<div class="main-step__input-title">請輸入正確 beanfun! 註冊門號</div>
+							<div class="main-step__input-text">您的 beanfun! 註冊門號為 <span>0911*****6</span></div>
+							<div class="main-step__input-type1" :class="[step2PhoneStatus == 2?'check':step2PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step2Phone" @input="phoneCheck('step2',$event)" :disabled="step2PhoneStatus == 3" /></div>
+							<div class="main-step__input-msg" v-if="step2PhoneError">{{step2PhoneError}}</div>
+							<a href="javascript:;" class="main-step__btn" :class="[step2PhoneStatus == 1 ?'':step2PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step2')">確認</a>
 						</div>
-					</div>
-				</div>
-				<!-- 強化祕法 -->
-				<div class="section" data-anchor="section6">
-					<div class="sec sec6-con">
-						<div class="sec-inner">
-							<div class="sec-logo"></div>
-							<div class="sec-desc"></div>
-							<div class="sec6-title sec-anim"></div>
-							<div class="sec6-tab sec-anim sec6-info">
-								<div class="sec6-tab1">
-									<a href="javascript:;" class="lb-btn sec6-tab1__btn1" data-pop="sec6-tab1-pop1"></a>
-									<a href="javascript:;" class="lb-btn sec6-tab1__btn2" data-pop="sec6-tab1-pop2"></a>
-								</div>
-								<div class="sec6-tab2">
-									<a href="javascript:;" class="lb-btn sec6-tab2__btn1" data-pop="sec6-tab2-pop1"></a>
-									<a href="javascript:;" class="lb-btn sec6-tab2__btn2" data-pop="sec6-tab2-pop2"></a>
-								</div>
+						<div class="main-step__input-group">
+							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
+							<div class="main-step__input-type2">
+								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" v-for="(i,index) in 6" />
+							</div>
+							<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
+							<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>
+							<div class="main-step__re">
+								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step2')" v-if="intervalId2 == null">重發簡訊</a>
+								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step2}})</a>
+								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
 							</div>
 						</div>
 					</div>
@@ -216,8 +220,6 @@
 		</div>
 
 		<!-- footer -->
-		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="新瑪奇B" theme="dark"></script>
-		<script src="./js/lightbox.js"></script>
-		<script src="./js/default.js"></script>
+		<script type="module" src="./js/default.js"></script>
 	</body>
 </html>

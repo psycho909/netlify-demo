@@ -1,183 +1,295 @@
-// fullpage 換頁動畫
-function m(t) {
-	t = t - 1;
-	var e = $(".sec" + t + "-con .sec-inner2");
-	gsap.to(e, {
-		delay: 1,
-		scale: 1,
-		opacity: 1,
-		filter: "blur(0px) grayscale(0%)",
-		duration: 0.5,
-		ease: "power1.in",
-	});
+import store from "./store.js";
+import { MessageLB, NoOTP, GoService, Completed, PhoneWarn, PhoneError, Already, Ready } from "./lightbox.js";
+// Loading顯示
+function loadingShow() {
+	$("#loadingProgress").show();
 }
-
-// window.location.href = "#info";
-function animIn(t) {
-	var title = $(".sec" + t + "-title");
-	var tab = $(".sec" + t + "-info");
-	var bg = $(".bg" + t);
-	gsap.to(title, {
-		marginTop: 0,
-		opacity: 1,
-		duration: 1,
-		ease: "easeInOutCubic",
-	});
-	gsap.to(tab, {
-		opacity: 1,
-		duration: 1,
-		ease: "easeInOutCubic",
-	});
-	gsap.to(bg, {
-		scale: 1,
-		duration: 1,
-		ease: "easeInOutCubic",
-	});
+// Loading隱藏
+function loadingHide() {
+	$("#loadingProgress").hide();
 }
-function animOut(t) {
-	var bg = $(".bg" + t);
-	gsap.set(bg, {
-		scale: 1.5,
-	});
-}
-var loading = false;
-loadingProgress({
-	loadedFN: function () {
-		var footer = $(".UNI-footer").clone();
-		if (!isMobile.any) {
-			$(".UNI-footer").remove();
-			$(".sec6-con .sec-inner").append(footer);
-		}
+// Ready();
+// $("input").on("input", function (e) {
+// 	let value = e.target.value;
+// 	let reg = value.match(/^\d+$/);
+// 	if (reg == null) {
+// 		e.target.value = "";
+// 		return;
+// 	}
+// if (e.target.nextElementSibling == null) {
+// 	return;
+// }
+// 	_.debounce(function (e) {
+// 		e.target.nextElementSibling.focus();
+// 	}, 400)(e);
+// });
+// MessageLB("錯誤");
+let app = new Vue({
+	el: "#app",
+	store,
+	data() {
+		return {
+			step1: 0,
+			step2: 0,
+			status: {},
+			intervalId1: null,
+			intervalId2: null,
+			step1Phone: "",
+			step1PhoneStatus: 1,
+			step1PhoneError: 0,
+			step1OTP: "",
+			step1Num: 0,
+			step1OTPStatue: 1,
+			step1OTPError: "",
+			step1OTPErrorNum: 0,
+			step2Phone: "",
+			step2PhoneStatus: 1,
+			step2PhoneError: "",
+			step2OTP: "",
+			step2Num: 0,
+			step2OTPStatue: 1,
+			step2OTPError: "",
+			step2OTPErrorNum: 0,
+		};
 	},
-	detectVideo: false,
-	autoHide: false,
-});
-if (!isMobile.any) {
-	$("#fullpage").fullpage({
-		menu: "#menu",
-		anchors: ["section1", "section2", "section3", "section4", "section5", "section6"],
-		scrollingSpeed: 500,
-		scrollOverflow: true,
-		scrollOverflowReset: true,
-		keyboardScrolling: false,
-		css3: false,
-		afterLoad: function (origin, destination) {
-			$(".sec-anim").attr("style", "");
-			$(".bg").attr("style", "");
-			animOut(destination);
-			switch (destination) {
-				case 1:
-					function charMove(t, n, r) {
-						var e = $(".sec1-con");
-						if (e[0]) {
-							var o = t.pageX - e.offset().left;
-							var i = t.pageY - e.offset().top;
-							gsap.to(n, {
-								duration: 0.3,
-								x: ((o - e.width() / 2) / e.width()) * r,
-								y: ((i - e.height() / 2) / e.height()) * r,
-								ease: "none",
+	mounted() {
+		// this.intervalId1 = setInterval(this.countdown1, 1000);
+	},
+	computed: {
+		getStatus() {
+			return this.$store.state.status;
+		},
+	},
+	methods: {
+		NoOTP() {
+			NoOTP();
+		},
+		countdown1() {
+			if (this.step1 <= 1) {
+				clearInterval(this.intervalId1);
+				this.intervalId1 = null;
+				return;
+			}
+			this.step1--;
+		},
+		countdown2() {
+			if (this.step2 <= 1) {
+				clearInterval(this.intervalId2);
+				this.intervalId2 = null;
+				return;
+			}
+			this.step2--;
+		},
+		reOTP(type) {
+			if (type == "step1") {
+				this.step1Num++;
+				if (this.step1Num > 5) {
+					this.step1OTPError = "※已達本日驗證簡訊發送上限，請聯繫客服";
+					return;
+				}
+				if (this.step1 > 0) {
+					return;
+				}
+				this.step1 = 60;
+				this.intervalId1 = setInterval(this.countdown1, 1000);
+			}
+			if (type == "step2") {
+				this.step2Num++;
+				if (this.step2Num > 5) {
+					this.step2OTPError = "※已達本日驗證簡訊發送上限，請聯繫客服";
+					return;
+				}
+				if (this.step2 > 0) {
+					return;
+				}
+				this.step2 = 60;
+				this.intervalId2 = setInterval(this.countdown2, 1000);
+			}
+		},
+		phoneCheck(type, e) {
+			let value = e.target.value;
+			let reg = /^\d+$/.test(value);
+			if (type == "step1") {
+				if (!reg) {
+					this.step1PhoneError = "※號碼輸入錯誤，請重新輸入!";
+					this.step1PhoneStatus = 1;
+				} else {
+					this.step1PhoneStatus = 2;
+					this.step1PhoneError = "";
+				}
+			}
+			if (type == "step2") {
+				if (!reg) {
+					this.step2PhoneError = "※號碼輸入錯誤，請重新輸入!";
+					this.step2PhoneStatus = 1;
+				} else {
+					this.step2PhoneStatus = 2;
+					this.step2PhoneError = "";
+				}
+			}
+		},
+		phoneSubmit(type) {
+			if (type == "step1") {
+				if (this.step1PhoneStatus != 2) {
+					return;
+				}
+				this.step1PhoneStatus = 3;
+			}
+			if (type == "step2") {
+				if (this.step2PhoneStatus != 2) {
+					return;
+				}
+				this.step2PhoneStatus = 3;
+			}
+		},
+		otpCheck(type, e) {
+			let value = e.target.value;
+			let reg = /^\d+$/.test(value);
+			var keyEvt = e.originalEvent;
+			if (e.type == "keyup") {
+				if (!(e.ctrlKey && e.key == "z")) {
+					if (value != "" && reg) {
+						if (e.target.nextElementSibling != null) {
+							e.target.nextElementSibling.focus();
+						}
+					} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+						if (isMobile.any) {
+							e.target.value = "";
+							e.preventDefault();
+						}
+					}
+				}
+			}
+			if (e.type == "keydown") {
+				if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
+					//
+				} else if (e.key == "Backspace") {
+					if (value == "") {
+						e.target.previousElementSibling.focus();
+					}
+				} else if (e.ctrlKey || e.key == "v") {
+				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+					e.target.value = "";
+					e.preventDefault();
+				}
+			}
+
+			if (type == "step1") {
+				this.step1OTP = "";
+				this.$refs.otp1.forEach((v, i) => {
+					this.step1OTP += v.value;
+				});
+				if (this.step1OTP.length == 6) {
+					this.step1OTPStatue = 2;
+				} else {
+					this.step1OTPStatue = 1;
+				}
+			}
+			if (type == "step2") {
+				this.step2OTP = "";
+				this.$refs.otp2.forEach((v, i) => {
+					this.step2OTP += v.value;
+				});
+				if (this.step2OTP.length == 6) {
+					this.step2OTPStatue = 2;
+				} else {
+					this.step2OTPStatue = 1;
+				}
+			}
+		},
+		otpSubmit(type) {
+			if (type == "step1") {
+				if (this.step1OTPStatue != 2 || this.step1OTPErrorNum == 5) {
+					return;
+				}
+				MessageLB(this.step1OTP);
+				this.step1OTPError = "";
+				this.step1OTPErrorNum += 1;
+				this.step1OTPError = `※驗證碼輸入錯誤，請重新輸入(${this.step1OTPErrorNum}/5)`;
+				if (this.step1OTPErrorNum > 5) {
+					this.step1OTPError = "※輸入錯誤次數過多，暫時無法提供此服務，請於60分鐘後再試";
+				}
+				this.step1OTPErrorNum = 0;
+				this.step1OTPStatue = 3;
+			}
+			if (type == "step2") {
+				if (this.step2OTPStatue != 2 || this.step2OTPErrorNum == 5) {
+					return;
+				}
+				this.step2OTPError = "";
+				this.step2OTPErrorNum += 1;
+				this.step2OTPError = `※驗證碼輸入錯誤，請重新輸入(${this.step2OTPErrorNum}/5)`;
+				if (this.step2OTPErrorNum > 5) {
+					this.step2OTPError = "※輸入錯誤次數過多，暫時無法提供此服務，請於60分鐘後再試";
+				}
+				this.step2OTPErrorNum = 0;
+				this.step2OTPStatue = 3;
+			}
+		},
+		onFocus(e) {
+			e.target.select();
+		},
+		onPaste(type, index, e) {
+			var evtIdx = index;
+			var aryIdx = 0;
+			var clipboardDataObj = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
+			var copiedText = clipboardDataObj.getData("Text");
+			var copiedTextAry = copiedText.split("");
+			var _this = this;
+			if (!/^[0-9]+$/.test(copiedText)) {
+				if (type == "step1") {
+					this.step1OTPError = "";
+					this.step1OTPError = "格式錯誤，貼上的文字不可包含數字以外的字元";
+				}
+				if (type == "step2") {
+					this.step2OTPError = "";
+					this.step2OTPError = "格式錯誤，貼上的文字不可包含數字以外的字元";
+				}
+				e.target.value = "";
+				return;
+			}
+			if (type == "step1") {
+				this.step1OTP = "";
+				this.$refs.otp1.forEach((v, i) => {
+					if (evtIdx == i) {
+						if (copiedTextAry[aryIdx] != undefined) {
+							evtIdx++;
+							this.$refs.otp1[i].value = copiedTextAry[aryIdx];
+							aryIdx++;
+							setTimeout(function () {
+								_this.$refs.otp1[i].focus();
 							});
 						}
 					}
-					gsap.to(".sec1-con .sec-anim", {
-						opacity: 1,
-						stagger: 0.2,
-						duration: 0.5,
-						ease: "power3.out",
-						onComplete: function () {
-							if (!isMobile.any) {
-								$(".sec1-con").on("mousemove", function (e) {
-									charMove(e, ".sec1-char1", -50);
-									charMove(e, ".sec1-char2", 25);
-									charMove(e, ".sec1-char3", 50);
-								});
-							}
-						},
-					});
-					gsap.to(".sec1-logo, .sec1-slogan", {
-						rotateX: 0,
-						duration: 0.5,
-						stagger: 0.2,
-						ease: "power3.out",
-					});
-					break;
-				case 2:
-					$(".bg").fadeOut("fast");
-					$(".bg2").fadeIn();
-					$(".bg2 .video-bg video")[0].play();
-					animIn(destination);
-					$.fn.fullpage.setAllowScrolling(true);
-					break;
-				case 3:
-					$(".bg").fadeOut("fast");
-					$(".bg3").fadeIn();
-					animIn(destination);
-					break;
-				case 4:
-					$(".bg").fadeOut("fast");
-					$(".bg4").fadeIn();
-					$(".bg4 .video-bg video")[0].play();
-					animIn(destination);
-					break;
-				case 5:
-					$(".bg").fadeOut("fast");
-					$(".bg5").fadeIn();
-					$(".bg5 .video-bg video")[0].play();
-					animIn(destination);
-					break;
-				case 6:
-					$(".bg").fadeOut("fast");
-					$(".bg6").fadeIn();
-					animIn(destination);
-					break;
+					this.step1OTP += v.value;
+				});
+				if (this.step1OTP.length == 6) {
+					this.step1OTPStatue = 2;
+				} else {
+					this.step1OTPStatue = 1;
+				}
 			}
-			if (!isMobile.any) {
-				destination < 2 ? $("#menu,.logo,.btn-top").fadeOut("fast") : $("#menu,.logo,.btn-top").fadeIn("fast");
-			} else {
-				destination < 2 ? $(".btn-top").fadeOut("fast") : $(".btn-top").fadeIn("fast");
+			if (type == "step2") {
+				this.step2OTP = "";
+				this.$refs.otp2.forEach((v, i) => {
+					if (evtIdx == i) {
+						if (copiedTextAry[aryIdx] != undefined) {
+							evtIdx++;
+							this.$refs.otp2[i].value = copiedTextAry[aryIdx];
+							aryIdx++;
+							setTimeout(function () {
+								_this.$refs.otp2[i].focus();
+							});
+						}
+					}
+					this.step2OTP += v.value;
+				});
+				if (this.step2OTP.length == 6) {
+					this.step2OTPStatue = 2;
+				} else {
+					this.step2OTPStatue = 1;
+				}
 			}
 		},
-		onLeave: function (index) {},
-	});
-} else {
-	$(".btn-top").on("click", function () {
-		$("body,html").animate({
-			scrollTop: 0,
-		});
-	});
-}
-
-// 右側選單控制
-function setMenuPos() {
-	if ($(window).scrollTop() > 40) {
-		$(".menu").css({ top: "0" });
-	} else {
-		$(".menu").css({ top: 40 - $(window).scrollTop() + "px" });
-	}
-}
-setMenuPos();
-
-$(window).on("scroll", function () {
-	setMenuPos();
-});
-
-$(".menu .wrap").mCustomScrollbar({
-	autoHideScrollbar: true,
-	scrollInertia: 100,
-});
-
-$(".toggle").on("click", function () {
-	if (!$(this).is(".closed")) {
-		$(this).addClass("closed");
-		$(".menu").addClass("hide");
-	} else {
-		$(this).removeClass("closed");
-		$(".menu").removeClass("hide");
-	}
-});
-loadingProgress({
-	loadedFN: function () {},
-	detectVideo: false,
-	autoHide: true,
+	},
 });

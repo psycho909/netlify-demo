@@ -1,10 +1,13 @@
-$bgColor: #100514;
-// safari
 :root {
+	--bg-color: #fff;
 	--safe-area-left: 0;
 	--safe-area-right: 0;
 	--safe-area-top: 0;
 	--safe-area-bottom: 0;
+	--scroll-width: 5px;
+	--scroll-height: 8px;
+	--scroll-bar-color: #ddd;
+	--scroll-bar-thumb: #000;
 }
 @supports (bottom: env(safe-area-inset-top)) {
 	:root {
@@ -21,174 +24,138 @@ $bgColor: #100514;
 	bottom: calc(1em + var(--safe-area-bottom));
 }
 body {
-	background-color: #100514;
+	background-color: var(--bg-color, #fff);
 	position: relative;
 	width: 100%;
+	min-width: 1200px;
+}
+.scroll-style {
+	&::-webkit-scrollbar {
+		width: var(--scroll-width, 5px);
+		height: var(--scroll-height, 8px);
+		background-color: var(--scroll-bar-color, #ddd);
+	}
+	&::-webkit-scrollbar-thumb {
+		background: var(--scroll-bar-thumb, #000);
+	}
 }
 
 #app {
 	width: 100%;
 	position: relative;
+	width: calc(var(--width) * 1px);
+}
+
+.home {
+	width: 100%;
+	min-height: 1024px;
+	height: 100vh;
+	background-image: url("./img/home-bg.jpg");
+	background-size: 1920px 1024px;
+	background-position: center 0;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	overflow: hidden;
-}
-.logo {
-	width: 88px;
-	height: 73px;
-	background-size: cover;
-	background-image: url("./img/logo.png");
-	font-size: 0;
-	position: absolute;
-	top: 12px;
-	left: 50%;
-	margin-left: -565px;
-	z-index: 99;
-	display: none;
-	@include media {
-		display: none;
+	&-deco {
+		width: 1920px;
+		height: 770px;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -958px;
+		background-size: 1920px 770px;
+		background-image: url("./img/home-deco1.png");
 	}
-}
-.sec-logo {
-	background-size: cover;
-}
-.btn-scroll {
-	width: 19px;
-	height: 27px;
-	background-size: cover;
-	background-image: url("./img/btn-scroll.png");
-	z-index: 99;
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	@include media {
-		width: vw(76);
-		height: vw(107);
-		background-image: url("./img/m/btn-scroll.png");
-	}
-}
-.btn-top {
-	width: 58px;
-	height: 58px;
-	background-size: cover;
-	background-image: url("./img/btn-top.png");
-	position: fixed;
-	bottom: 16px;
-	right: 50%;
-	margin-right: -554px;
-	z-index: 99;
-	cursor: pointer;
-	display: none;
-	@include media {
-		width: vw(125);
-		height: vw(125);
-		background-image: url("./img/m/btn-top.png");
-		margin-right: 0;
-		right: vw(34);
-		bottom: vw(120);
-	}
-}
-.bg {
-	position: fixed;
-	width: 3000px;
-	height: 100%;
-	top: 0;
-	left: 50%;
-	margin-left: -1500px;
-	display: none;
-	background-size: auto 100%;
-	background-position: center center;
-	background-repeat: no-repeat;
-	transform: scale(1.5);
-	@include media {
-		display: none;
-	}
-	.video-bg {
+	&-container {
+		width: 1100px;
+		background-color: #fff;
+		margin: 0 auto;
+		border-radius: 36px;
+		filter: drop-shadow(4px 15px 15px rgba(0, 0, 0, 0.3));
 		position: relative;
-		width: 100%;
-		height: 100%;
-		video {
-			width: 100%;
-			height: 100%;
-			background-color: #000;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding-top: 127px;
+		padding-bottom: 58px;
+		&:before {
+			content: "";
+			position: absolute;
+			top: 86px;
+			right: 35px;
+			width: 56px;
+			height: 129px;
+			background-image: url("./img/home-deco2.png");
+			background-size: cover;
 		}
 		&:after {
 			content: "";
-			display: block;
 			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-size: auto 100%;
-			background-position: center center;
-			background-repeat: no-repeat;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 405px;
+			height: 12px;
+			background: transparent;
+			border-top: 12px solid transparent;
+			border-bottom: 12px solid #f49c00;
+			border-left: 12px solid transparent;
+			border-right: 12px solid transparent;
 		}
 	}
-}
-.bg2 {
-	.video-bg {
-		&:after {
-			background-image: url("./img/sec2-bg-mask.png");
+	&-title {
+		width: 758px;
+		height: 126px;
+		background-size: cover;
+		background-image: url("./img/home-title.png");
+		font-size: 0;
+		position: absolute;
+		top: -85px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	&-content {
+		position: relative;
+		&__title {
+			font-size: 32px;
+			font-weight: bold;
+			color: #ff8300;
+			margin-bottom: 27px;
 		}
-	}
-}
-.bg3 {
-	background-image: url("./img/sec3-bg.jpg");
-}
-.bg4 {
-	.video-bg {
-		&:after {
-			background-image: url("./img/sec4-bg.png");
+		&__info {
+			font-size: 20px;
+			text-align: center;
+			line-height: 32px;
+			margin-bottom: 54px;
 		}
-	}
-}
-.bg5 {
-	.video-bg {
-		&:after {
-			background-image: url("./img/sec5-bg.png");
-		}
-	}
-}
-.bg6 {
-	background-image: url("./img/sec6-bg.jpg");
-}
-.nav {
-	width: 100%;
-	position: absolute;
-	top: 52px;
-	left: 0;
-	z-index: 99;
-	display: none;
-	@include media {
-		display: none;
-	}
-	&-list {
-		max-width: 1000px;
-		margin: 0 auto;
-		font-size: 18px;
-		font-weight: bold;
-		display: flex;
-		list-style: none;
-		&__li {
-			padding: 0 36px;
-			&.active {
-				a {
-					color: #fff;
-				}
-			}
-			a {
+		&__event {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			position: relative;
+			z-index: 1;
+			&-btn {
+				font-size: 32px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 398px;
+				height: 68px;
+				background-size: cover;
+				background-image: url("./img/home-btn.png");
+				color: #fff;
 				text-decoration: none;
-				display: block;
-				color: rgba(#929292, 0.8);
-				@include hover {
-					color: #fff;
-				}
+				font-weight: bold;
+				filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+				margin-bottom: 22px;
+			}
+			&-link {
+				font-size: 14px;
+				color: #000;
 			}
 		}
 	}
-}
-.sec-inner {
-	position: relative;
-	width: 100%;
-	height: 100%;
 }

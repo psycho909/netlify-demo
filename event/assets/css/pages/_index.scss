@@ -1,5 +1,5 @@
 :root {
-	--bg-color: #fff;
+	--bg-color: #fcfcfc;
 	--safe-area-left: 0;
 	--safe-area-right: 0;
 	--safe-area-top: 0;
@@ -24,10 +24,13 @@
 	bottom: calc(1em + var(--safe-area-bottom));
 }
 body {
-	background-color: var(--bg-color, #fff);
+	background-color: var(--bg-color, #fcfcfc);
 	position: relative;
 	width: 100%;
 	min-width: 1200px;
+	@include media2 {
+		min-width: auto;
+	}
 	@include media {
 		min-width: auto;
 	}
@@ -52,31 +55,47 @@ body {
 .home {
 	width: 100%;
 	min-height: 1024px;
-	height: 100vh;
+	height: 100dvh;
 	background-image: url("./img/home-bg.jpg");
-	background-size: 1920px 1024px;
-	background-position: center 0;
+	background-size: cover;
+	background-position: center center;
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
+	@include media {
+		min-height: vw(1024);
+		height: 100dvh;
+		background-image: url("./img/m-home-bg.jpg");
+		background-size: cover;
+	}
 	&-deco {
 		width: 1920px;
 		height: 770px;
 		position: absolute;
-		top: 0;
+		bottom: 0;
+		margin-bottom: -260px;
 		left: 50%;
 		margin-left: -958px;
 		background-size: 1920px 770px;
 		background-image: url("./img/home-deco1.png");
+		z-index: 1;
+		@include media {
+			width: vw(768);
+			height: vw(455);
+			background-image: url("./img/m-home-deco1.png");
+			background-size: vw(768) vw(455);
+			margin-left: vw(-385);
+			margin-bottom: vw(-385);
+		}
 	}
 	&-container {
 		width: 1100px;
 		background-color: #fff;
 		margin: 0 auto;
 		border-radius: 36px;
-		filter: drop-shadow(4px 15px 15px rgba(0, 0, 0, 0.3));
+		box-shadow: 4px 15px 15px rgba(0, 0, 0, 0.3);
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -85,7 +104,11 @@ body {
 		padding-top: 127px;
 		padding-bottom: 58px;
 		@include media {
-			width: 100%;
+			width: vw(674);
+			border-radius: vw(36);
+			box-shadow: vw(4) vw(15) vw(15) rgba(0, 0, 0, 0.3);
+			padding-top: vw(54);
+			padding-bottom: vw(38);
 		}
 		&:before {
 			content: "";
@@ -96,6 +119,12 @@ body {
 			height: 129px;
 			background-image: url("./img/home-deco2.png");
 			background-size: cover;
+			@include media {
+				width: vw(56);
+				height: vw(129);
+				top: vw(60);
+				right: vw(22);
+			}
 		}
 		&:after {
 			content: "";
@@ -110,6 +139,14 @@ body {
 			border-bottom: 12px solid #f49c00;
 			border-left: 12px solid transparent;
 			border-right: 12px solid transparent;
+			@include media {
+				width: vw(245);
+				height: vw(12);
+				border-top: vw(12) solid transparent;
+				border-bottom: vw(12) solid #f49c00;
+				border-left: vw(12) solid transparent;
+				border-right: vw(12) solid transparent;
+			}
 		}
 	}
 	&-title {
@@ -122,6 +159,12 @@ body {
 		top: -85px;
 		left: 50%;
 		transform: translateX(-50%);
+		@include media {
+			width: vw(425);
+			height: vw(71);
+			top: vw(-40);
+			background-image: url("./img/m-home-title.png");
+		}
 	}
 	&-content {
 		position: relative;
@@ -130,19 +173,31 @@ body {
 			font-weight: bold;
 			color: #ff8300;
 			margin-bottom: 27px;
+			@include media {
+				font-size: vw(40);
+				margin-bottom: vw(28);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
 		}
 		&__info {
 			font-size: 20px;
 			text-align: center;
 			line-height: 32px;
 			margin-bottom: 54px;
+			@include media {
+				font-size: vw(30);
+				line-height: vw(43);
+				margin-bottom: vw(30);
+			}
 		}
 		&__event {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 			&-btn {
 				font-size: 32px;
 				display: flex;
@@ -157,10 +212,19 @@ body {
 				font-weight: bold;
 				filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 				margin-bottom: 22px;
+				@include media {
+					font-size: vw(30);
+					width: vw(345);
+					height: vw(59);
+					margin-bottom: vw(24);
+				}
 			}
 			&-link {
 				font-size: 14px;
 				color: #000;
+				@include media {
+					font-size: vw(24);
+				}
 			}
 		}
 	}

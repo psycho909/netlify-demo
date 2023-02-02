@@ -2,8 +2,8 @@
 <html lang="zh-Hant-TW">
 	<head>
 		<meta charset="UTF-8" />
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-		<meta name="viewport" content="width=1200,user-scalable=0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <meta name="viewport" content="width=1200,user-scalable=0" /> -->
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<meta name="description" content="{{description}}" />
 		<!-- 除了H5活動頁以外都要加上 -->
@@ -37,7 +37,7 @@
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/3.1.1/vuex.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
-
+		<script src="https://tw.hicdn.beanfun.com/plugins/vconsole/3.10.0/vconsole.min.js"></script>
 		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
 		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
 		<!-- GTM -->
@@ -69,7 +69,7 @@
 					<div class="home-deco"></div>
 					<div class="home-title">快速升級劵</div>
 					<div class="home-content">
-						<div class="home-content__title">取得快速升級券抽最高 1 萬樂豆點</div>
+						<div class="home-content__title"><span>取得快速升級券抽</span><span>最高 1 萬樂豆點</span></div>
 						<div class="home-content__info">
 							<p>簡單兩步驟！</p>
 							<p>將遊戲帳號和 beanfun! 帳號進行資料對齊</p>
@@ -90,67 +90,70 @@
 						<p>完成手機簡訊驗證，輕鬆兩步驟取得快速升級券</p>
 						<p>現在完成加碼抽1萬樂豆！</p>
 					</div>
-					<!-- step1 -->
-					<div class="main-step" data-step="2" :class="[step1PhoneStatus == 3 && step1OTPStatue == 3?'complete':'']">
-						<div class="main-step__title">
-							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
-								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
-							</svg>
-							Step1、核對您的進階驗證資料
-						</div>
-						<div class="main-step__input-group">
-							<div class="main-step__input-title">請輸入原進階驗證之號碼</div>
-							<div class="main-step__input-text">您的手機門號 <span>0911*****6</span></div>
-							<div class="main-step__input-type1" :class="[step1PhoneStatus == 2?'check':step1PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step1Phone" @input="phoneCheck('step1',$event)" :disabled="step1PhoneStatus == 3" /></div>
-							<div class="main-step__input-msg" v-if="step1PhoneError">{{step1PhoneError}}</div>
-							<a href="javascript:;" class="main-step__btn" :class="[step1PhoneStatus == 1 ?'':step1PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step1')">確認</a>
-						</div>
-						<div class="main-step__input-group">
-							<div class="main-step__input-title">請輸入信箱驗證碼</div>
-							<div class="main-step__input-text">驗證信會寄發至您的驗證信箱 <span>a************4@gmail.com</span></div>
-							<div class="main-step__input-type2" :class="[step1OTPStatue == 2?'check':step1OTPStatue == 3?'complete':'']">
-								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" ref="otp1" :disabled="step1OTPStatue == 3" v-for="(i,index) in 6" />
+					<div class="main-content">
+						<!-- step1 -->
+						<div class="main-step" data-step="2" :class="[step1PhoneStatus == 3 && step1OTPStatue == 3?'complete':'']">
+							<div class="main-step__title">
+								<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+									<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+								</svg>
+								<div class="main-step__title-text">Step1、核對您的進階驗證資料</div>
 							</div>
-							<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
-							<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
-							<div class="main-step__re">
-								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step1')" v-if="intervalId1 == null">重發簡訊</a>
-								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step1}})</a>
-								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
+							<div class="main-step__input-group">
+								<div class="main-step__input-title">請輸入原進階驗證之號碼</div>
+								<div class="main-step__input-text">您的手機門號 <span>0911*****6</span></div>
+								<div class="main-step__input-type1" :class="[step1PhoneStatus == 2?'check':step1PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step1Phone" @input="phoneCheck('step1',$event)" :disabled="step1PhoneStatus == 3" /></div>
+								<div class="main-step__input-msg" v-if="step1PhoneError">{{step1PhoneError}}</div>
+								<a href="javascript:;" class="main-step__btn" :class="[step1PhoneStatus == 1 ?'':step1PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step1')">確認</a>
+							</div>
+							<div class="main-step__input-group">
+								<div class="main-step__input-title">請輸入信箱驗證碼</div>
+								<div class="main-step__input-text">驗證信會寄發至您的驗證信箱 <span>a************4@gmail.com</span></div>
+								<div class="main-step__input-type2" :class="[step1OTPStatue == 2?'check':step1OTPStatue == 3?'complete':'']">
+									<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" ref="otp1" :disabled="step1OTPStatue == 3" v-for="(i,index) in 6" />
+								</div>
+								<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
+								<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
+								<div class="main-step__re">
+									<a href="javascript:;" class="main-step__re-again" @click="reOTP('step1')" v-if="intervalId1 == null">重發簡訊</a>
+									<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step1}})</a>
+									<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
+								</div>
+							</div>
+						</div>
+						<!-- step2 -->
+						<div class="main-step" data-step="2" :class="[step2PhoneStatus == 3 && step2OTPStatue == 3?'complete':'']">
+							<div class="main-step__title">
+								<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+									<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+								</svg>
+								<div class="main-step__title-text">Step2、更換您的進階驗證資料為 beanfun! 註冊門號</div>
+							</div>
+							<div class="main-step__input-group">
+								<div class="main-step__input-title">請輸入正確 beanfun! 註冊門號</div>
+								<div class="main-step__input-text">您的 beanfun! 註冊門號為 <span>0911*****6</span></div>
+								<div class="main-step__input-type1" :class="[step2PhoneStatus == 2?'check':step2PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step2Phone" @input="phoneCheck('step2',$event)" :disabled="step2PhoneStatus == 3" /></div>
+								<div class="main-step__input-msg" v-if="step2PhoneError">{{step2PhoneError}}</div>
+								<a href="javascript:;" class="main-step__btn" :class="[step2PhoneStatus == 1 ?'':step2PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step2')">確認</a>
+							</div>
+							<div class="main-step__input-group">
+								<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
+								<div class="main-step__input-type2" :class="[step2OTPStatue == 2?'check':step2OTPStatue == 3?'complete':'']">
+									<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" :disabled="step2OTPStatue == 3" v-for="(i,index) in 6" />
+								</div>
+								<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
+								<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>
+								<div class="main-step__re">
+									<a href="javascript:;" class="main-step__re-again" @click="reOTP('step2')" v-if="intervalId2 == null">重發簡訊</a>
+									<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step2}})</a>
+									<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
+								</div>
 							</div>
 						</div>
 					</div>
-					<!-- step2 -->
-					<div class="main-step" data-step="2" :class="[step2PhoneStatus == 3 && step2OTPStatue == 3?'complete':'']">
-						<div class="main-step__title">
-							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
-								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
-							</svg>
-							Step2、更換您的進階驗證資料為 beanfun! 註冊門號
-						</div>
-						<div class="main-step__input-group">
-							<div class="main-step__input-title">請輸入正確 beanfun! 註冊門號</div>
-							<div class="main-step__input-text">您的 beanfun! 註冊門號為 <span>0911*****6</span></div>
-							<div class="main-step__input-type1" :class="[step2PhoneStatus == 2?'check':step2PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step2Phone" @input="phoneCheck('step2',$event)" :disabled="step2PhoneStatus == 3" /></div>
-							<div class="main-step__input-msg" v-if="step2PhoneError">{{step2PhoneError}}</div>
-							<a href="javascript:;" class="main-step__btn" :class="[step2PhoneStatus == 1 ?'':step2PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step2')">確認</a>
-						</div>
-						<div class="main-step__input-group">
-							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
-							<div class="main-step__input-type2" :class="[step2OTPStatue == 2?'check':step2OTPStatue == 3?'complete':'']">
-								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" :disabled="step2OTPStatue == 3" v-for="(i,index) in 6" />
-							</div>
-							<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
-							<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>
-							<div class="main-step__re">
-								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step2')" v-if="intervalId2 == null">重發簡訊</a>
-								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step2}})</a>
-								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
-							</div>
-						</div>
-					</div>
+					<a href="javascript:;" class="main-complete" v-if="step2OTPStatue == 3 && step2PhoneStatus == 3" @click="onComplete"></a>
 				</div>
 			</div>
 			<!-- 狀態2 -->
@@ -161,60 +164,64 @@
 						<p>完成手機簡訊驗證，輕鬆兩步驟取得快速升級券</p>
 						<p>現在完成加碼抽1萬樂豆！</p>
 					</div>
-					<!-- step1 -->
-					<div class="main-step" data-step="1" :class="[step1OTPStatue == 3?'complete':'']">
-						<div class="main-step__title">
-							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
-								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
-							</svg>
-							Step1、核對您的進階驗證資料
-						</div>
-						<div class="main-step__input-group">
-							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
-							<div class="main-step__input-text">已將驗證碼發送到您的手機門號 <span>0988*****5</span></div>
-							<div class="main-step__input-type2" :class="[step1OTPStatue == 2?'check':step1OTPStatue == 3?'complete':'']">
-								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" :disabled="step1OTPStatue == 3" ref="otp1" v-for="(i,index) in 6" />
+					<div class="main-content">
+						<!-- step1 -->
+						<div class="main-step" data-step="1" :class="[step1OTPStatue == 3?'complete':'']">
+							<div class="main-step__title">
+								<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+									<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+								</svg>
+								<div class="main-step__title-text">Step1、核對您的進階驗證資料</div>
 							</div>
-							<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
-							<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
-							<div class="main-step__re">
-								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step1')" v-if="intervalId1 == null">重發簡訊</a>
-								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step1}})</a>
-								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
+							<div class="main-step__input-group">
+								<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
+								<div class="main-step__input-text">已將驗證碼發送到您的手機門號 <span>0988*****5</span></div>
+								<div class="main-step__input-type2" :class="[step1OTPStatue == 2?'check':step1OTPStatue == 3?'complete':'']">
+									<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" :disabled="step1OTPStatue == 3" ref="otp1" v-for="(i,index) in 6" />
+								</div>
+								<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
+								<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
+								<div class="main-step__re">
+									<a href="javascript:;" class="main-step__re-again" @click="reOTP('step1')" v-if="intervalId1 == null">重發簡訊</a>
+									<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step1}})</a>
+									<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
+								</div>
+							</div>
+						</div>
+						<!-- step2 -->
+						<div class="main-step" data-step="2" :class="[step2PhoneStatus == 3 && step2OTPStatue == 3?'complete':'']">
+							<div class="main-step__title">
+								<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
+									<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
+								</svg>
+								<div class="main-step__title-text">Step2、更換您的進階驗證資料為 beanfun! 註冊門號</div>
+							</div>
+							<div class="main-step__input-group">
+								<div class="main-step__input-title">請輸入正確 beanfun! 註冊門號</div>
+								<div class="main-step__input-text">您的 beanfun! 註冊門號為 <span>0911*****6</span></div>
+								<div class="main-step__input-type1" :class="[step2PhoneStatus == 2?'check':step2PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step2Phone" @input="phoneCheck('step2',$event)" :disabled="step2PhoneStatus == 3" /></div>
+								<div class="main-step__input-msg" v-if="step2PhoneError">{{step2PhoneError}}</div>
+								<a href="javascript:;" class="main-step__btn" :class="[step2PhoneStatus == 1 ?'':step2PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step2')">確認</a>
+							</div>
+							<div class="main-step__input-group">
+								<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
+								<div class="main-step__input-type2" :class="[step2OTPStatue == 2?'check':step2OTPStatue == 3?'complete':'']">
+									<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" :disabled="step2OTPStatue == 3" v-for="(i,index) in 6" />
+								</div>
+								<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
+								<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>
+								<div class="main-step__re">
+									<a href="javascript:;" class="main-step__re-again" @click="reOTP('step2')" v-if="intervalId2 == null">重發簡訊</a>
+									<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step2}})</a>
+									<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
+								</div>
 							</div>
 						</div>
 					</div>
-					<!-- step2 -->
-					<div class="main-step" data-step="2" :class="[step2PhoneStatus == 3 && step2OTPStatue == 3?'complete':'']">
-						<div class="main-step__title">
-							<svg class="step" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<circle cx="29.7973" cy="29.7973" r="26.7973" stroke="#A69B9B" stroke-width="6" />
-								<path d="M15.5464 30.1269L24.6095 40.1615L43.4004 20.7285" stroke="#A69B9B" stroke-width="6" stroke-linecap="round" />
-							</svg>
-							Step2、更換您的進階驗證資料為 beanfun! 註冊門號
-						</div>
-						<div class="main-step__input-group">
-							<div class="main-step__input-title">請輸入正確 beanfun! 註冊門號</div>
-							<div class="main-step__input-text">您的 beanfun! 註冊門號為 <span>0911*****6</span></div>
-							<div class="main-step__input-type1" :class="[step2PhoneStatus == 2?'check':step2PhoneStatus == 3?'complete':'']"><input type="tel" inputmode="tel" autocomplete="off" placeholder="請輸入市話 / 手機" v-model="step2Phone" @input="phoneCheck('step2',$event)" :disabled="step2PhoneStatus == 3" /></div>
-							<div class="main-step__input-msg" v-if="step2PhoneError">{{step2PhoneError}}</div>
-							<a href="javascript:;" class="main-step__btn" :class="[step2PhoneStatus == 1 ?'':step2PhoneStatus == 2?'enable':'disable']" @click="phoneSubmit('step2')">確認</a>
-						</div>
-						<div class="main-step__input-group">
-							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
-							<div class="main-step__input-type2" :class="[step2OTPStatue == 2?'check':step2OTPStatue == 3?'complete':'']">
-								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" :disabled="step2OTPStatue == 3" v-for="(i,index) in 6" />
-							</div>
-							<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
-							<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>
-							<div class="main-step__re">
-								<a href="javascript:;" class="main-step__re-again" @click="reOTP('step2')" v-if="intervalId2 == null">重發簡訊</a>
-								<a href="javascript:;" class="main-step__re-again" v-else>重發簡訊({{step2}})</a>
-								<a href="javascript:;" class="main-step__re-no" @click="NoOTP">收不到簡訊</a>
-							</div>
-						</div>
-					</div>
+
+					<a href="javascript:;" class="main-complete" v-if="step2OTPStatue == 3 && step2PhoneStatus == 3" @click="onComplete"></a>
 				</div>
 			</div>
 		</div>

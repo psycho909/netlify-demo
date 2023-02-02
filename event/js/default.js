@@ -1,5 +1,7 @@
 import store from "./store.js";
+import { GetUserData } from "./api.js";
 import { MessageLB, NoOTP, GoService, Completed, PhoneWarn, PhoneError, Already, Ready } from "./lightbox.js";
+
 // Loading顯示
 function loadingShow() {
 	$("#loadingProgress").show();
@@ -8,22 +10,8 @@ function loadingShow() {
 function loadingHide() {
 	$("#loadingProgress").hide();
 }
-// Ready();
-// $("input").on("input", function (e) {
-// 	let value = e.target.value;
-// 	let reg = value.match(/^\d+$/);
-// 	if (reg == null) {
-// 		e.target.value = "";
-// 		return;
-// 	}
-// if (e.target.nextElementSibling == null) {
-// 	return;
-// }
-// 	_.debounce(function (e) {
-// 		e.target.nextElementSibling.focus();
-// 	}, 400)(e);
-// });
-// MessageLB("錯誤");
+// Ready("錯誤");
+var vConsole = new window.VConsole();
 let app = new Vue({
 	el: "#app",
 	store,
@@ -54,7 +42,18 @@ let app = new Vue({
 	},
 	mounted() {
 		// this.intervalId1 = setInterval(this.countdown1, 1000);
-	},
+		    navigator.credentials.get({
+		      otp: { transport:['sms'] },
+		      signal: ac.signal
+		    }).then(otp => {
+		    	 console.log(otp);
+		      // input.value = otp.code;
+		      // Automatically submit the form when an OTP is obtained.
+		      // if (form) form.submit();
+		    }).catch(err => {
+		      console.log(err);
+		    });
+			},
 	computed: {
 		getStatus() {
 			return this.$store.state.status;
@@ -290,5 +289,6 @@ let app = new Vue({
 				}
 			}
 		},
+		onComplete() {},
 	},
 });

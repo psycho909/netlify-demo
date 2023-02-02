@@ -1,27 +1,4 @@
-var config = {
-	addClass: "default",
-	hasCloseBtn: true,
-	hasActionBtn: true,
-	afterClose: function () {
-		$.gbox.close();
-	},
-	actionBtns: [
-		{
-			text: "text1",
-			class: "btn",
-			click: function () {
-				$.gbox.close();
-			},
-		},
-		{
-			text: "text2",
-			class: "btn",
-			click: function () {
-				$.gbox.close();
-			},
-		},
-	],
-};
+import { GetUserData } from "./api.js";
 
 function MessageLB(msg, url, callback) {
 	$.gbox.open(msg, {
@@ -165,6 +142,26 @@ function Ready(msg, url, callback) {
 		afterClose: function () {
 			$.gbox.close();
 		},
+		afterOpen: function () {
+			$("#check").on("change", function () {
+				var val = $(this).prop("checked");
+				if (val) {
+					$(".gbox-btn-complete").removeClass("disable").addClass("enable");
+				} else {
+					$(".gbox-btn-complete").removeClass("enable").addClass("disable");
+				}
+			});
+			$(".gbox-btn-complete").on("click", function () {
+				var val = $("#check").prop("checked");
+				GetUserData().then((res) => {
+					console.log("123");
+				});
+				if ($(this).hasClass("disable") && !val) {
+					return;
+				}
+				console.log(213);
+			});
+		},
 	};
 
 	var HTML = `
@@ -172,11 +169,11 @@ function Ready(msg, url, callback) {
 		<div class="lb-form-group">
 			<div class="lb-input__box">
 				<div class="lb-input__title">您的原進階驗證門號為</div>
-				<input id="old-val" type="text" class="lb-input__control" value="0988555555" />
+				<input id="old-val" type="text" class="lb-input__control" value="0988555555" disabled />
 			</div>
 			<div class="lb-input__box">
 				<div class="lb-input__title">即將改為</div>
-				<input id="new-val" type="text" class="lb-input__control" value="0911234566" />
+				<input id="new-val" type="text" class="lb-input__control" value="0911234566" disabled />
 			</div>
 			<label class="lb-checkbox__box" for="check">
 				<input id="check" type="checkbox" class="lb-checkbox__control" />
@@ -184,7 +181,7 @@ function Ready(msg, url, callback) {
 			</label>
 		</div>
 		<div class="gbox-action">
-			<a href="javascript:;" class="gbox-btn enable">領取快速升級券</a>
+			<a href="javascript:;" class="gbox-btn disable gbox-btn-complete">領取快速升級券</a>
 		</div>
 	`;
 	$.gbox.open(HTML, config);

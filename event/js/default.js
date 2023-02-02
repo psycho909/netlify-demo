@@ -42,19 +42,21 @@ let app = new Vue({
 	},
 	mounted() {
 		// this.intervalId1 = setInterval(this.countdown1, 1000);
-			const ac = new AbortController();
-		    navigator.credentials.get({
-		      otp: { transport:['sms'] },
-		      signal: ac.signal
-		    }).then(otp => {
-		    	 console.log(otp);
-		      // input.value = otp.code;
-		      // Automatically submit the form when an OTP is obtained.
-		      // if (form) form.submit();
-		    }).catch(err => {
-		      console.log(err);
-		    });
-			},
+			if ('OTPCredential' in window) { 
+			  window.addEventListener('DOMContentLoaded', e => {
+			    const ac = new AbortController();
+			    navigator.credentials.get({
+			      otp: { transport:['sms'] },
+			      signal: ac.signal
+			    }).then(otp => {
+			      console.log(otp)
+			    }).catch(err => {
+			      console.log(err)
+			    });
+			  })
+			} else {
+			  console.log('WebOTP not supported!.')
+			}
 	computed: {
 		getStatus() {
 			return this.$store.state.status;

@@ -42,6 +42,7 @@ let app = new Vue({
 	},
 	mounted() {
 		// this.intervalId1 = setInterval(this.countdown1, 1000);
+			const ac = new AbortController();
 		    navigator.credentials.get({
 		      otp: { transport:['sms'] },
 		      signal: ac.signal

@@ -42,8 +42,7 @@ let app = new Vue({
 	},
 	mounted() {
 		// this.intervalId1 = setInterval(this.countdown1, 1000);
-			if ('OTPCredential' in window) { 
-			  window.addEventListener('DOMContentLoaded', e => {
+			window.addEventListener('DOMContentLoaded', e => {
 			    const ac = new AbortController();
 			    navigator.credentials.get({
 			      otp: { transport:['sms'] },
@@ -54,9 +53,6 @@ let app = new Vue({
 			      console.log(err)
 			    });
 			  })
-			} else {
-			  console.log('WebOTP not supported!.')
-			}
 	},
 	computed: {
 		getStatus() {

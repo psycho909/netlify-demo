@@ -57,6 +57,7 @@ let app = new Vue({
 			} else {
 			  console.log('WebOTP not supported!.')
 			}
+	},
 	computed: {
 		getStatus() {
 			return this.$store.state.status;

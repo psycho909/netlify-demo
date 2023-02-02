@@ -202,7 +202,6 @@ let app = new Vue({
 				if (this.step1OTPStatue != 2 || this.step1OTPErrorNum == 5) {
 					return;
 				}
-				MessageLB(this.step1OTP);
 				this.step1OTPError = "";
 				this.step1OTPErrorNum += 1;
 				this.step1OTPError = `※驗證碼輸入錯誤，請重新輸入(${this.step1OTPErrorNum}/5)`;

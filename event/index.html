@@ -2,7 +2,7 @@
 <html lang="zh-Hant-TW">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=0" />
 		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<meta name="description" content="{{description}}" />
@@ -109,8 +109,8 @@
 						<div class="main-step__input-group">
 							<div class="main-step__input-title">請輸入信箱驗證碼</div>
 							<div class="main-step__input-text">驗證信會寄發至您的驗證信箱 <span>a************4@gmail.com</span></div>
-							<div class="main-step__input-type2">
-								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" ref="otp1" v-for="(i,index) in 6" />
+							<div class="main-step__input-type2" :class="[step1OTPStatue == 2?'check':step1OTPStatue == 3?'complete':'']">
+								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" ref="otp1" :disabled="step1OTPStatue == 3" v-for="(i,index) in 6" />
 							</div>
 							<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
 							<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
@@ -139,8 +139,8 @@
 						</div>
 						<div class="main-step__input-group">
 							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
-							<div class="main-step__input-type2">
-								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" v-for="(i,index) in 6" />
+							<div class="main-step__input-type2" :class="[step2OTPStatue == 2?'check':step2OTPStatue == 3?'complete':'']">
+								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" :disabled="step2OTPStatue == 3" v-for="(i,index) in 6" />
 							</div>
 							<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
 							<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>
@@ -173,8 +173,8 @@
 						<div class="main-step__input-group">
 							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
 							<div class="main-step__input-text">已將驗證碼發送到您的手機門號 <span>0988*****5</span></div>
-							<div class="main-step__input-type2">
-								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" ref="otp1" v-for="(i,index) in 6" />
+							<div class="main-step__input-type2" :class="[step1OTPStatue == 2?'check':step1OTPStatue == 3?'complete':'']">
+								<input type="tel" inputmode="numeric" :class="`otp1-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step1',$event)" @keyup="otpCheck('step1',$event)" @paste.prevent="onPaste('step1',index,$event)" @focus="onFocus" :disabled="step1OTPStatue == 3" ref="otp1" v-for="(i,index) in 6" />
 							</div>
 							<div class="main-step__input-msg" v-if="step1OTPError">{{step1OTPError}}</div>
 							<a href="javascript:;" class="main-step__btn" :class="[step1OTPStatue == 1 || step1OTPErrorNum == 5 ?'':step1OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step1')">確認</a>
@@ -203,8 +203,8 @@
 						</div>
 						<div class="main-step__input-group">
 							<div class="main-step__input-title">請輸入簡訊 OTP 驗證碼</div>
-							<div class="main-step__input-type2">
-								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" v-for="(i,index) in 6" />
+							<div class="main-step__input-type2" :class="[step2OTPStatue == 2?'check':step2OTPStatue == 3?'complete':'']">
+								<input type="tel" inputmode="numeric" :class="`otp2-${i}`" autocomplete="one-time-code" maxlength="1" @keydown="otpCheck('step2',$event)" @keyup="otpCheck('step2',$event)" @paste.prevent="onPaste('step2',index,$event)" @focus="onFocus" ref="otp2" :disabled="step2OTPStatue == 3" v-for="(i,index) in 6" />
 							</div>
 							<div class="main-step__input-msg" v-if="step2OTPError">{{step2OTPError}}</div>
 							<a href="javascript:;" class="main-step__btn" :class="[step2OTPStatue == 1 || step2OTPErrorNum == 5 ?'':step2OTPStatue == 2?'enable':'disable']" @click="otpSubmit('step2')">確認</a>

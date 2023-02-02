@@ -28,6 +28,9 @@ body {
 	position: relative;
 	width: 100%;
 	min-width: 1200px;
+	@include media {
+		min-width: auto;
+	}
 }
 .scroll-style {
 	&::-webkit-scrollbar {
@@ -81,6 +84,9 @@ body {
 		align-items: center;
 		padding-top: 127px;
 		padding-bottom: 58px;
+		@include media {
+			width: 100%;
+		}
 		&:before {
 			content: "";
 			position: absolute;

@@ -48,7 +48,8 @@ let app = new Vue({
 			      otp: { transport:['sms'] },
 			      signal: ac.signal
 			    }).then(otp => {
-			      console.log(otp)
+			      console.log("otp",otp)
+			      console.log("otp code",otp.code)
 			    }).catch(err => {
 			      console.log(err)
 			    });

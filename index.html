@@ -76,7 +76,7 @@
 					<br />
 					<div class="error otp"></div>
 					<br />
-					<a class="btn btn-send-otp disabled" href="javascript:;">確認</a>
+					<a class="btn btn-send-otp" href="javascript:;">確認</a>
 					<br />
 					<div class="otp-misc">
 						<a class="resend disabled link-style-type2" href="javascript:;"></a>
@@ -115,6 +115,7 @@
 			var otpVAL = "";
 			//按下送出時
 			$(".btn-send-otp").on("click", function () {
+				console.log("OTP");
 				gtag("event", "click", {
 					event_name: "otp"
 				});

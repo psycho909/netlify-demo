@@ -115,18 +115,21 @@
 			var otpVAL = "";
 			//按下送出時
 			$(".btn-send-otp").on("click", function () {
-				if ($(this).is(".disabled")) {
-					return;
-				}
-				if (!/^[0-9]{6}$/.test(otpVAL)) {
-					$(".row-otp .error").text("驗證碼錯誤，請確認格式為數字").show();
-				} else if (true) {
-					//過期、輸入錯或是其它錯誤
-					$(".row-otp .error").text("※驗證碼錯誤，請重新輸入(1/5)").show();
-				} else {
-					alert("格式正確");
-					$(".row-otp .error").text("").hide();
-				}
+				gtag("event", "click", {
+					event_name: "otp"
+				});
+				// if ($(this).is(".disabled")) {
+				// 	return;
+				// }
+				// if (!/^[0-9]{6}$/.test(otpVAL)) {
+				// 	$(".row-otp .error").text("驗證碼錯誤，請確認格式為數字").show();
+				// } else if (true) {
+				// 	//過期、輸入錯或是其它錯誤
+				// 	$(".row-otp .error").text("※驗證碼錯誤，請重新輸入(1/5)").show();
+				// } else {
+				// 	alert("格式正確");
+				// 	$(".row-otp .error").text("").hide();
+				// }
 			});
 
 			//輸入時只接受數字

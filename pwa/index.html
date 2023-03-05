@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		An image will appear here in 3 seconds:
+		<script>
+			navigator.serviceWorker
+				.register("/sw.js")
+				.then((reg) => console.log("SW registered!", reg))
+				.catch((err) => console.log("Boo!", err));
+
+			setTimeout(() => {
+				const img = new Image();
+				img.src = "https://images.dog.ceo/breeds/finnish-lapphund/mochilamvan.jpg";
+				document.body.appendChild(img);
+			}, 3000);
+		</script>
+	</body>
+</html>

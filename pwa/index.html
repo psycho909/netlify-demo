@@ -19,6 +19,27 @@
 				img.src = "https://images.dog.ceo/breeds/finnish-lapphund/mochilamvan.jpg";
 				document.body.appendChild(img);
 			}, 3000);
+			function askForNotificationPermission() {
+				Notification.requestPermission(function (result) {
+					// 這裡result只會有兩種結果：一個是用戶允許(granted)，另一個是用戶封鎖(denied)
+					console.log("User Choice", result);
+					if (result !== "granted") {
+						console.log("No notification permission granted!");
+					} else {
+						displayConfirmNotification();
+					}
+				});
+			}
+
+			if ("Notification" in window) {
+				askForNotificationPermission();
+			}
+			function displayConfirmNotification() {
+				var options = {
+					body: "您已成功訂閱我們的推播服務!"
+				};
+				new Notification("成功訂閱!!", options);
+			}
 		</script>
 	</body>
 </html>

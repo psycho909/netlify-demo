@@ -2,7 +2,7 @@ self.addEventListener("install", (event) => {
 	console.log("V1 installing…");
 
 	// cache a cat SVG
-	event.waitUntil(caches.open("static-v1").then((cache) => cache.add("/images/dog.jpg")));
+	event.waitUntil(caches.open("static-v1").then((cache) => cache.add("./images/dog.jpg")));
 });
 
 self.addEventListener("activate", (event) => {
@@ -15,6 +15,6 @@ self.addEventListener("fetch", (event) => {
 	// serve the horse SVG from the cache if the request is
 	// same-origin and the path is '/dog.svg'
 	if (url.origin == location.origin && url.pathname == "/images/dog.jpg") {
-		event.respondWith(caches.match("/images/dog.cat"));
+		event.respondWith(caches.match("./images/dog.cat"));
 	}
 });

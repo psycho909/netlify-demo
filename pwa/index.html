@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link rel="manifest" href="./manifest.json" />
 	</head>
 	<body>
 		An image will appear here in 3 seconds:
@@ -35,10 +36,47 @@
 				askForNotificationPermission();
 			}
 			function displayConfirmNotification() {
-				var options = {
-					body: "您已成功訂閱我們的推播服務!"
-				};
-				new Notification("成功訂閱!!", options);
+				if ("serviceWorker" in navigator) {
+					var options = {
+						body: "您已成功訂閱我們的推播服務!",
+						icon: "/src/images/icons/app-icon-96x96.png",
+						image: "/src/images/sf-boat.jpg",
+						dir: "ltr",
+						lang: "zh-TW", // BCP 47
+						vibrate: [100, 50, 200],
+						badge: "/src/images/icons/app-icon-96x96.png",
+						tag: "confirm-notification",
+						renotify: true,
+						actions: [
+							{ action: "confirm", title: "收到", icon: "/src/images/icons/app-icon-96x96.png" },
+							{ action: "cancel", title: "取消", icon: "/src/images/icons/app-icon-96x96.png" }
+						]
+					};
+					navigator.serviceWorker.ready.then(function (swreg) {
+						swreg.showNotification("成功訂閱!! (from Service Worker)", options);
+					});
+				}
+			}
+			function configurePushSub() {
+				if (!("serviceWorker" in navigator)) {
+					return;
+				}
+				var reg;
+				navigator.serviceWorker.ready
+					.then(function (swreg) {
+						reg = swreg;
+						return swreg.pushManager.getSubscription();
+					})
+					.then(function (sub) {
+						if (sub === null) {
+							// Create a new subscription
+							reg.pushManager.subscribe({
+								userVisibleOnly: true
+							});
+						} else {
+							// We have a subscription
+						}
+					});
 			}
 		</script>
 	</body>

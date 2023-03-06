@@ -48,6 +48,7 @@ self.addEventListener("notificationclick", (event) => {
 });
 
 self.addEventListener("push", (event) => {
+	console.log(event);
 	console.log("[Service Worker] Push Received.");
 	let title = "Server Push";
 	let options = {

@@ -1,17 +1,18 @@
 const webpush = require("web-push");
 
-// const vapidKeys = {
-// 	publicKey: "BCbxmHiLr34gdRLP6C945vyAqNbTR31KP7D7SosYou-Rg7KAys1EK24U2zAUWqoei6UKVO8aIc5-CIMlvsQ8XtA",
-// 	privateKey: "5FnKKzhTZx2Jzn3zbIH3JMOCWp_0a9CeZXSBMPLvvtg"
-// };
-
-const vapidKeys = webpush.generateVAPIDKeys();
-const browserKeys = {
-	p256dh: "BHDIOfWYemiv3owB5cBhMHkAMVhzoXvLrBiQNIAHeBYNifCBKVyLGeEmMBeTQTeeobzNlqnbSrNbIvDPo0PIJUM",
-	auth: "LIxTv_Il336gW12qC73acw"
+const vapidKeys = {
+	publicKey: "BAa_bdGQBCD69tdI5ielh8l-_XVlFEiJCkG51gJiPNCwT7onh9aGj24g-iFQZLsFiXpr8jlph0lGzeHA2kLTStA",
+	privateKey: "vTBr49XBQD0LvnXUC3SpQ97LNatqSB7WAvupw-2Hb2M"
 };
 
-webpush.setVapidDetails("mailto:denhuang@gmail.com", vapidKeys.publicKey, vapidKeys.privateKey);
+// const vapidKeys = webpush.generateVAPIDKeys();
+// console.log(vapidKeys);
+const browserKeys = {
+	p256dh: "BLQn-ln16VmC6C1PDRb3YabktLjDjUs77rhoGSDWBtgxN2JUDISk988gbb4xHVOlpCNOVPImhgUe9Qds8UmGdWE",
+	auth: "aT9Vv6kVO7kw7aohNdxcuA"
+};
+
+webpush.setVapidDetails("mailto:psychosocial909@gmail.com", vapidKeys.publicKey, vapidKeys.privateKey);
 
 const options = {
 	icon: "assets/images/android_048.png",
@@ -38,7 +39,7 @@ const options = {
 };
 
 const subscription = {
-	endpoint: "https://fcm.googleapis.com/fcm/send/fwNbCkZtyr0:APA91bF-tttRSH0KBHuZ3lGehkd7kcNzWOfAVTKeXp4cYUURgq2bEkTkCtLQAvrzDZ7q_N7on0ved-Ss9SGLRYGm61D2rkmPe2R2EUnLn7s1y7Fwrjts2I-qM94SQINyJA4VBV5spTdy",
+	endpoint: "https://wns2-ln2p.notify.windows.com/w/?token=BQYAAAAR2qT6J%2bVeaO%2bRDG92fNosa7FNhR1oEAzcnmfrWk%2bWzMsXWgCjp84vIdUooO6pIdC2oGgM56Oy%2fpaBDI6ZitBUtKaYB0TH6xyD4BOzL109rrvgD%2buxK2cA%2faJlBx5Tcob8dNEJqMc3sfpUQio1sjkqscT%2fYnvFDxGdzRimac1c1DCf9h%2bpXL0vjldi%2baumu7xPSGTbaCy1w8IJALosLHy%2baBLBqTjXK2nWSwwof3BD7Y7FwY83dy3IbRnZzVD3YdDErX4rfl9AcJs1VXOGcCoH2%2fnYNifTAC8%2fnqmrg9VH8nGD2VHVjErIB5Vsw19EUOsYKg75b3uqz8Iy9BObd7IR",
 	expirationTime: null,
 	keys: {
 		p256dh: browserKeys.p256dh,

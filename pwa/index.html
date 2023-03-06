@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<link rel="manifest" href="./manifest.json" />
+		<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+
 		<style>
 			img {
 				width: 100px;
@@ -14,6 +16,7 @@
 	</head>
 	<body>
 		An image will appear here in 3 seconds:
+		<script src="./service-worker.js"></script>
 		<script>
 			function displayNotification() {
 				if (Notification.permission == "granted") {
@@ -47,20 +50,20 @@
 				}
 			}
 			const applicationServerPublicKey = `BCbxmHiLr34gdRLP6C945vyAqNbTR31KP7D7SosYou-Rg7KAys1EK24U2zAUWqoei6UKVO8aIc5-CIMlvsQ8XtA`;
-			navigator.serviceWorker
-				.register("./sw.js")
-				.then((reg) => {
-					console.log("SW registered!", reg);
-					if ("Notification" in window) {
-						Notification.requestPermission(function (status) {
-							console.log("Notification permission status:", status);
-							// displayNotification();
-						});
-					}
-					subscribeUser(reg);
-					console.log("[Service Worker] register end");
-				})
-				.catch((err) => console.log("Boo!", err));
+			// navigator.serviceWorker
+			// 	.register("https://js.pusher.com/beams/service-worker.js")
+			// 	.then((reg) => {
+			// 		console.log("SW registered!", reg);
+			// 		if ("Notification" in window) {
+			// 			Notification.requestPermission(function (status) {
+			// 				console.log("Notification permission status:", status);
+			// 				// displayNotification();
+			// 			});
+			// 		}
+			// 		subscribeUser(reg);
+			// 		console.log("[Service Worker] register end");
+			// 	})
+			// 	.catch((err) => console.log("Boo!", err));
 
 			function urlB64ToUint8Array(base64String) {
 				const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -90,6 +93,16 @@
 						console.log("Failed to subscribe the user: ", err);
 					});
 			}
+
+			const beamsClient = new PusherPushNotifications.Client({
+				instanceId: "8e8fa3be-be73-4d2c-b806-ed1cc3de66e0"
+			});
+
+			beamsClient
+				.start()
+				.then(() => beamsClient.addDeviceInterest("hello"))
+				.then(() => console.log("Successfully registered and subscribed!"))
+				.catch(console.error);
 		</script>
 	</body>
 </html>

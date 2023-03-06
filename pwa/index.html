@@ -86,10 +86,17 @@
 				}
 				return outputArray;
 			}
-
+			const isIosSafari = () => {
+				const userAgent = window.navigator.userAgent.toLowerCase();
+				return /iphone|ipad|ipod/.test(userAgent) && /safari/.test(userAgent) && !/chrome/.test(userAgent) && !/crios/.test(userAgent);
+			};
 			function subscribeUser(swRegistration) {
-				const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-				console.log(swRegistration);
+				let applicationServerKey;
+				if (isIosSafari) {
+					applicationServerKey = applicationServerPublicKey;
+				} else {
+					applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+				}
 				swRegistration.pushManager
 					.subscribe({
 						userVisibleOnly: true,

@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<link rel="manifest" href="./manifest.json" />
-		<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 
 		<style>
 			img {
@@ -17,7 +16,6 @@
 	<body>
 		An image will appear here in 3 seconds:
 		<script type="module">
-			import "https://js.pusher.com/beams/service-worker.js";
 			function displayNotification() {
 				if (Notification.permission == "granted") {
 					navigator.serviceWorker.getRegistration().then((reg) => {
@@ -49,21 +47,7 @@
 					});
 				}
 			}
-			const applicationServerPublicKey = `BCbxmHiLr34gdRLP6C945vyAqNbTR31KP7D7SosYou-Rg7KAys1EK24U2zAUWqoei6UKVO8aIc5-CIMlvsQ8XtA`;
-			// navigator.serviceWorker
-			// 	.register("https://js.pusher.com/beams/service-worker.js")
-			// 	.then((reg) => {
-			// 		console.log("SW registered!", reg);
-			// 		if ("Notification" in window) {
-			// 			Notification.requestPermission(function (status) {
-			// 				console.log("Notification permission status:", status);
-			// 				// displayNotification();
-			// 			});
-			// 		}
-			// 		subscribeUser(reg);
-			// 		console.log("[Service Worker] register end");
-			// 	})
-			// 	.catch((err) => console.log("Boo!", err));
+			const applicationServerPublicKey = `BNQHuP7l1ZCdQpZGPcjT5aY7co1r3nJcYFzhMRy6P4OEf2vwyYXs7E2dueG4Rfpg_FTK0OBW70XwpqnVk8uJEb0`;
 
 			function urlB64ToUint8Array(base64String) {
 				const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -94,15 +78,20 @@
 					});
 			}
 
-			const beamsClient = new PusherPushNotifications.Client({
-				instanceId: "8e8fa3be-be73-4d2c-b806-ed1cc3de66e0"
-			});
-
-			beamsClient
-				.start()
-				.then(() => beamsClient.addDeviceInterest("hello"))
-				.then(() => console.log("Successfully registered and subscribed!"))
-				.catch(console.error);
+			navigator.serviceWorker
+				.register("https://js.pusher.com/beams/service-worker.js")
+				.then((reg) => {
+					console.log("SW registered!", reg);
+					if ("Notification" in window) {
+						Notification.requestPermission(function (status) {
+							console.log("Notification permission status:", status);
+							// displayNotification();
+						});
+					}
+					subscribeUser(reg);
+					console.log("[Service Worker] register end");
+				})
+				.catch((err) => console.log("Boo!", err));
 		</script>
 	</body>
 </html>

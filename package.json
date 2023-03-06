@@ -4,10 +4,10 @@
 	"description": "",
 	"main": "add-to-calendar.js",
 	"dependencies": {
+		"netlify-cli": "^6.9.28",
 		"node-fetch": "^3.0.0",
-		"netlify-cli": "^6.9.28"
+		"web-push": "^3.5.0"
 	},
-	"devDependencies": {},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

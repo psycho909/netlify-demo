@@ -79,7 +79,7 @@
 			}
 
 			navigator.serviceWorker
-				.register("https://js.pusher.com/beams/service-worker.js")
+				.register("./sw.js")
 				.then((reg) => {
 					console.log("SW registered!", reg);
 					if ("Notification" in window) {

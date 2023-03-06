@@ -8,8 +8,8 @@ const vapidKeys = {
 // const vapidKeys = webpush.generateVAPIDKeys();
 // console.log(vapidKeys);
 const browserKeys = {
-	p256dh: "BLQn-ln16VmC6C1PDRb3YabktLjDjUs77rhoGSDWBtgxN2JUDISk988gbb4xHVOlpCNOVPImhgUe9Qds8UmGdWE",
-	auth: "aT9Vv6kVO7kw7aohNdxcuA"
+	p256dh: "BHDIOfWYemiv3owB5cBhMHkAMVhzoXvLrBiQNIAHeBYNifCBKVyLGeEmMBeTQTeeobzNlqnbSrNbIvDPo0PIJUM",
+	auth: "LIxTv_Il336gW12qC73acw"
 };
 
 webpush.setVapidDetails("mailto:psychosocial909@gmail.com", vapidKeys.publicKey, vapidKeys.privateKey);
@@ -39,7 +39,7 @@ const options = {
 };
 
 const subscription = {
-	endpoint: "https://wns2-ln2p.notify.windows.com/w/?token=BQYAAAAR2qT6J%2bVeaO%2bRDG92fNosa7FNhR1oEAzcnmfrWk%2bWzMsXWgCjp84vIdUooO6pIdC2oGgM56Oy%2fpaBDI6ZitBUtKaYB0TH6xyD4BOzL109rrvgD%2buxK2cA%2faJlBx5Tcob8dNEJqMc3sfpUQio1sjkqscT%2fYnvFDxGdzRimac1c1DCf9h%2bpXL0vjldi%2baumu7xPSGTbaCy1w8IJALosLHy%2baBLBqTjXK2nWSwwof3BD7Y7FwY83dy3IbRnZzVD3YdDErX4rfl9AcJs1VXOGcCoH2%2fnYNifTAC8%2fnqmrg9VH8nGD2VHVjErIB5Vsw19EUOsYKg75b3uqz8Iy9BObd7IR",
+	endpoint: "https://wns2-ln2p.notify.windows.com/w/?token=BQYAAAB7g1TciKObjdLq5sTV92dWxoOjQZOYzIxTNWP0k4fhtQYDdIK%2fBIy2D2QArE4hTwTq9wXsSBlFGl9vCqHJeFidQCsal%2f5aQHIPCorNig8tmaPnWHX60QObUpXhN1ZDzOUprUJIdqqhqYVoZ3zP%2bvTHAN6JazV2g464XbuHUZb19Rzj9%2fOq8R%2fFKdvMbkTpC3r4ktlXC1kwlXUu4dLrXjHZwSo7mU6rozLS1Abr%2f4b05BKW4tCh3FGmDbZ0VPD6Mqih2Jf9A5xhKU3VSudEmjzPJZWbyZf6KV79Dy5Na6JBZfwNiwb1j5gBZV22N6Ma6RXqsO7KUXK4fh8xa4w9KGYg",
 	expirationTime: null,
 	keys: {
 		p256dh: browserKeys.p256dh,

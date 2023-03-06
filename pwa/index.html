@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<link rel="manifest" href="./manifest.json" />
-
 		<style>
 			img {
 				width: 100px;
@@ -15,7 +14,7 @@
 	</head>
 	<body>
 		An image will appear here in 3 seconds:
-		<script type="module">
+		<script>
 			function displayNotification() {
 				if (Notification.permission == "granted") {
 					navigator.serviceWorker.getRegistration().then((reg) => {
@@ -48,6 +47,20 @@
 				}
 			}
 			const applicationServerPublicKey = `BNQHuP7l1ZCdQpZGPcjT5aY7co1r3nJcYFzhMRy6P4OEf2vwyYXs7E2dueG4Rfpg_FTK0OBW70XwpqnVk8uJEb0`;
+			navigator.serviceWorker
+				.register("./sw.js")
+				.then((reg) => {
+					console.log("SW registered!", reg);
+					if ("Notification" in window) {
+						Notification.requestPermission(function (status) {
+							console.log("Notification permission status:", status);
+							// displayNotification();
+						});
+					}
+					subscribeUser(reg);
+					console.log("[Service Worker] register end");
+				})
+				.catch((err) => console.log("Boo!", err));
 
 			function urlB64ToUint8Array(base64String) {
 				const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -77,21 +90,6 @@
 						console.log("Failed to subscribe the user: ", err);
 					});
 			}
-
-			navigator.serviceWorker
-				.register("./sw.js")
-				.then((reg) => {
-					console.log("SW registered!", reg);
-					if ("Notification" in window) {
-						Notification.requestPermission(function (status) {
-							console.log("Notification permission status:", status);
-							// displayNotification();
-						});
-					}
-					subscribeUser(reg);
-					console.log("[Service Worker] register end");
-				})
-				.catch((err) => console.log("Boo!", err));
 		</script>
 	</body>
 </html>

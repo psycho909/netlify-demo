@@ -16,8 +16,8 @@
 	</head>
 	<body>
 		An image will appear here in 3 seconds:
-		<script src="./service-worker.js"></script>
-		<script>
+		<script type="module">
+			import "https://js.pusher.com/beams/service-worker.js";
 			function displayNotification() {
 				if (Notification.permission == "granted") {
 					navigator.serviceWorker.getRegistration().then((reg) => {

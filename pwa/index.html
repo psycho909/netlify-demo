@@ -15,6 +15,7 @@
 	</head>
 	<body>
 		An image will appear here in 3 seconds:
+		<button type="button" id="foo">按鈕</button>
 		<script>
 			var vConsole = new VConsole();
 			function displayNotification() {
@@ -102,6 +103,15 @@
 						console.log("Failed to subscribe the user: ", err);
 					});
 			}
+			var p = document.getElementById("foo");
+			p.onclick = function () {
+				// Ensure that the user can receive Safari Push Notifications.
+				if ("safari" in window && "pushNotification" in window.safari) {
+					console.log("In");
+				} else {
+					console.log("out");
+				}
+			};
 		</script>
 	</body>
 </html>

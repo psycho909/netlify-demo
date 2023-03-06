@@ -61,14 +61,13 @@
 					}
 					subscribeUser(reg);
 					console.log("[Service Worker] register end");
-					if ("safari" in window && "pushNotification" in window.safari) {
-						console.log("safari支持web push api");
+					if ("PushManager" in window) {
+						console.log("支持web push api");
 						// iOS mobile Safari supports Web Push API
 					} else {
 						// iOS mobile Safari does not support Web Push API
-						console.log("safari沒有支持web push api");
+						console.log("沒有支持web push api");
 					}
-					console.log(window);
 				})
 				.catch((err) => console.log("Boo!", err));
 			navigator.serviceWorker.getRegistration().then((res) => {

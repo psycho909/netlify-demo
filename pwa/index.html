@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<link rel="manifest" href="./manifest.json" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/vconsole/3.10.0/vconsole.min.js"></script>
 		<style>
 			img {
 				width: 100px;
@@ -15,6 +16,7 @@
 	<body>
 		An image will appear here in 3 seconds:
 		<script>
+			var vConsole = new VConsole();
 			function displayNotification() {
 				if (Notification.permission == "granted") {
 					navigator.serviceWorker.getRegistration().then((reg) => {

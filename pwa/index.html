@@ -93,7 +93,8 @@
 			function subscribeUser(swRegistration) {
 				let applicationServerKey;
 				if (isIosSafari) {
-					applicationServerKey = applicationServerPublicKey;
+					// applicationServerKey = applicationServerPublicKey;
+					applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
 				} else {
 					applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
 				}

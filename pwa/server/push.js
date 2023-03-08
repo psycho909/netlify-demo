@@ -21,6 +21,7 @@ const options = {
 		link_ng: "https://tw.beanfun.com/" // 不參加
 	},
 	requireInteraction: true, // 直到用戶點擊或關閉才會關閉
+	badge: "https://tw.hicdn.beanfun.com/beanfun/WebImage/1606431240888.png",
 	actions: [
 		// 按鈕
 		{

@@ -17,19 +17,48 @@
 		An image will appear here in 3 seconds:
 		<button type="button" id="foo">按鈕</button>
 		<script>
-			var vConsole = new VConsole();
+			let obj = [
+				{
+					name: "CCC",
+					url: ["https://tw.beanfun.com/", "https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20230221/index.html"]
+				},
+				{
+					name: "AAA",
+					url: ["https://tw.beanfun.com/", "https://tw.beanfun.com/elsword/main/index.aspx"]
+				},
+				{
+					name: "BBB",
+					url: ["https://tw.beanfun.com/", "https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20230221/index.html"]
+				}
+			];
+
+			let o = obj
+				.map(function (v, i) {
+					for (let j of v.url) {
+						if (j.indexOf("elsword") > -1) {
+							return v;
+						}
+					}
+				})
+				.filter(Boolean);
+			// console.log(o[0]);
+			// var vConsole = new VConsole();
 			const applicationServerPublicKey = `BBHEOQlx7PZJoHYSllCL8hEax2QMNCV82zTTwerVEo9UD5gm5q9r37U5jMdGVDbkm-Y4ZX7XVy0GOuuLK0uK_g8`;
 			navigator.serviceWorker
 				.register("./sw.js")
 				.then((reg) => {
 					console.log("[Service Worker] registered!", reg);
 					if ("Notification" in window) {
-						Notification.requestPermission(function (status) {
-							console.log("Notification permission status:", status);
-							// displayNotification();
-						});
+						if (Notification.permission === "granted") {
+							subscribeUser(reg);
+						} else {
+							Notification.requestPermission(function (status) {
+								console.log("Notification permission status:", status);
+								// displayNotification();
+							});
+						}
 					}
-					subscribeUser(reg);
+
 					console.log("[Service Worker] register end");
 					if ("PushManager" in window) {
 						console.log("支持web push api");
@@ -42,6 +71,15 @@
 				.catch((err) => console.log("Boo!", err));
 			navigator.serviceWorker.getRegistration().then((res) => {
 				console.log(res);
+			});
+
+			const options = { tag: "user_alerts" };
+			navigator.serviceWorker.ready.then((registration) => {
+				console.log("ready");
+				registration.getNotifications(options).then((notifications) => {
+					// do something with your notifications
+					console.log("getNotifications", notifications);
+				});
 			});
 			function urlB64ToUint8Array(base64String) {
 				const padding = "=".repeat((4 - (base64String.length % 4)) % 4);

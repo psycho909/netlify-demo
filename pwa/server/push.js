@@ -46,6 +46,6 @@ const subscription = {
 	}
 };
 
-const subscription2 = { endpoint: "https://fcm.googleapis.com/fcm/send/ciJpCcnEOOY:APA91bFsjl1_Fr5YmvOl1M2t32OwMNiY5LN7AV4C456Orc2USy106rYSBp_XC1z5GkQRV1icGvayu9jDYiz9q-EU8PryzMjaiJd5XGd2Y6KUKD4ft-aONXuTWHbjpCjhhmdrEadxCe_W", expirationTime: null, keys: { p256dh: "BBP7vAd4upX0SQVH5QAniIijIDnxmPbJD2bsnmhMT8nAWc4D_cmZVYk41oIpGGvi5r-YNr4QiEounVkSlFKlhNw", auth: "bD9wGgHWpUh9oIdW8EXaNA" } };
+const subscription2 = { endpoint: "https://fcm.googleapis.com/fcm/send/ecY80BWlMxI:APA91bGJR0f4fbHSW5zTpKokA8GvsuQhIVmJplaFX05bbQ4TJTo-bmci5eeR_vdlv5aT1Ur90OR_vzIYdWGRc_CoQgzHGXKiugjl5h1l-vLvbEWaf6LCwCH_JVcSPAN5wuwMMQQZnRNh", expirationTime: null, keys: { p256dh: "BKPbyRkchLut-D5__yJzavYPkPH8b0Zpda-5MsN9fwaZhf_K2SzML7LPcmFY9762MZiCRuFgkBaKgi_v5NWKpYA", auth: "87Lnx7BFx_w9wdKO2xTaVA" } };
 
 webpush.sendNotification(subscription2, JSON.stringify(options));

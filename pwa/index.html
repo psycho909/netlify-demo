@@ -56,6 +56,7 @@
 								console.log("Notification permission status:", status);
 								if (status === "granted") {
 									subscribeUser(reg);
+									navigator.setAppBadge(12);
 								}
 								// displayNotification();
 							});

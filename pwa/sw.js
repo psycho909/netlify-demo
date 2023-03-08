@@ -1,15 +1,24 @@
+let CACHE_NAME = "static-v2";
 self.addEventListener("install", (event) => {
-	console.log("V1 installing…");
+	console.log(`${CACHE_NAME} installing…`);
+	// 可以直接觸發activate事件
+	self.skipWaiting();
+	//
+	event.waitUntil(
+		caches.open(CACHE_NAME).then((cache) => {
+			cache.addAll([]);
+		})
+	);
 });
 
 self.addEventListener("activate", (event) => {
 	console.log("[Service Worker] Activating Service Worker ...", event);
 	event.waitUntil(
-		caches.keys().then(function (keyList) {
+		caches.keys().then(function (keys) {
 			return Promise.all(
-				keyList.map(function (key) {
-					if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
-						console.log("[Service Worker] Removing old cache.", key);
+				keys.map(function (key) {
+					if (key !== CACHE_NAME) {
+						console.log("[SW] 刪除舊的快取");
 						return caches.delete(key);
 					}
 				})
@@ -19,7 +28,9 @@ self.addEventListener("activate", (event) => {
 	return self.clients.claim();
 });
 
-self.addEventListener("fetch", (event) => {});
+self.addEventListener("fetch", (event) => {
+	console.log("[Service Worker] fetch", event);
+});
 self.addEventListener("notificationclick", (event) => {
 	const notification = event.notification;
 	const action = event.action;
@@ -46,7 +57,7 @@ self.addEventListener("notificationclick", (event) => {
 			break;
 	}
 	notification.close();
-	console.log("notificationclick action is", action);
+	console.log("[Service Worker] notificationclick action is", action);
 });
 
 self.addEventListener("push", (event) => {

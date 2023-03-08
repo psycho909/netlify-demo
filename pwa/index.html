@@ -14,34 +14,15 @@
 		</style>
 	</head>
 	<body>
-		An image will appear here in 3 seconds:
+		<div id="text"></div>
 		<button type="button" id="foo">按鈕</button>
 		<script>
-			let obj = [
-				{
-					name: "CCC",
-					url: ["https://tw.beanfun.com/", "https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20230221/index.html"]
-				},
-				{
-					name: "AAA",
-					url: ["https://tw.beanfun.com/", "https://tw.beanfun.com/elsword/main/index.aspx"]
-				},
-				{
-					name: "BBB",
-					url: ["https://tw.beanfun.com/", "https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20230221/index.html"]
-				}
-			];
+			setTimeout(() => {
+				fetch("https://jsonplaceholder.typicode.com/todos/1")
+					.then((response) => response.json())
+					.then((json) => (document.querySelector("#text").innerHTML = json.title));
+			}, 5000);
 
-			let o = obj
-				.map(function (v, i) {
-					for (let j of v.url) {
-						if (j.indexOf("elsword") > -1) {
-							return v;
-						}
-					}
-				})
-				.filter(Boolean);
-			// console.log(o[0]);
 			var vConsole = new VConsole();
 			const applicationServerPublicKey = `BBHEOQlx7PZJoHYSllCL8hEax2QMNCV82zTTwerVEo9UD5gm5q9r37U5jMdGVDbkm-Y4ZX7XVy0GOuuLK0uK_g8`;
 			navigator.serviceWorker

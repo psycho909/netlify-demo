@@ -1,4 +1,5 @@
 let CACHE_NAME = "static-v2";
+// 安裝時
 self.addEventListener("install", (event) => {
 	console.log(`${CACHE_NAME} installing…`);
 	// 可以直接觸發activate事件
@@ -11,6 +12,7 @@ self.addEventListener("install", (event) => {
 	);
 });
 
+// 安裝後觸發
 self.addEventListener("activate", (event) => {
 	console.log("[Service Worker] Activating Service Worker ...", event);
 	event.waitUntil(
@@ -28,9 +30,12 @@ self.addEventListener("activate", (event) => {
 	return self.clients.claim();
 });
 
+// 在頁面上有觸發到request時
 self.addEventListener("fetch", (event) => {
 	console.log("[Service Worker] fetch", event);
 });
+
+// 點擊推播觸發
 self.addEventListener("notificationclick", (event) => {
 	const notification = event.notification;
 	const action = event.action;
@@ -60,18 +65,19 @@ self.addEventListener("notificationclick", (event) => {
 	console.log("[Service Worker] notificationclick action is", action);
 });
 
+// 發佈推播可以觸發
 self.addEventListener("push", (event) => {
 	console.log(event);
 	console.log("[Service Worker] Push Received.");
-	let title = "Server Push";
-	let options = {
-		body: "push TEST",
-		icon: "./assets/images/android_048.png"
-	};
-	if (event.data) {
-		options = event.data.json();
-		title = options.title;
-	}
+	// let title = "Server Push";
+	// let options = {
+	// 	body: "push TEST",
+	// 	icon: "./assets/images/android_048.png"
+	// };
+	// if (event.data) {
+	// 	options = event.data.json();
+	// 	title = options.title;
+	// }
 
-	event.waitUntil(self.registration.showNotification(title, options));
+	// event.waitUntil(self.registration.showNotification(title, options));
 });

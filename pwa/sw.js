@@ -79,5 +79,5 @@ self.addEventListener("push", (event) => {
 	// 	title = options.title;
 	// }
 
-	// event.waitUntil(self.registration.showNotification(title, options));
+	event.waitUntil(self.registration.showNotification());
 });

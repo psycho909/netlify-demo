@@ -4,14 +4,9 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>PWA DEMO</title>
 		<link rel="manifest" href="./manifest.json" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/vconsole/3.10.0/vconsole.min.js"></script>
-		<style>
-			img {
-				width: 100px;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="text"></div>
@@ -23,6 +18,9 @@
 			}, 5000);
 
 			var vConsole = new VConsole();
+			// manifest.json 可以在新增在主畫面上的類似app的網頁
+
+			// 先產生PublicKey
 			const applicationServerPublicKey = `BBHEOQlx7PZJoHYSllCL8hEax2QMNCV82zTTwerVEo9UD5gm5q9r37U5jMdGVDbkm-Y4ZX7XVy0GOuuLK0uK_g8`;
 
 			// 註冊service worker

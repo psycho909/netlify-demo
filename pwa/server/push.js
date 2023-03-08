@@ -45,4 +45,6 @@ const subscription = {
 	}
 };
 
-webpush.sendNotification(subscription, JSON.stringify(options));
+const subscription2 = { endpoint: "https://fcm.googleapis.com/fcm/send/ciJpCcnEOOY:APA91bFsjl1_Fr5YmvOl1M2t32OwMNiY5LN7AV4C456Orc2USy106rYSBp_XC1z5GkQRV1icGvayu9jDYiz9q-EU8PryzMjaiJd5XGd2Y6KUKD4ft-aONXuTWHbjpCjhhmdrEadxCe_W", expirationTime: null, keys: { p256dh: "BBP7vAd4upX0SQVH5QAniIijIDnxmPbJD2bsnmhMT8nAWc4D_cmZVYk41oIpGGvi5r-YNr4QiEounVkSlFKlhNw", auth: "bD9wGgHWpUh9oIdW8EXaNA" } };
+
+webpush.sendNotification(subscription2, JSON.stringify(options));

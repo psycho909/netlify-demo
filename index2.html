@@ -15,9 +15,103 @@
 	</head>
 	<body>
 		<div id="app">
-			<iframe width="560" height="500" src="https://www.youtube.com/embed/1MD38R-bDwI?rel=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			<iframe allowfullscreen="" frameborder="0" height="500" src="https://www.youtube.com/live_chat?v=1MD38R-bDwI&embed_domain=thirsty-boyd-9fa09d.netlify.app" width="480"></iframe><br />
+			<div class="columns">
+				<div class="column">
+					<form id="credential-form" onsubmit="storeCredential(event)">
+						<h2>Credentials Management API</h2>
+						<p><b>Store your credentials:</b></p>
+						<p>
+							<label>login: <input type="text" name="username" required autocomplete="username" /></label>
+							<label>password: <input type="password" name="password" required autocomplete="current-password" /></label>
+						</p>
+						<p><button type="submit">Store credential</button></p>
+
+						<p class="user-mediation">
+							<b>User mediation:</b><br />
+							<label><input type="radio" name="mediation" value="silent" /> silent</label>
+							<label><input type="radio" name="mediation" value="optional" checked /> optional</label>
+							<label><input type="radio" name="mediation" value="required" /> required</label>
+						</p>
+						<p><button type="button" onclick="requestCredential()">Request credential</button></p>
+						<p><button type="button" onclick="preventSilentAccess()">Prevent silent access (logout)</button></p>
+
+						<hr />
+
+						<h2>Web OTP API</h2>
+						<p><button type="button" onclick="waitForSms()">Wait for OTP SMS</button></p>
+					</form>
+				</div>
+				<div class="column" id="result"></div>
+			</div>
 		</div>
-		<script></script>
+		<script>
+			function storeCredential() {
+				event.preventDefault();
+
+				if (!navigator.credentials) {
+					alert("Credential Management API not supported");
+					return;
+				}
+
+				let credentialForm = document.getElementById("credential-form");
+				let credential = new PasswordCredential(credentialForm);
+				navigator.credentials
+					.store(credential)
+					.then(() => log("Storing credential for " + credential.id + " (result cannot be checked by the website)."))
+					.catch((err) => log("Error storing credentials: " + err));
+			}
+
+			function requestCredential() {
+				if (!navigator.credentials) {
+					alert("Credential Management API not supported");
+					return;
+				}
+
+				let mediationValue = document.getElementById("credential-form").mediation.value;
+				navigator.credentials
+					.get({ password: true, mediation: mediationValue })
+					.then((credential) => {
+						let result = "none";
+						if (credential) {
+							result = credential.id + ", " + credential.password.replace(/./g, "*");
+						}
+						log("Credential read: " + result + "");
+					})
+					.catch((err) => log("Error reading credentials: " + err));
+			}
+
+			function preventSilentAccess() {
+				if (!navigator.credentials) {
+					alert("Credential Management API not supported");
+					return;
+				}
+
+				navigator.credentials
+					.preventSilentAccess()
+					.then(() => log("Silent access prevented (mediation will be required for next credentials.get() call)."))
+					.catch((err) => log("Error preventing silent access: " + err));
+			}
+
+			function waitForSms() {
+				if ("OTPCredential" in window) {
+					log("Waiting for SMS. Try sending yourself a following message:\n\n" + "Your verification code is: 123ABC\n\n" + "@whatwebcando.today #123ABC");
+
+					navigator.credentials
+						.get({ otp: { transport: ["sms"] } })
+						.then((code) => log("Code received: " + code))
+						.catch((error) => log("SMS receiving error: " + error));
+				} else {
+					alert("Web OTP API not supported");
+				}
+			}
+
+			function log(info) {
+				var logTarget = document.getElementById("result");
+				var timeBadge = new Date().toTimeString().split(" ")[0];
+				var newInfo = document.createElement("p");
+				newInfo.innerHTML = "" + timeBadge + " " + info;
+				logTarget.appendChild(newInfo);
+			}
+		</script>
 	</body>
 </html>

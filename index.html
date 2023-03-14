@@ -91,6 +91,31 @@
 				});
 			} else {
 				console.log("Out");
+				window.addEventListener("DOMContentLoaded", (e) => {
+					const input = document.querySelector('input[autocomplete="one-time-code"]');
+					if (!input) return;
+					const ac = new AbortController();
+					const form = input.closest("form");
+					if (form) {
+						console.log("Form");
+						form.addEventListener("submit", (e) => {
+							ac.abort();
+						});
+					}
+					navigator.credentials
+						.get({
+							otp: { transport: ["sms"] },
+							signal: ac.signal
+						})
+						.then((otp) => {
+							console.log(otp);
+							input.value = otp.code;
+							if (form) form.submit();
+						})
+						.catch((err) => {
+							console.error(err);
+						});
+				});
 			}
 			var sec = 60;
 			var intervalId = null;

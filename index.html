@@ -102,19 +102,23 @@
 							ac.abort();
 						});
 					}
-					navigator.credentials
-						.get({
-							otp: { transport: ["sms"] },
-							signal: ac.signal
-						})
-						.then((otp) => {
-							console.log(otp);
-							input.value = otp.code;
-							if (form) form.submit();
-						})
-						.catch((err) => {
-							console.error("Error", err);
-						});
+					if (navigator.credentials) {
+						navigator.credentials
+							.get({
+								otp: { transport: ["sms"] },
+								signal: ac.signal
+							})
+							.then((otp) => {
+								console.log(otp);
+								input.value = otp.code;
+								if (form) form.submit();
+							})
+							.catch((err) => {
+								console.error("Error", err);
+							});
+					} else {
+						console.log("No navigator.credentials");
+					}
 				});
 			}
 			var sec = 60;

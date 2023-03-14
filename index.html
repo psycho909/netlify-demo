@@ -103,6 +103,7 @@
 						});
 					}
 					if (navigator.credentials) {
+						console.log("navigator.credentials In");
 						navigator.credentials
 							.get({
 								otp: { transport: ["sms"] },

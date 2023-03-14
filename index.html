@@ -25,6 +25,7 @@
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="bf!遊戲" theme="dark"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
 	</head>
 	<body>
 		<form class="wrapper">
@@ -60,6 +61,7 @@
 
 		<script>
 			/*************************** 倒數計時 ***************************/
+			var vConsole = new window.VConsole();
 			if ("OTPCredential" in window) {
 				window.addEventListener("DOMContentLoaded", (e) => {
 					const input = document.querySelector('input[autocomplete="one-time-code"]');

@@ -63,12 +63,14 @@
 			/*************************** 倒數計時 ***************************/
 			var vConsole = new window.VConsole();
 			if ("OTPCredential" in window) {
+				console.log("In");
 				window.addEventListener("DOMContentLoaded", (e) => {
 					const input = document.querySelector('input[autocomplete="one-time-code"]');
 					if (!input) return;
 					const ac = new AbortController();
 					const form = input.closest("form");
 					if (form) {
+						console.log("Form");
 						form.addEventListener("submit", (e) => {
 							ac.abort();
 						});
@@ -87,6 +89,8 @@
 							console.error(err);
 						});
 				});
+			} else {
+				console.log("Out");
 			}
 			var sec = 60;
 			var intervalId = null;

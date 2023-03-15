@@ -85,7 +85,7 @@
 				applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
 				swRegistration.pushManager
 					.subscribe({
-						userVisibleOnly: true,
+						userVisibleOnly: true, // 送出去的訊息，指有此訂閱戶可以看到
 						applicationServerKey: applicationServerKey
 					})
 					.then((subscription) => {

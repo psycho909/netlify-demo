@@ -25,43 +25,10 @@
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="bf!遊戲" theme="dark"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
-		<!-- <script src="https://tw.beanfun.com/js/GA_CodeNew.js"></script> -->
-		<script>
-			(function (i, s, o, g, r, a, m) {
-				i["GoogleAnalyticsObject"] = r;
-				(i[r] =
-					i[r] ||
-					function () {
-						(i[r].q = i[r].q || []).push(arguments);
-					}),
-					(i[r].l = 1 * new Date());
-				(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-				a.async = 1;
-				a.src = g;
-				m.parentNode.insertBefore(a, m);
-			})(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");
-			ga("create", "UA-120931563-26", "auto");
-			ga("send", "pageview");
-		</script>
-		<!-- <script>
-			(function (i, s, o, g, r, a, m) {
-				i["GoogleAnalyticsObject"] = r;
-				(i[r] =
-					i[r] ||
-					function () {
-						(i[r].q = i[r].q || []).push(arguments);
-					}),
-					(i[r].l = 1 * new Date());
-				(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-				a.async = 1;
-				a.src = g;
-				m.parentNode.insertBefore(a, m);
-			})(window, document, "script", "//www.google-analytics.com/analytics.js", "ga");
-			ga("create", "UA-120931563-26", "auto");
-		</script> -->
+		<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
 	</head>
 	<body>
-		<div class="wrapper">
+		<form class="wrapper">
 			<div class="header">
 				<a href="javascript:;" class="logo"><img src="https://tw.hicdn.beanfun.com/beanfun/promo/beanfunEvent/verificationWeb/assets/image/logo-gamania.png" alt="遊戲橘子" /></a>
 			</div>
@@ -90,10 +57,72 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 
 		<script>
 			/*************************** 倒數計時 ***************************/
+			var vConsole = new window.VConsole();
+			if ("OTPCredential" in window) {
+				console.log("In");
+				window.addEventListener("DOMContentLoaded", (e) => {
+					const input = document.querySelector('input[autocomplete="one-time-code"]');
+					if (!input) return;
+					const ac = new AbortController();
+					const form = input.closest("form");
+					if (form) {
+						console.log("Form");
+						form.addEventListener("submit", (e) => {
+							ac.abort();
+						});
+					}
+					navigator.credentials
+						.get({
+							otp: { transport: ["sms"] },
+							signal: ac.signal
+						})
+						.then((otp) => {
+							console.log(otp);
+							input.value = otp.code;
+							if (form) form.submit();
+						})
+						.catch((err) => {
+							console.error(err);
+						});
+				});
+			} else {
+				console.log("Out");
+				window.addEventListener("DOMContentLoaded", (e) => {
+					const input = document.querySelector('input[autocomplete="one-time-code"]');
+					if (!input) return;
+					const ac = new AbortController();
+					const form = input.closest("form");
+					if (form) {
+						console.log("Form");
+						form.addEventListener("submit", (e) => {
+							ac.abort();
+						});
+					}
+					if (navigator.credentials) {
+						console.log("navigator.credentials In");
+						console.log(ac.signal);
+						navigator.credentials
+							.get({
+								otp: { transport: ["sms"] },
+								signal: ac.signal
+							})
+							.then((otp) => {
+								console.log(otp);
+								input.value = otp.code;
+								if (form) form.submit();
+							})
+							.catch((err) => {
+								console.error("Error", err);
+							});
+					} else {
+						console.log("No navigator.credentials");
+					}
+				});
+			}
 			var sec = 60;
 			var intervalId = null;
 			$(".resend").text(sec + "秒後重發驗證碼");

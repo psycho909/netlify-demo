@@ -39,6 +39,6 @@ const options = {
 
 const subscription1 = { endpoint: "https://fcm.googleapis.com/fcm/send/dHhE04bFQwE:APA91bF9bMTZNsznioS1DW_PfIUJOwbxAbE26loDEIvHpArL7Cpgi1BJCnsKVxCb0zVCShxVRDDNqoBFBtdfkuPsBKuybrRx8unUaZzR-t3y2y3TfdB4AQtxtn9vgqFBUN8p0Mr7dFim", expirationTime: null, keys: { p256dh: "BPaAHxb89t0sGPAOCCxW-Ozd9dWl22ZQT4umYlHsoU96QYoe0jZVVWM8c03jsASiNI8r933omxONrcdT4vezg2I", auth: "6m_yPJQRpHVeNZZb_rMgsw" } };
 
-const subscription2 = { endpoint: "https://fcm.googleapis.com/fcm/send/evLHLM_fRtk:APA91bFFxIgzFMk9Jl7oHajWJ0q8Kd0UssVAxIRgChb_eV-NaVNcpX9wB57_c4Zj_Pp6Qh73R-oScI52foU104l9gRBqAr935g62Wtoiv3xLi2boGhLeEWn8HJCeKAVufBZTtCOAyuJB", expirationTime: null, keys: { p256dh: "BPYtPuuFK7tfeAsPHIM_G1TwSUWCK85_J2jE3tfD5OOG_OPFH_rQtBykNDmcnbdcKPUk4FEeSTinMvtjWIAk2rg", auth: "f-ZH8SzieeAcqSp4UsssrA" } };
+const subscription2 = { endpoint: "https://wns2-ln2p.notify.windows.com/w/?token=BQYAAABWKAJq4UVqsjLWNSNqrlolCv94voaUWkfjHPwpftPuPrAYeQD4a6lzPLzy033ai85JQOmW8sqnpr%2fTqYajVs%2fxiaEQBNtPciZU%2f%2f2mwuHy%2f2c558oJ5DqNYVkZqz9sKRusVXhxFBxw8MrHNEawbVvYitWEWYYzV7xZ9DOnHrQhRyE2sM6r8owpcExZuIinCWYdeV30QIgj38GxxtiCf0vFtVab%2frTAivXuLYgme9kRXdCn42ZKI6wJ89q7K661m7cLqcfCxiuPodaezN9GzeZyd6ad2d1AkSmW%2bnSlD0K6QFUsNqn7pmdlw9JLT%2f00h466TZSpzHl1BHeq90lUroex", expirationTime: null, keys: { p256dh: "BCV2rv4e8urCbSnxeiKvNRPtJ3HWk64ORgAjv0MOzjZj2BoXs08ekuMzyzaEDVcv7DpCToYsH-UtPt9HZ0Yh1eQ", auth: "i8l6mqZKFXFKe4ujyNZ_Vg" } };
 
 webpush.sendNotification(subscription2, JSON.stringify(options));

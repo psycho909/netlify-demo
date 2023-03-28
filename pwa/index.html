@@ -60,10 +60,12 @@
 
 			navigator.serviceWorker.ready.then((registration) => {
 				console.log("[Service Worker] ready");
-				registration.getNotifications().then((notifications) => {
-					// do something with your notifications
-					console.log("[Service Worker] getNotifications", notifications);
-				});
+				if (registration.getNotifications()) {
+					registration.getNotifications().then((notifications) => {
+						// do something with your notifications
+						console.log("[Service Worker] getNotifications", notifications);
+					});
+				}
 			});
 
 			// PublicKey轉碼用

@@ -60,7 +60,8 @@
 
 			navigator.serviceWorker.ready.then((registration) => {
 				console.log("[Service Worker] ready");
-				if (registration.getNotifications()) {
+				console.log(registration.getNotifications);
+				if (registration.getNotifications) {
 					registration.getNotifications().then((notifications) => {
 						// do something with your notifications
 						console.log("[Service Worker] getNotifications", notifications);

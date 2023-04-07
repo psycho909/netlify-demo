@@ -66,6 +66,7 @@
 			});
 			$(".input-otp").on("keydown", function (e) {
 				console.log("keydown");
+				console.log(e);
 				if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
 					//
 				} else if (e.key == "Backspace") {

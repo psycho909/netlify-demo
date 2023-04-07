@@ -29,9 +29,7 @@
 	</head>
 	<body>
 		<form class="wrapper">
-			<div class="header">
-				<a href="javascript:;" class="logo"><img src="https://tw.hicdn.beanfun.com/beanfun/promo/beanfunEvent/verificationWeb/assets/image/logo-gamania.png" alt="遊戲橘子" /></a>
-			</div>
+			<input type="text" autocomplete="one-time-code" maxlength="6" />
 			<div class="content" style="text-align: center">
 				<h2>簡訊OTP驗證</h2>
 				<h4>已將驗證碼發送到您的手機門號<br /><em>0988***555</em></h4>
@@ -62,67 +60,6 @@
 		<script>
 			/*************************** 倒數計時 ***************************/
 			var vConsole = new window.VConsole();
-			if ("OTPCredential" in window) {
-				console.log("In");
-				window.addEventListener("DOMContentLoaded", (e) => {
-					const input = document.querySelector('input[autocomplete="one-time-code"]');
-					if (!input) return;
-					const ac = new AbortController();
-					const form = input.closest("form");
-					if (form) {
-						console.log("Form");
-						form.addEventListener("submit", (e) => {
-							ac.abort();
-						});
-					}
-					navigator.credentials
-						.get({
-							otp: { transport: ["sms"] },
-							signal: ac.signal
-						})
-						.then((otp) => {
-							console.log(otp);
-							input.value = otp.code;
-							if (form) form.submit();
-						})
-						.catch((err) => {
-							console.error(err);
-						});
-				});
-			} else {
-				console.log("Out");
-				window.addEventListener("DOMContentLoaded", (e) => {
-					const input = document.querySelector('input[autocomplete="one-time-code"]');
-					if (!input) return;
-					const ac = new AbortController();
-					const form = input.closest("form");
-					if (form) {
-						console.log("Form");
-						form.addEventListener("submit", (e) => {
-							ac.abort();
-						});
-					}
-					if (navigator.credentials) {
-						console.log("navigator.credentials In");
-						console.log(ac.signal);
-						navigator.credentials
-							.get({
-								otp: { transport: ["sms"] },
-								signal: ac.signal
-							})
-							.then((otp) => {
-								console.log(otp);
-								input.value = otp.code;
-								if (form) form.submit();
-							})
-							.catch((err) => {
-								console.error("Error", err);
-							});
-					} else {
-						console.log("No navigator.credentials");
-					}
-				});
-			}
 			var sec = 60;
 			var intervalId = null;
 			$(".resend").text(sec + "秒後重發驗證碼");

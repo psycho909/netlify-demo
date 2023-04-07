@@ -42,6 +42,7 @@
 		</form>
 
 		<script>
+			var vConsole = new VConsole();
 			/*************************** 輸入簡訊驗證碼 ***************************/
 			var otpVAL = "";
 			//輸入時只接受數字
@@ -77,39 +78,38 @@
 			// 	checkVal();
 			// });
 			// //貼上時只接受數字
-			// $(".input-otp").on("paste", function (e) {
-			// 	console.log("paste");
-			// 	var evtIdx = $(this).index();
-			// 	var aryIdx = 0;
-			// 	var clipboardDataObj = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
-			// 	var copiedText = clipboardDataObj.getData("Text");
-			// 	var copiedTextAry = copiedText.split("");
-			// 	console.log(copiedTextAry);
-			// 	if (!/^[0-9]+$/.test(copiedText)) {
-			// 		$(".row-otp .error").text("格式錯誤，貼上的文字不可包含數字以外的字元").show();
-			// 		//$.gbox.open('格式錯誤，貼上的文字不可包含數字以外的字元');
-			// 		$(this).val("");
-			// 		return;
-			// 	}
-			// 	$(".input-otp").each(function (i) {
-			// 		if (evtIdx == i) {
-			// 			console.log(evtIdx, i);
-			// 			console.log(copiedTextAry[aryIdx]);
-			// 			if (copiedTextAry[aryIdx] != undefined) {
-			// 				evtIdx++;
-			// 				$(this).val(copiedTextAry[aryIdx]);
-			// 				aryIdx++;
-			// 				var _this = $(this);
-			// 				setTimeout(function () {
-			// 					console.log(e.target);
-			// 					// e.target.focus()
-			// 					_this.focus();
-			// 				});
-			// 			}
-			// 		}
-			// 	});
-			// 	checkVal();
-			// });
+			$(".input-otp").on("paste", function (e) {
+				console.log("paste");
+				var evtIdx = $(this).index();
+				var aryIdx = 0;
+				var clipboardDataObj = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
+				var copiedText = clipboardDataObj.getData("Text");
+				var copiedTextAry = copiedText.split("");
+				console.log(copiedTextAry);
+				if (!/^[0-9]+$/.test(copiedText)) {
+					$(".row-otp .error").text("格式錯誤，貼上的文字不可包含數字以外的字元").show();
+					//$.gbox.open('格式錯誤，貼上的文字不可包含數字以外的字元');
+					$(this).val("");
+					return;
+				}
+				$(".input-otp").each(function (i) {
+					if (evtIdx == i) {
+						console.log(evtIdx, i);
+						if (copiedTextAry[aryIdx] != undefined) {
+							evtIdx++;
+							$(this).val(copiedTextAry[aryIdx]);
+							aryIdx++;
+							var _this = $(this);
+							setTimeout(function () {
+								console.log(e.target);
+								// e.target.focus()
+								_this.focus();
+							});
+						}
+					}
+				});
+				checkVal();
+			});
 
 			function checkVal() {
 				otpVAL = "";

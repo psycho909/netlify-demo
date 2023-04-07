@@ -46,37 +46,39 @@
 			/*************************** 輸入簡訊驗證碼 ***************************/
 			var otpVAL = "";
 			//輸入時只接受數字
-			// $(".input-otp").on("focus", function () {
-			// 	$(this).select();
-			// });
-			// $(".input-otp").on("keyup", function (e) {
-			// 	var keyEvt = e.originalEvent;
-			// 	if (!(e.ctrlKey && e.key == "z")) {
-			// 		if ($(this).val() != "" && /^[0-9]+$/.test($(this).val())) {
-			// 			$(this).next().focus();
-			// 		}
-			// 	} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
-			// 		if (isMobile.any) {
-			// 			$(this).val("");
-			// 			e.preventDefault();
-			// 		}
-			// 	}
-			// 	checkVal();
-			// });
-			// $(".input-otp").on("keydown", function (e) {
-			// 	if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
-			// 		//
-			// 	} else if (e.key == "Backspace") {
-			// 		if ($(this).val() == "") {
-			// 			$(this).prev().focus();
-			// 		}
-			// 	} else if (e.ctrlKey || e.key == "v") {
-			// 	} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
-			// 		$(this).val("");
-			// 		e.preventDefault();
-			// 	}
-			// 	checkVal();
-			// });
+			$(".input-otp").on("focus", function () {
+				$(this).select();
+			});
+			$(".input-otp").on("keyup", function (e) {
+				console.log("keyup");
+				var keyEvt = e.originalEvent;
+				if (!(e.ctrlKey && e.key == "z")) {
+					if ($(this).val() != "" && /^[0-9]+$/.test($(this).val())) {
+						$(this).next().focus();
+					}
+				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+					if (isMobile.any) {
+						$(this).val("");
+						e.preventDefault();
+					}
+				}
+				checkVal();
+			});
+			$(".input-otp").on("keydown", function (e) {
+				console.log("keydown");
+				if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
+					//
+				} else if (e.key == "Backspace") {
+					if ($(this).val() == "") {
+						$(this).prev().focus();
+					}
+				} else if (e.ctrlKey || e.key == "v") {
+				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+					$(this).val("");
+					e.preventDefault();
+				}
+				checkVal();
+			});
 			// //貼上時只接受數字
 			$(".input-otp").on("paste", function (e) {
 				console.log("paste");

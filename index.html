@@ -28,10 +28,6 @@
 		<form class="wrapper">
 			<input type="text" autocomplete="one-time-code" maxlength="6" />
 			<div class="content" style="text-align: center">
-				<h2>簡訊OTP驗證</h2>
-				<h4>已將驗證碼發送到您的手機門號<br /><em>0988***555</em></h4>
-				<br />
-				<h4>請輸入簡訊OTP驗證碼</h4>
 				<div class="row row-otp">
 					<div class="code-group">
 						<input class="input-otp a" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
@@ -41,133 +37,79 @@
 						<input class="input-otp e" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
 						<input class="input-otp f" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
 					</div>
-					<br />
-					<div class="error otp"></div>
-					<br />
-					<a class="btn btn-send-otp" href="javascript:;">確認</a>
-					<br />
-					<div class="otp-misc">
-						<a class="resend disabled link-style-type2" href="javascript:;"></a>
-						<a class="cant-get-otp link-style-type2" href="javascript:;">收不到驗證碼？</a>
-					</div>
 				</div>
 			</div>
 		</form>
 
 		<script>
-			/*************************** 倒數計時 ***************************/
-			var vConsole = new window.VConsole();
-			var sec = 60;
-			var intervalId = null;
-			$(".resend").text(sec + "秒後重發驗證碼");
-			function countdown() {
-				if (sec <= 1) {
-					clearInterval(intervalId);
-					$(".resend").text("發送簡訊驗證碼").removeClass("disabled");
-					return;
-				}
-				$(".resend").text(sec - 1 + "秒後重發驗證碼");
-				sec--;
-			}
-			intervalId = setInterval(countdown, 1000);
-			$(".resend").on("click", function () {
-				if (!$(this).is(".disabled")) {
-					alert("重發");
-					$(".resend").addClass("disabled");
-					sec = 60;
-					$(".resend").text(sec + "秒後重發驗證碼");
-					intervalId = setInterval(countdown, 1000);
-				}
-			});
-
 			/*************************** 輸入簡訊驗證碼 ***************************/
 			var otpVAL = "";
-			//按下送出時
-			$(".btn-send-otp").on("click", function () {
-				console.log("OTP");
-				gtag("event", "click", {
-					event_name: "otp"
-				});
-				// if ($(this).is(".disabled")) {
-				// 	return;
-				// }
-				// if (!/^[0-9]{6}$/.test(otpVAL)) {
-				// 	$(".row-otp .error").text("驗證碼錯誤，請確認格式為數字").show();
-				// } else if (true) {
-				// 	//過期、輸入錯或是其它錯誤
-				// 	$(".row-otp .error").text("※驗證碼錯誤，請重新輸入(1/5)").show();
-				// } else {
-				// 	alert("格式正確");
-				// 	$(".row-otp .error").text("").hide();
-				// }
-			});
-
 			//輸入時只接受數字
-			$(".input-otp").on("focus", function () {
-				$(this).select();
-			});
-			$(".input-otp").on("keyup", function (e) {
-				var keyEvt = e.originalEvent;
-				if (!(e.ctrlKey && e.key == "z")) {
-					if ($(this).val() != "" && /^[0-9]+$/.test($(this).val())) {
-						$(this).next().focus();
-					}
-				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
-					if (isMobile.any) {
-						$(this).val("");
-						e.preventDefault();
-					}
-				}
-				checkVal();
-			});
-			$(".input-otp").on("keydown", function (e) {
-				if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
-					//
-				} else if (e.key == "Backspace") {
-					if ($(this).val() == "") {
-						$(this).prev().focus();
-					}
-				} else if (e.ctrlKey || e.key == "v") {
-				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
-					$(this).val("");
-					e.preventDefault();
-				}
-				checkVal();
-			});
-			//貼上時只接受數字
-			$(".input-otp").on("paste", function (e) {
-				console.log("paste");
-				var evtIdx = $(this).index();
-				var aryIdx = 0;
-				var clipboardDataObj = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
-				var copiedText = clipboardDataObj.getData("Text");
-				var copiedTextAry = copiedText.split("");
-				console.log(copiedTextAry);
-				if (!/^[0-9]+$/.test(copiedText)) {
-					$(".row-otp .error").text("格式錯誤，貼上的文字不可包含數字以外的字元").show();
-					//$.gbox.open('格式錯誤，貼上的文字不可包含數字以外的字元');
-					$(this).val("");
-					return;
-				}
-				$(".input-otp").each(function (i) {
-					if (evtIdx == i) {
-						console.log(evtIdx, i);
-						console.log(copiedTextAry[aryIdx]);
-						if (copiedTextAry[aryIdx] != undefined) {
-							evtIdx++;
-							$(this).val(copiedTextAry[aryIdx]);
-							aryIdx++;
-							var _this = $(this);
-							setTimeout(function () {
-								console.log(e.target);
-								// e.target.focus()
-								_this.focus();
-							});
-						}
-					}
-				});
-				checkVal();
-			});
+			// $(".input-otp").on("focus", function () {
+			// 	$(this).select();
+			// });
+			// $(".input-otp").on("keyup", function (e) {
+			// 	var keyEvt = e.originalEvent;
+			// 	if (!(e.ctrlKey && e.key == "z")) {
+			// 		if ($(this).val() != "" && /^[0-9]+$/.test($(this).val())) {
+			// 			$(this).next().focus();
+			// 		}
+			// 	} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+			// 		if (isMobile.any) {
+			// 			$(this).val("");
+			// 			e.preventDefault();
+			// 		}
+			// 	}
+			// 	checkVal();
+			// });
+			// $(".input-otp").on("keydown", function (e) {
+			// 	if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
+			// 		//
+			// 	} else if (e.key == "Backspace") {
+			// 		if ($(this).val() == "") {
+			// 			$(this).prev().focus();
+			// 		}
+			// 	} else if (e.ctrlKey || e.key == "v") {
+			// 	} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+			// 		$(this).val("");
+			// 		e.preventDefault();
+			// 	}
+			// 	checkVal();
+			// });
+			// //貼上時只接受數字
+			// $(".input-otp").on("paste", function (e) {
+			// 	console.log("paste");
+			// 	var evtIdx = $(this).index();
+			// 	var aryIdx = 0;
+			// 	var clipboardDataObj = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
+			// 	var copiedText = clipboardDataObj.getData("Text");
+			// 	var copiedTextAry = copiedText.split("");
+			// 	console.log(copiedTextAry);
+			// 	if (!/^[0-9]+$/.test(copiedText)) {
+			// 		$(".row-otp .error").text("格式錯誤，貼上的文字不可包含數字以外的字元").show();
+			// 		//$.gbox.open('格式錯誤，貼上的文字不可包含數字以外的字元');
+			// 		$(this).val("");
+			// 		return;
+			// 	}
+			// 	$(".input-otp").each(function (i) {
+			// 		if (evtIdx == i) {
+			// 			console.log(evtIdx, i);
+			// 			console.log(copiedTextAry[aryIdx]);
+			// 			if (copiedTextAry[aryIdx] != undefined) {
+			// 				evtIdx++;
+			// 				$(this).val(copiedTextAry[aryIdx]);
+			// 				aryIdx++;
+			// 				var _this = $(this);
+			// 				setTimeout(function () {
+			// 					console.log(e.target);
+			// 					// e.target.focus()
+			// 					_this.focus();
+			// 				});
+			// 			}
+			// 		}
+			// 	});
+			// 	checkVal();
+			// });
 
 			function checkVal() {
 				otpVAL = "";
@@ -182,29 +124,6 @@
 					$(".btn-send-otp").addClass("disabled");
 				}
 			}
-
-			/*************************** 收不到驗證碼？ ***************************/
-			var cantGetOtpHtml =
-				'\
-<ol class="custom">\
-	<li>請確認手機門號可以正常收發簡訊。</li>\
-	<li>請確認手機訊號是否正常。</li>\
-	<li>請稍待片刻確認是否為收發延遲或嘗試重新操作。</li>\
-	<li>請確認是否下載阻擋簡訊相關APP。</li>\
-	<li>請再次確認手機號碼是否填寫正確無誤，格式須為【09_八碼數字】。</li>\
-	<li>手機簡訊收發快慢會因電信公司或所在的收訊品質有所影響。</li>\
-	<li>若一直無法順利取得驗證碼，請先確認門號是否有設定「拒收廣告簡訊」，因此導致無法收到驗證碼簡訊。</li>\
-</ol>\
-<p>若非以上情形，仍一直無法收到驗證簡訊，請洽客服：(02)2192-6100</p>\
-';
-			$(".cant-get-otp").on("click", function () {
-				$.gbox.open(cantGetOtpHtml, {
-					titleBar: "收不到驗證碼嗎?",
-					hasActionBtn: false,
-					hasCloseBtn: true,
-					clickBgClose: true
-				});
-			});
 		</script>
 	</body>
 </html>

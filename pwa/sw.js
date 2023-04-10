@@ -1,4 +1,3 @@
-var vConsole = new VConsole();
 // let CACHE_NAME = "static-v2";
 // // 安裝時
 // self.addEventListener("install", (event) => {
@@ -36,6 +35,10 @@ self.addEventListener("fetch", (event) => {
 	console.log("[Service Worker] fetch", event);
 });
 
+self.addEventListener("notificationclose", (event) => {
+	navigator.setAppBadge(0);
+	notification.close();
+});
 // 點擊推播觸發
 self.addEventListener("notificationclick", (event) => {
 	const notification = event.notification;

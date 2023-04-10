@@ -1,34 +1,34 @@
-let CACHE_NAME = "static-v2";
-// 安裝時
-self.addEventListener("install", (event) => {
-	console.log(`${CACHE_NAME} installing…`);
-	// 可以直接觸發activate事件
-	self.skipWaiting();
-	//
-	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => {
-			cache.addAll([]);
-		})
-	);
-});
+// let CACHE_NAME = "static-v2";
+// // 安裝時
+// self.addEventListener("install", (event) => {
+// 	console.log(`${CACHE_NAME} installing…`);
+// 	// 可以直接觸發activate事件
+// 	self.skipWaiting();
+// 	//
+// 	event.waitUntil(
+// 		caches.open(CACHE_NAME).then((cache) => {
+// 			cache.addAll([]);
+// 		})
+// 	);
+// });
 
-// 安裝後觸發
-self.addEventListener("activate", (event) => {
-	console.log("[Service Worker] Activating Service Worker ...", event);
-	event.waitUntil(
-		caches.keys().then(function (keys) {
-			return Promise.all(
-				keys.map(function (key) {
-					if (key !== CACHE_NAME) {
-						console.log("[SW] 刪除舊的快取");
-						return caches.delete(key);
-					}
-				})
-			);
-		})
-	);
-	return self.clients.claim();
-});
+// // 安裝後觸發
+// self.addEventListener("activate", (event) => {
+// 	console.log("[Service Worker] Activating Service Worker ...", event);
+// 	event.waitUntil(
+// 		caches.keys().then(function (keys) {
+// 			return Promise.all(
+// 				keys.map(function (key) {
+// 					if (key !== CACHE_NAME) {
+// 						console.log("[SW] 刪除舊的快取");
+// 						return caches.delete(key);
+// 					}
+// 				})
+// 			);
+// 		})
+// 	);
+// 	return self.clients.claim();
+// });
 
 // 在頁面上有觸發到request時
 self.addEventListener("fetch", (event) => {

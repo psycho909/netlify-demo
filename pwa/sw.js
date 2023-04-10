@@ -62,6 +62,7 @@ self.addEventListener("notificationclick", (event) => {
 			}
 			break;
 	}
+	navigator.setAppBadge(0);
 	notification.close();
 	console.log("[Service Worker] notificationclick action is", action);
 });

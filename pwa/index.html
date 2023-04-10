@@ -38,20 +38,21 @@
 				.then((reg) => {
 					console.log("[Service Worker] registered!", reg);
 					if ("Notification" in window) {
-						subscribeUser(reg);
 						// 判斷用戶推播狀態
-						// if (Notification.permission === "granted") {
-						// 	subscribeUser(reg);
-						// 	navigator.setAppBadge(12);
-						// } else {
-						// 	Notification.requestPermission(function (status) {
-						// 		console.log("Notification permission status:", status);
-						// 		if (status === "granted") {
-						// 			subscribeUser(reg);
-						// 			navigator.setAppBadge(12);
-						// 		}
-						// 	});
-						// }
+						if (Notification.permission === "granted") {
+							console.log("已經開啟通知");
+							subscribeUser(reg);
+							navigator.setAppBadge(12);
+						} else {
+							Notification.requestPermission(function (status) {
+								console.log("Notification permission status:", status);
+								if (status === "granted") {
+									console.log("開啟通知");
+									subscribeUser(reg);
+									navigator.setAppBadge(12);
+								}
+							});
+						}
 					}
 
 					console.log("[Service Worker] register end");

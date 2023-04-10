@@ -32,6 +32,12 @@
 					}
 				});
 			});
+			Notification.requestPermission().then((result) => {
+				if (result === "granted") {
+					console.log("開啟通知");
+					// randomNotification();
+				}
+			});
 			// 註冊service worker
 			navigator.serviceWorker
 				.register("./sw.js")
@@ -44,7 +50,9 @@
 							subscribeUser(reg);
 							navigator.setAppBadge(12);
 						} else {
+							console.log("還沒開啟通知");
 							Notification.requestPermission().then((result) => {
+								console.log("準備開啟通知");
 								if (result === "granted") {
 									console.log("開啟通知");
 									subscribeUser(reg);

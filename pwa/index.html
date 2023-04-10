@@ -10,6 +10,7 @@
 	</head>
 	<body>
 		<div id="text"></div>
+		<button id="notifications">通知開啟</button>
 		<script>
 			setTimeout(() => {
 				fetch("https://jsonplaceholder.typicode.com/todos/1")
@@ -22,26 +23,35 @@
 
 			// 先產生PublicKey
 			const applicationServerPublicKey = `BBHEOQlx7PZJoHYSllCL8hEax2QMNCV82zTTwerVEo9UD5gm5q9r37U5jMdGVDbkm-Y4ZX7XVy0GOuuLK0uK_g8`;
-
+			const button = document.getElementById("notifications");
+			button.addEventListener("click", () => {
+				Notification.requestPermission().then((result) => {
+					if (result === "granted") {
+						console.log("開啟通知");
+						// randomNotification();
+					}
+				});
+			});
 			// 註冊service worker
 			navigator.serviceWorker
 				.register("./sw.js")
 				.then((reg) => {
 					console.log("[Service Worker] registered!", reg);
 					if ("Notification" in window) {
+						subscribeUser(reg);
 						// 判斷用戶推播狀態
-						if (Notification.permission === "granted") {
-							subscribeUser(reg);
-							navigator.setAppBadge(12);
-						} else {
-							Notification.requestPermission(function (status) {
-								console.log("Notification permission status:", status);
-								if (status === "granted") {
-									subscribeUser(reg);
-									navigator.setAppBadge(12);
-								}
-							});
-						}
+						// if (Notification.permission === "granted") {
+						// 	subscribeUser(reg);
+						// 	navigator.setAppBadge(12);
+						// } else {
+						// 	Notification.requestPermission(function (status) {
+						// 		console.log("Notification permission status:", status);
+						// 		if (status === "granted") {
+						// 			subscribeUser(reg);
+						// 			navigator.setAppBadge(12);
+						// 		}
+						// 	});
+						// }
 					}
 
 					console.log("[Service Worker] register end");

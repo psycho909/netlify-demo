@@ -1,3 +1,4 @@
+var vConsole = new VConsole();
 // let CACHE_NAME = "static-v2";
 // // 安裝時
 // self.addEventListener("install", (event) => {

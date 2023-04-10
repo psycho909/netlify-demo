@@ -42,6 +42,7 @@ self.addEventListener("notificationclick", (event) => {
 	const link = notification.data.link;
 	const link_ok = notification.data.link_ok;
 	const link_ng = notification.data.link_ng;
+	console.log("notificationclick");
 	switch (action) {
 		case "yes":
 			if (link_ok) {
@@ -69,7 +70,7 @@ self.addEventListener("notificationclick", (event) => {
 self.addEventListener("push", (event) => {
 	console.log(event);
 	console.log("[Service Worker] Push Received.");
-
+	navigator.setAppBadge(1);
 	if (event.data) {
 		options = event.data.json();
 		title = options.title;

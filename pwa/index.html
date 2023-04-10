@@ -48,7 +48,7 @@
 						if (Notification.permission === "granted") {
 							console.log("已經開啟通知");
 							subscribeUser(reg);
-							navigator.setAppBadge(12);
+							// navigator.setAppBadge(12);
 						} else {
 							console.log("還沒開啟通知");
 							Notification.requestPermission().then((result) => {
@@ -56,7 +56,7 @@
 								if (result === "granted") {
 									console.log("開啟通知");
 									subscribeUser(reg);
-									navigator.setAppBadge(12);
+									// navigator.setAppBadge(12);
 									// randomNotification();
 								}
 							});

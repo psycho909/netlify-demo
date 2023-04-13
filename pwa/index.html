@@ -91,6 +91,9 @@
 				if (registration.getNotifications) {
 					registration.getNotifications().then((notifications) => {
 						// do something with your notifications
+						if (notifications.length == 0) {
+							navigator.setAppBadge(0);
+						}
 						console.log("[Service Worker] getNotifications", notifications);
 					});
 				}

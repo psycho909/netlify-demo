@@ -36,6 +36,7 @@ self.addEventListener("fetch", (event) => {
 });
 
 self.addEventListener("notificationclose", (event) => {
+	console.log("notificationclose");
 	navigator.setAppBadge(0);
 	notification.close();
 });
@@ -47,6 +48,7 @@ self.addEventListener("notificationclick", (event) => {
 	const link_ok = notification.data.link_ok;
 	const link_ng = notification.data.link_ng;
 	console.log("notificationclick");
+	navigator.setAppBadge(0);
 	switch (action) {
 		case "yes":
 			if (link_ok) {
@@ -66,7 +68,7 @@ self.addEventListener("notificationclick", (event) => {
 			}
 			break;
 	}
-	navigator.setAppBadge(0);
+
 	notification.close();
 	console.log("[Service Worker] notificationclick action is", action);
 });

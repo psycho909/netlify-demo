@@ -28,15 +28,8 @@
 				Notification.requestPermission().then((result) => {
 					if (result === "granted") {
 						console.log("開啟通知");
-						// randomNotification();
 					}
 				});
-			});
-			Notification.requestPermission().then((result) => {
-				if (result === "granted") {
-					console.log("開啟通知");
-					// randomNotification();
-				}
 			});
 			// 註冊service worker
 			navigator.serviceWorker
@@ -56,29 +49,11 @@
 								if (result === "granted") {
 									console.log("開啟通知");
 									subscribeUser(reg);
-									// navigator.setAppBadge(12);
-									// randomNotification();
 								}
 							});
-							// Notification.requestPermission(function (status) {
-							// 	console.log("Notification permission status:", status);
-							// 	if (status === "granted") {
-							// 		console.log("開啟通知");
-							// 		subscribeUser(reg);
-							// 		navigator.setAppBadge(12);
-							// 	}
-							// });
 						}
 					}
-
 					console.log("[Service Worker] register end");
-					if ("PushManager" in window) {
-						console.log("支持web push api");
-						// iOS mobile Safari supports Web Push API
-					} else {
-						// iOS mobile Safari does not support Web Push API
-						console.log("沒有支持web push api");
-					}
 				})
 				.catch((err) => console.log("Boo!", err));
 			navigator.serviceWorker.getRegistration().then((res) => {

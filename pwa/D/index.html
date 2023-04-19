@@ -39,7 +39,7 @@
 					if ("Notification" in window) {
 						// 判斷用戶推播狀態
 						if (Notification.permission === "granted") {
-							console.log("已經開啟通知");
+							console.log("已經開啟通知", reg);
 							subscribeUser(reg);
 							// navigator.setAppBadge(12);
 						} else {

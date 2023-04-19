@@ -647,6 +647,7 @@
 				font-size: 20px;
 				margin-top: 18px;
 				margin-left: auto;
+				position: relative;
 			}
 			@media screen and (max-width: 768px) {
 				.nav-language-box {
@@ -2438,6 +2439,27 @@
 			body[data-lang="ja"] .detail-btn__back {
 				background-image: url("./images/detail/ja/detail-back.png");
 			}
+			.nav-language__text {
+				width: 100%;
+				position: absolute;
+				top: 8px;
+				left: 50%;
+				-webkit-transform: translateX(-50%);
+				-ms-transform: translateX(-50%);
+				transform: translateX(-50%);
+				text-align: center;
+				pointer-events: none;
+				color: #427915;
+				font-weight: bold;
+			}
+			.nav-language__select {
+				opacity: 0;
+			}
+			@media screen and (max-width: 768px) {
+				.nav-language__text {
+					top: 2.0833333333vw;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -2452,6 +2474,7 @@
 							><!--v-if--><!--v-if--><a href="javascript:;" class="nav-item nav-item__faq">常見問題</a><a href="https://service.antspw.com/MSGBoardUI/MobileForm/Index/TWMK" class="nav-item nav-item__support" target="_blank">問題回報</a>
 						</div>
 						<div class="nav-language-box">
+							<span class="nav-language__text">English</span>
 							<select name="nav-language" id="nav-language__select">
 								<option value="en">English</option>
 								<option value="zh">繁體中文</option>

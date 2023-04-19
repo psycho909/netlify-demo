@@ -1,6 +1,6 @@
 let pushServiceWorkerRegistration;
 let applicationServerPublicKey;
-let consoleOutput;
+let consoleOutput, subscribeButton, unsubscribeButton;
 consoleOutput = document.getElementById("output");
 
 applicationServerPublicKey = "BBHEOQlx7PZJoHYSllCL8hEax2QMNCV82zTTwerVEo9UD5gm5q9r37U5jMdGVDbkm-Y4ZX7XVy0GOuuLK0uK_g8";
@@ -25,6 +25,8 @@ function registerPushServiceWorker() {
 function initializeUIState() {
 	subscribeButton = document.getElementById("subscribe");
 	subscribeButton.addEventListener("click", subscribeForPushNotifications);
+	unsubscribeButton = document.getElementById("unsubscribe");
+	unsubscribeButton.addEventListener("click", unsubscribeFromPushNotifications);
 
 	pushServiceWorkerRegistration.pushManager.getSubscription().then(function (subscription) {
 		if (Notification.permission === "denied") {
@@ -47,28 +49,6 @@ function subscribeForPushNotifications() {
 				writeToConsole("Failed to retrieve Public Key: " + error);
 			});
 	}
-}
-
-// PublicKey轉碼用
-function urlB64ToUint8Array(base64String) {
-	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-	const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
-
-	const rawData = window.atob(base64);
-	const outputArray = new Uint8Array(rawData.length);
-
-	for (let i = 0; i < rawData.length; ++i) {
-		outputArray[i] = rawData.charCodeAt(i);
-	}
-	return outputArray;
-}
-
-function writeToConsole(text) {
-	var paragraph = document.createElement("p");
-	paragraph.style.wordWrap = "break-word";
-	paragraph.appendChild(document.createTextNode(text));
-
-	consoleOutput.appendChild(paragraph);
 }
 
 function subscribeForPushNotificationsInternal() {
@@ -100,4 +80,51 @@ function subscribeForPushNotificationsInternal() {
 				writeToConsole("Failed to subscribe for Push Notifications: " + error);
 			}
 		});
+}
+
+function unsubscribeFromPushNotifications() {
+	pushServiceWorkerRegistration.pushManager.getSubscription().then(function (pushSubscription) {
+		if (pushSubscription) {
+			pushSubscription
+				.unsubscribe()
+				.then(function () {
+					writeToConsole("Successfully unsubscribed from Push Notifications");
+					// PushNotificationsController.discardPushSubscription(pushSubscription)
+					// 	.then(function (response) {
+					// 		if (response.ok) {
+					// 			writeToConsole('Successfully unsubscribed from Push Notifications');
+					// 		} else {
+					// 			writeToConsole('Failed to discard the Push Notifications subscrition from server');
+					// 		}
+					// 	}).catch(function (error) {
+					// 		writeToConsole('Failed to discard the Push Notifications subscrition from server: ' + error);
+					// 	});
+				})
+				.catch(function (error) {
+					writeToConsole("Failed to unsubscribe from Push Notifications: " + error);
+				});
+		}
+	});
+}
+
+// PublicKey轉碼用
+function urlB64ToUint8Array(base64String) {
+	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+	const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
+
+	const rawData = window.atob(base64);
+	const outputArray = new Uint8Array(rawData.length);
+
+	for (let i = 0; i < rawData.length; ++i) {
+		outputArray[i] = rawData.charCodeAt(i);
+	}
+	return outputArray;
+}
+
+function writeToConsole(text) {
+	var paragraph = document.createElement("p");
+	paragraph.style.wordWrap = "break-word";
+	paragraph.appendChild(document.createTextNode(text));
+
+	consoleOutput.appendChild(paragraph);
 }

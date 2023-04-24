@@ -45,6 +45,16 @@
 		<script>
 			var vConsole = new VConsole();
 			/*************************** 輸入簡訊驗證碼 ***************************/
+			if (navigator.credentials) {
+				navigator.credentials
+					.get({
+						otp: { transport: ["sms"] }
+					})
+					.then((otp) => {
+						console.log(otp);
+					});
+			}
+
 			var otpVAL = "";
 			//輸入時只接受數字
 			$(".input-otp").on("focus", function () {

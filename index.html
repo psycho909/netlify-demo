@@ -47,7 +47,7 @@
 	</head>
 	<body>
 		<form class="wrapper">
-			<input type="text" autocomplete="one-time-code" maxlength="6" placeholder="我有autocomplete" />
+			<input type="text" id="input" autocomplete="one-time-code" maxlength="6" placeholder="我有autocomplete" />
 			<input type="text" maxlength="6" placeholder="我沒有autocomplete" />
 			<div class="content" style="text-align: center">
 				<div class="row row-otp">
@@ -67,13 +67,23 @@
 			var vConsole = new VConsole();
 			/*************************** 輸入簡訊驗證碼 ***************************/
 			if (navigator.credentials) {
-				navigator.credentials
-					.get({
-						otp: { transport: ["sms"] }
-					})
-					.then((otp) => {
-						console.log(otp);
-					});
+				window.addEventListener("DOMContentLoaded", (e) => {
+					const input = document.querySelector("#input");
+					// Cancel the WebOTP API if the form is submitted manually.
+					const ac = new AbortController();
+					// Invoke the WebOTP API
+					navigator.credentials
+						.get({
+							otp: { transport: ["sms"] },
+							signal: ac.signal
+						})
+						.then((otp) => {
+							input.value = otp.code;
+						})
+						.catch((err) => {
+							console.log(err);
+						});
+				});
 			}
 
 			var otpVAL = "";

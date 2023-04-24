@@ -11,10 +11,13 @@
 	<body>
 		<div id="output"></div>
 		<button id="subscribe">通知開啟</button>
-		<button id="unsubscribe">關閉開啟</button>
 		<script src="./push-notification.js"></script>
 		<script>
 			var vConsole = new VConsole();
+			// manifest.json 可以在新增在主畫面上的類似app的網頁
+
+			// 先產生PublicKey
+			// const applicationServerPublicKey = `BBHEOQlx7PZJoHYSllCL8hEax2QMNCV82zTTwerVEo9UD5gm5q9r37U5jMdGVDbkm-Y4ZX7XVy0GOuuLK0uK_g8`;
 
 			if ("serviceWorker" in navigator) {
 				registerPushServiceWorker();

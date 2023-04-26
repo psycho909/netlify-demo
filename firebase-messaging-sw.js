@@ -1,5 +1,5 @@
-importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js");
+importScripts("/fcm/messaging/firebase-app.js");
+importScripts("/fcm/messaging/firebase-messaging.js");
 const firebaseConfig = {
 	apiKey: "AIzaSyATDnYgGrq-D_C3Q8-q67a89rYjaSq_z5A",
 	authDomain: "learn-for-web-push-a81dd.firebaseapp.com",

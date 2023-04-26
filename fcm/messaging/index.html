@@ -39,10 +39,10 @@
 			</main>
 		</div>
 
-		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+		<script src="./firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app-check.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+		<script src="./firebase-messaging.js"></script>
 
 		<script type="module">
 			var vConsole = new VConsole();
@@ -56,7 +56,7 @@
 			};
 			firebase.initializeApp(firebaseConfig);
 			const messaging = firebase.messaging();
-
+			// messaging.useServiceWorker(new URL("/fcm/messaging/firebase-messaging-sw.js", import.meta.url));
 			// IDs of divs that display registration token UI or request permission UI.
 			const tokenDivId = "token_div";
 			const permissionDivId = "permission_div";
@@ -94,12 +94,12 @@
 						showToken("Error retrieving registration token. ", err);
 						setTokenSentToServer(false);
 					});
-				if (!messaging.useServiceWorker) {
-					navigator.serviceWorker.register("/fcm/messaging/firebase-messaging-sw.js").then((registration) => {
-						messaging.useServiceWorker(registration);
-						console.log(registration);
-					});
-				}
+				// if (!messaging.useServiceWorker) {
+				// 	navigator.serviceWorker.register("/fcm/messaging/firebase-messaging-sw.js").then((registration) => {
+				// 		messaging.useServiceWorker(registration);
+				// 		console.log(registration);
+				// 	});
+				// }
 			}
 
 			function showToken(currentToken) {

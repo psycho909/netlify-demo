@@ -64,10 +64,8 @@
 			// messaging.usePublicVapidKey(vapidKey);
 
 			messaging.onMessage((payload) => {
-				console.log("Message received. ", payload);
 				// Update the UI to include the received message.
 				appendMessage(payload);
-				console.log(payload.data);
 				new Notification(payload.data.title, payload.data);
 			});
 

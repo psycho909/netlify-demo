@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="./main.css" />
 
 		<link rel="manifest" href="./manifest.json" />
+		<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
 	</head>
 	<body>
 		<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -44,6 +45,7 @@
 		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
 
 		<script>
+			var vConsole = new VConsole();
 			const firebaseConfig = {
 				apiKey: "AIzaSyATDnYgGrq-D_C3Q8-q67a89rYjaSq_z5A",
 				authDomain: "learn-for-web-push-a81dd.firebaseapp.com",
@@ -104,6 +106,7 @@
 			function showToken(currentToken) {
 				// Show token in console and UI.
 				const tokenElement = document.querySelector("#token");
+				console.log(currentToken);
 				tokenElement.textContent = currentToken;
 			}
 

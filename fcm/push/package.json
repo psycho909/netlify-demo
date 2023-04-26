@@ -1,8 +1,0 @@
-{
-	"scripts": {
-		"push": "node ./push.js"
-	},
-	"dependencies": {
-		"firebase-admin": "^11.7.0"
-	}
-}

@@ -93,10 +93,12 @@
 						showToken("Error retrieving registration token. ", err);
 						setTokenSentToServer(false);
 					});
-				navigator.serviceWorker.register("/fcm/messaging/firebase-messaging-sw.js").then((registration) => {
-					messaging.useServiceWorker(registration);
-					console.log(registration);
-				});
+				if (!messaging.useServiceWorker) {
+					navigator.serviceWorker.register("/fcm/messaging/firebase-messaging-sw.js").then((registration) => {
+						messaging.useServiceWorker(registration);
+						console.log(registration);
+					});
+				}
 			}
 
 			function showToken(currentToken) {

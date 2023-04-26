@@ -6,7 +6,7 @@ admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount)
 });
 
-var registrationToken = ["eOVOd-6k2m68RkUU9zJ8jV:APA91bESU582PNK9jPCrtn4-Kdl-v-5NGBafw8gjLIjqLZYt_w3Ff15UwB-WobaAkwme01h-9g3fKFiQL00xLc4ahG_m_beTUSvYPc3h9s1qiT-ifXZ9KDwa7hhxdIOcDb1gYEPJALv1"];
+var registrationToken = ["fLxX7lr5DT1YmOFJ1l5MdU:APA91bH8khGbO6DWPWYUkY5JcX3jyKKmPpVzPC9qoTSfzKZSiG49AyVaFZLCBjV3g9KYs43RcV6lx8Cyunt2qEukp0G5QGKUZkcrpM3HMH0xM4VWX_ZLoJTvWGkGXepR7l1Ro4Wx1mCv"];
 
 const topic = "highScores";
 

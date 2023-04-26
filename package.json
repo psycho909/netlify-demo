@@ -4,7 +4,6 @@
 	"description": "",
 	"main": "add-to-calendar.js",
 	"dependencies": {
-		"firebase-admin": "^11.7.0",
 		"netlify-cli": "^6.9.28",
 		"node-fetch": "^3.0.0",
 		"web-push": "^3.5.0"

@@ -33,7 +33,7 @@ messaging.onBackgroundMessage(function (payload) {
 	// };
 
 	if (payload.data) {
-		options = payload.data.options.json();
+		options = JSON.parse(payload.data.options);
 		title = payload.data.title;
 	}
 	self.registration.showNotification(title, options);

@@ -54,13 +54,12 @@
 			};
 			firebase.initializeApp(firebaseConfig);
 			const messaging = firebase.messaging();
-
 			// IDs of divs that display registration token UI or request permission UI.
 			const tokenDivId = "token_div";
 			const permissionDivId = "permission_div";
 
 			const vapidKey = "BEFSzyy5-c8ygxcHHJCS76m38DjE0Z6Xf7NtpSCh2RM_AmkCo-GohGL0m6L9vPx9bn3MLKe5WaF2BJzGR3cqEYA";
-			messaging.usePublicVapidKey(vapidKey);
+			// messaging.usePublicVapidKey(vapidKey);
 
 			messaging.onMessage((payload) => {
 				console.log("Message received. ", payload);
@@ -76,7 +75,7 @@
 				// Get registration token. Initially this makes a network call, once retrieved
 				// subsequent calls to getToken will return from cache.
 				messaging
-					.getToken()
+					.getToken({ vapidKey: vapidKey })
 					.then((currentToken) => {
 						if (currentToken) {
 							sendTokenToServer(currentToken);
@@ -94,7 +93,7 @@
 						showToken("Error retrieving registration token. ", err);
 						setTokenSentToServer(false);
 					});
-					navigator.serviceWorker.register("/fcm/messaging/firebase-messaging-sw.js").then((registration) => {
+				navigator.serviceWorker.register("/messaging/firebase-messaging-sw.js").then((registration) => {
 					messaging.useServiceWorker(registration);
 					console.log(registration);
 				});
@@ -205,7 +204,7 @@
 				showHideDiv(permissionDivId, true);
 			}
 
-			// resetUI();
+			resetUI();
 			document.querySelector("#subscribe").addEventListener("click", function () {
 				requestPermission();
 			});

@@ -39,10 +39,10 @@
 			</main>
 		</div>
 
-		<script src="./firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app-check.js"></script>
-		<script src="./firebase-messaging.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
 
 		<script type="module">
 			var vConsole = new VConsole();
@@ -67,7 +67,8 @@
 			messaging.onMessage((payload) => {
 				// Update the UI to include the received message.
 				appendMessage(payload);
-				new Notification(payload.data.title, JSON.parse(payload.data.options));
+				console.log(payload);
+				// new Notification(payload.data.title, JSON.parse(payload.data.options));
 			});
 
 			function resetUI() {

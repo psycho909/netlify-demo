@@ -44,7 +44,7 @@
 		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app-check.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
 
-		<script>
+		<script type="module">
 			var vConsole = new VConsole();
 			const firebaseConfig = {
 				apiKey: "AIzaSyATDnYgGrq-D_C3Q8-q67a89rYjaSq_z5A",
@@ -56,6 +56,7 @@
 			};
 			firebase.initializeApp(firebaseConfig);
 			const messaging = firebase.messaging();
+
 			// IDs of divs that display registration token UI or request permission UI.
 			const tokenDivId = "token_div";
 			const permissionDivId = "permission_div";

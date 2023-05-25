@@ -39,21 +39,26 @@
 			<!-- google用行事曆 <a class="g-calendar-google" href="javascript:;">顯示名稱</a> -->
 			<!-- ios用行事曆 <a class="g-calendar-ios" href="javascript:;">顯示名稱</a> -->
 			<!-- outlook用行事曆 <a class="g-calendar-outlook" href="javascript:;">顯示名稱</a> -->
+			<div id="btn">OPEN</div>
 			<div class="g-calendar" begin="2022/07/19 23:00" end="2022/07/19 23:55" title="天堂活動頁" autoDetectDevice="true">
 				<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒3</a>
 				<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒3</a>
 				<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒3</a>
 			</div>
 		</div>
-		<script>
-			var html = '<h2>Test</h2>\
-					<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">\
-						<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒4</a>\
-						<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒4</a>\
-						<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒4</a>\
-					</div>';
-			$("#app").append(html);
-			// $.gbox.open(html);
+		<script type="module">
+			import { OpenCalender } from "./g-calendar2.js";
+			// var html =
+			// 	'<h2>Test</h2>\
+			// 		<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">\
+			// 			<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒4</a>\
+			// 			<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒4</a>\
+			// 			<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒4</a>\
+			// 		</div>';
+			// $("#app").append(html);
+			$("#btn").on("click", function () {
+				OpenCalender();
+			});
 		</script>
 	</body>
 </html>

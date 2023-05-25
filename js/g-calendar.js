@@ -260,6 +260,7 @@
 					if (!(mutations[i].addedNodes[j] instanceof HTMLElement)) continue;
 					if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
 						calendarInit();
+						console.log("g-calendar");
 					}
 				}
 			}

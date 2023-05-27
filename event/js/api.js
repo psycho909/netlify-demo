@@ -1,45 +1,25 @@
+// type=1 step1
+// type=2 step2
+
+// code=1 正常預登
+// code=2 已經預登過
 const apiRequest = axios.create({
-	// baseURL: "/api/GamaEvent/"
-	baseURL: "../../api/E20230131/",
+	baseURL: "../../api/Event/E20230606"
 });
 
-export const GetUserData = (Token) => {
-	return apiRequest.post("/GetUserData", {
-		CipherText: Token,
+// 預先登入送好禮
+export const AddUserData = (Token) => {
+	return apiRequest.post("/AddUserData", {
+		Token
 	});
 };
 
-export const FindCoinLog = (Token) => {
-	return apiRequest.post("/FindCoinLog", {
-		CipherText: Token,
-	});
+// 取得活動分類
+export const GetEventCategory = () => {
+	return apiRequest.get("/GetEventCategory");
 };
 
-export const AddRewardLog = (Token, Cnt) => {
-	return apiRequest.post("/AddRewardLog", {
-		CipherText: Token,
-		LotteryCnt: Cnt,
-	});
-};
-
-export const AddGuaranteedLog = (Token, Box) => {
-	return apiRequest.post("/AddGuaranteedLog", {
-		CipherText: Token,
-		Box: Box,
-	});
-};
-
-export const FindRewardLog = (Token, Page) => {
-	return apiRequest.post("/FindRewardLog", {
-		CipherText: Token,
-		Page: Page,
-	});
-};
-
-export const AddItemToGameLog = (Token, CharacterId, Seqs) => {
-	return apiRequest.post("/AddItemToGameLog", {
-		CharacterId: CharacterId,
-		CipherText: Token,
-		Seqs: Seqs,
-	});
+// 取得活動對應的banner list
+export const GetEventBannerList = (seq = 0) => {
+	return apiRequest.get(`/GetEventBannerList/${seq}`);
 };

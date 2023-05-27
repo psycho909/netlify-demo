@@ -18,7 +18,7 @@ body {
 	}
 }
 input {
-	// font-size: initial !important;
+    font-size: initial !important;
 }
 ::placeholder {
 	font-size: 20px;
@@ -39,7 +39,7 @@ a[href] {
 	display: none !important;
 }
 [v-cloak] {
-	display: none;
+  display: none;
 }
 .clearfix {
 	overflow: hidden;
@@ -62,19 +62,4 @@ button {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-}
-.inter {
-	font-family: "Inter";
-}
-.noto {
-	font-family: "Noto Sans TC", sans-serif;
-}
-.regular {
-	font-weight: 400;
-}
-.bold {
-	font-weight: 700;
-}
-.black {
-	font-weight: 900;
 }

@@ -1,295 +1,135 @@
-import store from "./store.js";
-import { GetUserData } from "./api.js";
-import { MessageLB, NoOTP, GoService, Completed, PhoneWarn, PhoneError, Already, Ready } from "./lightbox.js";
+import { endEvent, removeCalenderTime } from "./tool.js";
+import { EventInfo, SkillVideo } from "./lightbox.js";
+import sec1 from "./components/sec1.js";
+import sec2 from "./components/sec2.js";
+import sec3 from "./components/sec3.js";
+import loading from "./components/loading.js";
 
-// Loading顯示
-function loadingShow() {
-	$("#loadingProgress").show();
+if (history.scrollRestoration) {
+	history.scrollRestoration = "manual";
 }
-// Loading隱藏
-function loadingHide() {
-	$("#loadingProgress").hide();
-}
-// Ready("錯誤");
-var vConsole = new window.VConsole();
-let app = new Vue({
-	el: "#app",
-	store,
-	data() {
+
+let app = Vue.createApp({
+	setup() {
+		let mobile = Vue.ref(false);
+		let mobileType = Vue.ref("google");
+		let currentPage = Vue.ref("sec1");
+		let menuStatus = Vue.ref(false);
+		let showLoading = Vue.ref(false);
+		let handleCalender = () => {};
+		let now = new Date().getTime();
+		let end = new Date(endEvent).getTime();
+		let event = Vue.ref(true);
+		let showCalender = Vue.ref(true);
+		let loadRightBar = Vue.ref(true);
+		let targetBrowserWidth = Vue.ref(document.documentElement.clientWidth);
+		window.addEventListener("resize", function () {
+			targetBrowserWidth.value = document.documentElement.clientWidth;
+		});
+		let goTop = () => {
+			$("body,html").animate(
+				{
+					scrollTop: 0
+				},
+				800
+			);
+		};
+		let goPage = (page) => {
+			let add = 0;
+			let browserWidth = 1920;
+			if (page == "#sec2" && !mobile.value) {
+				add = parseInt((1200 / browserWidth) * targetBrowserWidth.value);
+			}
+			menuStatus.value = false;
+			$("body,html").animate(
+				{
+					scrollTop: $(page).offset().top + add
+				},
+				800
+			);
+		};
+		let handleMenu = (status) => {
+			menuStatus.value = status;
+		};
+		let handleLoading = (data) => {
+			showLoading.value = data;
+		};
+		function scrollTarget(t, target, offset = 0) {
+			var offset = offset || 0;
+			var data_name;
+			target.each(function (i, v) {
+				if ($(this).offset().top - offset <= t && $(this).offset().top + $(this).outerHeight() - offset > t) {
+					data_name = $(this).attr("id");
+					currentPage.value = data_name;
+				} else {
+					data_name = $(this).attr("id");
+				}
+			});
+		}
+
+		window.addEventListener("scroll", function (e) {
+			let top = document.documentElement.scrollTop;
+			let sec3Title = $("#sec3").offset().top;
+			let tempTop = sec3Title * 0.1;
+			if (top + tempTop >= sec3Title) {
+				$(".sec3-title").addClass("anim");
+			} else {
+				$(".sec3-title").removeClass("anim");
+			}
+			scrollTarget(top, $(".sec"), 100);
+		});
+
+		if (isMobile.any) {
+			mobile.value = true;
+			if (isMobile.android.device) {
+				mobileType.value = "google";
+			}
+			if (isMobile.apple.device) {
+				mobileType.value = "apple";
+			}
+		} else {
+			mobile.value = false;
+			mobileType.value = "google";
+		}
+		if (now >= end) {
+			event.value = false;
+		} else {
+			event.value = true;
+		}
+		if (now >= new Date(removeCalenderTime).getTime()) {
+			showCalender.value = false;
+			loadRightBar.value = false;
+		} else {
+			showCalender.value = true;
+			loadRightBar.value = false;
+		}
+		gsap.to("html", {
+			scrollTop: 0,
+			duration: 0
+		});
 		return {
-			step1: 0,
-			step2: 0,
-			status: {},
-			intervalId1: null,
-			intervalId2: null,
-			step1Phone: "",
-			step1PhoneStatus: 1,
-			step1PhoneError: 0,
-			step1OTP: "",
-			step1Num: 0,
-			step1OTPStatue: 1,
-			step1OTPError: "",
-			step1OTPErrorNum: 0,
-			step2Phone: "",
-			step2PhoneStatus: 1,
-			step2PhoneError: "",
-			step2OTP: "",
-			step2Num: 0,
-			step2OTPStatue: 1,
-			step2OTPError: "",
-			step2OTPErrorNum: 0,
+			mobile,
+			goPage,
+			handleCalender,
+			menuStatus,
+			goTop,
+			handleCalender,
+			currentPage,
+			handleMenu,
+			showLoading,
+			handleLoading,
+			mobileType,
+			event,
+			showCalender,
+			loadRightBar
 		};
 	},
-	mounted() {
-		// this.intervalId1 = setInterval(this.countdown1, 1000);
-			window.addEventListener('DOMContentLoaded', e => {
-			    const ac = new AbortController();
-			    navigator.credentials.get({
-			      otp: { transport:['sms'] },
-			      signal: ac.signal
-			    }).then(otp => {
-			      console.log("otp",otp)
-			      console.log("otp code",otp.code)
-			    }).catch(err => {
-			      console.log(err)
-			    });
-			  })
-	},
-	computed: {
-		getStatus() {
-			return this.$store.state.status;
-		},
-	},
-	methods: {
-		NoOTP() {
-			NoOTP();
-		},
-		countdown1() {
-			if (this.step1 <= 1) {
-				clearInterval(this.intervalId1);
-				this.intervalId1 = null;
-				return;
-			}
-			this.step1--;
-		},
-		countdown2() {
-			if (this.step2 <= 1) {
-				clearInterval(this.intervalId2);
-				this.intervalId2 = null;
-				return;
-			}
-			this.step2--;
-		},
-		reOTP(type) {
-			if (type == "step1") {
-				this.step1Num++;
-				if (this.step1Num > 5) {
-					this.step1OTPError = "※已達本日驗證簡訊發送上限，請聯繫客服";
-					return;
-				}
-				if (this.step1 > 0) {
-					return;
-				}
-				this.step1 = 60;
-				this.intervalId1 = setInterval(this.countdown1, 1000);
-			}
-			if (type == "step2") {
-				this.step2Num++;
-				if (this.step2Num > 5) {
-					this.step2OTPError = "※已達本日驗證簡訊發送上限，請聯繫客服";
-					return;
-				}
-				if (this.step2 > 0) {
-					return;
-				}
-				this.step2 = 60;
-				this.intervalId2 = setInterval(this.countdown2, 1000);
-			}
-		},
-		phoneCheck(type, e) {
-			let value = e.target.value;
-			let reg = /^\d+$/.test(value);
-			if (type == "step1") {
-				if (!reg) {
-					this.step1PhoneError = "※號碼輸入錯誤，請重新輸入!";
-					this.step1PhoneStatus = 1;
-				} else {
-					this.step1PhoneStatus = 2;
-					this.step1PhoneError = "";
-				}
-			}
-			if (type == "step2") {
-				if (!reg) {
-					this.step2PhoneError = "※號碼輸入錯誤，請重新輸入!";
-					this.step2PhoneStatus = 1;
-				} else {
-					this.step2PhoneStatus = 2;
-					this.step2PhoneError = "";
-				}
-			}
-		},
-		phoneSubmit(type) {
-			if (type == "step1") {
-				if (this.step1PhoneStatus != 2) {
-					return;
-				}
-				this.step1PhoneStatus = 3;
-			}
-			if (type == "step2") {
-				if (this.step2PhoneStatus != 2) {
-					return;
-				}
-				this.step2PhoneStatus = 3;
-			}
-		},
-		otpCheck(type, e) {
-			let value = e.target.value;
-			let reg = /^\d+$/.test(value);
-			var keyEvt = e.originalEvent;
-			if (e.type == "keyup") {
-				if (!(e.ctrlKey && e.key == "z")) {
-					if (value != "" && reg) {
-						if (e.target.nextElementSibling != null) {
-							e.target.nextElementSibling.focus();
-						}
-					} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
-						if (isMobile.any) {
-							e.target.value = "";
-							e.preventDefault();
-						}
-					}
-				}
-			}
-			if (e.type == "keydown") {
-				if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
-					//
-				} else if (e.key == "Backspace") {
-					if (value == "") {
-						e.target.previousElementSibling.focus();
-					}
-				} else if (e.ctrlKey || e.key == "v") {
-				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
-					e.target.value = "";
-					e.preventDefault();
-				}
-			}
-
-			if (type == "step1") {
-				this.step1OTP = "";
-				this.$refs.otp1.forEach((v, i) => {
-					this.step1OTP += v.value;
-				});
-				if (this.step1OTP.length == 6) {
-					this.step1OTPStatue = 2;
-				} else {
-					this.step1OTPStatue = 1;
-				}
-			}
-			if (type == "step2") {
-				this.step2OTP = "";
-				this.$refs.otp2.forEach((v, i) => {
-					this.step2OTP += v.value;
-				});
-				if (this.step2OTP.length == 6) {
-					this.step2OTPStatue = 2;
-				} else {
-					this.step2OTPStatue = 1;
-				}
-			}
-		},
-		otpSubmit(type) {
-			if (type == "step1") {
-				if (this.step1OTPStatue != 2 || this.step1OTPErrorNum == 5) {
-					return;
-				}
-				this.step1OTPError = "";
-				this.step1OTPErrorNum += 1;
-				this.step1OTPError = `※驗證碼輸入錯誤，請重新輸入(${this.step1OTPErrorNum}/5)`;
-				if (this.step1OTPErrorNum > 5) {
-					this.step1OTPError = "※輸入錯誤次數過多，暫時無法提供此服務，請於60分鐘後再試";
-				}
-				this.step1OTPErrorNum = 0;
-				this.step1OTPStatue = 3;
-			}
-			if (type == "step2") {
-				if (this.step2OTPStatue != 2 || this.step2OTPErrorNum == 5) {
-					return;
-				}
-				this.step2OTPError = "";
-				this.step2OTPErrorNum += 1;
-				this.step2OTPError = `※驗證碼輸入錯誤，請重新輸入(${this.step2OTPErrorNum}/5)`;
-				if (this.step2OTPErrorNum > 5) {
-					this.step2OTPError = "※輸入錯誤次數過多，暫時無法提供此服務，請於60分鐘後再試";
-				}
-				this.step2OTPErrorNum = 0;
-				this.step2OTPStatue = 3;
-			}
-		},
-		onFocus(e) {
-			e.target.select();
-		},
-		onPaste(type, index, e) {
-			var evtIdx = index;
-			var aryIdx = 0;
-			var clipboardDataObj = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
-			var copiedText = clipboardDataObj.getData("Text");
-			var copiedTextAry = copiedText.split("");
-			var _this = this;
-			if (!/^[0-9]+$/.test(copiedText)) {
-				if (type == "step1") {
-					this.step1OTPError = "";
-					this.step1OTPError = "格式錯誤，貼上的文字不可包含數字以外的字元";
-				}
-				if (type == "step2") {
-					this.step2OTPError = "";
-					this.step2OTPError = "格式錯誤，貼上的文字不可包含數字以外的字元";
-				}
-				e.target.value = "";
-				return;
-			}
-			if (type == "step1") {
-				this.step1OTP = "";
-				this.$refs.otp1.forEach((v, i) => {
-					if (evtIdx == i) {
-						if (copiedTextAry[aryIdx] != undefined) {
-							evtIdx++;
-							this.$refs.otp1[i].value = copiedTextAry[aryIdx];
-							aryIdx++;
-							setTimeout(function () {
-								_this.$refs.otp1[i].focus();
-							});
-						}
-					}
-					this.step1OTP += v.value;
-				});
-				if (this.step1OTP.length == 6) {
-					this.step1OTPStatue = 2;
-				} else {
-					this.step1OTPStatue = 1;
-				}
-			}
-			if (type == "step2") {
-				this.step2OTP = "";
-				this.$refs.otp2.forEach((v, i) => {
-					if (evtIdx == i) {
-						if (copiedTextAry[aryIdx] != undefined) {
-							evtIdx++;
-							this.$refs.otp2[i].value = copiedTextAry[aryIdx];
-							aryIdx++;
-							setTimeout(function () {
-								_this.$refs.otp2[i].focus();
-							});
-						}
-					}
-					this.step2OTP += v.value;
-				});
-				if (this.step2OTP.length == 6) {
-					this.step2OTPStatue = 2;
-				} else {
-					this.step2OTPStatue = 1;
-				}
-			}
-		},
-		onComplete() {},
-	},
+	components: {
+		sec1,
+		sec2,
+		sec3,
+		loading
+	}
 });
+
+app.mount("#app");

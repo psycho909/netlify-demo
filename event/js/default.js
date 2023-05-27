@@ -35,15 +35,18 @@ let app = Vue.createApp({
 			);
 		};
 		let goPage = (page) => {
-			let add = 0;
 			let browserWidth = 1920;
+			let tempTop = 0;
+			let topBar = $(".top-bar").outerHeight(true);
 			if (page == "#sec2" && !mobile.value) {
-				add = parseInt((1200 / browserWidth) * targetBrowserWidth.value);
+				tempTop = parseInt((1200 / browserWidth) * targetBrowserWidth.value);
+			} else {
+				tempTop -= topBar;
 			}
 			menuStatus.value = false;
 			$("body,html").animate(
 				{
-					scrollTop: $(page).offset().top + add - $(".top-bar").outerHeight(true)
+					scrollTop: $(page).offset().top + tempTop
 				},
 				800
 			);

@@ -43,7 +43,7 @@ let app = Vue.createApp({
 			menuStatus.value = false;
 			$("body,html").animate(
 				{
-					scrollTop: $(page).offset().top + add
+					scrollTop: $(page).offset().top + add - $(".top-bar").outerHeight(true)
 				},
 				800
 			);

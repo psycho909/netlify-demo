@@ -1,128 +1,68 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 	<head>
-		<title>遊戲橘子進階驗證</title>
-		<meta name="description" content="遊戲橘子進階驗證" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width" />
-		<!-- <meta name="viewport" content="width=1200"> -->
-		<meta name="format-detection" content="telephone=no" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="description" content=《mabinogi》源自於北歐中古吟遊詩人所演奏的歌曲，遊戲故事背景以北歐凱斯特神話為軸心，讓玩家與遊戲裡的NPC展開一連串的冒險，也可在遊戲中一步步創造屬於自己的幸福故事。" />
+		<!-- 除了H5活動頁以外都要加上 -->
 		<meta name="open-default-browser" content="true" />
 
-		<!-- 社群資訊 -->
-		<meta property="og:title" content="遊戲橘子進階驗證" />
-		<meta property="og:description" content="遊戲橘子進階驗證" />
+		<!-- fb meta -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="" />
-		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/opt/f_b.jpg" />
+		<meta property="og:title" content="新瑪奇Mabinogi正式官網" />
+		<meta property="og:description" content=《mabinogi》源自於北歐中古吟遊詩人所演奏的歌曲，遊戲故事背景以北歐凱斯特神話為軸心，讓玩家與遊戲裡的NPC展開一連串的冒險，也可在遊戲中一步步創造屬於自己的幸福故事。" />
+		<!-- Safari 數字過常會變成可撥打電話 -->
+		<meta name="format-detection" content="telephone=no" />
+		<!-- 1200x628 -->
+		<meta property="og:image" content="{{url}}/assets/images/og-image.jpg" />
 
-		<!-- 外連檔案 -->
-		<link rel="stylesheet" type="text/css" href="https://tw.hicdn.beanfun.com/beanfun/promo/beanfunEvent/verificationWeb/assets/style/default.css" />
+		<title>新瑪奇Mabinogi正式官網</title>
+		<!-- CSS -->
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/8.3.2/swiper-bundle.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css" />
+
+		<!-- JS -->
+		<!-- jQuery -->
+
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/8.3.2/swiper-bundle.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="bf!遊戲" theme="dark"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<script src="https://unpkg.com/vue-select@latest"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/4.0.2/vuex.global.min.js"></script>
+		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
+		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
 	</head>
-	<body>
-		<form class="wrapper">
-			<div class="header">
-				<a href="javascript:;" class="logo"><img src="https://tw.hicdn.beanfun.com/beanfun/promo/beanfunEvent/verificationWeb/assets/image/logo-gamania.png" alt="遊戲橘子" /></a>
-			</div>
-			<div class="content" style="text-align: center">
-				<h2>簡訊OTP驗證</h2>
-				<h4>已將驗證碼發送到您的手機門號<br /><em>0988***555</em></h4>
-				<br />
-				<h4>請輸入簡訊OTP驗證碼</h4>
-				<div class="row row-otp">
-					<div class="code-group">
-						<input class="input-otp a" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
-						<input class="input-otp b" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
-						<input class="input-otp c" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
-						<input class="input-otp d" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
-						<input class="input-otp e" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
-						<input class="input-otp f" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
-					</div>
-					<br />
-					<div class="error otp"></div>
-					<br />
-					<a class="btn btn-send-otp" href="javascript:;">確認</a>
-					<br />
-					<div class="otp-misc">
-						<a class="resend disabled link-style-type2" href="javascript:;"></a>
-						<a class="cant-get-otp link-style-type2" href="javascript:;">收不到驗證碼？</a>
-					</div>
-				</div>
-			</div>
-		</form>
 
+	<body>
+		<!-- 內容開始 -->
+		<div id="app">
+			<p>{{message}}</p>
+			<div @click="abc">BB</div>
+		</div>
+
+		<!-- footer -->
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="新瑪奇A" theme="dark"></script>
 		<script>
-			/*************************** 倒數計時 ***************************/
-			var vConsole = new window.VConsole();
-			if ("OTPCredential" in window) {
-				console.log("In");
-				window.addEventListener("DOMContentLoaded", (e) => {
-					const input = document.querySelector('input[autocomplete="one-time-code"]');
-					if (!input) return;
-					const ac = new AbortController();
-					const form = input.closest("form");
-					if (form) {
-						console.log("Form");
-						form.addEventListener("submit", (e) => {
-							ac.abort();
-						});
+			const app = Vue.createApp({
+				data() {
+					return {
+						message: "dasdasd"
+					};
+				},
+				methods: {
+					abc() {
+						console.log(231);
 					}
-					navigator.credentials
-						.get({
-							otp: { transport: ["sms"] },
-							signal: ac.signal
-						})
-						.then((otp) => {
-							console.log(otp);
-							input.value = otp.code;
-							if (form) form.submit();
-						})
-						.catch((err) => {
-							console.error(err);
-						});
-				});
-			} else {
-				console.log("Out");
-				window.addEventListener("DOMContentLoaded", (e) => {
-					const input = document.querySelector('input[autocomplete="one-time-code"]');
-					if (!input) return;
-					const ac = new AbortController();
-					const form = input.closest("form");
-					if (form) {
-						console.log("Form");
-						form.addEventListener("submit", (e) => {
-							ac.abort();
-						});
-					}
-					if (navigator.credentials) {
-						console.log("navigator.credentials In");
-						console.log(ac.signal);
-						navigator.credentials
-							.get({
-								otp: { transport: ["sms"] },
-								signal: ac.signal
-							})
-							.then((otp) => {
-								console.log(otp);
-								input.value = otp.code;
-								if (form) form.submit();
-							})
-							.catch((err) => {
-								console.error("Error", err);
-							});
-					} else {
-						console.log("No navigator.credentials");
-					}
-				});
-			}
+				}
+			});
+
+			app.mount("#app");
 		</script>
 	</body>
 </html>

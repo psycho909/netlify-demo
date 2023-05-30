@@ -15,7 +15,7 @@ let app = Vue.createApp({
 		let mobileType = Vue.ref("google");
 		let currentPage = Vue.ref("sec1");
 		let menuStatus = Vue.ref(false);
-		let showLoading = Vue.ref(false);
+		let showLoading = Vue.ref(true);
 		let handleCalender = () => {};
 		let now = new Date().getTime();
 		let end = new Date(endEvent).getTime();
@@ -23,6 +23,7 @@ let app = Vue.createApp({
 		let showCalender = Vue.ref(true);
 		let loadRightBar = Vue.ref(true);
 		let targetBrowserWidth = Vue.ref(document.documentElement.clientWidth);
+		let num = Vue.ref(0);
 		window.addEventListener("resize", function () {
 			targetBrowserWidth.value = document.documentElement.clientWidth;
 		});
@@ -41,7 +42,11 @@ let app = Vue.createApp({
 			if (page == "#sec2" && !mobile.value) {
 				tempTop = parseInt((1200 / browserWidth) * targetBrowserWidth.value);
 			} else {
-				tempTop -= topBar;
+				if (mobile.value) {
+					tempTop -= topBar;
+				} else {
+					tempTop = 0;
+				}
 			}
 			menuStatus.value = false;
 			$("body,html").animate(
@@ -110,6 +115,24 @@ let app = Vue.createApp({
 			scrollTop: 0,
 			duration: 0
 		});
+
+		Vue.onMounted(() => {
+			loadingProgress({
+				countFN: function (count, length) {
+					num.value = Math.round((count / length) * 100);
+					// console.log(Math.round((count / length) * 100));
+				},
+				loadedFN: function () {
+					num.value = 100;
+					showLoading.value = false;
+					$(".loadingProgress").removeClass("init");
+					document.querySelector("html").classList.remove("ovh");
+					// console.log(100);
+				},
+				detectVideo: true,
+				autoHide: true
+			});
+		});
 		return {
 			mobile,
 			goPage,
@@ -124,7 +147,8 @@ let app = Vue.createApp({
 			mobileType,
 			event,
 			showCalender,
-			loadRightBar
+			loadRightBar,
+			num
 		};
 	},
 	components: {

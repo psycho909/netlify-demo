@@ -127,18 +127,18 @@
 }
 %close {
 	.gbox-close {
-		width: vw3(71px);
-		height: vw3(73px);
+		width: vw3(36px);
+		height: vw3(37px);
 		font-size: 0;
-		top: calc(vw3(-117px) - vw3(71px));
+		top: calc(vw3(-117px) - vw3(37px));
 		right: vw3(46px);
 		background-image: url("./images/btn-close.png");
 		background-size: cover;
 		@include media {
-			width: vw(71);
-			height: vw(73);
+			width: vw(43);
+			height: vw(44);
 			right: vw(46);
-			top: calc(vw(-117px) - vw(71px));
+			top: calc(vw(-117px) - vw(44px));
 		}
 	}
 }
@@ -193,18 +193,18 @@
 		}
 	}
 	.gbox-close {
-		width: vw3(71px);
-		height: vw3(73px);
+		width: vw3(36px);
+		height: vw3(37px);
 		font-size: 0;
-		top: vw3(-78px);
+		top: vw3(-48px);
 		right: vw3(4px);
 		background-image: url("./images/btn-close.png");
 		background-size: cover;
 		@include media {
-			width: vw(71);
-			height: vw(73);
+			width: vw3(43px);
+			height: vw3(44px);
 			right: vw(46);
-			top: vw(-78);
+			top: vw(-48);
 			right: vw(4);
 		}
 	}

@@ -166,8 +166,6 @@ const sec1 = {
 			// 	document.querySelector("html").classList.remove("ovh");
 			// 	emit("showLoading", false);
 			// }
-			document.querySelector("html").classList.remove("ovh");
-			emit("showLoading", false);
 		});
 
 		Vue.onMounted(() => {

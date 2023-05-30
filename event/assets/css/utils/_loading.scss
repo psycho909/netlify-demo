@@ -1,30 +1,38 @@
-.loading {
-	&-module {
-		width: 100%;
-		height: 100%;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 9999;
-		background-color: rgba(0, 0, 0, 0.6);
+.loadingProgress {
+	width: 100%;
+	height: 100%;
+	background: url(https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/loading/type1.gif) 50% 50% rgba(0, 0, 0, 0.75) no-repeat;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 21474836499;
+	&.init {
+		background-color: #1e1a38;
+		background-image: none;
+		.loadingProgress-num {
+			display: flex;
+		}
 	}
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 80px;
-	height: 80px;
-	margin-top: -40px;
-	margin-left: -40px;
-	border-radius: 50%;
-	border: 10px solid #fff;
-	border-top-color: transparent;
-	transform: rotate(0deg);
-	@media screen and (max-width: 768px) {
-		width: vw(80);
-		height: vw(80);
-		margin-top: vw(-40);
-		margin-left: vw(-40);
-		border-radius: 50%;
-		border: vw(10) solid #fff;
+	&-num {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: vw4(60);
+		color: #fff;
+		width: vw4(160);
+		height: vw4(160);
+		border: 1px solid #ffee00;
+		border-radius: 100vmax;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 0 0 vw4(8) #1e1a38, 0 0 0 vw4(16) #f91;
+		@include media {
+			width: vw(160);
+			height: vw(160);
+			font-size: vw(60);
+			box-shadow: 0 0 0 vw(8) #1e1a38, 0 0 0 vw(16) #f91;
+		}
 	}
 }

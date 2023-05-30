@@ -2,11 +2,11 @@
 	overflow: hidden;
 	padding-bottom: vw3(84px);
 	// background-image: url(./images/bg.jpg);
-	// background-position: center vw3(-2842px);
-	// background-size: vw3(1920px) vw3(3440px);
+	// background-position: center calc(var(--h) / 1920 * -1 * 100vw);
+	// background-size: vw3(1920px) vw3(4340);
+	// background-color: var(--bg-color, #fff);
 	background-repeat: no-repeat;
 	z-index: 2;
-	background-color: var(--bg-color, #fff);
 	min-height: 100dvh;
 	@include media {
 		padding-bottom: vw(96);
@@ -55,7 +55,7 @@
 		background-size: 1400%;
 		background-image: url("./images/sec3-title2.png");
 		position: absolute;
-		top: vw3(129px);
+		top: vw3(79px);
 		left: 50%;
 		transform: translateX(-50%);
 		background-position-x: 0%;
@@ -83,7 +83,7 @@
 		// left: 50%;
 		// width: 1200px;
 		position: relative;
-		margin: vw3(280px) auto 0;
+		margin: vw3(220px) auto 0;
 		z-index: 1;
 		@include media {
 			width: 100%;

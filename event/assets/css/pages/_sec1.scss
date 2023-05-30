@@ -119,7 +119,7 @@
 			height: vw(449);
 			background-image: url("./images/m-sec1-reward-bg.png");
 			top: vw(536);
-			left: vw(48);
+			left: vw(-6px);
 			font-size: vw(24);
 			padding-top: vw(132);
 			padding-left: vw(112);
@@ -587,7 +587,7 @@
 			z-index: 1;
 			opacity: 1;
 			@include media {
-				display: none;
+				// display: none;
 			}
 		}
 		&--hover {
@@ -613,7 +613,7 @@
 		}
 		&.loading {
 			@include media {
-				background-image: url("./images/character-normal/Comp 1_00000.png");
+				// background-image: url("./images/character-normal/Comp 1_00000.png");
 			}
 		}
 		&__canvas1 {

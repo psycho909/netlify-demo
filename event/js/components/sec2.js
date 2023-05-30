@@ -63,6 +63,7 @@ const sec2 = {
 							".sec2-title",
 							{
 								x: "0",
+								opacity: 0,
 								duration: 6
 							},
 							"-=1"
@@ -147,7 +148,12 @@ const sec2 = {
 					end: scrollEnd.value,
 					scrub: true,
 					pin: true,
-					pinType: "transform"
+					pinType: "transform",
+					onEnter: function () {
+						let h1 = $(".sec1").outerHeight(true);
+						let h2 = $(".sec2").outerHeight(true);
+						$(".sec3").attr("style", "--h:" + parseInt(h1 + h2));
+					}
 					// markers: true
 				});
 

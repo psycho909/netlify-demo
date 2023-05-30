@@ -11,6 +11,7 @@
 		background-image: url("./images/sec2-title.png");
 		margin: 0px auto vw3(36px);
 		position: relative;
+		opacity: 1;
 		// position: absolute;
 		// top: 98px;
 		// left: 50%;
@@ -18,6 +19,7 @@
 		@include media {
 			width: vw(453);
 			height: vw(177);
+			opacity: 1;
 			// top: 0;
 			// left: 0;
 			// transform: none;
@@ -73,7 +75,8 @@
 		&__title {
 			@include media {
 				width: vw(150);
-				height: vw(100);
+				// height: vw(100);
+				padding: vw(16) 0;
 				font-size: vw(30);
 				position: relative;
 				color: #fff7af;
@@ -200,10 +203,11 @@
 		}
 		&__title {
 			width: vw3(158px);
-			height: vw3(100px);
+			padding: vw3(16px) 0;
+			// height: vw3(100px);
 			margin-bottom: vw3(12px);
 			position: relative;
-			font-size: vw3(32px);
+			font-size: vw3(30px);
 			color: #fff7af;
 			letter-spacing: -1px;
 			display: flex;

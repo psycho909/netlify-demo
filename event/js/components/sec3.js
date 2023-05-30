@@ -22,15 +22,16 @@ const sec3 = {
 			currentTab.value = seq;
 			loading.value = true;
 			emit("showLoading", true);
-			GetEventBannerList(seq)
-				.then((res) => {
-					let { Code, ListData, Message, Url } = res.data;
-					if (Code != 1) {
-						MessageLB(Message, Url);
-						return;
-					}
+			GetEventBannerList(seq).then((res) => {
+				let { Code, ListData, Message, Url } = res.data;
+				if (Code != 1) {
+					emit("showLoading", false);
+					MessageLB(Message, Url);
+					return;
+				}
 
-					eventContent.value = [...ListData];
+				eventContent.value = [...ListData];
+				Vue.nextTick(() => {
 					loading.value = false;
 					swiper3.value = new Swiper(".sec3-flim-swiper", {
 						effect: "fade",
@@ -43,22 +44,21 @@ const sec3 = {
 							clickable: true
 						}
 					});
-				})
-				.finally(() => {
 					emit("showLoading", false);
 				});
+			});
 		};
-
 		Vue.nextTick(() => {
 			particlesBg("sec3");
 		});
+
 		Vue.onMounted(() => {
-			emit("showLoading", true);
+			// emit("showLoading", true);
 			GetEventCategory()
 				.then((res) => {
 					let { Code, ListData, Message, Url } = res.data;
 					if (Code != 1) {
-						emit("showLoading", false);
+						// emit("showLoading", false);
 						MessageLB(Message, Url);
 						return;
 					}
@@ -70,7 +70,7 @@ const sec3 = {
 						}
 						return GetEventBannerList(ListData[0].Seq);
 					} else {
-						emit("showLoading", false);
+						// emit("showLoading", false);
 						return false;
 					}
 				})
@@ -78,25 +78,30 @@ const sec3 = {
 					if (res) {
 						let { Code, ListData, Message, Url } = res.data;
 						if (Code != 1) {
-							emit("showLoading", false);
+							// emit("showLoading", false);
 							MessageLB(Message, Url);
 							return;
 						}
-						emit("showLoading", false);
 						eventContent.value = [...ListData];
-						loading.value = false;
-						swiper3.value = new Swiper(".sec3-flim-swiper", {
-							effect: "fade",
-							navigation: {
-								nextEl: ".sec3-swiper-button-next",
-								prevEl: ".sec3-swiper-button-prev"
-							},
-							pagination: {
-								el: ".sec3-swiper-pagination",
-								clickable: true
-							}
+						Vue.nextTick(() => {
+							loading.value = false;
+							swiper3.value = new Swiper(".sec3-flim-swiper", {
+								effect: "fade",
+								navigation: {
+									nextEl: ".sec3-swiper-button-next",
+									prevEl: ".sec3-swiper-button-prev"
+								},
+								pagination: {
+									el: ".sec3-swiper-pagination",
+									clickable: true
+								}
+							});
+							// emit("showLoading", false);
 						});
 					}
+				})
+				.catch(() => {
+					// emit("showLoading", false);
 				});
 		});
 		return {

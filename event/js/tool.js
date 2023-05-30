@@ -11,7 +11,7 @@ export const step2Event = [
 		calender: {
 			text: "6/20 究極燃燒，等級突破就是現在！",
 			begin: "2023/6/20 00:00",
-			end: "2020/6/20 23:59"
+			end: "2023/6/20 23:59"
 		}
 	},
 	{
@@ -23,7 +23,7 @@ export const step2Event = [
 		calender: {
 			text: "6/20 溫餐廳，熱鬧開張！",
 			begin: "2023/6/20 00:00",
-			end: "2020/6/20 23:59"
+			end: "2023/6/20 23:59"
 		}
 	},
 	{
@@ -35,7 +35,7 @@ export const step2Event = [
 		calender: {
 			text: "7/5 全新職業-卡莉，席捲登場！",
 			begin: "2023/7/5 15:00",
-			end: "2020/7/5 23:59"
+			end: "2023/7/5 23:59"
 		}
 	},
 	{
@@ -47,7 +47,7 @@ export const step2Event = [
 		calender: {
 			text: "8/9 桃花境咖凌，等你征服！",
 			begin: "2023/8/9 00:00",
-			end: "2020/8/9 23:59"
+			end: "2023/8/9 23:59"
 		}
 	}
 ];

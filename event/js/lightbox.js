@@ -91,9 +91,9 @@ export const EventInfo = (data, mobileType) => {
 		mobileHTML = `<a class="g-calendar-ios gbox-btn btn-calender2" href="javascript:;">IOS 活動行事曆提醒</a>`;
 	}
 	let calenderHTML = `
-	<div class="g-calendar" begin="${data.calender.begin}" end="${data.calender.end}" title="《新楓之谷maplestory》全新職業-卡莉，席捲登場！" description="${data.calender.text}" autoDetectDevice="true">\
-		<a class="g-calendar-google gbox-btn btn-calender2" href="javascript:;">Google 活動行事曆提醒</a>
-		<a class="g-calendar-ios gbox-btn btn-calender2" href="javascript:;">IOS 活動行事曆提醒</a>
+	<div class="g-calendar" begin="2023/06/20 00:00" end="2023/06/20 23:59" title="《新楓之谷maplestory》全新職業-卡莉，席捲登場！" description="6/20 全新職業-卡莉 席捲登場" autoDetectDevice="true">
+		<a class="g-calendar-google btn-calender" href="javascript:;">Google 活動行事曆提醒</a>
+		<a class="g-calendar-ios btn-calender" href="javascript:;" >IOS 活動行事曆提醒</a>
 	</div>
 	`;
 	HTML = `

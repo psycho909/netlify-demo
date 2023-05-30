@@ -148,7 +148,7 @@ const sec2 = {
 					end: scrollEnd.value,
 					scrub: true,
 					pin: true,
-					pinType: "transform",
+					// pinType: "transform",
 					onEnter: function () {
 						let h1 = $(".sec1").outerHeight(true);
 						let h2 = $(".sec2").outerHeight(true);
@@ -156,7 +156,10 @@ const sec2 = {
 					}
 					// markers: true
 				});
-
+				scrollEvent.value.config({
+					// default is "resize,visibilitychange,DOMContentLoaded,load" so we can remove "resize" from the list:
+					autoRefreshEvents: "DOMContentLoaded,load"
+				});
 				gsap.registerPlugin(ScrollTrigger);
 			}
 		});

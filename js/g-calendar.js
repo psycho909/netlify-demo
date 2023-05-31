@@ -258,9 +258,16 @@
 			for (var i = 0; i < mutations.length; i++) {
 				for (var j = 0; j < mutations[i].addedNodes.length; j++) {
 					if (!(mutations[i].addedNodes[j] instanceof HTMLElement)) continue;
-					if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
-						calendarInit();
-						console.log("g-calendar");
+					if (mutations[i].addedNodes[j].children.length) {
+						for (var k = 0; k < mutations[i].addedNodes[j].children.length; k++) {
+							if (mutations[i].addedNodes[j].children[k].classList.contains("g-calendar")) {
+								calendarInit();
+							}
+						}
+					} else {
+						if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
+							calendarInit();
+						}
 					}
 				}
 			}

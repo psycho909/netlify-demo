@@ -55,7 +55,7 @@
 			var startTime, endTime;
 			startTime = formatTime(event.start);
 			endTime = formatTime(event.end);
-			var href = encodeURI(["https://www.google.com/calendar/render", "?action=TEMPLATE", "&text=" + (event.title || ""), "&dates=" + (startTime || ""), "/" + (endTime || ""), "&ctz='Asia/Taipei'", "&details=" + (event.description || ""), "&location=" + (event.address || ""), "&sprop=&sprop=name:"].join(""));
+			var href = encodeURI(["https://calendar.google.com/calendar/render", "?action=TEMPLATE", "&text=" + (event.title || ""), "&dates=" + (startTime || ""), "/" + (endTime || ""), "&details=" + (event.description || ""), "&location=" + (event.address || "")].join(""));
 			calendarData.google = href;
 			return href;
 		},
@@ -258,8 +258,16 @@
 			for (var i = 0; i < mutations.length; i++) {
 				for (var j = 0; j < mutations[i].addedNodes.length; j++) {
 					if (!(mutations[i].addedNodes[j] instanceof HTMLElement)) continue;
-					if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
-						calendarInit();
+					if (mutations[i].addedNodes[j].children.length) {
+						for (var k = 0; k < mutations[i].addedNodes[j].children.length; k++) {
+							if (mutations[i].addedNodes[j].children[k].classList.contains("g-calendar")) {
+								calendarInit();
+							}
+						}
+					} else {
+						if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
+							calendarInit();
+						}
 					}
 				}
 			}

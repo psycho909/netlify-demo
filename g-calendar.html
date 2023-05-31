@@ -47,17 +47,17 @@
 			</div>
 		</div>
 		<script type="module">
-			import { OpenCalender } from "./g-calendar2.js";
-			// var html =
-			// 	'<h2>Test</h2>\
-			// 		<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">\
-			// 			<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒4</a>\
-			// 			<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒4</a>\
-			// 			<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒4</a>\
-			// 		</div>';
+			var html = `<h2>Test</h2>\
+					<div>
+						<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">\
+							<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒4</a>\
+							<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒4</a>\
+							<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒4</a>\
+						</div>
+					</div>`;
 			// $("#app").append(html);
 			$("#btn").on("click", function () {
-				OpenCalender();
+				$.gbox.open(html);
 			});
 		</script>
 	</body>

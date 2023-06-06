@@ -7,6 +7,15 @@
 				padding: 0;
 				margin: 0;
 			}
+			body {
+				width: 100vw;
+				height: 100vh;
+				height: 100dvh;
+				overflow: hidden;
+			}
+			canvas#myCanvas {
+				display: block;
+			}
 		</style>
 	</head>
 	<body>
@@ -55,7 +64,7 @@
 			// 滑鼠放開或觸控結束時結束筆劃
 			function endDrawing() {
 				isDrawing = false;
-				alert("end");
+				// alert("end");
 			}
 
 			// 獲取滑鼠事件或觸控事件的 x 座標

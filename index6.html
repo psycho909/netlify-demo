@@ -27,18 +27,94 @@
 				height: 100dvh;
 				padding-top: calc(61 / 768 * 100vw);
 			}
+			#myCanvas {
+				display: block;
+				border: 1px solid #000;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<p>123</p>
-			<p>123</p>
-			<p>123</p>
-			<p>123</p>
-			<p>123</p>
-			<p>123</p>
-			<p>123</p>
-			<p>123</p>
+			<canvas id="myCanvas"></canvas>
 		</div>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+
+			function resizeCanvas() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight / 2;
+			}
+
+			// 視窗大小變化時重新調整 Canvas 大小
+			window.addEventListener("resize", resizeCanvas);
+
+			// 初始化 Canvas 大小
+			resizeCanvas();
+
+			var isDrawing = false;
+			var brushSize = getBrushSize();
+
+			// 根據畫布大小獲取筆刷大小
+			function getBrushSize() {
+				var canvasSize = Math.min(canvas.width, canvas.height);
+				return canvasSize * 0.05; // 根據需求自定義筆刷大小比例
+			}
+
+			// 滑鼠按下或觸控開始時開始筆劃
+			function startDrawing(event) {
+				isDrawing = true;
+				context.beginPath();
+				context.moveTo(getX(event), getY(event));
+			}
+
+			// 滑鼠移動或觸控移動時繪製筆劃
+			function draw(event) {
+				if (isDrawing) {
+					context.lineTo(getX(event), getY(event));
+					context.lineWidth = brushSize; // 設定筆刷大小
+					context.stroke();
+				}
+			}
+
+			// 滑鼠放開或觸控結束時結束筆劃
+			function endDrawing() {
+				isDrawing = false;
+				// alert("end");
+			}
+
+			// 獲取滑鼠事件或觸控事件的 x 座標
+			function getX(event) {
+				if (event.touches && event.touches.length > 0) {
+					return event.touches[0].clientX - canvas.offsetLeft;
+				}
+				return event.clientX - canvas.offsetLeft;
+			}
+
+			// 獲取滑鼠事件或觸控事件的 y 座標
+			function getY(event) {
+				if (event.touches && event.touches.length > 0) {
+					return event.touches[0].clientY - canvas.offsetTop;
+				}
+				return event.clientY - canvas.offsetTop;
+			}
+
+			// 滑鼠按下或觸控開始時呼叫 startDrawing
+			canvas.addEventListener("mousedown", startDrawing);
+			canvas.addEventListener("touchstart", startDrawing);
+
+			// 滑鼠移動或觸控移動時呼叫 draw
+			canvas.addEventListener("mousemove", draw);
+			canvas.addEventListener("touchmove", draw);
+
+			// 滑鼠放開或觸控結束時呼叫 endDrawing
+			canvas.addEventListener("mouseup", endDrawing);
+			canvas.addEventListener("touchend", endDrawing);
+
+			// 視窗大小變化時重新計算筆刷大小
+			window.addEventListener("resize", function () {
+				brushSize = getBrushSize();
+			});
+		</script>
 	</body>
 </html>

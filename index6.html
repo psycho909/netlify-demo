@@ -7,10 +7,26 @@
 		<title>Document</title>
 		<style>
 			* {
-				margin: 0;
 				padding: 0;
+				margin: 0;
 			}
-
+			body {
+				background-image: url("./border-t.png");
+				background-repeat: no-repeat;
+				background-position: center 0;
+				background-size: calc(308 / 768 * 100vw) calc(61 / 768 * 100vw);
+				overflow: hidden;
+			}
+			#app {
+				width: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				overflow: auto;
+				height: 100vh;
+				height: 100dvh;
+				padding-top: calc(61 / 768 * 100vw);
+			}
 			img {
 				width: 400px;
 				height: 300px;
@@ -25,11 +41,12 @@
 		</style>
 	</head>
 	<body>
-		<img src="http://n.sinaimg.cn/photo/transform/700/w1000h500/20200317/512d-iqyryku6022748.jpg" alt="" />
-
-		<canvas id="canvas" width="400" height="300"></canvas>
+		<div id="app">
+			<img src="http://n.sinaimg.cn/photo/transform/700/w1000h500/20200317/512d-iqyryku6022748.jpg" alt="" />
+			<canvas id="myCanvas"></canvas>
+		</div>
 		<script>
-			var canvas = document.getElementById("canvas");
+			var canvas = document.getElementById("myCanvas");
 			var context = canvas.getContext("2d");
 
 			context.beginPath();

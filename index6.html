@@ -12,6 +12,7 @@
 				height: 100vh;
 				height: 100dvh;
 				overflow: hidden;
+				background-color: #ddd;
 			}
 			canvas#myCanvas {
 				display: block;
@@ -27,7 +28,7 @@
 
 			function resizeCanvas() {
 				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
+				canvas.height = window.innerHeight / 2;
 			}
 
 			// 視窗大小變化時重新調整 Canvas 大小

@@ -8,14 +8,18 @@
 				margin: 0;
 			}
 			body {
-				width: 100vw;
-				height: 100vh;
-				height: 100dvh;
 				overflow: hidden;
 				background-color: #ddd;
 			}
 			canvas#myCanvas {
-				display: block;
+				width: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				overflow: auto;
+				height: 100vh;
+				height: 100dvh;
+				padding-top: calc(61 / 768 * 100vw);
 			}
 		</style>
 	</head>

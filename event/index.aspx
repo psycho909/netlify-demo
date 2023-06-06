@@ -48,7 +48,7 @@
 	<body>
 		<!-- 內容開始 -->
 		<div id="app">
-			<loading :show-loading="showLoading"
+			<loading :show-loading="showLoading" ref="loadRef"
 				><div class="loadingProgress-num">{{ num }}</div></loading
 			>
 			<!-- 上方浮動選單 -->

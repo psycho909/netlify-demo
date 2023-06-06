@@ -156,10 +156,10 @@ const sec2 = {
 					}
 					// markers: true
 				});
-				scrollEvent.value.config({
-					// default is "resize,visibilitychange,DOMContentLoaded,load" so we can remove "resize" from the list:
-					autoRefreshEvents: "DOMContentLoaded,load"
-				});
+				// scrollEvent.value.config({
+				// 	// default is "resize,visibilitychange,DOMContentLoaded,load" so we can remove "resize" from the list:
+				// 	autoRefreshEvents: "DOMContentLoaded,load"
+				// });
 				gsap.registerPlugin(ScrollTrigger);
 			}
 		});

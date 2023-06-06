@@ -191,6 +191,7 @@
 				justify-content: center;
 				align-items: center;
 				margin-bottom: vw3(16px);
+				word-break: break-all;
 				&:last-child {
 					margin-bottom: 0;
 				}
@@ -281,7 +282,7 @@
 						transform: translateX(vw3(12px)) translateY(-50%);
 						@include media {
 							width: vw(30);
-							transform: translateX(vw(12)) translateY(-50%);
+							transform: translateX(1.989583vw) translateY(-50%);
 						}
 					}
 					&.swiper-pagination-bullet-active {
@@ -369,6 +370,9 @@
 				height: vw3(360px);
 				margin-bottom: vw3(6px);
 				text-align: center;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				img {
 					max-width: 100%;
 					max-height: 100%;

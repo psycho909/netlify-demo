@@ -2797,6 +2797,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 0.8333333333vw;
+  word-break: break-all;
 }
 .sec3-flim-tab__btn:last-child {
   margin-bottom: 0;
@@ -2911,9 +2912,9 @@ body {
 @media screen and (max-width: 769px) {
   .sec3-flim-swiper .sec3-swiper-pagination .swiper-pagination-bullet:before {
     width: 3.90625vw;
-    -webkit-transform: translateX(1.5625vw) translateY(-50%);
-        -ms-transform: translateX(1.5625vw) translateY(-50%);
-            transform: translateX(1.5625vw) translateY(-50%);
+    -webkit-transform: translateX(1.989583vw) translateY(-50%);
+        -ms-transform: translateX(1.989583vw) translateY(-50%);
+            transform: translateX(1.989583vw) translateY(-50%);
   }
 }
 .sec3-flim-swiper .sec3-swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
@@ -3005,6 +3006,15 @@ body {
   height: 18.75vw;
   margin-bottom: 0.3125vw;
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .sec3-flim-slide__source img {
   max-width: 100%;

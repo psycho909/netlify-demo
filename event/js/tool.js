@@ -52,6 +52,65 @@ export const step2Event = [
 	}
 ];
 
+export const imgLoading = async (data) => {
+	let urlList = [];
+	let promiseAll = [];
+	let count = 0;
+	let all = document.querySelectorAll("*");
+	let ignore = ["SCRIPT", "STYLE", "HEAD", "HEAD", "TITLE", "META", "HTML"];
+	let regex = /url\("([^"]+)"\)/;
+	let promise = (imgUrl) => {
+		return new Promise(function (resolve, reject) {
+			var img = new Image();
+			img.src = imgUrl;
+			img.onload = function () {
+				count++;
+				resolve(true);
+			};
+			img.onerror = function () {
+				count++;
+				resolve(false);
+			};
+		});
+	};
+
+	all.forEach(function (v, i) {
+		if (ignore.indexOf(v.tagName) > -1) {
+			return;
+		}
+		if (v.tagName == "IMG") {
+			urlList.push(v.src);
+		}
+		if (window.getComputedStyle(v, "::before").backgroundImage !== "none") {
+			let matches = window.getComputedStyle(v, "::before").backgroundImage.match(regex);
+			if (matches && matches.length >= 2) {
+				let extractedUrl = matches[1];
+				urlList.push(extractedUrl);
+			}
+		}
+		if (window.getComputedStyle(v, "::after").backgroundImage !== "none") {
+			let matches = window.getComputedStyle(v, "::after").backgroundImage.match(regex);
+			if (matches && matches.length >= 2) {
+				let extractedUrl = matches[1];
+				urlList.push(extractedUrl);
+			}
+		}
+		if (window.getComputedStyle(v).backgroundImage !== "none") {
+			let matches = window.getComputedStyle(v).backgroundImage.match(regex);
+			if (matches && matches.length >= 2) {
+				let extractedUrl = matches[1];
+				urlList.push(extractedUrl);
+			}
+		}
+	});
+	for (let i = 0; i < urlList.length; i++) {
+		let p = await promise(urlList[i]);
+		promiseAll.push(p);
+		data.countNum(count, urlList.length);
+	}
+	return await Promise.all(promiseAll);
+};
+
 export function loadingShow() {
 	$("#loadingProgress").show();
 }

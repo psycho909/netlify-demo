@@ -6,8 +6,14 @@ let loading = {
 		},
 		num: {}
 	},
-	setup() {},
-	template: `<div v-show="showLoading" id="loadingProgress" class="loadingProgress init"><slot></slot></div>`
+	setup() {
+		let loadRef = Vue.ref(null);
+
+		return {
+			loadRef
+		};
+	},
+	template: `<div v-show="showLoading" id="loadingProgress" class="loadingProgress init" ref="loadRef"><slot></slot></div>`
 };
 
 export default loading;

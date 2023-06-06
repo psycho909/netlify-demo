@@ -1,4 +1,4 @@
-import { endEvent, removeCalenderTime } from "./tool.js";
+import { endEvent, removeCalenderTime, imgLoading } from "./tool.js";
 import { EventInfo, SkillVideo } from "./lightbox.js";
 import sec1 from "./components/sec1.js";
 import sec2 from "./components/sec2.js";
@@ -11,6 +11,7 @@ if (history.scrollRestoration) {
 
 let app = Vue.createApp({
 	setup() {
+		let loadRef = Vue.ref();
 		let mobile = Vue.ref(false);
 		let mobileType = Vue.ref("google");
 		let currentPage = Vue.ref("sec1");
@@ -117,21 +118,32 @@ let app = Vue.createApp({
 		});
 
 		Vue.onMounted(() => {
-			loadingProgress({
-				countFN: function (count, length) {
+			imgLoading({
+				countNum: function (count, length) {
 					num.value = Math.round((count / length) * 100);
-					// console.log(Math.round((count / length) * 100));
-				},
-				loadedFN: function () {
-					num.value = 100;
-					showLoading.value = false;
-					$(".loadingProgress").removeClass("init");
-					document.querySelector("html").classList.remove("ovh");
-					// console.log(100);
-				},
-				detectVideo: true,
-				autoHide: true
+				}
+			}).then((res) => {
+				showLoading.value = false;
+				document.querySelector(".loadingProgress").classList.remove("init");
+				document.querySelector("html").classList.remove("ovh");
 			});
+			// loadingProgress({
+			// 	countFN: function (count, length) {
+			// 		// console.log(length);
+			// 		num.value = Math.round((count / length) * 100);
+			// 		// console.log(Math.round((count / length) * 100));
+			// 	},
+			// 	loadedFN: function () {
+			// 		num.value = 100;
+			// 		showLoading.value = false;
+			// 		document.querySelector(".loadingProgress").classList.remove("init");
+			// 		// $(".loadingProgress").removeClass("init");
+			// 		document.querySelector("html").classList.remove("ovh");
+			// 		// console.log(100);
+			// 	},
+			// 	detectVideo: false,
+			// 	autoHide: true
+			// });
 		});
 		return {
 			mobile,
@@ -148,7 +160,8 @@ let app = Vue.createApp({
 			event,
 			showCalender,
 			loadRightBar,
-			num
+			num,
+			loadRef
 		};
 	},
 	components: {

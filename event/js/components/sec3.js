@@ -66,7 +66,7 @@ const sec3 = {
 						let total = Math.ceil(ListData.length / 4);
 						currentTab.value = ListData[0].Seq;
 						for (let i = 0; i < total; i++) {
-							tabList.value.push(ListData.slice(0 * i, 4 * (i + 1)));
+							tabList.value.push(ListData.slice(4 * i, 4 * (i + 1)));
 						}
 						return GetEventBannerList(ListData[0].Seq);
 					} else {

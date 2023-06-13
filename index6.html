@@ -7,51 +7,46 @@
 		<title>Document</title>
 		<style>
 			* {
-				padding: 0;
 				margin: 0;
+				padding: 0;
 			}
-			body {
-				background-image: url("./border-t.png");
-				background-repeat: no-repeat;
-				background-position: center 0;
-				background-size: calc(308 / 768 * 100vw) calc(61 / 768 * 100vw);
-				overflow: hidden;
-			}
-			#app {
-				width: 100%;
-				position: fixed;
-				top: 0;
-				left: 0;
-				overflow: auto;
-				height: 100vh;
-				height: 100dvh;
-				padding-top: calc(61 / 768 * 100vw);
+			#canvas-container {
+				width: 400px;
+				height: 300px;
 			}
 			img {
 				width: 400px;
 				height: 300px;
-				left: 200px;
 				position: absolute;
 				z-index: -1;
-			}
-
-			canvas {
-				margin-left: 200px;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="canvas-container">
 			<img src="http://n.sinaimg.cn/photo/transform/700/w1000h500/20200317/512d-iqyryku6022748.jpg" alt="" />
-			<canvas id="myCanvas"></canvas>
+			<canvas id="canvas"></canvas>
 		</div>
 		<script>
-			var canvas = document.getElementById("myCanvas");
+			var canvas = document.getElementById("canvas");
+			var canvasContainer = document.getElementById("canvas-container");
 			var context = canvas.getContext("2d");
 
-			context.beginPath();
-			context.fillStyle = "rgba(0, 0, 0, 0.5)"; // 半透明的顏色
-			context.fillRect(0, 0, 400, 300);
+			function resizeCanvas() {
+				canvas.width = canvasContainer.clientWidth;
+				canvas.height = canvasContainer.clientHeight;
+				redrawCanvas();
+			}
+
+			function redrawCanvas() {
+				var image = new Image();
+				image.src = "./images/395137681e2c0a3dfc10987c3f5cc32f.jpg";
+				image.onload = function () {
+					context.clearRect(0, 0, canvas.width, canvas.height);
+					context.globalAlpha = 0.75;
+					context.drawImage(image, 0, 0, canvas.width, canvas.height);
+				};
+			}
 
 			function getMousePos(event) {
 				var rect = canvas.getBoundingClientRect();
@@ -77,12 +72,14 @@
 				} else if (event.type === "touchmove") {
 					pos = getTouchPos(event);
 				}
-
+				var radius = Math.min(canvas.width, canvas.height) * 0.03; // Adjust the radius size proportionally
 				context.globalCompositeOperation = "destination-out"; // 使用擦除效果
 				context.beginPath();
-				context.arc(pos.x, pos.y, 30, 0, Math.PI * 2);
+				context.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
 				context.fill();
 			}
+			resizeCanvas();
+			window.addEventListener("resize", resizeCanvas);
 
 			canvas.addEventListener("mousedown", function (event) {
 				canvas.addEventListener("mousemove", handleDraw);

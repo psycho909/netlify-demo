@@ -17,11 +17,16 @@
 				height: 30px;
 				background-color: red;
 			}
+			h1 {
+				font-size: calc(72 / 768 * 100vw);
+			}
 		</style>
 	</head>
 	<body>
-		<div id="calendar"></div>
-		<a href="javascipt:;" class="btn-top"></a>
+		<div id="calendar">
+			<h1>測試文字大小</h1>
+		</div>
+		<a href="javascript:;" class="btn-top"></a>
 		<script>
 			// TOP
 			$(".btn-top").on("click", function () {

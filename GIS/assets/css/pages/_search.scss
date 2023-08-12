@@ -40,3 +40,33 @@
 		}
 	}
 }
+
+#SearchResultBox {
+	position: absolute;
+	top: 28px;
+	left: 0;
+	min-width: calc(100% - 56px);
+	max-height: 250px;
+	overflow: auto;
+	padding: 0;
+	background-color: #fff;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	z-index: 2;
+	display: none;
+	width: 200px;
+	@include media {
+		min-width: calc(100%);
+	}
+}
+.SearchResultRow {
+	padding: 8px;
+	border-bottom: 1px solid #f2f2f2;
+	cursor: pointer;
+	overflow: auto;
+	@include media {
+		padding: vw(8);
+	}
+}

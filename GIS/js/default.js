@@ -3,9 +3,124 @@ var MapOptions;
 var messageBox = null;
 var markers = new Array();
 var LocMarker = null;
+let LocateMarker = null;
 var addrcon;
 var addrpoint = "";
 // var TViewer = TViewer || new TViewerBase();
+
+function ExecuteComplexLocate(aSearchData, aResultBoxId, aRowClassName, aTop, pageNumber) {
+	var _this = this;
+	if (aSearchData == "" || aSearchData == "請輸入地標或地址") {
+		alert("複合式定位", "請輸入地標或地址", "error");
+		return;
+	}
+	pageNumber = pageNumber ? pageNumber : 1;
+	var LService = new TGOS.TGLocate();
+	var request = { center: pMap.getCenter(), requestText: aSearchData, pageNumber: pageNumber ? pageNumber : 1, geometryInfo: true };
+	LService.complexLocate(request, pMap.getCoordSys(), function (results, status, featureCount, pages) {
+		console.log(results);
+		if (status != TGOS.TGLocatorStatus.OK && status != TGOS.TGLocatorStatus.TOO_MANY_RESULTS) {
+			if (pageNumber == 1) {
+				alert("複合式定位", "查無此地標或地址", "error");
+			}
+		} else {
+			console.log("In");
+			var $SearchResultBox = $("#" + aResultBoxId);
+			if (pageNumber == 1) {
+				$SearchResultBox.empty().hide();
+			}
+			if (results.length == 1 && results[0].type == "coord") {
+				var aItem = results[0];
+				var info = { name: "點位", x: aItem.geometry.location.x, y: aItem.geometry.location.y };
+				var $aRow = $('<div class="' + aRowClassName + '"  title="點擊我定位" style="display:none;"><div style="feft; "><div style="color: #000;  font-size: 13px;  line-height: 1.2;">' + info.name + '</div><div style="  color: #ccc;  font-size: 12px;  line-height: 1.6;">' + aItem.county + "  " + aItem.town + "</div></div></div>");
+				$aRow.data("info", info);
+				$SearchResultBox.append($aRow);
+			} else {
+				for (var i = 0; i < results.length; i++) {
+					var aItem = results[i];
+					var info = { name: aItem.name, x: aItem.geometry.location.x, y: aItem.geometry.location.y };
+					var $aRow = $('<div class="' + aRowClassName + '"  title="點擊我定位"><div style="feft; "><div style="color: #000;  font-size: 13px;  line-height: 1.2;">' + info.name + '</div><div style="  color: #ccc;  font-size: 12px;  line-height: 1.6;">' + aItem.county + "  " + aItem.town + "</div></div></div>");
+					$aRow.data("info", info);
+					$SearchResultBox.append($aRow);
+				}
+			}
+			$SearchResultBox
+				.css({ top: aTop })
+				.data({ pageNumber: pageNumber, pages: pages })
+				.off("scroll")
+				.scroll(function () {
+					var $this = $(this),
+						_pageNumber = $this.data("pageNumber"),
+						_pages = $this.data("pages"),
+						_height = $this.height(),
+						_scrollHeight = $this.prop("scrollHeight"),
+						_maxScrollHeight = _scrollHeight - _height - 20,
+						_least = 0;
+					if (_maxScrollHeight - $this.scrollTop() <= _least) {
+						_pageNumber = _pageNumber + 1;
+						if (_pageNumber <= _pages) {
+							ExecuteComplexLocate(aSearchData, aResultBoxId, aRowClassName, aTop, _pageNumber);
+						}
+					}
+				})
+				.fadeIn()
+				.find("." + aRowClassName)
+				.off("click")
+				.click(function () {
+					var $this = $(this),
+						info_ = $this.data("info");
+					var pt = new TGOS.TGPoint(info_.x, info_.y);
+
+					if (LocateMarker) {
+						LocateMarker.setMap(null);
+					}
+					LocateMarker = new TGOS.TGMarker(pMap, new TGOS.TGPoint(0, 0));
+					LocateMarker.setTitle(info_.name);
+					// LocateMarker.setIcon(new TGOS.TGImage("https://map.tgos.tw/TGOSCloud/Resources/Project/Images/Address_Blue.png", new TGOS.TGSize(37, 35), new TGOS.TGPoint(0, 0), new TGOS.TGPoint(18, 35)));
+					LocateMarker.setPosition(pt);
+					LocateMarker.setZIndex(1);
+					LocateMarker.setVisible(true);
+					LocateMarker.setClickable(true);
+					LocateMarker.Tag = { info: info_ };
+					pMap.setCenter(pt);
+					pMap.setZoom(12);
+					var setPosition = new TGOS.TGLocateService();
+					setPosition.setCenter(pMap, pt);
+					// showComplexLocateMessageBox(info_);
+					TGOS.TGEvent.addListener(LocateMarker, "click", function (o) {
+						var info = o.target.Tag.info;
+						console.log(info);
+						// showComplexLocateMessageBox(info);
+					});
+					$SearchResultBox.empty().hide();
+					// function showComplexLocateMessageBox(info) {
+					// 	var message = "地址：" + info.name + "<br>X坐標：" + info.x + "<br>Y坐標：" + info.y;
+					// 	if (info.name == "點位") {
+					// 		message = "X坐標：" + info.x + "<br>Y坐標：" + info.y;
+					// 	}
+					// 	message = message + "<br><div style='padding: 5px;font-size: 13px;border: 1px solid #ccc;width: 280px;font-family: '微軟正黑體';' data-Px='" + info.x + "' data-Py='" + info.y + "'><a  class='selectS messageBox-RoadPath' eType='RoadPath_S' style='cursor:pointer;border-right:1px solid #ccc; padding:2px 5px;'>設為起點</a><a   class='selectP messageBox-RoadPath'  eType='RoadPath_P' style='cursor:pointer;border-right:1px solid #ccc; padding:2px 5px;'>設為必經點</a><a   class='selectX messageBox-RoadPath'  eType='RoadPath_Error' style='cursor:pointer;border-right:1px solid #ccc; padding:2px 5px;'>設為障礙點</a><a  class='selectE messageBox-RoadPath'  eType='RoadPath_E' style='cursor:pointer; padding:2px 5px;'>設為終點</a></div>";
+					// 	if (_this._LocateMessageBox) {
+					// 		_this._LocateMessageBox.close(TViewer._TMap);
+					// 	}
+					// 	var InfoWindowOptions = { maxWidth: 400, pixelOffset: new TGOS.TGSize(0, -23), zIndex: 1 };
+					// 	_this._LocateMessageBox = new TGOS.TGInfoWindow(message, new TGOS.TGPoint(info.x, info.y), InfoWindowOptions);
+					// 	_this._LocateMessageBox.open(TViewer._TMap);
+					// 	$(".messageBox-RoadPath")
+					// 		.off("click")
+					// 		.click(function () {
+					// 			var $this = $(this);
+					// 			var eType = $this.attr("eType");
+					// 			popMenuExecute(eType, new TGOS.TGPoint(info.x, info.y));
+					// 		});
+					// }
+				});
+			if (results.length == 1 && results[0].type == "coord") {
+				$SearchResultBox.find("." + aRowClassName).click();
+			}
+		}
+	});
+}
+
 // 初始化地圖
 function InitWnd() {
 	var pOMap = document.getElementById("TGMap");
@@ -48,27 +163,13 @@ function InitWnd() {
 		$(".top-info__map-current-info").text(`${x.toFixed(3)},${y.toFixed(3)}`);
 	});
 }
-function get_Envelope() {
-	alert(pMap.getBounds()); //取出地圖的邊框Envelope物件
-}
-function set_Envelope() {
-	var fixleft = Number(document.getElementById("fixleft").value);
-	var fixtop = Number(document.getElementById("fixtop").value);
-	var fixright = Number(document.getElementById("fixright").value);
-	var fixbottom = Number(document.getElementById("fixbottom").value);
-	pMap.fitBounds(new TGOS.TGEnvelope(fixleft, fixtop, fixright, fixbottom));
-	//傳入Envelope物件以設定地圖的邊框範圍
-	pMap.setZoom(4); //指定地圖層級
-}
-function MoveMap() {
-	var X = Number(document.getElementById("txt_X").value);
-	var Y = Number(document.getElementById("txt_Y").value);
-	pMap.panBy(X, Y); //輸入坐標x,y，以此點做為平移基準，可對地圖進行平移
-}
+
+// 滾輪縮放
 window.addEventListener("wheel", function (e) {
 	$(".scrollMap-zoomText").text(pMap.getZoom());
 });
 
+// 拖曳
 function makeDraggable(element) {
 	let isDragging = false;
 	let initialX;
@@ -179,6 +280,7 @@ $("#analyze-select").on("change", function () {
 	}
 });
 
+// 地址定位
 function getTextaddrloc(inputValue) {
 	clearAll();
 	//------------------地址定位---------------------
@@ -201,7 +303,6 @@ function getTextaddrloc(inputValue) {
 		}
 	});
 }
-
 function clearAll() {
 	if (LocMarker) {
 		LocMarker.setMap(null); //假設地圖上已存在查詢後得到的地址標記點, 則先行移除
@@ -219,7 +320,8 @@ function clearAll() {
 // ==================== 地名搜尋 ====================
 $(".search-btn").on("click", function () {
 	let inputValue = $(".search-input").val();
-	getTextaddrloc(inputValue);
+	// getTextaddrloc(inputValue);
+	ExecuteComplexLocate($("#BaseToolBar_MQuery").val(), "SearchResultBox", "SearchResultRow", 28);
 });
 
 const searchInput = document.querySelector(".search-input");
@@ -227,7 +329,8 @@ searchInput.addEventListener("keydown", function (event) {
 	// Check if the pressed key is the Enter key (key code 13)
 	if (event.keyCode === 13) {
 		const inputValue = searchInput.value;
-		getTextaddrloc(inputValue);
+		// getTextaddrloc(inputValue);
+		ExecuteComplexLocate($("#BaseToolBar_MQuery").val(), "SearchResultBox", "SearchResultRow", 28);
 		// Perform your search operation here
 	}
 });

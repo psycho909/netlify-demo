@@ -194,6 +194,7 @@ body {
 #TGMap {
   width: 100%;
   height: 100%;
+  height: 100dvh;
 }
 
 #draggable {
@@ -423,6 +424,10 @@ body {
   padding: 8px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  display: none;
+}
+.analyze-item.show {
+  display: block;
 }
 @media screen and (max-width: 768px) {
   .analyze-item {
@@ -708,6 +713,7 @@ body {
   display: flex;
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
           box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  border-radius: 100vmax;
 }
 @media screen and (max-width: 768px) {
   .search {
@@ -722,6 +728,7 @@ body {
   font-size: 16px;
   padding: 6px;
   border: 0;
+  border-radius: 100vmax 0 0 100vmax;
 }
 @media screen and (max-width: 768px) {
   .search-input {
@@ -732,6 +739,7 @@ body {
   }
 }
 .search-btn {
+  border-radius: 0 100vmax 100vmax 0;
   background-color: #6f9bfc;
   text-decoration: none;
   color: #fff;

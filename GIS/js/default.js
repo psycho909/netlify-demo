@@ -135,10 +135,14 @@ function makeDraggable(element) {
 
 const boxes = document.querySelectorAll(".fixed-box");
 boxes.forEach(makeDraggable);
-
+let type;
 $(".menu-item").on("click", function () {
-	let type = $(this).data("target");
+	type = $(this).data("target");
 	// $("#" + type).draggable();
+	if ($("#" + type).is(":visible")) {
+		$("#" + type).hide();
+		return;
+	}
 	$("#" + type).show();
 	$(".fixed-box")
 		.not("#" + type)
@@ -166,5 +170,19 @@ $(".scrollMap-btn").on("click", function () {
 		pMap.setZoom(zoom);
 	}
 	$(".scrollMap-zoomText").text(pMap.getZoom());
+});
+
+$("#analyze-select").on("change", function () {
+	let type = $(this).val();
+	$(".analyze-item").removeClass("show");
+	if (type === "1") {
+		$(".analyze-item--1").addClass("show");
+	}
+	if (type === "2") {
+		$(".analyze-item--2").addClass("show");
+	}
+	if (type === "3") {
+		$(".analyze-item--3").addClass("show");
+	}
 });
 const vConsole = new VConsole();

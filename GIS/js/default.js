@@ -167,3 +167,4 @@ $(".scrollMap-btn").on("click", function () {
 	}
 	$(".scrollMap-zoomText").text(pMap.getZoom());
 });
+const vConsole = new VConsole();

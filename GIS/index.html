@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- <link rel="stylesheet" href="./assets/css/jquery-ui.min.css" />
+		<link rel="stylesheet" href="./assets/css/jquery-ui.structure.min.css" /> -->
+		<link rel="stylesheet" href="./assets/css/default.css" />
+
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<!-- <script src="./js/jquery-ui.min.js"></script> -->
+		<script type="text/javascript" src="http://api.tgos.tw/TGOS_API/tgos?ver=2&AppID=x+JLVSx85Lk=&APIKey=in8W74q0ogpcfW/STwicK8D5QwCdddJf05/7nb+OtDh8R99YN3T0LurV4xato3TpL/fOfylvJ9Wv/khZEsXEWxsBmg+GEj4AuokiNXCh14Rei21U5GtJpIkO++Mq3AguFK/ISDEWn4hMzqgrkxNe1Q==" charset="utf-8"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+	</head>
+	<body>
+		<body onload="InitWnd();">
+			<div id="app">
+				<!-- 地圖 -->
+				<div id="TGMap"></div>
+				<!-- 地圖資訊 -->
+				<div class="top-info">
+					<div class="top-info__title">GIS圖層應用前台</div>
+					<div class="top-info__map">
+						<div class="top-info__map-scale"><span>比例尺=1：</span><span class="top-info__map-scale-info"></span></div>
+						<div class="top-info__map-current"><span>TWD97：</span><span class="top-info__map-current-info"></span></div>
+					</div>
+				</div>
+				<div class="bottom-info">
+					<div class="top-info__map">
+						<div class="top-info__map-scale"><span>比例尺=1：</span><span class="top-info__map-scale-info"></span></div>
+						<div class="top-info__map-current"><span>TWD97：</span><span class="top-info__map-current-info"></span></div>
+					</div>
+				</div>
+				<!-- 左邊選單 -->
+				<div id="menu" class="menu">
+					<div class="menu-item" data-target="layer">
+						<div class="menu-item__icon"><span class="menu-item__icon-inner" data-type="layer"></span></div>
+						<span class="menu-item__text">圖層</span>
+					</div>
+					<div class="menu-item" data-target="analyze">
+						<div class="menu-item__icon"><span class="menu-item__icon-inner" data-type="analyze"></span></div>
+						<span class="menu-item__text">分析功能</span>
+					</div>
+				</div>
+				<!-- 功能選單 -->
+				<div id="analyze" class="fixed-box">
+					<div class="fixed-box__title">
+						<span>分析功能</span>
+						<span class="fixed-box__close">關閉</span>
+					</div>
+					<div class="fixed-box__content">
+						<select name="analyze" id="analyze-select" class="analyze-select">
+							<option value="1">環域分析</option>
+							<option value="2">道路關聯性</option>
+							<option value="3">密度關聯性</option>
+						</select>
+						<div class="analyze-item">
+							<div class="analyze-area analyze-box">
+								<span class="analyze-title">區域</span>
+								<select name="analyze-area" id="analyze-area" class="analyze-area__select">
+									<option value="1">全台</option>
+								</select>
+							</div>
+							<div class="analyze-range analyze-box">
+								<span class="analyze-title">範圍</span>
+								<div class="analyze-range__box">
+									<div class="analyze-range__control">
+										<a href="javascript:;" class="analyze-range__btn">
+											<span class="analyze-range__btn-minus"></span>
+										</a>
+										<span class="analyze-range__info">7</span>
+										<a href="javascript:;" class="analyze-range__btn">
+											<span class="analyze-range__btn-plus"></span>
+										</a>
+									</div>
+									<span class="analyze-range__text">公里</span>
+								</div>
+								<!-- <select name="analyze-area" id="analyze-area" class="analyze-area__select">
+									<option value="1">全台</option>
+								</select> -->
+								<a href="javascript:;" class="analyze-range__submit">執行</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 具縮小功能之浮動視窗 -->
+				<div id="layer" class="fixed-box">
+					<div class="fixed-box__title">
+						<span>圖層</span>
+						<span class="fixed-box__close">關閉</span>
+					</div>
+					<div class="fixed-box__content">
+						<!-- 棄置場址 -->
+						<label for="layer-a" class="layer-label">
+							<input type="checkbox" name="layer" id="layer-a" class="layer-input" />
+							<span class="layer-text">棄置場址</span>
+						</label>
+						<!-- 道路路網 -->
+						<label for="layer-b" class="layer-label">
+							<input type="checkbox" name="layer" id="layer-b" class="layer-input" />
+							<span class="layer-text">道路路網</span>
+						</label>
+						<!-- 再利用機構 -->
+						<label for="layer-c" class="layer-label">
+							<input type="checkbox" name="layer" id="layer-c" class="layer-input" />
+							<span class="layer-text">再利用機構</span>
+						</label>
+						<!-- 產源 -->
+						<label for="layer-e" class="layer-label">
+							<input type="checkbox" name="layer" id="layer-e" class="layer-input" />
+							<span class="layer-text">產源</span>
+						</label>
+					</div>
+				</div>
+
+				<!-- 地名搜尋功能 -->
+				<div id="search" class="search">
+					<input type="text" class="search-input" inputmode="tel" placeholder="地名搜尋功能" />
+					<a href="javascript:;" class="search-btn">搜尋</a>
+				</div>
+				<!-- 縮放功能 -->
+				<div id="scrollMap" class="scrollMap">
+					<a href="javascript:;" class="scrollMap-btn" data-type="zoomIn">
+						<span class="scrollMap-btn__zoomIn"></span>
+					</a>
+					<div class="scrollMap-zoomText">7</div>
+					<a href="javascript:;" class="scrollMap-btn" data-type="zoomOut">
+						<span class="scrollMap-btn__zoomOut"></span>
+					</a>
+				</div>
+			</div>
+			<script src="./js/default.js"></script>
+		</body>
+	</body>
+</html>

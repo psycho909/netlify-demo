@@ -1,0 +1,60 @@
+.scrollMap {
+	position: absolute;
+	top: 50%;
+	right: 6px;
+	transform: translateY(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #fff;
+	color: #00a24b;
+	padding: 4px;
+	border-radius: 100vmax;
+	@include media {
+		right: vw(6);
+		padding: vw(8);
+	}
+	&-zoomText {
+		margin: 8px 0;
+		font-size: 16px;
+		@include media {
+			margin: vw(8) 0;
+			font-size: vw(30);
+		}
+	}
+	&-btn {
+		width: 26px;
+		height: 26px;
+		border-radius: 100vmax;
+		background-color: #00a24b;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@include media {
+			width: vw(40);
+			height: vw(40);
+		}
+		&__zoomIn {
+			background-color: #fff;
+			-webkit-mask-image: url("./images/plus.svg");
+			mask-image: url("./images/plus.svg");
+			width: 20px;
+			height: 20px;
+			@include media {
+				width: vw(32);
+				height: vw(32);
+			}
+		}
+		&__zoomOut {
+			background-color: #fff;
+			-webkit-mask-image: url("./images/minus.svg");
+			mask-image: url("./images/minus.svg");
+			width: 20px;
+			height: 20px;
+			@include media {
+				width: vw(32);
+				height: vw(32);
+			}
+		}
+	}
+}

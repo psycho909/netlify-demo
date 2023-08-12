@@ -1,0 +1,21 @@
+$fontFamily: "PingFangTC-Regular", "Heiti TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: $fontFamily;
+}
+// 防止ios double tap螢幕放大
+html,
+body {
+	height: 100%;
+	touch-action: manipulation;
+	touch-callout: none;
+	-webkit-touch-callout: none;
+}
+@supports (-webkit-touch-callout: none) {
+	body {
+		/* The hack for Safari */
+		height: -webkit-fill-available;
+	}
+}

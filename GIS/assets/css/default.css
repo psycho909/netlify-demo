@@ -222,7 +222,7 @@ body {
 @media screen and (max-width: 768px) {
   .menu {
     top: 8.59375vw;
-    right: 0.78125vw;
+    right: 1.5625vw;
     left: unset;
     width: auto;
     height: auto;
@@ -642,7 +642,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .scrollMap {
-    right: 0.78125vw;
+    right: 1.5625vw;
     padding: 1.0416666667vw;
   }
 }
@@ -652,7 +652,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .scrollMap-zoomText {
-    margin: 1.0416666667vw 0;
+    margin: 2.0833333333vw 0;
     font-size: 3.90625vw;
   }
 }
@@ -673,8 +673,8 @@ body {
 }
 @media screen and (max-width: 768px) {
   .scrollMap-btn {
-    width: 5.2083333333vw;
-    height: 5.2083333333vw;
+    width: 6.5104166667vw;
+    height: 6.5104166667vw;
   }
 }
 .scrollMap-btn__zoomIn {

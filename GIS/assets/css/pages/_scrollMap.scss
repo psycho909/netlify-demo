@@ -11,14 +11,14 @@
 	padding: 4px;
 	border-radius: 100vmax;
 	@include media {
-		right: vw(6);
+		right: vw(12);
 		padding: vw(8);
 	}
 	&-zoomText {
 		margin: 8px 0;
 		font-size: 16px;
 		@include media {
-			margin: vw(8) 0;
+			margin: vw(16) 0;
 			font-size: vw(30);
 		}
 	}
@@ -31,8 +31,8 @@
 		justify-content: center;
 		align-items: center;
 		@include media {
-			width: vw(40);
-			height: vw(40);
+			width: vw(50);
+			height: vw(50);
 		}
 		&__zoomIn {
 			background-color: #fff;

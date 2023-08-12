@@ -639,11 +639,15 @@ body {
   color: #00a24b;
   padding: 4px;
   border-radius: 100vmax;
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 @media screen and (max-width: 768px) {
   .scrollMap {
     right: 1.5625vw;
     padding: 1.0416666667vw;
+    -webkit-box-shadow: 0 0 0.78125vw rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0.78125vw rgba(0, 0, 0, 0.5);
   }
 }
 .scrollMap-zoomText {

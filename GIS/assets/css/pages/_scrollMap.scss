@@ -10,9 +10,11 @@
 	color: #00a24b;
 	padding: 4px;
 	border-radius: 100vmax;
+	box-shadow: 0 0 6px rgba(#000, 0.5);
 	@include media {
 		right: vw(12);
 		padding: vw(8);
+		box-shadow: 0 0 vw(6) rgba(#000, 0.5);
 	}
 	&-zoomText {
 		margin: 8px 0;

@@ -185,3 +185,8 @@ $("#analyze-select").on("change", function () {
 		$(".analyze-item--3").addClass("show");
 	}
 });
+
+document.addEventListener("gesturestart", function (event) {
+	// 阻止兩指縮放畫面
+	event.preventDefault();
+});

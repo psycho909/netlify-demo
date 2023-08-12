@@ -11,13 +11,13 @@
 		box-shadow: 0 0 vw(6) rgba(#000, 0.6);
 	}
 	&-input {
-		width: 196px;
+		width: 300px;
 		font-size: 16px;
 		padding: 6px;
 		border: 0;
 		border-radius: 100vmax 0 0 100vmax;
 		@include media {
-			width: vw(400);
+			width: vw(500);
 			font-size: vw(30);
 			padding: vw(12);
 			border-radius: 100vmax;

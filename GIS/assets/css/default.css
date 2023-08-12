@@ -724,7 +724,7 @@ body {
   }
 }
 .search-input {
-  width: 196px;
+  width: 300px;
   font-size: 16px;
   padding: 6px;
   border: 0;
@@ -732,7 +732,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .search-input {
-    width: 52.0833333333vw;
+    width: 65.1041666667vw;
     font-size: 3.90625vw;
     padding: 1.5625vw;
     border-radius: 100vmax;

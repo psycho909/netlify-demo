@@ -185,4 +185,3 @@ $("#analyze-select").on("change", function () {
 		$(".analyze-item--3").addClass("show");
 	}
 });
-const vConsole = new VConsole();

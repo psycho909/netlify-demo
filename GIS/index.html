@@ -55,19 +55,24 @@
 						<div class="analyze-item analyze-item--1 show">
 							<div class="analyze-area analyze-box">
 								<span class="analyze-title">區域</span>
-								<select name="analyze-area" id="analyze-area" class="analyze-area__select">
-									<option value="1">全台</option>
+								<select name="analyze-area" class="analyze-area__select">
+									<option value="-1">全台</option>
+									<option value="1">基隆市</option>
+									<option value="2">台北市</option>
+									<option value="3">新北市</option>
+									<option value="4">桃園縣</option>
+									<option value="5">新竹市</option>
 								</select>
 							</div>
 							<div class="analyze-range analyze-box">
 								<span class="analyze-title">範圍</span>
 								<div class="analyze-range__box">
 									<div class="analyze-range__control">
-										<a href="javascript:;" class="analyze-range__btn">
+										<a href="javascript:;" class="analyze-range__btn" data-type="minus">
 											<span class="analyze-range__btn-minus"></span>
 										</a>
 										<span class="analyze-range__info">7</span>
-										<a href="javascript:;" class="analyze-range__btn">
+										<a href="javascript:;" class="analyze-range__btn" data-type="plus">
 											<span class="analyze-range__btn-plus"></span>
 										</a>
 									</div>
@@ -79,19 +84,24 @@
 						<div class="analyze-item analyze-item--2">
 							<div class="analyze-area analyze-box">
 								<span class="analyze-title">區域</span>
-								<select name="analyze-area" id="analyze-area" class="analyze-area__select">
-									<option value="1">全台</option>
+								<select name="analyze-area" class="analyze-area__select">
+									<option value="-1">全台</option>
+									<option value="1">基隆市</option>
+									<option value="2">台北市</option>
+									<option value="3">新北市</option>
+									<option value="4">桃園縣</option>
+									<option value="5">新竹市</option>
 								</select>
 							</div>
 							<div class="analyze-range analyze-box">
 								<span class="analyze-title">層級</span>
 								<div class="analyze-range__box">
 									<div class="analyze-range__control">
-										<a href="javascript:;" class="analyze-range__btn">
+										<a href="javascript:;" class="analyze-range__btn" data-type="minus">
 											<span class="analyze-range__btn-minus"></span>
 										</a>
 										<span class="analyze-range__info">7</span>
-										<a href="javascript:;" class="analyze-range__btn">
+										<a href="javascript:;" class="analyze-range__btn" data-type="plus">
 											<span class="analyze-range__btn-plus"></span>
 										</a>
 									</div>
@@ -103,15 +113,17 @@
 						<div class="analyze-item analyze-item--3">
 							<div class="analyze-area analyze-box">
 								<span class="analyze-title">區域</span>
-								<select name="analyze-area" id="analyze-area" class="analyze-area__select">
+								<select name="analyze-area" class="analyze-area__select">
 									<option value="1">全台</option>
 								</select>
 							</div>
 							<div class="analyze-range analyze-box">
 								<span class="analyze-title">行政等級</span>
 								<div class="analyze-range__box">
-									<select id="analyze-item--3-select">
-										<option value="-1">縣市</option>
+									<select class="analyze-range__select">
+										<option value="1">縣市</option>
+										<option value="2">鄉鎮</option>
+										<option value="3">村里</option>
 									</select>
 								</div>
 								<a href="javascript:;" class="analyze-range__submit">執行</a>
@@ -128,22 +140,22 @@
 					<div class="fixed-box__content">
 						<!-- 棄置場址 -->
 						<label for="layer-a" class="layer-label">
-							<input type="checkbox" name="layer" id="layer-a" class="layer-input" />
+							<input type="checkbox" name="layer" id="layer-a" class="layer-input" value="a" />
 							<span class="layer-text">棄置場址</span>
 						</label>
 						<!-- 道路路網 -->
 						<label for="layer-b" class="layer-label">
-							<input type="checkbox" name="layer" id="layer-b" class="layer-input" />
+							<input type="checkbox" name="layer" id="layer-b" class="layer-input" value="b" />
 							<span class="layer-text">道路路網</span>
 						</label>
 						<!-- 再利用機構 -->
 						<label for="layer-c" class="layer-label">
-							<input type="checkbox" name="layer" id="layer-c" class="layer-input" />
+							<input type="checkbox" name="layer" id="layer-c" class="layer-input" value="c" />
 							<span class="layer-text">再利用機構</span>
 						</label>
 						<!-- 產源 -->
-						<label for="layer-e" class="layer-label">
-							<input type="checkbox" name="layer" id="layer-e" class="layer-input" />
+						<label for="layer-d" class="layer-label">
+							<input type="checkbox" name="layer" id="layer-d" class="layer-input" value="d" />
 							<span class="layer-text">產源</span>
 						</label>
 					</div>
@@ -151,7 +163,7 @@
 
 				<!-- 地名搜尋功能 -->
 				<div id="search" class="search">
-					<input type="text" class="search-input" inputmode="tel" placeholder="地名搜尋功能" />
+					<input type="text" class="search-input" inputmode="search" placeholder="地名搜尋功能" />
 					<a href="javascript:;" class="search-btn">搜尋</a>
 				</div>
 				<!-- 縮放功能 -->

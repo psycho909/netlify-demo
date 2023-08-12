@@ -172,6 +172,7 @@ $(".scrollMap-btn").on("click", function () {
 	$(".scrollMap-zoomText").text(pMap.getZoom());
 });
 
+// 分析
 $("#analyze-select").on("change", function () {
 	let type = $(this).val();
 	$(".analyze-item").removeClass("show");
@@ -185,7 +186,85 @@ $("#analyze-select").on("change", function () {
 		$(".analyze-item--3").addClass("show");
 	}
 });
+// ==================== 地名搜尋 ====================
+$(".search-btn").on("click", function () {
+	let keyword = $(".search-input").val();
+});
 
+const searchInput = document.querySelector(".search-input");
+searchInput.addEventListener("keydown", function (event) {
+	// Check if the pressed key is the Enter key (key code 13)
+	if (event.keyCode === 13) {
+		const inputValue = searchInput.value;
+		console.log(`搜索: ${inputValue}`);
+		// Perform your search operation here
+	}
+});
+// ==================== 圖層 ====================
+let layer = [];
+$(".layer-input").on("change", function () {
+	$(this).each(function () {
+		let type = $(this).val();
+		if ($(this).prop("checked")) {
+			layer.push(type);
+		} else {
+			layer.splice(layer.indexOf(type), 1);
+		}
+	});
+});
+
+// ==================== 分析 ====================
+// 分析功能區塊
+let analyzeType1 = 7; // 環域分析
+let analyzeType2 = 7; // 道路關聯性
+let analyzeType3 = -1; // 密度關聯性
+
+// 環域分析
+$(".analyze-item--1 .analyze-range__btn[data-type='minus']").on("click", function () {
+	analyzeType1--;
+	if (analyzeType1 < 0) {
+		return;
+	}
+	$(".analyze-item--1 .analyze-range__info").text(analyzeType1);
+});
+$(".analyze-item--1 .analyze-range__btn[data-type='plus']").on("click", function () {
+	analyzeType1++;
+	$(".analyze-item--1 .analyze-range__info").text(analyzeType1);
+});
+// 執行分析
+$(".analyze-item--1 .analyze-range__submit").on("click", function () {
+	// 區域
+	let area = $(".analyze-item--1 .analyze-area__select").val();
+});
+
+// 道路關聯性
+$(".analyze-item--2 .analyze-range__btn[data-type='minus']").on("click", function () {
+	analyzeType2--;
+	if (analyzeType2 < 0) {
+		return;
+	}
+	$(".analyze-item--2 .analyze-range__info").text(analyzeType2);
+});
+
+$(".analyze-item--2 .analyze-range__btn[data-type='plus']").on("click", function () {
+	analyzeType2++;
+	$(".analyze-item--2 .analyze-range__info").text(analyzeType2);
+});
+// 執行分析
+$(".analyze-item--2 .analyze-range__submit").on("click", function () {
+	// 區域
+	let area = $(".analyze-item--2 .analyze-area__select").val();
+});
+
+// 執行分析
+$(".analyze-item--3 .analyze-range__submit").on("click", function () {
+	// 區域
+	let area = $(".analyze-item--3 .analyze-area__select").val();
+	// 行政區
+	let range = $(".analyze-item--3 .analyze-range__select").val();
+});
+
+// 阻止手機縮放
 document.addEventListener("gesturestart", function (event) {
 	// 阻止兩指縮放畫面
 	event.preventDefault();

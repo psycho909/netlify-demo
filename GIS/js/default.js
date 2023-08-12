@@ -196,7 +196,7 @@ searchInput.addEventListener("keydown", function (event) {
 	// Check if the pressed key is the Enter key (key code 13)
 	if (event.keyCode === 13) {
 		const inputValue = searchInput.value;
-		console.log(`搜索: ${inputValue}`);
+		alert(`搜索: ${inputValue}`);
 		// Perform your search operation here
 	}
 });

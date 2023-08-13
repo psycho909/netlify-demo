@@ -6,8 +6,10 @@ var LocMarker = null;
 let LocateMarker = null;
 var addrcon;
 var addrpoint = "";
-// var TViewer = TViewer || new TViewerBase();
-
+let pData = {};
+var styles = [];
+var polygon = null;
+let markerImg, pTGMarker;
 function ExecuteComplexLocate(aSearchData, aResultBoxId, aRowClassName, aTop, pageNumber) {
 	var _this = this;
 	if (aSearchData == "" || aSearchData == "請輸入地標或地址") {
@@ -177,24 +179,21 @@ function makeDraggable(element) {
 	let offsetX = 0;
 	let offsetY = 0;
 
-	const initialLeft = parseInt(getComputedStyle(element).left, 10);
-	const initialTop = parseInt(getComputedStyle(element).top, 10);
-	element.style.left = initialLeft + "px";
-	element.style.top = initialTop + "px";
-
 	// 開始拖曳
 	const startDragging = (e) => {
-		isDragging = true;
-		if (e.type === "touchstart") {
-			initialX = e.touches[0].clientX;
-			initialY = e.touches[0].clientY;
-		} else {
-			initialX = e.clientX;
-			initialY = e.clientY;
+		if (e.target.classList.contains("fixed-box__title")) {
+			isDragging = true;
+			if (e.type === "touchstart") {
+				initialX = e.touches[0].clientX;
+				initialY = e.touches[0].clientY;
+			} else {
+				initialX = e.clientX;
+				initialY = e.clientY;
+			}
+			offsetX = initialX - element.getBoundingClientRect().left;
+			offsetY = initialY - element.getBoundingClientRect().top;
+			element.style.cursor = "grabbing";
 		}
-		offsetX = initialX - element.getBoundingClientRect().left;
-		offsetY = initialY - element.getBoundingClientRect().top;
-		element.style.cursor = "grabbing";
 	};
 
 	// 拖曳中
@@ -228,8 +227,11 @@ function makeDraggable(element) {
 
 const boxes = document.querySelectorAll(".fixed-box");
 boxes.forEach(makeDraggable);
+
+// 選單
 let type;
 $(".menu-item").on("click", function () {
+	$("#SearchResultBox").empty().hide();
 	type = $(this).data("target");
 	// $("#" + type).draggable();
 	if ($("#" + type).is(":visible")) {
@@ -334,17 +336,107 @@ searchInput.addEventListener("keydown", function (event) {
 		// Perform your search operation here
 	}
 });
+$("#BaseToolBar_MQuery").on("input", function () {
+	let val = $(".search-input").val();
+	if (val.length == 0) {
+		$("#SearchResultBox").empty().hide();
+	}
+});
 // ==================== 圖層 ====================
+function drawGeoJson(data) {
+	if (layer.length == 0) {
+		return;
+	}
+	layer.forEach(function (item) {
+		if (item["pData"]) {
+			return;
+		}
+		// 建立幾何圖層物件
+		item["pData"] = new TGOS.TGData({ map: pMap });
+		// 載入 GeoJSON 資料
+		item["pData"].loadGeoJson(item["path"], { idPropertyName: "GEOJSON" }, function (graphic) {
+			// 設定圖層樣式
+			for (var i = 0; i < graphic.length; i++) {
+				item["pData"].overrideStyle(graphic[i], item["style"]);
+			}
+
+			// 設定呈現幾何圖層物件的地圖物件
+			item["pData"].setMap(pMap);
+		});
+		$(".tgoverlay").css("opacity", $("#sliderRange").val());
+	});
+}
+
 let layer = [];
 $(".layer-input").on("change", function () {
 	$(this).each(function () {
 		let type = $(this).val();
+		let list = {};
+		if (type === "a") {
+			list = {
+				path: "./河川測站.geojson",
+				pData: null,
+				style: {
+					fillColor: "#FF0000",
+					strokeColor: "#FF0000",
+					strokeWeight: 1,
+					fillOpacity: 0.8
+				},
+				type
+			};
+		}
+		if (type === "b") {
+			list = {
+				path: "./testJson.json",
+				pData: null,
+				style: {
+					fillColor: "#fc6f6f",
+					strokeColor: "#fc6f6f",
+					strokeWeight: 1,
+					fillOpacity: 0.8
+				},
+				type
+			};
+		}
+		if (type === "c") {
+			list = {
+				path: "./全台縣市區域.geojson",
+				pData: null,
+				style: {
+					fillColor: "#03db6b",
+					strokeColor: "#03db6b",
+					strokeWeight: 1,
+					fillOpacity: 0.8
+				},
+				type
+			};
+		}
+		if (type === "d") {
+			list = {
+				path: "./bike.json",
+				pData: null,
+				style: {
+					fillColor: "#000bff",
+					strokeColor: "#000bff",
+					strokeWeight: 1,
+					fillOpacity: 0.8
+				},
+				type
+			};
+		}
 		if ($(this).prop("checked")) {
-			layer.push(type);
+			layer.push(list);
 		} else {
-			layer.splice(layer.indexOf(type), 1);
+			let index = layer.findIndex((item) => item.type === type);
+			layer[index]["pData"].clearAll();
+			layer = layer.filter((item) => item.type !== type);
 		}
 	});
+	drawGeoJson(layer);
+});
+
+$("#sliderRange").on("change", function () {
+	$(".tgoverlay").css("opacity", $(this).val());
 });
 
 // ==================== 分析 ====================

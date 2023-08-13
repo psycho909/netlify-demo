@@ -329,7 +329,7 @@ body {
   .fixed-box {
     top: unset;
     bottom: 10.4166666667vw;
-    left: 50%;
+    left: 20%;
     min-width: 80%;
   }
 }

@@ -1,8 +1,12 @@
-.scrollMap {
+.map-navigation {
 	position: absolute;
 	top: 50%;
 	right: 6px;
 	transform: translateY(-50%);
+	display: flex;
+	flex-direction: column;
+}
+.scrollMap {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -11,10 +15,15 @@
 	padding: 4px;
 	border-radius: 100vmax;
 	box-shadow: 0 0 6px rgba(#000, 0.5);
+	margin-bottom: 8px;
+	&:last-child {
+		margin-bottom: 0;
+	}
 	@include media {
 		right: vw(12);
 		padding: vw(8);
 		box-shadow: 0 0 vw(6) rgba(#000, 0.5);
+		margin-bottom: vw(8);
 	}
 	&-zoomText {
 		margin: 8px 0;
@@ -35,6 +44,17 @@
 		@include media {
 			width: vw(50);
 			height: vw(50);
+		}
+		&__north {
+			background-color: #fff;
+			-webkit-mask-image: url("./images/north.svg");
+			mask-image: url("./images/north.svg");
+			width: 20px;
+			height: 20px;
+			@include media {
+				width: vw(32);
+				height: vw(32);
+			}
 		}
 		&__zoomIn {
 			background-color: #fff;

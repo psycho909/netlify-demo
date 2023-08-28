@@ -457,6 +457,7 @@ $(".analyze-item--1 .analyze-range__btn[data-type='plus']").on("click", function
 	analyzeType1++;
 	$(".analyze-item--1 .analyze-range__info").text(analyzeType1);
 });
+// 下拉選單
 $(".analyze-item--1 .analyze-range__select").on("change", function () {
 	let val = $(this).val();
 	analyzeType1 = val;
@@ -482,7 +483,7 @@ $(".analyze-item--2 .analyze-range__btn[data-type='plus']").on("click", function
 	analyzeType2++;
 	$(".analyze-item--2 .analyze-range__info").text(analyzeType2);
 });
-
+// 下拉選單
 $(".analyze-item--2 .analyze-range__select").on("change", function () {
 	let val = $(this).val();
 	analyzeType1 = val;

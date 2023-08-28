@@ -457,10 +457,16 @@ $(".analyze-item--1 .analyze-range__btn[data-type='plus']").on("click", function
 	analyzeType1++;
 	$(".analyze-item--1 .analyze-range__info").text(analyzeType1);
 });
+$(".analyze-item--1 .analyze-range__select").on("change", function () {
+	let val = $(this).val();
+	analyzeType1 = val;
+});
+
 // 執行分析
 $(".analyze-item--1 .analyze-range__submit").on("click", function () {
 	// 區域
 	let area = $(".analyze-item--1 .analyze-area__select").val();
+	console.log(analyzeType1);
 });
 
 // 道路關聯性
@@ -476,6 +482,12 @@ $(".analyze-item--2 .analyze-range__btn[data-type='plus']").on("click", function
 	analyzeType2++;
 	$(".analyze-item--2 .analyze-range__info").text(analyzeType2);
 });
+
+$(".analyze-item--2 .analyze-range__select").on("change", function () {
+	let val = $(this).val();
+	analyzeType1 = val;
+});
+
 // 執行分析
 $(".analyze-item--2 .analyze-range__submit").on("click", function () {
 	// 區域

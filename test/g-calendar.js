@@ -261,11 +261,13 @@
 					if (mutations[i].addedNodes[j].children.length) {
 						for (var k = 0; k < mutations[i].addedNodes[j].children.length; k++) {
 							if (mutations[i].addedNodes[j].children[k].classList.contains("g-calendar")) {
+								console.log("first");
 								calendarInit();
 							}
 						}
 					} else {
 						if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
+							console.log("two");
 							calendarInit();
 						}
 					}
@@ -279,6 +281,7 @@
 		});
 	} else {
 		target.addEventListener("DOMSubtreeModified", function () {
+			console.log("DOMSubtreeModified");
 			calendarInit();
 		});
 	}

@@ -257,6 +257,7 @@
 		var observer = new MutationObserver(function (mutations) {
 			for (var i = 0; i < mutations.length; i++) {
 				for (var j = 0; j < mutations[i].addedNodes.length; j++) {
+					console.log(mutations[i].addedNodes[j]);
 					if (!(mutations[i].addedNodes[j] instanceof HTMLElement)) continue;
 					if (mutations[i].addedNodes[j].children.length) {
 						for (var k = 0; k < mutations[i].addedNodes[j].children.length; k++) {

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<!-- 行事曆套件 -->
+		<script src="js/g-calendar.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/g-calendar/g-calendar.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				font-size: 1.2rem;
+			}
+			.gama-calender {
+				width: 10vw;
+				height: 10vw;
+				background-color: #000;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			a {
+				display: block;
+			}
+			.g-calendar {
+				position: absolute;
+				top: 0;
+				right: 0;
+				z-index: 9999;
+			}
+			.g-calendar2 {
+				top: 100px;
+			}
+			.page-1 video {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<input id="token" type="hidden" value="" />
+		<div class="nav">
+			<span class="bur-btn bur-btn-on"></span>
+			<a href="https://tw.beanfun.com/lineage/main.aspx" class="logo"></a>
+			<a href="https://www.facebook.com/Gamania.LineageTW" class="f_b">粉絲專頁</a>
+			<div class="left-nav">
+				<div class="nav-page-1 active">首頁</div>
+				<div class="nav-page-2">事前登錄</div>
+				<div class="nav-page-3">新伺服器特色</div>
+				<div class="nav-page-4">精彩活動搶先看</div>
+				<div class="nav-page-5">天堂Talk</div>
+				<span class="bur-btn bur-btn-off"></span>
+				<span class="g-calendar g-calendar1" begin="2023/09/01 16:00" end="2023/09/14 16:00" title="《天堂R》台灣限定新伺服器|事前登錄" description="天堂R台灣限定伺服器事前登錄領好禮，快手刀分享出去！" autodetectdevice="true">
+					<a class="g-calendar-google" href="javascript:;">天堂R1</a>
+				</span>
+
+				<a href="https://www.facebook.com/Gamania.LineageTW" class="f_b">粉絲專頁</a>
+			</div>
+		</div>
+		<div class="wrapper">
+			<div class="page-1">
+				<video src="./assets/style/img/bg1.mp4" muted autoplay loop></video>
+				<div class="title">
+					<div class="tt-block"></div>
+				</div>
+				<div class="reserve-btn"></div>
+				<div class="clock-bg"></div>
+				<div class="clock-block">
+					<div id="clockdiv" class="animation">
+						<div class="days">
+							<span class="tens-digit"></span>
+							<span class="digit"></span>
+						</div>
+						<div class="hours">
+							<span class="tens-digit"></span>
+							<span class="digit"></span>
+						</div>
+						<div class="minutes">
+							<span class="tens-digit"></span>
+							<span class="digit"></span>
+						</div>
+						<div class="seconds">
+							<span class="tens-digit"></span>
+							<span class="digit"></span>
+						</div>
+					</div>
+				</div>
+				<span class="g-calendar g-calendar2" begin="2023/09/01 16:00" end="2023/09/14 16:00" title="《天堂R》台灣限定新伺服器|事前登錄" description="天堂R台灣限定伺服器事前登錄領好禮，快手刀分享出去！" autoDetectDevice="true">
+					<a class="g-calendar-google" href="javascript:;">天堂R2</a>
+				</span>
+			</div>
+			<div class="page-2">
+				<video src="./assets/style/img/bg2.mp4" muted autoplay loop></video>
+				<div class="title"></div>
+				<div class="reserve-btn"></div>
+				<div class="item-gruop">
+					<div class="item">
+						<div class="item-title"></div>
+						<div class="item-image"></div>
+						<div class="item-name">龍之鑽石(刻印)活動 x100</div>
+					</div>
+					<div class="item">
+						<div class="item-title"></div>
+						<div class="item-image"></div>
+						<div class="item-name">萬能藥(EXP)100%製作券(活動)</div>
+					</div>
+					<div class="item">
+						<div class="item-title"></div>
+						<div class="item-image"></div>
+						<div class="item-name">慶典倫提斯/史奈普 +1 強化券x2</div>
+					</div>
+					<div class="item">
+						<div class="item-title"></div>
+						<div class="item-image"></div>
+						<div class="item-name">殷海薩點數儲值石 (5,000)</div>
+					</div>
+				</div>
+			</div>
+			<div class="page-3">
+				<video src="./assets/style/img/bg2.mp4" muted autoplay loop></video>
+				<div class="title"></div>
+				<div class="swiper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="otherItem" style="background-image: url(https://tw.hicdn.beanfun.com/beanfun/WebImage/1683633203127.jpg)"></div>
+						</div>
+						<div class="swiper-slide">
+							<div class="otherItem" style="background-image: url(https://tw.hicdn.beanfun.com/beanfun/WebImage/1683633203127.jpg)"></div>
+						</div>
+						<div class="swiper-slide">
+							<div class="otherItem" style="background-image: url(https://tw.hicdn.beanfun.com/beanfun/WebImage/1683633203127.jpg)"></div>
+						</div>
+						<div class="swiper-slide">
+							<div class="otherItem" style="background-image: url(https://tw.hicdn.beanfun.com/beanfun/WebImage/1683633203127.jpg)"></div>
+						</div>
+						<div class="swiper-slide">
+							<div class="otherItem" style="background-image: url(https://tw.hicdn.beanfun.com/beanfun/WebImage/1683633203127.jpg)"></div>
+						</div>
+						<div class="swiper-slide">
+							<div class="otherItem" style="background-image: url(https://tw.hicdn.beanfun.com/beanfun/WebImage/1683633203127.jpg)"></div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-pagination"></div>
+				<p>※ 圖片道具或技能資訊可能與最終名稱不同，網頁僅供參考，實際內容依官網公告為主。</p>
+			</div>
+			<div class="page-4">
+				<video src="./assets/style/img/bg2.mp4" muted autoplay loop></video>
+				<div class="title"></div>
+				<a href="" class="item1" target="_blank"></a>
+				<a href="" class="item2" target="_blank"></a>
+				<a href="" class="item3" target="_blank"></a>
+				<a href="" class="item4" target="_blank"></a>
+				<p>※ 圖片道具或技能資訊可能與最終名稱不同，網頁僅供參考，實際內容依官網公告為主。</p>
+			</div>
+			<div class="page-5">
+				<video src="https://twskyimg.akamaized.net/gameweb/hit2/event/2023/0418_ta1wiiy699/sec02/story_04.mp4" muted autoplay loop></video>
+				<div class="yt-btn"></div>
+				<div class="title"></div>
+				<p>※ 圖片道具或技能資訊可能與最終名稱不同，網頁僅供參考，實際內容依官網公告為主。</p>
+			</div>
+		</div>
+		<div class="go-top"></div>
+		<div class="error-msg-wrap">
+			<div class="error-msg">
+				<div class="close"></div>
+				<div class="msg"></div>
+			</div>
+		</div>
+	</body>
+</html>

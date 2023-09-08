@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			#range-container {
+				width: 300px; /* 設定容器的寬度 */
+				height: 10px; /* 設定容器的高度 */
+				background-color: #ccc; /* 設定容器的背景顏色 */
+				position: relative;
+			}
+
+			#range-thumb {
+				width: 20px; /* 設定拖曳器的寬度 */
+				height: 20px; /* 設定拖曳器的高度 */
+				background-color: #007bff; /* 設定拖曳器的背景顏色 */
+				border-radius: 50%; /* 設定拖曳器為圓形 */
+				position: absolute;
+				top: -5px; /* 設定拖曳器的位置 */
+				transform: translateX(-50%); /* 將拖曳器置中對齊 */
+				cursor: pointer; /* 將游標設定為手指指示器 */
+			}
+		</style>
+	</head>
+	<body>
+		<div id="range-text"></div>
+		<div id="range-container">
+			<div id="range-thumb"></div>
+		</div>
+		<input id="range" type="range" value="1" step="1" min="1" max="10" />
+		<script>
+			// var range = document.querySelector("#range");
+			// range.addEventListener("change", function () {
+			// 	console.log(this);
+			// });
+			const rangeContainer = document.getElementById("range-container");
+			const rangeThumb = document.getElementById("range-thumb");
+			const rangeText = document.getElementById("range-text");
+
+			// 監聽拖曳事件
+			rangeThumb.addEventListener("mousedown", (e) => {
+				// 開始拖曳時
+				const startX = e.clientX - rangeThumb.getBoundingClientRect().left;
+
+				// 監聽滑鼠移動事件
+				document.addEventListener("mousemove", onMouseMove);
+
+				// 監聽滑鼠釋放事件
+				document.addEventListener("mouseup", () => {
+					document.removeEventListener("mousemove", onMouseMove);
+				});
+
+				// 滑鼠移動時的處理函式
+				function onMouseMove(e) {
+					const offsetX = e.clientX - rangeContainer.getBoundingClientRect().left;
+					const thumbPosition = offsetX - startX;
+
+					// 確保拖曳器不超出容器的邊界
+					if (thumbPosition >= 0 && thumbPosition <= rangeContainer.clientWidth - rangeThumb.clientWidth) {
+						rangeThumb.style.transform = `translateX(${thumbPosition}px)`;
+					}
+
+					// 計算拖曳值
+					const min = 1;
+					const max = 10;
+					const step = 1;
+					const rangeValue = Math.round(((thumbPosition / (rangeContainer.clientWidth - rangeThumb.clientWidth)) * (max - min)) / step) * step + min;
+
+					// 更新拖曳值到input元素
+					// 這裡可以使用AJAX或其他方式來提交拖曳值給伺服器
+					// 這是一個示範，你可以根據你的需求進行更改
+					document.getElementById("range").value = rangeValue;
+					rangeText.innerHTML = rangeValue;
+					console.log(rangeValue);
+				}
+			});
+			// 監聽觸控開始事件
+			rangeThumb.addEventListener("touchstart", (e) => {
+				e.preventDefault(); // 防止默認行為，如滾動和縮放
+				const touch = e.touches[0];
+				const startX = touch.clientX - rangeThumb.getBoundingClientRect().left;
+
+				// 監聽觸控移動事件
+				document.addEventListener("touchmove", onTouchMove);
+
+				// 監聽觸控結束事件
+				document.addEventListener("touchend", () => {
+					document.removeEventListener("touchmove", onTouchMove);
+				});
+
+				// 觸控移動時的處理函式
+				function onTouchMove(e) {
+					e.preventDefault(); // 防止默認行為，如滾動和縮放
+					const touch = e.touches[0];
+					const offsetX = touch.clientX - rangeContainer.getBoundingClientRect().left;
+					const thumbPosition = offsetX - startX;
+
+					// 確保拖曳器不超出容器的邊界
+					if (thumbPosition >= 0 && thumbPosition <= rangeContainer.clientWidth - rangeThumb.clientWidth) {
+						rangeThumb.style.transform = `translateX(${thumbPosition}px)`;
+					}
+
+					// 計算拖曳值
+					const min = 1;
+					const max = 10;
+					const step = 1;
+					const rangeValue = Math.round(((thumbPosition / (rangeContainer.clientWidth - rangeThumb.clientWidth)) * (max - min)) / step) * step + min;
+
+					// 更新拖曳值到input元素
+					// 這裡可以使用AJAX或其他方式來提交拖曳值給伺服器
+					// 這是一個示範，你可以根據你的需求進行更改
+					document.getElementById("range").value = rangeValue;
+					rangeText.innerHTML = rangeValue;
+				}
+			});
+		</script>
+	</body>
+</html>

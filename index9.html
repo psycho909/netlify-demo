@@ -11,7 +11,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="list"></div>
+		<div id="finger"></div>
 		<script>
 			// Initialize the agent on page load.
 			const fpPromise = import("https://fpjscdn.net/v3/0rxAhcHuxlcHFkPgvswg").then((FingerprintJS) =>
@@ -25,6 +25,7 @@
 				.then((fp) => fp.get())
 				.then((result) => {
 					const visitorId = result.visitorId;
+					document.querySelector("#finger").innerHTML = visitorId;
 					console.log(visitorId);
 				});
 		</script>

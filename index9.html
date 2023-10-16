@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@2/dist/fingerprint2.min.js"></script>
 		<title>Document</title>
 		<style>
 			.text {
@@ -13,6 +14,7 @@
 	<body>
 		<div id="finger"></div>
 		<div id="finger2"></div>
+		<div id="finger3"></div>
 		<script>
 			// Initialize the agent on page load.
 			const fpPromise = import("https://fpjscdn.net/v3/0rxAhcHuxlcHFkPgvswg").then((FingerprintJS) =>
@@ -40,6 +42,29 @@
 					document.querySelector("#finger2").innerHTML = visitorId;
 					console.log(visitorId);
 				});
+
+			if (window.requestIdleCallback) {
+				requestIdleCallback(function () {
+					Fingerprint2.get(function (components) {
+						console.log(components); // an array of components: {key: ..., value: ...}
+					});
+				});
+			} else {
+				setTimeout(function () {
+					Fingerprint2.get(function (components) {
+						console.log(components); // an array of components: {key: ..., value: ...}
+					});
+				}, 500);
+			}
+			var options = { fonts: { extendedJsFonts: true }, excludes: { userAgent: true } };
+			Fingerprint2.get(options, function (components) {
+				var values = components.map(function (component) {
+					return component.value;
+				});
+				var murmur = Fingerprint2.x64hash128(values.join(""), 31);
+				document.querySelector("#finger3").innerHTML = murmur;
+				console.log(murmur);
+			});
 		</script>
 
 		<script>

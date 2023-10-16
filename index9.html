@@ -15,6 +15,7 @@
 		<div id="finger"></div>
 		<div id="finger2"></div>
 		<div id="finger3"></div>
+		<div id="finger4"></div>
 		<script>
 			// Initialize the agent on page load.
 			const fpPromise = import("https://fpjscdn.net/v3/0rxAhcHuxlcHFkPgvswg").then((FingerprintJS) =>
@@ -65,10 +66,196 @@
 				document.querySelector("#finger3").innerHTML = murmur;
 				console.log(murmur);
 			});
+			var Fingerprint = function (a) {
+				var b, c;
+				b = Array.prototype.forEach;
+				c = Array.prototype.map;
+				this.each = function (j, h, g) {
+					if (j === null) {
+						return;
+					}
+					if (b && j.forEach === b) {
+						j.forEach(h, g);
+					} else {
+						if (j.length === +j.length) {
+							for (var f = 0, d = j.length; f < d; f++) {
+								if (h.call(g, j[f], f, j) === {}) {
+									return;
+								}
+							}
+						} else {
+							for (var e in j) {
+								if (j.hasOwnProperty(e)) {
+									if (h.call(g, j[e], e, j) === {}) {
+										return;
+									}
+								}
+							}
+						}
+					}
+				};
+				this.map = function (g, f, e) {
+					var d = [];
+					if (g == null) {
+						return d;
+					}
+					if (c && g.map === c) {
+						return g.map(f, e);
+					}
+					this.each(g, function (j, h, i) {
+						d[d.length] = f.call(e, j, h, i);
+					});
+					return d;
+				};
+				if (typeof a == "object") {
+					this.hasher = a.hasher;
+					this.canvas = a.canvas;
+				} else {
+					if (typeof a == "function") {
+						this.hasher = a;
+					}
+				}
+			};
+			Fingerprint.prototype = {
+				get: function () {
+					var a = [];
+					a.push(navigator.userAgent);
+					a.push(navigator.language);
+					a.push(screen.colorDepth);
+					a.push(this.getScreenResolution().join("x"));
+					a.push(new Date().getTimezoneOffset());
+					a.push(this.hasSessionStorage());
+					a.push(this.hasLocalStorage());
+					a.push(this.hasIndexDb());
+					if (document.body) {
+						a.push(typeof document.body.addBehavior);
+					} else {
+						a.push(typeof undefined);
+					}
+					a.push(typeof window.openDatabase);
+					a.push(navigator.cpuClass);
+					a.push(navigator.platform);
+					a.push(navigator.doNotTrack);
+					a.push(this.getPluginsString());
+					if (this.canvas && this.isCanvasSupported()) {
+						a.push(this.getCanvasFingerprint());
+					}
+					if (this.hasher) {
+						return this.hasher(a.join("###"), 31);
+					} else {
+						return murmurhash3_32_gc(a.join("###"), 31);
+					}
+				},
+				hasLocalStorage: function () {
+					try {
+						return !!window.localStorage;
+					} catch (a) {
+						return true;
+					}
+				},
+				hasSessionStorage: function () {
+					try {
+						return !!window.sessionStorage;
+					} catch (a) {
+						return true;
+					}
+				},
+				hasIndexDb: function () {
+					try {
+						return !!window.indexedDB;
+					} catch (a) {
+						return true;
+					}
+				},
+				isCanvasSupported: function () {
+					var a = document.createElement("canvas");
+					return !!(a.getContext && a.getContext("2d"));
+				},
+				isIE: function () {
+					if (navigator.appName === "Microsoft Internet Explorer") {
+						return true;
+					} else {
+						if (navigator.appName === "Netscape" && /Trident/.test(navigator.userAgent)) {
+							return true;
+						}
+					}
+					return false;
+				},
+				getPluginsString: function () {
+					if (this.isIE()) {
+						return this.getIEPluginsString();
+					} else {
+						return this.getRegularPluginsString();
+					}
+				},
+				getRegularPluginsString: function () {
+					return this.map(
+						navigator.plugins,
+						function (b) {
+							var a = this.map(b, function (c) {
+								return [c.type, c.suffixes].join("~");
+							}).join(",");
+							return [b.name, b.description, a].join("::");
+						},
+						this
+					).join(";");
+				},
+				getIEPluginsString: function () {
+					if (window.ActiveXObject) {
+						var a = ["ShockwaveFlash.ShockwaveFlash", "AcroPDF.PDF", "PDF.PdfCtrl", "QuickTime.QuickTime", "rmocx.RealPlayer G2 Control", "rmocx.RealPlayer G2 Control.1", "RealPlayer.RealPlayer(tm) ActiveX Control (32-bit)", "RealVideo.RealVideo(tm) ActiveX Control (32-bit)", "RealPlayer", "SWCtl.SWCtl", "WMPlayer.OCX", "AgControl.AgControl", "Skype.Detection"];
+						return this.map(a, function (b) {
+							try {
+								new ActiveXObject(b);
+								return b;
+							} catch (c) {
+								return null;
+							}
+						}).join(";");
+					} else {
+						return "";
+					}
+				},
+				getScreenResolution: function () {
+					return screen.height > screen.width ? [screen.height, screen.width] : [screen.width, screen.height];
+				},
+				getCanvasFingerprint: function () {
+					var c = document.createElement("canvas");
+					var b = c.getContext("2d");
+					var a = "CANVAS_FINGERPRINT";
+					b.textBaseline = "top";
+					b.font = "14px 'Arial'";
+					b.textBaseline = "alphabetic";
+					b.fillStyle = "#f60";
+					b.fillRect(125, 1, 62, 20);
+					b.fillStyle = "#069";
+					b.fillText(a, 2, 15);
+					b.fillStyle = "rgba(102, 204, 0, 0.7)";
+					b.fillText(a, 4, 17);
+					return c.toDataURL();
+				}
+			};
+			var javaHashCode = function (string, K) {
+				var hash = 0;
+				if (string.length === 0) {
+					return hash;
+				}
+				for (var i = 0; i < string.length; i++) {
+					char = string.charCodeAt(i);
+					hash = K * ((hash << 5) - hash) + char;
+					hash = hash & hash;
+				}
+				return hash;
+			};
+
+			var fingerprint = new Fingerprint({ hasher: javaHashCode });
+			document.querySelector("#finger4").innerHTML = fingerprint.get();
+			console.log(fingerprint.get());
 		</script>
 
 		<script>
 			// v=2&mac=AQEAEQABABShctbBBgyvbHEwWXUy-hcL9HLy3mi5p4s.&dt=1697438961323
+			// v=2&ct=BQAOAAEBEPlLy57osHaE3LKLSGXo8taB0ElkF5-qdTyE-x0mXOhUxhW39Tv8iDT4Iq3kX75LtN0fpaBEUg9AhdMn4QNBQDe0qLFIyYf4Mw-5yTkq6UePMPizyk_jNrG_rqtr4bMERs9qYXI_RtVfr6x4GK6z4dhfRYLSJPAqCrlU2omNdrk6q-69AMSIzW2XWuPUfPPochBPJcgyelcQUmy2isU1fOzon-fS8UfqlYR-9fJ2NjrlgtzVHiK-RiA6sWVt1D0sLfkphaeA0p5W_2Q9AR7q_1ljBonFu36qW-RBDQCiYZRnfP6whBeMYR_ALIsJnnhN4feF_UjkwIUnvw5FpbmnANMKynUlys7AOZRjbAfg2J0y7NvlJ251kZlvn1tMApAsdgr1rez35pusn-8WKhRcx1UgZo5kgnEiYyvxfJlMxHhU2UqQDWlkh13DZGDh-IomQpZkay9ytJ8fiwWn7hm8G5owcuLvizt8oRrOYd1h-06ExXvjJhAJnYrVS9vBwB9JLkhQc025Bk0mrpWGOoKhNRuKGx9sngLljEDI76gVOpzL5jOcy1TK0EBav46ZppZRMzVt9Qm2xlYeauCum4gZr3peYa8uNh5f3wIuSDKFlX02S19IWRLKVw6FAMc_7X2kSSqH&bt=dbl&ch=AQEAEAABABRN1de0YRJiGw5GsQF4H1EeIOSYLOVcG9U.&mac=AQEAEAABABQABLopbkLRZwHKDsdPRasaJJUqOqCrAqQ.
+			// v=2&ct=BQAOAAEBEOlMnrdRjR9hbi-5mT5rETGBwADjIf8MEtwy6QI6hacvGfWX5hqXDd3DDzLs1gA9ryAH--qtu3_uQ4ubQBJxaj07sDDhl8DmEr-jIr1zxtYPdbtsPhVJIdKSGOcSKqf_AqNUPvIheYOnGcAwGm2lPrMOr5Yv7aCjaqWUlVpRJIPpkVsBxj_euMuIIIVO35rJRgLwucoo23GBAzf6uqMS3CFsKI8ABrHYazhJ8g4svQ6wNyzI5GXWd6_TjDx4jsGEl4vyfgsm9z-kRE84gGIfx4kPDTgdibsF5Bo6jgzZCFKNv38Ci2bLJ4EbVbmy_tuL5T4DD2gxGtud1oDCm11UHbBXwJJg08rWGct27BcadoXzYPrH1563phlGDOghm-mncgry-Iym-ObG_WZH9MB_spqbli4Vu1M7xpnwwMNkDhz76EKdZLNoBZbRiquHbCJrP2XJ-ZMMZgnqbCP19g5l80FFfr4RVQuDRZbc3e6jzTHleKWU5ZeQrCTowQGlrO_oWY-IR21acP88v-6L9XJpbC78pvveG0VKr91C8Dorq1joBbk0r1E4IDhHHW6kGMtFTpnpuQqMn3zefuuQ3yzTDDKZfQ7KdJbxlQHVpHqZhhSYihU.&bt=dbl&ch=AQEAEAABABRN1de0YRJiGw5GsQF4H1EeIOSYLOVcG9U.&mac=AQEAEAABABRxN9eaR_hBANUcq6zdZCzDU3w3W94ax9k.
 		</script>
 	</body>
 </html>

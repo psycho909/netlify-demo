@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
 		<!-- IOS safari處理 -->
 		<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
 		<!-- H5以外 -->
@@ -24,8 +24,8 @@
 		<!-- jQuery -->
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="assets/style/default.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 		<style>
 			h1 {
 				color: #c33;
@@ -45,7 +45,7 @@
 	<body>
 		<!-- wrapper -->
 		<div class="wrapper typeBG">
-			<h1>測試頁(不可雙擊縮放JS)</h1>
+			<h1>測試頁(不可雙擊縮放JS)2</h1>
 			<div class="box"></div>
 			<input type="text" />
 			<code>
@@ -62,5 +62,10 @@ document.addEventListener('touchend', (event) => {
 				>
 			</code>
 		</div>
+		<script>
+			var myElement = document.querySelector("body");
+			var hammertime = new Hammer(myElement);
+			hammertime.get("pinch").set({ enable: false });
+		</script>
 	</body>
 </html>

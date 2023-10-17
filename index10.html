@@ -84,7 +84,13 @@ document.addEventListener('touchend', (event) => {
 			var hammertime = new Hammer(myElement, {
 				touchAction: "pan-y"
 			});
-			hammertime.get("pinch").set({ enable: false });
+			var doubleTap = new Hammer.Tap({ event: "doubletap", taps: 2 });
+			hammertime.add([doubleTap]);
+			hammertime.on("tap  doubleTap pinch ", function (ev) {
+				console.log(ev.type);
+				document.querySelector(".box").innerHTML = ev.type;
+			});
+			// hammertime.get("pinch").set({ enable: false });
 		</script>
 	</body>
 </html>

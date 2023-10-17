@@ -25,6 +25,17 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 		<style>
+			html {
+				font-size: 768px;
+			}
+			@media screen and (max-width: 768px) {
+				html {
+					font-size: 100vw;
+				}
+			}
+			.wrapper {
+				font-size: calc(30 / 768 * 1rem);
+			}
 			h1 {
 				color: #c33;
 			}
@@ -32,8 +43,8 @@
 				margin: 5px 0;
 			}
 			.box {
-				width: 200px;
-				height: 200px;
+				width: calc(200 / 768 * 1rem);
+				height: calc(200 / 768 * 1rem);
 				background-color: #ccc;
 				border: 2px solid #333;
 			}
@@ -43,9 +54,10 @@
 	<body>
 		<!-- wrapper -->
 		<div class="wrapper typeBG">
-			<h1>測試頁(不可雙擊縮放JS)4</h1>
+			<h1>測試頁(不可雙擊縮放JS)5</h1>
 			<div class="box"></div>
 			<input type="text" />
+			<p>蘋果在今年6月的WWDC 23開發者大會上推出首款頭戴式裝置Vision Pro，可提供沉浸式的視覺體驗，由於其售價高達3499美元（約11.3萬新台幣），明年初上市後注定成為小眾產品，有消息指出蘋果計畫推出入門版Vision Pro，價格有望落在1500至2500美元之間（約4.8萬至8萬新台幣）。 根據外媒《彭博社》記者Mark Gurman報導，由於Vision Pro的定位屬於高階旗艦產品，即便具備許多創新功能，依舊很難打進一般大眾的主流市場，因此蘋果正在計畫開發一款入門版的Vision Pro，規格將會有所縮減，初步估計價格帶有望壓在1500至2500美元之間。</p>
 			<code>
 				<pre>
 let lastTouchEndTime = 0;
@@ -63,7 +75,7 @@ document.addEventListener('touchend', (event) => {
 		<script>
 			var myElement = document.querySelector("body");
 			var hammertime = new Hammer(myElement);
-			// hammertime.get("pinch").set({ enable: true });
+			hammertime.get("pinch").set({ enable: true });
 		</script>
 	</body>
 </html>

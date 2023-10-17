@@ -62,7 +62,7 @@
 		<!-- wrapper -->
 		<div class="wrapper typeBG">
 			<div id="myElement">雙擊我</div>
-			<h1>測試頁(不可雙擊縮放JS)8</h1>
+			<h1>8</h1>
 			<div class="box"></div>
 			<input type="text" />
 			<p>蘋果在今年6月的WWDC 23開發者大會上推出首款頭戴式裝置Vision Pro，可提供沉浸式的視覺體驗，由於其售價高達3499美元（約11.3萬新台幣），明年初上市後注定成為小眾產品，有消息指出蘋果計畫推出入門版Vision Pro，價格有望落在1500至2500美元之間（約4.8萬至8萬新台幣）。 根據外媒《彭博社》記者Mark Gurman報導，由於Vision Pro的定位屬於高階旗艦產品，即便具備許多創新功能，依舊很難打進一般大眾的主流市場，因此蘋果正在計畫開發一款入門版的Vision Pro，規格將會有所縮減，初步估計價格帶有望壓在1500至2500美元之間。</p>
@@ -91,9 +91,9 @@ document.addEventListener('touchend', (event) => {
 			var element = document.querySelector("body");
 
 			// 初始化 Hammer.js
-			var hammer = new Hammer(element, {
-				touchAction: "pan-y"
-			});
+			// var hammer = new Hammer(element, {
+			// 	touchAction: "pan-y"
+			// });
 
 			// 添加 doubletap 事件監聽器
 			// hammer.on("doubletap", function (event) {
@@ -103,43 +103,45 @@ document.addEventListener('touchend', (event) => {
 			// 	// 在這裡添加你想要執行的代碼
 			// });
 			// hammer.get("pinch").set({ enable: true });
-			var lastTapTime = 0;
-			var isTextSelected = false;
+			// var lastTapTime = 0;
+			// var isTextSelected = false;
 
-			element.addEventListener("touchstart", function () {
-				// 檢查是否有文本被選取
-				isTextSelected = window.getSelection().toString() !== "";
-			});
+			// element.addEventListener("touchstart", function () {
+			// 	console.log("touchstart");
+			// 	// 檢查是否有文本被選取
+			// 	isTextSelected = window.getSelection().toString() !== "";
+			// });
 
-			element.addEventListener("touchend", function (event) {
-				var currentTime = new Date().getTime();
-				var timeSinceLastTap = currentTime - lastTapTime;
+			// element.addEventListener("touchend", function (event) {
+			// 	var currentTime = new Date().getTime();
+			// 	var timeSinceLastTap = currentTime - lastTapTime;
+			// 	console.log("touchend");
+			// 	if (timeSinceLastTap < 300) {
+			// 		console.log("touchend 300");
+			// 		// 設定兩次點擊之間的時間間隔，這裡是300毫秒
+			// 		if (!isTextSelected) {
+			// 			// 模擬 doubletap 事件
+			// 			// event.preventDefault();
 
-				if (timeSinceLastTap < 300) {
-					// 設定兩次點擊之間的時間間隔，這裡是300毫秒
-					if (!isTextSelected) {
-						// 模擬 doubletap 事件
-						event.preventDefault();
+			// 			// 執行你的 doubletap 代碼
+			// 			console.log("模擬 doubletap 事件");
 
-						// 執行你的 doubletap 代碼
-						console.log("模擬 doubletap 事件");
+			// 			// 重置上一次點擊的時間
+			// 			lastTapTime = 0;
+			// 		}
+			// 	} else {
+			// 		lastTapTime = currentTime;
+			// 	}
+			// });
 
-						// 重置上一次點擊的時間
-						lastTapTime = 0;
-					}
-				} else {
-					lastTapTime = currentTime;
-				}
-			});
-
-			element.addEventListener("contextmenu", function (event) {
-				if (!isTextSelected) {
-					// 阻止長按事件（右鍵點擊）的默認行為，但只在文本未被選取時
-					event.preventDefault();
-					// 在這裡處理你的長按事件的代碼
-					console.log("長按事件");
-				}
-			});
+			// element.addEventListener("contextmenu", function (event) {
+			// 	if (!isTextSelected) {
+			// 		// 阻止長按事件（右鍵點擊）的默認行為，但只在文本未被選取時
+			// 		event.preventDefault();
+			// 		// 在這裡處理你的長按事件的代碼
+			// 		console.log("長按事件");
+			// 	}
+			// });
 		</script>
 	</body>
 </html>

@@ -55,6 +55,7 @@
 	<body>
 		<!-- wrapper -->
 		<div class="wrapper typeBG">
+			<div id="myElement">雙擊我</div>
 			<h1>測試頁(不可雙擊縮放JS)8</h1>
 			<div class="box"></div>
 			<input type="text" />
@@ -80,17 +81,29 @@ document.addEventListener('touchend', (event) => {
 			</code>
 		</div>
 		<script>
-			var myElement = document.querySelector("body");
-			var hammertime = new Hammer(myElement, {
-				touchAction: "pan-y"
+			// 找到要綁定 Hammer.js 的 HTML 元素
+			var element = document.querySelector("body");
+
+			// 初始化 Hammer.js
+			var hammer = new Hammer(element);
+
+			// 添加 doubletap 事件監聽器
+			hammer.on("doubletap", function (event) {
+				console.log("觸發了 doubletap 事件");
+				// 在這裡添加你想要執行的代碼
 			});
-			var doubleTap = new Hammer.Tap({ event: "doubletap", taps: 2 });
-			hammertime.add([doubleTap]);
-			hammertime.on("tap  doubleTap pinch ", function (ev) {
-				console.log(ev.type);
-				document.querySelector(".box").innerHTML = ev.type;
-			});
-			// hammertime.get("pinch").set({ enable: false });
+			hammer.get("pinch").set({ enable: true });
+			// var myElement = document.querySelector("body");
+			// var hammertime = new Hammer(myElement, {
+			// 	touchAction: "pan-y"
+			// });
+			// // var doubleTap = new Hammer.Tap({ event: "doubletap", taps: 2 });
+			// // hammertime.add([doubleTap]);
+			// hammertime.on("tap  doubleTap pinch ", function (ev) {
+			// 	console.log(ev.type);
+			// 	document.querySelector(".box").innerHTML = ev.type;
+			// });
+			// hammertime.get("pinch").set({ enable: true });
 		</script>
 	</body>
 </html>

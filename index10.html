@@ -85,10 +85,14 @@ document.addEventListener('touchend', (event) => {
 			var element = document.querySelector("body");
 
 			// 初始化 Hammer.js
-			var hammer = new Hammer(element);
+			var hammer = new Hammer(element, {
+				touchAction: "pan-y"
+			});
 
 			// 添加 doubletap 事件監聽器
 			hammer.on("doubletap", function (event) {
+				document.querySelector(".box").innerHTML = event.type;
+				event.preventDefault();
 				console.log("觸發了 doubletap 事件");
 				// 在這裡添加你想要執行的代碼
 			});

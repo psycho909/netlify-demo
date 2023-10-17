@@ -104,6 +104,12 @@ document.addEventListener('touchend', (event) => {
 			});
 			hammer.get("pinch").set({ enable: true });
 			var lastTapTime = 0;
+			var isTextSelected = false;
+
+			element.addEventListener("touchstart", function () {
+				// 檢查是否有文本被選取
+				isTextSelected = window.getSelection().toString() !== "";
+			});
 
 			element.addEventListener("touchend", function (event) {
 				var currentTime = new Date().getTime();
@@ -111,7 +117,7 @@ document.addEventListener('touchend', (event) => {
 
 				if (timeSinceLastTap < 300) {
 					// 設定兩次點擊之間的時間間隔，這裡是300毫秒
-					if (event.target.tagName.toLowerCase() !== "input") {
+					if (!isTextSelected) {
 						// 模擬 doubletap 事件
 						event.preventDefault();
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width" />
+		<!-- IOS safari處理 -->
+		<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
+		<!-- H5以外 -->
+		<meta name="open-default-browser" content="true" />
+		<!-- meta -->
+		<title>測試頁(不可雙擊縮放JS)</title>
+		<meta name="description" content="" />
+		<!--社群-->
+		<meta property="og:title" content="index" />
+		<meta property="og:description" content="" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="" />
+		<meta property="og:image" content="" />
+		<!-- https://tw.hicdn.beanfun.com/beanfun/promo/ -->
+		<meta name="theme-color" content="#ff8201" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="assets/style/default.css" />
+		<style>
+			h1 {
+				color: #c33;
+			}
+			input {
+				margin: 5px 0;
+			}
+			.box {
+				width: 200px;
+				height: 200px;
+				background-color: #ccc;
+				border: 2px solid #333;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- wrapper -->
+		<div class="wrapper typeBG">
+			<h1>測試頁(不可雙擊縮放JS)</h1>
+			<div class="box"></div>
+			<input type="text" />
+			<code>
+				<pre>
+let lastTouchEndTime = 0;
+document.addEventListener('touchend', (event) => {
+  const now = new Date().getTime();
+  if((now - lastTouchEndTime) <= 300) {      // 偵測時間差是否小於 300ms
+    event.preventDefault();
+  }
+  lastTouchEndTime = now;
+}, false);
+            </pre
+				>
+			</code>
+		</div>
+	</body>
+</html>

@@ -111,14 +111,16 @@ document.addEventListener('touchend', (event) => {
 
 				if (timeSinceLastTap < 300) {
 					// 設定兩次點擊之間的時間間隔，這裡是300毫秒
-					// 模擬 doubletap 事件
-					event.preventDefault();
+					if (event.target.tagName.toLowerCase() !== "input") {
+						// 模擬 doubletap 事件
+						event.preventDefault();
 
-					// 執行你的 doubletap 代碼
-					console.log("模擬 doubletap 事件");
+						// 執行你的 doubletap 代碼
+						console.log("模擬 doubletap 事件");
 
-					// 重置上一次點擊的時間
-					lastTapTime = 0;
+						// 重置上一次點擊的時間
+						lastTapTime = 0;
+					}
 				} else {
 					lastTapTime = currentTime;
 				}

@@ -92,9 +92,12 @@ document.addEventListener('touchend', (event) => {
 
 			// 初始化 Hammer.js
 			var hammer = new Hammer(element, {
-				touchAction: "pan-y"
+				touchAction: "pan-y",
+				cssProps: {
+					userSelect: "auto"
+				}
 			});
-			delete Hammer.defaults.cssProps.userSelect;
+			// delete Hammer.defaults.cssProps.userSelect;
 			// 添加 doubletap 事件監聽器
 			// hammer.on("doubletap", function (event) {
 			// 	document.querySelector(".box").innerHTML = event.type;

@@ -96,13 +96,13 @@ document.addEventListener('touchend', (event) => {
 			});
 
 			// 添加 doubletap 事件監聽器
-			hammer.on("doubletap", function (event) {
-				document.querySelector(".box").innerHTML = event.type;
-				event.preventDefault();
-				console.log("觸發了 doubletap 事件");
-				// 在這裡添加你想要執行的代碼
-			});
-			hammer.get("pinch").set({ enable: true });
+			// hammer.on("doubletap", function (event) {
+			// 	document.querySelector(".box").innerHTML = event.type;
+			// 	event.preventDefault();
+			// 	console.log("觸發了 doubletap 事件");
+			// 	// 在這裡添加你想要執行的代碼
+			// });
+			// hammer.get("pinch").set({ enable: true });
 			var lastTapTime = 0;
 			var isTextSelected = false;
 

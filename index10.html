@@ -103,45 +103,45 @@ document.addEventListener('touchend', (event) => {
 			// 	// 在這裡添加你想要執行的代碼
 			// });
 			// hammer.get("pinch").set({ enable: true });
-			// var lastTapTime = 0;
-			// var isTextSelected = false;
+			var lastTapTime = 0;
+			var isTextSelected = false;
 
-			// element.addEventListener("touchstart", function () {
-			// 	console.log("touchstart");
-			// 	// 檢查是否有文本被選取
-			// 	isTextSelected = window.getSelection().toString() !== "";
-			// });
+			element.addEventListener("touchstart", function () {
+				console.log("touchstart");
+				// 檢查是否有文本被選取
+				isTextSelected = window.getSelection().toString() !== "";
+			});
 
-			// element.addEventListener("touchend", function (event) {
-			// 	var currentTime = new Date().getTime();
-			// 	var timeSinceLastTap = currentTime - lastTapTime;
-			// 	console.log("touchend");
-			// 	if (timeSinceLastTap < 300) {
-			// 		console.log("touchend 300");
-			// 		// 設定兩次點擊之間的時間間隔，這裡是300毫秒
-			// 		if (!isTextSelected) {
-			// 			// 模擬 doubletap 事件
-			// 			// event.preventDefault();
+			element.addEventListener("touchend", function (event) {
+				var currentTime = new Date().getTime();
+				var timeSinceLastTap = currentTime - lastTapTime;
+				console.log("touchend");
+				if (timeSinceLastTap < 300) {
+					console.log("touchend 300");
+					// 設定兩次點擊之間的時間間隔，這裡是300毫秒
+					if (!isTextSelected) {
+						// 模擬 doubletap 事件
+						// event.preventDefault();
 
-			// 			// 執行你的 doubletap 代碼
-			// 			console.log("模擬 doubletap 事件");
+						// 執行你的 doubletap 代碼
+						console.log("模擬 doubletap 事件");
 
-			// 			// 重置上一次點擊的時間
-			// 			lastTapTime = 0;
-			// 		}
-			// 	} else {
-			// 		lastTapTime = currentTime;
-			// 	}
-			// });
+						// 重置上一次點擊的時間
+						lastTapTime = 0;
+					}
+				} else {
+					lastTapTime = currentTime;
+				}
+			});
 
-			// element.addEventListener("contextmenu", function (event) {
-			// 	if (!isTextSelected) {
-			// 		// 阻止長按事件（右鍵點擊）的默認行為，但只在文本未被選取時
-			// 		event.preventDefault();
-			// 		// 在這裡處理你的長按事件的代碼
-			// 		console.log("長按事件");
-			// 	}
-			// });
+			element.addEventListener("contextmenu", function (event) {
+				if (!isTextSelected) {
+					// 阻止長按事件（右鍵點擊）的默認行為，但只在文本未被選取時
+					event.preventDefault();
+					// 在這裡處理你的長按事件的代碼
+					console.log("長按事件");
+				}
+			});
 		</script>
 	</body>
 </html>

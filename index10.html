@@ -97,17 +97,26 @@ document.addEventListener('touchend', (event) => {
 				// 在這裡添加你想要執行的代碼
 			});
 			hammer.get("pinch").set({ enable: true });
-			// var myElement = document.querySelector("body");
-			// var hammertime = new Hammer(myElement, {
-			// 	touchAction: "pan-y"
-			// });
-			// // var doubleTap = new Hammer.Tap({ event: "doubletap", taps: 2 });
-			// // hammertime.add([doubleTap]);
-			// hammertime.on("tap  doubleTap pinch ", function (ev) {
-			// 	console.log(ev.type);
-			// 	document.querySelector(".box").innerHTML = ev.type;
-			// });
-			// hammertime.get("pinch").set({ enable: true });
+			var lastTapTime = 0;
+
+			element.addEventListener("touchend", function (event) {
+				var currentTime = new Date().getTime();
+				var timeSinceLastTap = currentTime - lastTapTime;
+
+				if (timeSinceLastTap < 300) {
+					// 設定兩次點擊之間的時間間隔，這裡是300毫秒
+					// 模擬 doubletap 事件
+					event.preventDefault();
+
+					// 執行你的 doubletap 代碼
+					console.log("模擬 doubletap 事件");
+
+					// 重置上一次點擊的時間
+					lastTapTime = 0;
+				} else {
+					lastTapTime = currentTime;
+				}
+			});
 		</script>
 	</body>
 </html>

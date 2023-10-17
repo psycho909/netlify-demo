@@ -91,10 +91,10 @@ document.addEventListener('touchend', (event) => {
 			var element = document.querySelector("body");
 
 			// 初始化 Hammer.js
-			// var hammer = new Hammer(element, {
-			// 	touchAction: "pan-y"
-			// });
-
+			var hammer = new Hammer(element, {
+				touchAction: "pan-y"
+			});
+			delete Hammer.defaults.cssProps.userSelect;
 			// 添加 doubletap 事件監聽器
 			// hammer.on("doubletap", function (event) {
 			// 	document.querySelector(".box").innerHTML = event.type;

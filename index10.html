@@ -45,7 +45,7 @@
 	<body>
 		<!-- wrapper -->
 		<div class="wrapper typeBG">
-			<h1>測試頁(不可雙擊縮放JS)2</h1>
+			<h1>測試頁(不可雙擊縮放JS)3</h1>
 			<div class="box"></div>
 			<input type="text" />
 			<code>
@@ -65,7 +65,7 @@ document.addEventListener('touchend', (event) => {
 		<script>
 			var myElement = document.querySelector("body");
 			var hammertime = new Hammer(myElement);
-			hammertime.get("pinch").set({ enable: false });
+			hammertime.get("pinch").set({ enable: true });
 		</script>
 	</body>
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
+
+		<!-- IOS safari處理 -->
+		<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
+		<!-- H5以外 -->
+		<meta name="open-default-browser" content="true" />
+		<!-- meta -->
+		<title>測試頁(不可雙擊縮放JS)</title>
+		<meta name="description" content="" />
+		<!--社群-->
+		<meta property="og:title" content="index" />
+		<meta property="og:description" content="" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="" />
+		<meta property="og:image" content="" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="theme-color" content="#ff8201" />
+		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<style>
+			h1 {
+				color: #c33;
+			}
+			input {
+				margin: 5px 0;
+			}
+			.box {
+				width: 200px;
+				height: 200px;
+				background-color: #ccc;
+				border: 2px solid #333;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- wrapper -->
+		<div class="wrapper typeBG">
+			<h1>測試頁(不可雙擊縮放JS-時間控制 false)</h1>
+			<div class="box"></div>
+			<input type="text" />
+			<code>
+				<pre>
+let lastTouchEndTime = 0;
+document.addEventListener('touchend', (event) => {
+const now = new Date().getTime();
+if((now - lastTouchEndTime) <= 300) {      // 偵測時間差是否小於 300ms
+event.preventDefault();
+}
+lastTouchEndTime = now;
+}, { passive: false }); // false !important
+		</pre
+				>
+			</code>
+		</div>
+		<script>
+			// 找到要綁定 Hammer.js 的 HTML 元素
+			var element = document.querySelector("body");
+
+			// 初始化 Hammer.js
+			var hammer = new Hammer(element, {
+				touchAction: "pan-y",
+				cssProps: {
+					userSelect: "text"
+				}
+			});
+			let lastTouchEndTime = 0;
+			document.addEventListener(
+				"touchend",
+				(event) => {
+					const now = new Date().getTime();
+					if (now - lastTouchEndTime <= 300) {
+						// 偵測時間差是否小於 300ms
+						event.preventDefault();
+					}
+					lastTouchEndTime = now;
+				},
+				false
+			);
+		</script>
+	</body>
+</html>

@@ -51,7 +51,8 @@
 			Your browser does not support the video tag.
 		</video>
 
-		<a href="https://www.w3schools.com/html/mov_bbb.mp4" download>Download Video</a>
+	<a href="https://www.example.com/your_video.mp4" onclick="downloadVideo()">Download Video</a>
+
 		<form class="wrapper">
 			<input type="text" id="input" autocomplete="one-time-code" maxlength="6" placeholder="我有autocomplete" />
 			<input type="text" maxlength="6" placeholder="我沒有autocomplete" />
@@ -70,6 +71,14 @@
 		</form>
 
 		<script>
+			function downloadVideo() {
+  var link = document.createElement('a');
+  link.href = 'https://www.w3schools.com/html/mov_bbb.mp4';
+  link.download = 'your_video.mp4';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 			var vConsole = new VConsole();
 			/*************************** 輸入簡訊驗證碼 ***************************/
 			if (navigator.credentials) {

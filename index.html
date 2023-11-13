@@ -46,13 +46,9 @@
 		</style>
 	</head>
 	<body>
-				<video controls width="400">
-			<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-			Your browser does not support the video tag.
-		</video>
-
-	<a href="https://www.w3schools.com/html/mov_bbb.mp4" onclick="downloadVideo()">Download Video1</a>
-<a href="javascript:;" onclick="downloadVideo()">Download Video2</a>
+		<iframe id="downloadFrame" style="display: none"></iframe>
+		<a href="https://www.w3schools.com/html/mov_bbb.mp4" download="video">Download Video</a>
+		<button onclick="downloadVideo()">Download Video</button>
 		<form class="wrapper">
 			<input type="text" id="input" autocomplete="one-time-code" maxlength="6" placeholder="我有autocomplete" />
 			<input type="text" maxlength="6" placeholder="我沒有autocomplete" />
@@ -71,14 +67,41 @@
 		</form>
 
 		<script>
+			function downloadFileFromURL(url, fileName) {
+				fetch(url)
+					.then((response) => response.blob())
+					.then((blob) => {
+						const link = document.createElement("a");
+						link.href = URL.createObjectURL(blob);
+						link.download = fileName;
+						link.click();
+					})
+					.catch((error) => console.error("Error downloading file:", error));
+			}
+
+			// Usage
+			// downloadFileFromURL("https://www.w3schools.com/html/mov_bbb.mp4", "desired_file_name.extension");
 			function downloadVideo() {
-  var link = document.createElement('a');
-  link.href = 'https://www.w3schools.com/html/mov_bbb.mp4';
-  link.download = 'your_video.mp4';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
+				downloadFileFromURL("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg2.mp4", "video");
+				// var url = "https://www.w3schools.com/html/mov_bbb.mp4";
+				// var fileName = "your_video.mp4"; // 可以更改为你想要的文件名
+
+				// var link = document.createElement("a");
+				// link.href = url;
+				// link.download = fileName;
+
+				// // 兼容性处理，尝试使用click事件触发下载
+				// if (document.body) {
+				// 	document.body.appendChild(link);
+				// 	link.click();
+				// 	document.body.removeChild(link);
+				// } else {
+				// 	// 在没有body的情况下，将链接添加到documentElement中
+				// 	document.documentElement.appendChild(link);
+				// 	link.click();
+				// 	document.documentElement.removeChild(link);
+				// }
+			}
 			var vConsole = new VConsole();
 			/*************************** 輸入簡訊驗證碼 ***************************/
 			if (navigator.credentials) {

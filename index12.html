@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="text" id="copy" />
+		<a href="javascript:;" id="btn">複製</a>
+		<script>
+			let InvitationCode = document.getElementById("copy");
+			let copyInvitationCode = () => {
+				let text = InvitationCode.value;
+				if (text) {
+					navigator.clipboard
+						.writeText(text)
+						.then(() => {
+							alert("邀請碼已複製");
+						})
+						.catch((err) => {
+							console.error("Failed to copy text: ", err);
+						});
+				}
+			};
+			document.getElementById("btn").addEventListener("click", copyInvitationCode);
+		</script>
+	</body>
+</html>

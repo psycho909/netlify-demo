@@ -17,6 +17,7 @@
 		<!-- 1200x628 -->
 		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/images/og-image.jpg" />
 		<title>《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 	</head>
 	<body>
 		<input type="text" id="copy" />
@@ -56,8 +57,20 @@
 				let fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx`;
 				window.open(fbShareLink);
 			}
+
+			function fbShare() {
+				var url = `https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx`;
+				var t = "";
+				if (isMobile.any) {
+					var winRef = window.open(url, "_blank");
+					var fbHtml_url = window.location.toString();
+					winRef.location = "http://www.facebook.com/sharer/sharer.php?u=" + fbHtml_url;
+				} else {
+					window.open("http://www.facebook.com/sharer.php?u=" + encodeURIComponent(url) + "&t=" + encodeURIComponent(t), "sharer", "toolbar=0,status=0,width=626,height=436");
+				}
+			}
 			document.querySelector("#share").addEventListener("click", share);
-			document.querySelector("#shareFB").addEventListener("click", shareFB);
+			document.querySelector("#shareFB").addEventListener("click", fbShare);
 		</script>
 	</body>
 </html>

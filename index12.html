@@ -9,6 +9,8 @@
 		<input type="text" id="copy" />
 		<a href="javascript:;" id="btn">複製</a>
 		<a href="https://www.aiprm.com/" target="_blank">連結</a>
+		<a href="https://twitter.com/intent/tweet?text=《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！&url=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx">分享X</a>
+		<a href=" javascript:;" id="share">origin分享</a>
 		<script>
 			let InvitationCode = document.getElementById("copy");
 			let copyInvitationCode = () => {
@@ -25,6 +27,17 @@
 				}
 			};
 			document.getElementById("btn").addEventListener("click", copyInvitationCode);
+
+			function share() {
+				// 使用navigator.share()
+				navigator.share({
+					title: "《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！",
+					text: "《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！",
+					url: "https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx"
+				});
+			}
+
+			document.querySelector("#share").addEventListener("click", share);
 		</script>
 	</body>
 </html>

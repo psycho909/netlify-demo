@@ -25,7 +25,10 @@
 		<a href="https://www.aiprm.com/" target="_blank">連結</a>
 		<a href="https://twitter.com/intent/tweet?text=《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！&url=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx">分享X</a>
 		<a href="https://social-plugins.line.me/lineit/share?url=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx&text=新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！">分享Line</a>
-		<a href="javascript:;" id="shareFB">分享FB</a>
+		<a href="javascript:;" id="shareFB">分享FB1</a>
+		<a href="https://www.facebook.com/sharer/sharer.php?u=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx">分享FB1-1</a>
+		<a href="javascript:;" id="fbapp">分享FB APP</a>
+		<a href="https://www.facebook.com/share.php?u=https%3A%2F%2Fdev.to%2Fcoderbiozed%2Fgeographical-demand-data-extraction-web-automation-and-efficient-data-handling-with-python-selenium-and-beautifulsoup-1a97&title=%22Geographical%20Demand%20Data%20Extraction%3A%20Web%20Automation%20and%20Efficient%20Data%20Handling%20with%20Python%2C%20Selenium%2C%20and%20BeautifulSoup%22%20%F0%9F%9A%80%E2%9C%A8%E2%80%9C%E5%9C%B0%E7%90%86%E9%9C%80%E6%B1%82%E6%95%B8%E6%93%9A%E6%8F%90%E5%8F%96%EF%BC%9A%E4%BD%BF%E7%94%A8%20Python%E3%80%81Selenium%20%E5%92%8C%20BeautifulSoup%20%E5%AF%A6%E7%8F%BE%20Web%20%E8%87%AA%E5%8B%95%E5%8C%96%E5%92%8C%E9%AB%98%E6%95%88%E6%95%B8%E6%93%9A%E8%99%95%E7%90%86%E2%80%9D%20%F0%9F%9A%80%E2%9C%A8">分享FB2</a>
 		<a href=" javascript:;" id="share">origin分享</a>
 		<script>
 			let InvitationCode = document.getElementById("copy");
@@ -64,13 +67,27 @@
 				if (isMobile.any) {
 					var winRef = window.open(url, "_blank");
 					var fbHtml_url = window.location.toString();
-					winRef.location = "http://www.facebook.com/sharer/sharer.php?u=" + fbHtml_url;
+					winRef.location = "http://www.facebook.com/sharer/sharer.php?u=" + url;
 				} else {
-					window.open("http://www.facebook.com/sharer.php?u=" + encodeURIComponent(url) + "&t=" + encodeURIComponent(t), "sharer", "toolbar=0,status=0,width=626,height=436");
+					window.open("http://www.facebook.com/sharer.php?u=" + encodeURIComponent(url), "sharer", "toolbar=0,status=0,width=626,height=436");
 				}
 			}
+			function shareOnFacebookApp() {
+				var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+				var url = "fb://share/?text=Check%20out%20this%20link:&href=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx";
+
+				if (isMobile) {
+					window.location.href = url; // Redirect to Facebook APP for sharing
+				} else {
+					// If not on a mobile device, open the regular sharer.php URL
+					var webUrl = "https://www.facebook.com/sharer/sharer.php?u=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx";
+					window.open(webUrl, "_blank", "width=600,height=400");
+				}
+			}
+
 			document.querySelector("#share").addEventListener("click", share);
 			document.querySelector("#shareFB").addEventListener("click", fbShare);
+			document.querySelector("#fbapp").addEventListener("click", shareOnFacebookApp);
 		</script>
 	</body>
 </html>

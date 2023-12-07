@@ -23,6 +23,8 @@
 		<a href="javascript:;" id="btn">複製</a>
 		<a href="https://www.aiprm.com/" target="_blank">連結</a>
 		<a href="https://twitter.com/intent/tweet?text=《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！&url=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx">分享X</a>
+		<a href="https://social-plugins.line.me/lineit/share?url=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx&text=新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！">分享Line</a>
+		<a href="javascript:;" id="shareFB">分享FB</a>
 		<a href=" javascript:;" id="share">origin分享</a>
 		<script>
 			let InvitationCode = document.getElementById("copy");
@@ -49,8 +51,13 @@
 					url: "https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx"
 				});
 			}
-
+			function shareFB() {
+				let encodeURIComponent = window.encodeURIComponent;
+				let fbShareLink = `https://www.facebook.com/sharer/sharer.php?u=https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx`;
+				window.open(fbShareLink);
+			}
 			document.querySelector("#share").addEventListener("click", share);
+			document.querySelector("#shareFB").addEventListener("click", shareFB);
 		</script>
 	</body>
 </html>

@@ -1,0 +1,193 @@
+.livestream {
+	padding-top: vw2(102px);
+	margin-bottom: vw2(68px);
+	@include media {
+		padding-top: vw(320);
+		margin-bottom: vw(120);
+	}
+	&-content {
+		padding: 0 vw2(160px);
+		display: flex;
+		flex-direction: column;
+		column-gap: vw2(32px);
+		font-size: vw2(40px);
+		@include media {
+			font-size: vw(38);
+			padding: 0 vw(48);
+			column-gap: vw(32);
+		}
+	}
+}
+.live {
+	&-section {
+		position: relative;
+		z-index: 1;
+	}
+	&-logo {
+		display: none;
+		@include media {
+			width: vw(118);
+			height: vw(58);
+			background-size: 100%;
+			background-image: url("./images/logo.png");
+			position: absolute;
+			top: vw(118);
+			left: vw(30);
+			display: block;
+			font-size: 0;
+		}
+	}
+	&-box {
+		width: vw2(994px);
+		margin: 0 auto;
+		background-color: rgba(#110025, 0.5);
+		border-radius: vw2(14px);
+		box-shadow: inset 0 0 vw2(32px) rgba(#000000, 0.34), 0 0 vw2(6px) rgba(#dda8ff, 0.55), 0 0 vw2(12px) rgba(#dda8ff, 0.55);
+		padding: vw2(32px);
+		color: #b8f9ff;
+		margin-bottom: vw2(68px);
+		&:last-child {
+			margin-bottom: 0;
+		}
+		@include media {
+			width: vw(740);
+			border-radius: vw(14);
+			box-shadow: inset 0 0 vw(32px) rgba(#000000, 0.34), 0 0 vw(6px) rgba(#dda8ff, 0.55), 0 0 vw(12px) rgba(#dda8ff, 0.55);
+			padding: vw(32) vw(18);
+			margin-bottom: vw(362);
+		}
+	}
+	&-screen {
+		aspect-ratio: 16/9;
+		// margin-bottom: vw2(26px);
+		position: relative;
+		// background-color: #000;
+		@include media {
+			// margin-bottom: vw(26);
+		}
+		img {
+			max-width: 100%;
+		}
+		iframe {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	&-btn-group {
+		position: relative;
+		margin-bottom: vw2(28px);
+		@include media {
+			margin-bottom: vw(36);
+		}
+		.g-calendar {
+			width: vw2(76);
+			height: vw2(79);
+			background-size: 200%;
+			background-image: url("./images/live/g-calendar.png");
+
+			cursor: pointer;
+			font-size: 0;
+			display: block;
+			margin: 0 auto;
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				width: vw(76);
+				height: vw(79);
+				background-image: url("./images/live/m-g-calendar.png");
+				background-size: cover;
+			}
+			.btn-calender {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+}
+
+.buy {
+	margin-bottom: vw2(24px);
+	@include media {
+		margin-bottom: vw(100);
+	}
+	&-content {
+		font-size: vw2(30px);
+		display: flex;
+		flex-direction: column;
+		column-gap: vw2(42px);
+		margin-bottom: vw2(18px);
+		padding: 0 vw2(36px);
+		@include media {
+			font-size: vw(30);
+			column-gap: vw(40);
+			margin-bottom: vw(26);
+			padding: 0 vw(12);
+		}
+		&__text {
+			margin-bottom: vw2(42px);
+			@include media {
+				margin-bottom: vw(42);
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+.btn-watch {
+	width: vw2(349px);
+	height: vw2(100px);
+	background-size: 200%;
+	background-image: url("./images/live/btn-live.png");
+	background-repeat: no-repeat;
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	font-size: 0;
+	& + .g-calendar {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin-left: vw2(224px);
+		margin-top: vw2(-4px);
+		@include media {
+			margin-left: vw(224px);
+			margin-top: vw(-4px);
+		}
+	}
+	@include hover {
+		background-position-x: 100%;
+	}
+	@include media {
+		width: vw(339);
+		height: vw(92);
+		background-image: url("./images/live/m-btn-live.png");
+		background-size: cover;
+	}
+}
+.btn-buy {
+	width: vw2(349px);
+	height: vw2(100px);
+	background-size: 200%;
+	background-image: url("./images/live/btn-buy.png");
+	background-repeat: no-repeat;
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	font-size: 0;
+	@include hover {
+		background-position-x: 100%;
+	}
+	@include media {
+		width: vw(338);
+		height: vw(92);
+		background-size: cover;
+		background-image: url("./images/live/m-btn-buy.png");
+	}
+}

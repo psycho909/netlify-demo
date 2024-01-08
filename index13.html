@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head runat="server">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="description" content="最強改版來襲，六轉系統強大開放！超豐富新故事內容、新地圖，New Age全新六轉等你來探索！" />
+		<!-- 除了H5活動頁以外都要加上 -->
+		<meta name="open-default-browser" content="true" />
+
+		<!-- fb meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！" />
+		<meta property="og:description" content="最強改版來襲，六轉系統強大開放！超豐富新故事內容、新地圖，New Age全新六轉等你來探索！" />
+		<!-- Safari 數字過常會變成可撥打電話 -->
+		<meta name="format-detection" content="telephone=no" />
+		<!-- 1200x628 -->
+		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/images/og-image.jpg" />
+
+		<title>《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！</title>
+		<!-- CSS -->
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/nice-select/nice-select.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<link rel="stylesheet" href="./assets/css/default.css" />
+
+		<!-- JS -->
+		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.11.5/gsap.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/nice-select/nice-select.js"></script>
+		<!-- 開發用 -->
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script> -->
+		<!-- 正式用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.prod.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/4.1.0/vuex.global.min.js"></script>
+	</head>
+	<body>
+		<form id="form1" runat="server">
+			<div id="app">
+				<anim></anim>
+				<topbar>
+					<template v-if="imgloading">
+						<a href="javascript:;" class="top-bar__icon icon-login" @click="LoginBtn" v-if="!login" v-cloak>登入</a>
+						<a href="javascript:;" class="top-bar__icon icon-logout" @click="LogoutBtn" :class="[login?'show':'']" v-else v-cloak>登出</a>
+					</template>
+				</topbar>
+				<template v-if="imgloading">
+					<leftbar :status="status">
+						<a href="javascript:;" class="left-bar__item" data-page="6" @click="targetPage('part2')">新版本資訊</a>
+						<a href="javascript:;" class="left-bar__item" data-page="5" @click="targetPage('event')">極刻六轉</a>
+						<a href="javascript:;" class="left-bar__item" data-page="7" @click="targetPage('part3')">全民六轉</a>
+						<a href="./Tutorial.aspx" class="left-bar__item" data-page="4">帳號申請安裝教學</a>
+						<template v-slot:lg>
+							<a href="javascript:;" class="top-bar__icon icon-login" @click="LoginBtn" v-if="!login" v-cloak>登入</a>
+							<a href="javascript:;" class="top-bar__icon icon-logout" @click="LogoutBtn" :class="[login?'show':'']" v-else v-cloak>登出</a>
+						</template>
+					</leftbar>
+				</template>
+				<!-- 手機預約 -->
+				<part3-main></part3-main>
+			</div>
+		</form>
+		<!-- footer -->
+		<script type="module" src="./js/default.js"></script>
+	</body>
+</html>

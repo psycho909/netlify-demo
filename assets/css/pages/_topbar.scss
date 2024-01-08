@@ -1,0 +1,101 @@
+.top-bar {
+	background-color: rgba(#110025, 0.5);
+	display: flex;
+	padding: vw2(8px) vw2(26px);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	width: 100%;
+	@include media {
+		display: none;
+	}
+	&__logo {
+		width: vw2(126px);
+		height: vw2(61px);
+		background-image: url("./images/logo.png");
+		background-size: cover;
+	}
+	&__icon {
+		width: vw2(63px);
+		height: vw2(63px);
+		background-size: 200%;
+		@include hover {
+			background-position-x: -100%;
+		}
+		@include media {
+			width: vw(63);
+			height: vw(63);
+			background-position-x: -100%;
+		}
+	}
+}
+.icon {
+	&-group {
+		display: flex;
+		column-gap: vw2(44px);
+		margin-left: auto;
+		align-items: center;
+	}
+	&-login,
+	&-logout {
+		font-size: vw2(30px);
+		color: #ffffff;
+		width: vw2(130px);
+		height: vw2(56px);
+		border: vw2(2px) solid #ffffff;
+		text-decoration: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: vw2(14);
+		opacity: 0.45;
+		@include hover {
+			opacity: 0.7;
+			box-shadow: 0 0 vw2(2px) #1975ff, 0 0 vw2(8px) #1975ff, 0 0 vw2(12px) #1975ff;
+		}
+		@include media {
+			width: vw(270);
+			height: vw(57);
+			border: vw(2) solid #ffffff;
+			border-radius: vw(14);
+			box-shadow: 0 0 vw(2px) #1975ff, 0 0 vw(8px) #1975ff, 0 0 vw(12px) #1975ff;
+			font-size: vw(30);
+			margin-left: vw(77);
+			margin-bottom: vw(32);
+		}
+	}
+	&-logout {
+		display: none;
+		&.show {
+			display: flex;
+		}
+	}
+	&-home {
+		background-image: url("./images/icon-home.png");
+		@include hover {
+			filter: drop-shadow(0 0 vw2(2px) #b119ff) drop-shadow(0 0 vw2(10px) #b119ff);
+		}
+		@include media {
+			filter: drop-shadow(0 0 vw(2) #b119ff) drop-shadow(0 0 vw(10) #b119ff);
+		}
+	}
+	&-yt {
+		background-image: url("./images/icon-yt.png");
+		@include hover {
+			filter: drop-shadow(0 0 vw2(2px) #ff1990) drop-shadow(0 0 vw2(10px) #ff1990);
+		}
+		@include media {
+			filter: drop-shadow(0 0 vw(2) #ff1990) drop-shadow(0 0 vw(10) #ff1990);
+		}
+	}
+	&-f {
+		background-image: url("./images/icon-f.png");
+		@include hover {
+			filter: drop-shadow(0 0 vw2(2px) #1985ff) drop-shadow(0 0 vw2(10px) #1985ff);
+		}
+		@include media {
+			filter: drop-shadow(0 0 vw(2) #1985ff) drop-shadow(0 0 vw(10) #1985ff);
+		}
+	}
+}

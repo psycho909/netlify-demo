@@ -1,0 +1,49 @@
+@function strip-unit($number) {
+	@if type-of($number) == "number" and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+
+	@return $number;
+}
+@function rem($size, $breakpoint: 768, $zoom: 1) {
+	@return (strip-unit($size) / $breakpoint) * $zoom * 1rem;
+}
+@function vw($size, $breakpoint: 768) {
+	@return (strip-unit($size) / $breakpoint) * 100vw;
+}
+@function vw2($size, $breakpoint: 1920) {
+	@return (strip-unit($size) / $breakpoint) * 100vw;
+}
+@function vh0($size, $breakpoint: 1080) {
+	@return ($size / $breakpoint) * 1.2 * 100vh;
+}
+@function vh($size, $breakpoint: 1080) {
+	@return ($size / $breakpoint) * 100vh;
+}
+@function vh2($size, $breakpoint: 1366) {
+	@return ($size / $breakpoint) * 100vh;
+}
+@function fullpage($top, $full: true) {
+	@if $full {
+		@return vh($top);
+	} @else {
+		@return $top + px;
+	}
+}
+@function left50($width) {
+	@return (-$width / 2) + px;
+}
+
+@function ml($left) {
+	@return (-960px + $left);
+}
+
+@function mr($right) {
+	@return (-960px + $right);
+}
+@function ml2($left) {
+	@return (-960 + $left);
+}
+@function mr2($right) {
+	@return (-960 + $right);
+}

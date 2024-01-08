@@ -1,0 +1,26 @@
+.skeleton:empty {
+    position: relative;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+.skeleton:empty:after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.4), transparent);
+    animation: skeleton 1.75s linear infinite;
+}
+@keyframes skeleton {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}

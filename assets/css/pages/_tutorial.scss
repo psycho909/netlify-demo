@@ -1,0 +1,533 @@
+// .reg-section {
+// 	padding-top: 130px;
+// 	@include media {
+// 		padding-top: vw(192);
+// 	}
+// }
+.tutorial {
+	&-logo {
+		display: none;
+		@include media {
+			width: vw(118);
+			height: vw(58);
+			background-size: 100%;
+			background-image: url("./images/logo.png");
+			position: absolute;
+			top: vw(118);
+			left: vw(30);
+			display: block;
+			font-size: 0;
+		}
+	}
+	&-section {
+		max-width: vw2(1200px);
+		width: 100%;
+		// height: 1080px;
+		margin: 0 auto;
+		position: relative;
+		padding-top: vw2(130px);
+		margin-bottom: vw2(120px);
+		z-index: 1;
+		@include media {
+			max-width: 100%;
+			height: auto;
+			margin-bottom: vw(120);
+			padding-top: vw(195);
+			&:last-child {
+				margin-bottom: vw(227);
+			}
+		}
+	}
+	&-target {
+		&-group {
+			display: flex;
+			column-gap: vw2(128px);
+			justify-content: center;
+			margin-bottom: vw2(102px);
+			@include media {
+				margin-bottom: vw(89);
+				column-gap: vw(64);
+			}
+		}
+	}
+	&-box {
+		width: vw2(1111px);
+		height: vw2(642px);
+		margin: 0 auto;
+		position: relative;
+		background-color: rgba(#110025, 0.5);
+		border-radius: vw2(14px);
+		box-shadow: inset 0 0 vw2(32px) rgba(#000000, 0.34), 0 0 vw2(6px) rgba(#dda8ff, 0.55), 0 0 vw2(12px) rgba(#dda8ff, 0.55);
+		// overflow: hidden;
+		@include media {
+			width: vw(740);
+			height: vw(886);
+			border-radius: vw(14);
+			box-shadow: inset 0 0 vw(32px) rgba(#000000, 0.34), 0 0 vw(6px) rgba(#dda8ff, 0.55), 0 0 vw(12px) rgba(#dda8ff, 0.55);
+		}
+	}
+	&-title {
+		position: absolute;
+		top: vw2(-92px);
+		left: 50%;
+		transform: translateX(-50%);
+		background-size: cover;
+		font-size: 0;
+		@include media {
+			top: vw(-92);
+		}
+		&--bf {
+			width: vw2(680px);
+			height: vw2(139px);
+			background-image: url("./images/tutorial/tutorial-title-bf.png");
+			background-size: 100%;
+			@include media {
+				width: vw(680);
+				height: vw(138);
+				background-image: url("./images/tutorial/m-tutorial-title-bf.png");
+			}
+		}
+		&--install {
+			width: vw2(760px);
+			height: vw2(139px);
+			background-image: url("./images/tutorial/tutorial-title-install.png");
+			background-size: 100%;
+			@include media {
+				width: vw(760);
+				height: vw(139);
+			}
+		}
+	}
+	&-swiper {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		&-slide {
+			padding-top: vw2(72px);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			@include media {
+				padding-top: vw(158);
+			}
+		}
+	}
+	&-step {
+		width: vw2(330px);
+		height: vw2(93px);
+		background-size: cover;
+		background-image: url("./images/tutorial/tutorial-step.png");
+		font-weight: bold;
+		font-size: vw2(45px);
+		color: #79f1ff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-shrink: 0;
+		@include media {
+			width: vw(330);
+			height: vw(90);
+			font-size: vw(45);
+		}
+	}
+	&-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		// flex: 1;
+	}
+	&-text {
+		font-size: vw2(40px);
+		color: #79f1ff;
+		// font-weight: bold;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		line-height: 1.5;
+		@include media {
+			font-size: vw(40);
+		}
+		&-box {
+			display: flex;
+			@include media {
+				flex-direction: column;
+				align-items: center;
+			}
+		}
+		span {
+			display: inline-block;
+			@include media {
+				display: block;
+			}
+		}
+	}
+	&-bf {
+		&-step1--img {
+			width: vw2(542px);
+			height: vw2(131px);
+			background-image: url("./images/tutorial/bf-step1.png");
+			background-size: cover;
+			@include media {
+				width: vw(542);
+				height: vw(131);
+				margin-top: vw(26);
+			}
+		}
+		&-step2--img {
+			width: vw2(298px);
+			height: vw2(448px);
+			background-image: url("./images/tutorial/bf-step2.jpg");
+			background-size: cover;
+			@include media {
+				width: vw(298);
+				height: vw(448);
+				margin-top: vw(26);
+			}
+		}
+		&-step4--img {
+			width: vw2(481px);
+			height: vw2(192px);
+			background-image: url("./images/tutorial/bf-step4.jpg");
+			background-size: cover;
+			margin-top: vw2(48);
+			@include media {
+				width: vw(481);
+				height: vw(192);
+				margin-top: vw(46);
+			}
+		}
+		&-step5--img {
+			width: vw2(619px);
+			height: vw2(299px);
+			background-image: url("./images/tutorial/bf-step5.png");
+			background-size: cover;
+			margin-top: vw2(22);
+			@include media {
+				width: vw(619);
+				height: vw(299);
+				margin-top: vw(58);
+			}
+		}
+	}
+	&-install {
+		&-step1--img {
+			width: vw2(782px);
+			height: vw2(205px);
+			background-image: url("./images/tutorial/install-step1.png");
+			background-size: 100%;
+			margin-top: vw2(22px);
+			@include media {
+				width: vw(714);
+				height: vw(187);
+				margin-top: vw(26);
+			}
+		}
+		&-step4--img {
+			width: vw2(224px);
+			height: vw2(335px);
+			background-image: url("./images/tutorial/install-step4.png");
+			background-size: cover;
+			margin-left: vw2(78px);
+			@include media {
+				width: vw(224);
+				height: vw(335);
+				margin-left: 0;
+				margin-top: vw(26);
+			}
+		}
+		&-step5--img {
+			width: vw2(224px);
+			height: vw2(335px);
+			background-image: url("./images/tutorial/install-step5.png");
+			background-size: cover;
+			margin-left: vw2(46px);
+			@include media {
+				width: vw(224);
+				height: vw(335);
+				margin-left: 0;
+				margin-top: vw(26);
+			}
+		}
+	}
+	&-flex {
+		display: flex;
+	}
+	&-swiper-button-prev {
+		width: vw2(18px);
+		height: vw2(34px);
+		background-image: url("./images/swiper-left.png");
+		background-size: cover;
+		position: absolute;
+		top: vw2(292px);
+		// top: 50%;
+		left: vw2(32px);
+		// transform: translateY(-50%);
+		z-index: 22;
+		cursor: pointer;
+		&.swiper-button-disabled {
+			display: none;
+		}
+		@include hover {
+			filter: drop-shadow(0 0 vw2(2px) rgba(#e63bff, 0.85)) drop-shadow(0 0 vw2(4px) rgba(#e63bff, 0.85)) drop-shadow(0 0 vw2(8px) rgba(#e63bff, 0.85));
+		}
+		@include media {
+			width: vw(27);
+			height: vw(50);
+			background-size: 100%;
+			top: vw(292);
+			left: vw(26);
+		}
+	}
+	&-swiper-button-next {
+		width: vw2(18px);
+		height: vw2(34px);
+		background-image: url("./images/swiper-right.png");
+		background-size: cover;
+		position: absolute;
+		top: vw2(292px);
+		right: vw2(32px);
+		// transform: translateY(-50%);
+		z-index: 22;
+		cursor: pointer;
+		&.swiper-button-disabled {
+			display: none;
+		}
+		@include hover {
+			filter: drop-shadow(0 0 vw2(2px) rgba(#e63bff, 0.85)) drop-shadow(0 0 vw2(4px) rgba(#e63bff, 0.85)) drop-shadow(0 0 vw2(8px) rgba(#e63bff, 0.85));
+		}
+		@include media {
+			width: vw(27);
+			height: vw(50);
+			background-size: 100%;
+			top: vw(292);
+			right: vw(26);
+		}
+	}
+	&-swiper-pagination {
+		position: absolute;
+		left: 50% !important;
+		bottom: vw2(-60px) !important;
+		transform: translateX(-50%);
+		display: flex;
+		justify-content: center;
+		gap: vw2(36px);
+		@include media {
+			gap: vw(70);
+			bottom: vw(-60) !important;
+		}
+		.swiper-pagination-bullet {
+			width: vw2(18px);
+			height: vw2(18px);
+			margin: 0;
+			opacity: 1;
+			background-color: #0e0022;
+			box-shadow: inset 0 0 vw2(4px) rgba(#5d0890, 1), inset 0 0 vw2(8px) rgba(#5d0890, 1);
+			position: relative;
+			@include media {
+				width: vw(36);
+				height: vw(36);
+				box-shadow: inset 0 0 vw(4) rgba(#5d0890, 1), inset 0 0 vw(8) rgba(#5d0890, 1);
+			}
+			&:last-child {
+				&:before {
+					content: none;
+				}
+			}
+			&:before {
+				content: "";
+				width: vw2(28px);
+				height: vw2(1px);
+				background-color: rgba(#e7c2f4, 0.5);
+				position: absolute;
+				top: 50%;
+				right: -100%;
+				transform: translateX(vw2(18)) translateY(-50%);
+				@include media {
+					width: vw(56);
+					height: vw(1);
+					transform: translateX(vw(32)) translateY(-50%);
+				}
+			}
+			&.swiper-pagination-bullet-active {
+				box-shadow: inset 0 0 vw2(2px) rgba(#a3f1ff, 0.75), inset 0 0 vw2(6px) rgba(#a3f1ff, 0.75), inset 0 0 vw2(10px) rgba(#a3f1ff, 1), 0 0 vw2(2px) rgba(#baf6ff, 0.75), 0 0 vw2(4px) rgba(#baf6ff, 0.75), 0 0 vw2(12px) rgba(#baf6ff, 0.75);
+				@include media {
+					box-shadow: inset 0 0 vw(2) rgba(#a3f1ff, 0.75), inset 0 0 vw(6) rgba(#a3f1ff, 0.75), inset 0 0 vw(10) rgba(#a3f1ff, 1), 0 0 vw(2) rgba(#baf6ff, 0.75), 0 0 vw(4) rgba(#baf6ff, 0.75), 0 0 vw(12) rgba(#baf6ff, 0.75);
+				}
+			}
+		}
+	}
+}
+
+.reg-section {
+	.tutorial-step {
+		&[data-step="1"] {
+			margin-bottom: vw2(76px);
+			@include media {
+				margin-bottom: vw(54);
+			}
+		}
+		&[data-step="2"] {
+			margin-bottom: vw2(10px);
+			@include media {
+				margin-bottom: vw(28);
+			}
+		}
+		&[data-step="3"] {
+			margin-bottom: vw2(102px);
+			@include media {
+				margin-bottom: vw(74);
+			}
+		}
+		&[data-step="4"] {
+			margin-bottom: vw2(40px);
+			@include media {
+				margin-bottom: vw(72);
+			}
+		}
+		&[data-step="5"] {
+			margin-bottom: vw2(40px);
+			@include media {
+				margin-bottom: vw(72);
+			}
+			& + .tutorial-content {
+				.tutorial-text {
+					font-size: vw2(35);
+					@include media {
+						font-size: vw(40);
+					}
+				}
+			}
+		}
+	}
+	.tutorial-content {
+		@include media {
+			flex: 0;
+		}
+	}
+}
+.install-section {
+	.tutorial-swiper-slide {
+		@include media {
+			padding-top: vw(72);
+		}
+	}
+	.tutorial-swiper-button-next,
+	.tutorial-swiper-button-prev {
+		@include media {
+			top: vw(292);
+			transform: translateY(0);
+		}
+	}
+	.tutorial-box {
+		@include media {
+			height: vw(711);
+		}
+	}
+	.tutorial-step {
+		&[data-step="1"] {
+			margin-bottom: vw2(16px);
+			@include media {
+				margin-bottom: vw(16);
+			}
+		}
+		&[data-step="2"] {
+			margin-bottom: vw2(40px);
+			@include media {
+				margin-bottom: vw(20);
+			}
+		}
+		&[data-step="3"] {
+			margin-bottom: vw2(32px);
+			margin-top: vw2(70);
+			& + .tutorial-content .tutorial-text {
+				@include media {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+				}
+			}
+			@include media {
+				margin-bottom: vw(36);
+				margin-top: vw(70);
+			}
+		}
+		&[data-step="4"] {
+			margin-bottom: vw2(40px);
+			@include media {
+				margin-bottom: vw(50);
+			}
+		}
+		&[data-step="5"] {
+			margin-bottom: vw2(40px);
+			@include media {
+				margin-bottom: vw(50);
+			}
+		}
+		&[data-step="6"] {
+			margin-bottom: vw2(140px);
+			@include media {
+				margin-bottom: vw(76);
+			}
+		}
+	}
+	.tutorial-content {
+		@include media {
+			flex: 0;
+		}
+	}
+}
+.btn-reg {
+	width: vw2(413px);
+	height: vw2(117px);
+	background-size: 200%;
+	position: relative;
+	background-image: url("./images/tutorial/btn-reg.png");
+	font-size: 0;
+	@include hover {
+		background-position-x: 100%;
+	}
+	@include media {
+		width: vw(275);
+		height: vw(90);
+		background-size: cover;
+		background-image: url("./images/tutorial/m-btn-reg.png");
+	}
+}
+.btn-download {
+	width: vw2(413px);
+	height: vw2(117px);
+	background-size: 200%;
+	position: relative;
+	font-size: 0;
+	background-image: url("./images/tutorial/btn-download.png");
+	@include hover {
+		background-position-x: 100%;
+	}
+	@include media {
+		width: vw(275);
+		height: vw(90);
+		background-size: cover;
+		background-image: url("./images/tutorial/m-btn-download.png");
+	}
+}
+.btn-website {
+	width: vw2(276px);
+	height: vw2(102px);
+	background-size: 200%;
+	background-image: url("./images/tutorial/btn-website.png");
+	position: relative;
+	font-size: 0;
+	@include hover {
+		background-position-x: 100%;
+	}
+	@include media {
+		width: vw(266);
+		height: vw(93);
+		background-image: url("./images/tutorial/m-btn-website.png");
+		margin-left: vw(25);
+		background-size: cover;
+	}
+}

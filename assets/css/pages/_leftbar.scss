@@ -1,0 +1,222 @@
+.left-bar {
+	width: vw2(357px);
+	position: fixed;
+	top: vw2(90px);
+	left: 0;
+	padding-top: vw2(59px);
+	padding-bottom: vw2(15px);
+	z-index: 50;
+	transform: translateX(vw2(-307px));
+	transition: all 0.3s;
+	&:before {
+		content: "";
+		width: vw2(29);
+		height: vw2(127);
+		background-size: 100%;
+		background-image: url("./images/left-bar-more.png");
+		position: absolute;
+		top: vw2(68);
+		right: vw2(12);
+		@include media {
+			display: none;
+		}
+	}
+	.top-bar__icon {
+		display: none;
+		@include media {
+			display: flex;
+		}
+	}
+	@include media {
+		width: vw(384);
+		top: 0;
+		padding-top: vw(156);
+		padding-bottom: vw(43);
+		transform: translateX(0);
+		background-color: rgba(#000, 0.85);
+		transform: translateX(-100%);
+	}
+	&.open {
+		transform: translateX(vw2(-1px));
+		&:before {
+			content: none;
+		}
+		.left-bar-toggle {
+			&:before {
+				transform: scale(1);
+			}
+		}
+	}
+	&-top {
+		display: none;
+		@include media {
+			display: block;
+			background-color: rgba(#000, 0.5);
+			padding: vw(32);
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 4;
+		}
+	}
+	&-open {
+		width: vw(55);
+		height: vw(51);
+		background-size: cover;
+		background-image: url("./images/left-bar-open.png");
+	}
+	&-toggle {
+		width: vw2(50px);
+		height: vw2(50px);
+		position: absolute;
+		top: vw2(4px);
+		right: 0px;
+		z-index: 1;
+
+		&:before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			background-size: vw2(15px) vw2(29px);
+			background-image: url("./images/left-bar-close-off.png");
+			background-repeat: no-repeat;
+			background-position: center;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: scale(-1);
+		}
+		@include hover {
+			&:before {
+				filter: drop-shadow(0 0 vw2(2px) rgba(#e63bff, 0.85)) drop-shadow(0 0 vw2(6px) rgba(#e63bff, 0.85)) drop-shadow(0 0 vw2(10px) rgba(#e63bff, 0.85));
+			}
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&-close {
+		display: none;
+		@include media {
+			display: block;
+			width: vw(57);
+			height: vw(53);
+			background-size: cover;
+			background-image: url("./images/left-bar-close.png");
+			position: absolute;
+			top: vw(27);
+			left: vw(29);
+			z-index: 1;
+		}
+	}
+	&__list {
+		position: relative;
+		width: vw2(357px);
+		background-image: url("./images/left-bar-body.png");
+		background-size: vw2(357) vw2(7);
+		display: flex;
+		flex-direction: column;
+		padding-left: vw2(24px);
+		row-gap: vw2(26px);
+		@include media {
+			width: 100%;
+			background-image: none;
+			padding-left: vw(77);
+			row-gap: vw(26);
+			margin-bottom: vw(62);
+		}
+		&:before {
+			content: "";
+			width: vw2(357px);
+			height: vw2(59px);
+			position: absolute;
+			left: 0;
+			top: vw2(-59px);
+			background-size: vw2(357) vw2(59);
+			background-image: url("./images/left-bar-top.png");
+			@include media {
+				display: none;
+			}
+		}
+		&:after {
+			content: "";
+			width: vw2(357px);
+			height: vw2(15px);
+			position: absolute;
+			bottom: vw2(-15px);
+			left: 0;
+			background-size: vw2(357) vw2(15);
+			background-image: url("./images/left-bar-bottom.png");
+			@include media {
+				display: none;
+			}
+		}
+	}
+	&__item {
+		font-size: 0;
+		width: vw2(256px);
+		height: vw2(100px);
+		background-size: 200%;
+		display: block;
+		font-size: 0;
+		position: relative;
+		@include hover {
+			background-position-x: 100%;
+			filter: drop-shadow(0 0 vw2(4px) #6b22ff) drop-shadow(0 0 vw2(8px) #6b22ff);
+		}
+		@include media {
+			width: vw(256);
+			height: vw(100);
+			background-position-x: 100%;
+			filter: drop-shadow(0 0 vw(4) #6b22ff) drop-shadow(0 0 vw(8) #6b22ff);
+		}
+		&[data-page="1"] {
+			background-image: url("./images/left-bar-btn1.png");
+			margin-top: vw2(-24px);
+			@include media {
+				margin-top: 0;
+			}
+		}
+		&[data-page="2"] {
+			background-image: url("./images/left-bar-btn2.png");
+		}
+		&[data-page="3"] {
+			background-image: url("./images/left-bar-btn3.png");
+		}
+		&[data-page="4"] {
+			background-image: url("./images/left-bar-btn4.png");
+		}
+		&[data-page="5"] {
+			background-image: url("./images/left-bar-btn5.png");
+		}
+		&[data-page="6"] {
+			background-image: url("./images/left-bar-btn6.png");
+		}
+		&[data-page="7"] {
+			background-image: url("./images/left-bar-btn7.png");
+		}
+	}
+	&__icon {
+		&-list {
+			display: none;
+			@include media {
+				display: flex;
+				column-gap: vw(44);
+				justify-content: center;
+				padding-left: vw(30);
+			}
+		}
+		width: vw2(63px);
+		height: vw2(63px);
+		background-size: 200%;
+		@include hover {
+			background-position-x: -100%;
+		}
+		@include media {
+			width: vw(63);
+			height: vw(63);
+			background-position-x: -100%;
+		}
+	}
+}

@@ -162,22 +162,34 @@ CanvasSprite.prototype.PreLoad = function (path, name = "") {
 		}
 	});
 };
-CanvasSprite.prototype.Run = function (callback) {
+CanvasSprite.prototype.Run = function (durationInSeconds = 1, callback) {
 	clearInterval(this.loop);
-	var _this = this;
-	this.loop = setInterval(function () {
-		if (_this.index > _this.step - 1) {
+	const _this = this;
+	let startTime = performance.now();
+	// 計算每一步的間隔時間
+	let stepInterval = (durationInSeconds * 1000) / this.step;
+
+	function runAnimation(now) {
+		const elapsed = now - startTime;
+
+		if (elapsed > stepInterval * _this.index) {
+			_this.Draw(_this.index);
+			_this.index++;
+		}
+
+		if (_this.index < _this.step) {
+			requestAnimationFrame(runAnimation);
+		} else {
 			_this.index = 0;
-			clearInterval(_this.loop);
 			if (callback) {
 				callback();
 			}
 		}
-		_this.Draw(_this.index);
+	}
 
-		_this.index++;
-	}, this.speed);
+	requestAnimationFrame(runAnimation);
 };
+
 CanvasSprite.prototype.Loop = function (speedMultiplier = 0.5) {
 	cancelAnimationFrame(this.animationFrame);
 	const _this = this;

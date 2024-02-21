@@ -18,7 +18,7 @@
 			grecaptcha.ready(function () {
 				document.querySelector(".g-recaptcha").addEventListener("click", function (e) {
 					e.preventDefault();
-					grecaptcha.execute("6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM", { action: "submit", score: 0.0 }).then(function (token) {
+					grecaptcha.execute("6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM", { action: "submit", score: 1.0 }).then(function (token) {
 						// Send the token to your server-side endpoint for verification
 						console.log("Sending token to server:", token);
 						// Replace with your actual server-side logic here:

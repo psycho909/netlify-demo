@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<title>reCAPTCHA Example</title>
 		<script src="https://www.google.com/recaptcha/api.js?render=6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM"></script>
 	</head>
 	<body>
 		<div id="demo-form">
-			<button class="g-recaptcha">Submit</button>
+			<form action="/submit" method="post">
+				<input type="text" name="username" placeholder="Username" />
+				<input type="text" name="email" placeholder="Email" />
+				<button class="g-recaptcha" type="submit">Submit</button>
+			</form>
 		</div>
 		<script>
 			grecaptcha.ready(function () {
@@ -19,17 +22,24 @@
 						// Send the token to your server-side endpoint for verification
 						console.log("Sending token to server:", token);
 						// Replace with your actual server-side logic here:
-						// fetch('/your-endpoint', {
-						//   method: 'POST',
-						//   body: JSON.stringify({ token: token })
-						// })
-						// .then(response => response.json())
-						// .then(data => {
-						//   // Handle server response
-						// })
-						// .catch(error => {
-						//   console.error(error);
-						// });
+						fetch("/submit", {
+							method: "POST",
+							body: JSON.stringify({ token: token, username: document.querySelector('input[name="username"]').value, email: document.querySelector('input[name="email"]').value })
+						})
+							.then((response) => response.json())
+							.then((data) => {
+								// Handle server response
+								if (data.success) {
+									// Redirect to success page
+									window.location.href = "/success";
+								} else {
+									// Display error message
+									alert(data.error);
+								}
+							})
+							.catch((error) => {
+								console.error(error);
+							});
 					});
 				});
 			});

@@ -1,52 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant-TW">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>reCAPTCHA Example</title>
-		<script src="https://www.google.com/recaptcha/api.js?render=6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM"></script>
+		<title>Document</title>
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	</head>
 	<body>
-		<div id="demo-form">
-			<form action="/submit" method="post">
-				<input type="text" name="username" placeholder="Username" />
-				<input type="text" name="email" placeholder="Email" />
-				<button class="g-recaptcha" type="submit">Submit</button>
-			</form>
-		</div>
-		<script>
-			grecaptcha.ready(function () {
-				document.querySelector(".g-recaptcha").addEventListener("click", function (e) {
-					e.preventDefault();
-					grecaptcha.execute("6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM", {
-						action: "submit",
-						score: 0.7,
-						callback: function (token) {
-							// Send the token to your server-side endpoint for verification
-							console.log("Sending token to server:", token);
-							// Replace with your actual server-side logic here:
-							fetch("/submit", {
-								method: "POST",
-								body: JSON.stringify({ token: token, username: document.querySelector('input[name="username"]').value, email: document.querySelector('input[name="email"]').value })
-							})
-								.then((response) => response.json())
-								.then((data) => {
-									// Handle server response
-									if (data.success) {
-										// Redirect to success page
-										window.location.href = "/success";
-									} else {
-										// Display error message
-										alert(data.error);
-									}
-								})
-								.catch((error) => {
-									console.error(error);
-								});
-						}
-					});
-				});
-			});
-		</script>
+		<form id="demo-form" action="/submit" method="POST">
+			<div class="g-recaptcha" data-sitekey="6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM"></div>
+			<button type="submit">Submit</button>
+		</form>
 	</body>
 </html>

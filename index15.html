@@ -5,42 +5,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
-		<script src="https://www.google.com/recaptcha/api.js"></script>
+		<script src="https://www.google.com/recaptcha/api.js?render=6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM"></script>
 	</head>
 	<body>
 		<div id="demo-form">
-			<button class="g-recaptcha" data-sitekey="6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM " data-callback="onSubmit" data-action="submit">Submit</button>
+			<button class="g-recaptcha">Submit</button>
 		</div>
 		<script>
-			function onSubmit(token) {
-				document.getElementById("demo-form").submit();
-			}
-			async function p1() {
-				let a = await axios.get("https://randomuser.me/api/");
-				return a.data;
-			}
-			// 這裡的錯誤處理是用try catch
-			async function handleError() {
-				try {
-					let a = await axios.post("https://reqres.in/api/login", {
-						email: "peter@klaven",
-						password: "cityslicka"
+			function onClick(e) {
+				e.preventDefault();
+				grecaptcha.ready(function () {
+					grecaptcha.execute("reCAPTCHA_site_key", { action: "submit" }).then(function (token) {
+						// Add your logic to submit to your backend server here.
+						console.log(token);
 					});
-					return a;
-				} catch (error) {
-					throw { error: true, message: error.message };
-				}
+				});
 			}
-			async function init() {
-				try {
-					let a = await p1();
-					let b = await handleError();
-					console.log(b);
-				} catch (error) {
-					console.log(error);
-				}
-			}
-			init();
+
+			document.querySelector(".g-recaptcha").addEventListener("click", onClick);
 		</script>
 	</body>
 </html>

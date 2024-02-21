@@ -1,46 +1,144 @@
-<!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
-		<script src="https://www.google.com/recaptcha/api.js"></script>
+		<title>CSS Sprite Generator</title>
+		<style>
+			.thumb {
+				height: 75px;
+				border: 1px solid #000;
+				margin: 10px 5px 0 0;
+			}
+			#sprite-preview img {
+				max-width: 100%;
+			}
+		</style>
 	</head>
 	<body>
-		<div id="demo-form">
-			<button class="g-recaptcha" data-sitekey="6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM " data-callback="onSubmit" data-action="submit">Submit</button>
-		</div>
+		<h1>CSS Sprite Generator</h1>
+
+		<input type="file" id="image-upload" multiple />
+		<br />
+		Layout:
+		<select id="layout-options">
+			<option value="horizontal">Horizontal</option>
+			<option value="vertical">Vertical</option>
+		</select>
+		<br />
+		Margin (px):
+		<input type="number" id="margin-size" value="0" />
+		<br />
+		<button id="generate-sprite">Generate Sprite</button>
+		<br />
+		<div id="image-list"></div>
+		<h3>Sprite Preview:</h3>
+		<div id="sprite-preview"></div>
+		<a id="download-sprite" href="#" style="display: none">Download Sprite</a>
+
 		<script>
-			function onSubmit(token) {
-				document.getElementById("demo-form").submit();
+			let spriteImages = [];
+
+			document.getElementById("image-upload").addEventListener("change", handleFileSelect, false);
+			document.getElementById("generate-sprite").addEventListener("click", generateSprite);
+
+			function handleFileSelect(evt) {
+				let files = evt.target.files;
+				spriteImages = [];
+				document.getElementById("image-list").innerHTML = "";
+
+				for (let i = 0, f; (f = files[i]); i++) {
+					if (!f.type.match("image.*")) {
+						continue;
+					}
+
+					let reader = new FileReader();
+					reader.onload = (function (theFile) {
+						return function (e) {
+							let img = new Image();
+							img.src = e.target.result;
+							spriteImages.push(img);
+
+							let span = document.createElement("span");
+							span.innerHTML = `<img class="thumb" src="${e.target.result}" title="${escape(theFile.name)}"/><br>${escape(theFile.name)}`;
+							document.getElementById("image-list").appendChild(span);
+						};
+					})(f);
+					reader.readAsDataURL(f);
+				}
 			}
-			async function p1() {
-				let a = await axios.get("https://randomuser.me/api/");
-				return a.data;
-			}
-			// 這裡的錯誤處理是用try catch
-			async function handleError() {
-				try {
-					let a = await axios.post("https://reqres.in/api/login", {
-						email: "peter@klaven",
-						password: "cityslicka"
+
+			function generateSprite() {
+				if (spriteImages.length === 0) {
+					alert("Please upload images first.");
+					return;
+				}
+
+				let layout = document.getElementById("layout-options").value;
+				let margin = parseInt(document.getElementById("margin-size").value) || 0;
+				let spriteWidth = 0,
+					spriteHeight = 0;
+
+				if (layout === "horizontal") {
+					spriteImages.forEach((img) => {
+						spriteHeight = Math.max(spriteHeight, img.height);
+						spriteWidth += img.width;
 					});
-					return a;
-				} catch (error) {
-					throw { error: true, message: error.message };
+					spriteWidth += margin * (spriteImages.length - 1);
+				} else {
+					spriteImages.forEach((img) => {
+						spriteWidth = Math.max(spriteWidth, img.width);
+						spriteHeight += img.height;
+					});
+					spriteHeight += margin * (spriteImages.length - 1);
 				}
+
+				let spriteCanvas = document.createElement("canvas");
+				spriteCanvas.width = spriteWidth;
+				spriteCanvas.height = spriteHeight;
+				let ctx = spriteCanvas.getContext("2d");
+
+				let x = 0,
+					y = 0;
+				spriteImages.forEach((img) => {
+					ctx.drawImage(img, x, y);
+					if (layout === "horizontal") {
+						x += img.width + margin;
+					} else {
+						y += img.height + margin;
+					}
+				});
+
+				// Try creating a Blob from the canvas
+				spriteCanvas.toBlob(function (blob) {
+					if (blob) {
+						createDownloadLink(blob);
+					} else {
+						// Fallback method using toDataURL
+						console.warn("Falling back to toDataURL method for blob creation.");
+						let dataURL = spriteCanvas.toDataURL("image/png");
+						fetch(dataURL)
+							.then((res) => res.blob())
+							.then(createDownloadLink)
+							.catch((e) => console.error("Error in fallback blob creation:", e));
+					}
+				}, "image/png");
 			}
-			async function init() {
-				try {
-					let a = await p1();
-					let b = await handleError();
-					console.log(b);
-				} catch (error) {
-					console.log(error);
-				}
+
+			function createDownloadLink(blob) {
+				let url = URL.createObjectURL(blob);
+				let downloadLink = document.getElementById("download-sprite");
+				downloadLink.href = url;
+				downloadLink.download = "sprite.png";
+				downloadLink.style.display = "block";
+
+				let newImg = document.createElement("img");
+				newImg.onload = function () {
+					URL.revokeObjectURL(url);
+				};
+				newImg.src = url;
+				let previewContainer = document.getElementById("sprite-preview");
+				previewContainer.innerHTML = ""; // Clear existing preview
+				previewContainer.appendChild(newImg);
 			}
-			init();
 		</script>
 	</body>
 </html>

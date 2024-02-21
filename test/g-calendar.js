@@ -257,24 +257,11 @@
 		var observer = new MutationObserver(function (mutations) {
 			for (var i = 0; i < mutations.length; i++) {
 				for (var j = 0; j < mutations[i].addedNodes.length; j++) {
-					// console.log(mutations[i].addedNodes[j]);
 					if (!(mutations[i].addedNodes[j] instanceof HTMLElement)) continue;
-					// if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
-					// 	calendarInit();
-					// }
-					// if (mutations[i].addedNodes[j].querySelectorAll(".g-calendar")) {
-					// 	console.log(213);
-					// 	calendarInit();
-					// }
-					// if (mutations[i].addedNodes[j].classList.contains("g-calendar")) {
-					// 	calendarInit();
-					// } else {
 					if (mutations[i].addedNodes[j].children.length) {
 						for (var k = 0; k < mutations[i].addedNodes[j].children.length; k++) {
-							if (mutations[i].addedNodes[j].children[k]) {
-								if (mutations[i].addedNodes[j].children[k].classList.contains("g-calendar")) {
-									calendarInit();
-								}
+							if (mutations[i].addedNodes[j].children[k].classList.contains("g-calendar")) {
+								calendarInit();
 							}
 						}
 					} else {
@@ -282,7 +269,6 @@
 							calendarInit();
 						}
 					}
-					// }
 				}
 			}
 		});
@@ -296,7 +282,4 @@
 			calendarInit();
 		});
 	}
-	exports.initCalendar = function () {
-		calendarInit();
-	};
 })(this);

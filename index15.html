@@ -15,7 +15,7 @@
 			function onClick(e) {
 				e.preventDefault();
 				grecaptcha.ready(function () {
-					grecaptcha.execute("6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM", { action: "submit", score: 0 }).then(function (token) {
+					grecaptcha.execute("6LcaM3kpAAAAAGx56oZ-l-pOEv-YMl11-OiQqiVM", { action: "submit", score: 0.0 }).then(function (token) {
 						// Add your logic to submit to your backend server here.
 						console.log(token);
 					});

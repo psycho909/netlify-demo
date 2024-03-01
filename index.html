@@ -96,7 +96,7 @@
 		</form>
 
 		<script>
-			document.querySelector("#btn").addEventListener("click", function () {
+			document.querySelector("#btn").addEventListener("click", function (e) {
 				let el_tag = e.target.tagName; // 取得 tag 名稱
 				let el_id = e.target.tagName || "unset"; // 取得 id，如果沒有 id 就使用 unset
 				let el_class = e.target.getAttribute("class") || "unset"; // 取得 class，如果沒有 class 就使用 unset

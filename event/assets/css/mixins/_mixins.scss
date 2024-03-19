@@ -19,17 +19,17 @@
 	border-style: solid;
 }
 
-@mixin media($breakpoint: 769px) {
+@mixin media($breakpoint: 768px) {
 	@media screen and (max-width: $breakpoint) {
 		@content;
 	}
 }
-@mixin media2($width: 1300px) {
-	@media screen and (max-width: 1300px) and (min-width: 769px) {
+@mixin media2($width: 768px, $height: 1080px) {
+	@media screen and (min-width: $width) and (max-height: $height) {
 		@content;
 	}
 }
-@mixin hover($breakpoint: 769px) {
+@mixin hover($breakpoint: 768px) {
 	@media screen and (min-width: $breakpoint) {
 		&:hover {
 			@content;

@@ -1,175 +1,114 @@
-import { endEvent, removeCalenderTime, imgLoading } from "./tool.js";
-import { EventInfo, SkillVideo } from "./lightbox.js";
-import sec1 from "./components/sec1.js";
-import sec2 from "./components/sec2.js";
-import sec3 from "./components/sec3.js";
-import loading from "./components/loading.js";
-
+import { MessageLB, SelectCharacterLB, GoLotteryLB, LotteryLogLB } from "./lightbox.js";
+import useEventStore from "./store.js";
+import { setCookie, getCookie, deleteCookie, loadingShow, loadingHide } from "./tool.js";
+import { FindGameWorld, GetInitData, GoLottery, FindLotteryLog } from "./api.js";
+import page1 from "./components/page1.js";
+import page2 from "./components/page2.js";
+import page3 from "./components/page3.js";
+import menubar from "./components/menubar.js";
+import pinia from "./pinia.js";
+SelectCharacterLB([
+	{
+		GameWorldId: 1,
+		GameWorldName: "伺服器1",
+		CharacterId: 1,
+		CharacterName: "角色1",
+	},
+	{
+		GameWorldId: 2,
+		GameWorldName: "伺服器2",
+		CharacterId: 2,
+		CharacterName: "角色2",
+	},
+]);
+// LotteryLogLB();
+// 阻止瀏覽器預設scroll
 if (history.scrollRestoration) {
 	history.scrollRestoration = "manual";
 }
 
+const { storeToRefs } = Pinia;
+
 let app = Vue.createApp({
 	setup() {
-		let loadRef = Vue.ref();
-		let mobile = Vue.ref(false);
-		let mobileType = Vue.ref("google");
-		let currentPage = Vue.ref("sec1");
-		let menuStatus = Vue.ref(false);
-		let showLoading = Vue.ref(true);
-		let handleCalender = () => {};
-		let now = new Date().getTime();
-		let end = new Date(endEvent).getTime();
-		let event = Vue.ref(true);
-		let showCalender = Vue.ref(true);
-		let loadRightBar = Vue.ref(true);
-		let targetBrowserWidth = Vue.ref(document.documentElement.clientWidth);
-		let num = Vue.ref(0);
-		window.addEventListener("resize", function () {
-			targetBrowserWidth.value = document.documentElement.clientWidth;
-		});
-		let goTop = () => {
-			$("body,html").animate(
-				{
-					scrollTop: 0
-				},
-				800
-			);
+		const store = useEventStore();
+		store.Count++;
+		let token = Vue.ref("");
+		let currentPage = Vue.ref("page1");
+		let logoutBtn = () => {
+			deleteCookie("MapleEvent");
+			window.location.href = "../../Logout/Logout.aspx";
 		};
-		let goPage = (page) => {
-			let browserWidth = 1920;
-			let tempTop = 0;
-			let topBar = $(".top-bar").outerHeight(true);
-			if (page == "#sec2" && !mobile.value) {
-				tempTop = parseInt((1200 / browserWidth) * targetBrowserWidth.value);
+		let goLottery = () => {
+			GoLotteryLB();
+		};
+		let lotteryLog = () => {
+			LotteryLogLB();
+		};
+		Vue.watch(storeToRefs(store).currentPage, (val) => {
+			currentPage.value = val;
+		});
+		Vue.onUpdated(() => {
+			if (currentPage.value == "page1") {
+				var element = document.querySelector(".page1");
+				element.scrollIntoView({ behavior: "smooth" });
+			}
+		});
+		Vue.onMounted(async () => {
+			let cookie = getCookie("MapleEvent");
+			let url;
+			if (cookie) {
+				token.value = cookie;
+				url = location.href.split("?")[0];
+				history.pushState({}, 0, url);
+				store.setLogin(true);
+				// try {
+				// 	loadingShow();
+				// 	let InitData = await Init(store.state.Token);
+				// 	if (InitData.Data.GameAccountNickName == window.localStorage.getItem("Maple")) {
+				// 		let ExchangeOrRecycleInitAPI = await store.dispatch("ExchangeOrRecycleInitAPI");
+				// 		store.commit("SET_DATA", InitData.Data);
+				// 		if (ExchangeOrRecycleInitAPI.Code == -1) {
+				// 			MessageLB(ExchangeOrRecycleInitAPI.Message);
+				// 		}
+				// 		if (ExchangeOrRecycleInitAPI.Code == -2) {
+				// 			MessageLB(ExchangeOrRecycleInitAPI.Message, ExchangeOrRecycleInitAPI.Url);
+				// 		}
+				// 		loadingHide();
+				// 	} else {
+				// 		loadingHide();
+				// 	}
+				// } catch (err) {
+				// 	MessageLB(err.Message, err.Url);
+				// 	loadingHide();
+				// }
 			} else {
-				if (mobile.value) {
-					tempTop -= topBar;
-				} else {
-					tempTop = 0;
+				if ($("#hfData").val()) {
+					url = location.href.split("?")[0];
+					history.pushState({}, 0, url);
+					FindGameWorld($("#hfData").val()).then((res) => {
+						let { Code, ListData, Url, Message } = res.data;
+						if (Code == -1) {
+							MessageLB(Message);
+							return;
+						}
+						if (Code == -2) {
+							MessageLB(Message, Url);
+							return;
+						}
+						SelectCharacter(ListData);
+					});
 				}
 			}
-			menuStatus.value = false;
-			$("body,html").animate(
-				{
-					scrollTop: $(page).offset().top + tempTop
-				},
-				800
-			);
-		};
-		let handleMenu = (status) => {
-			menuStatus.value = status;
-		};
-		let handleLoading = (data) => {
-			showLoading.value = data;
-		};
-		function scrollTarget(t, target, offset = 0) {
-			var offset = offset || 0;
-			var data_name;
-			target.each(function (i, v) {
-				if ($(this).offset().top - offset <= t && $(this).offset().top + $(this).outerHeight() - offset > t) {
-					data_name = $(this).attr("id");
-					currentPage.value = data_name;
-				} else {
-					data_name = $(this).attr("id");
-				}
-			});
-		}
-
-		window.addEventListener("scroll", function (e) {
-			let top = document.documentElement.scrollTop;
-			let sec3Title = $("#sec3").offset().top;
-			let tempTop = sec3Title * 0.1;
-			if (top + tempTop >= sec3Title) {
-				$(".sec3-title").addClass("anim");
-			} else {
-				$(".sec3-title").removeClass("anim");
-			}
-			scrollTarget(top, $(".sec"), 100);
 		});
-
-		if (isMobile.any) {
-			mobile.value = true;
-			if (isMobile.android.device) {
-				mobileType.value = "google";
-			}
-			if (isMobile.apple.device) {
-				mobileType.value = "apple";
-			}
-		} else {
-			mobile.value = false;
-			mobileType.value = "google";
-		}
-		if (now >= end) {
-			event.value = false;
-		} else {
-			event.value = true;
-		}
-		if (now >= new Date(removeCalenderTime).getTime()) {
-			showCalender.value = false;
-			loadRightBar.value = false;
-		} else {
-			showCalender.value = true;
-			loadRightBar.value = false;
-		}
-		gsap.to("html", {
-			scrollTop: 0,
-			duration: 0
-		});
-
-		Vue.onMounted(() => {
-			imgLoading({
-				countNum: function (count, length) {
-					num.value = Math.round((count / length) * 100);
-				}
-			}).then((res) => {
-				showLoading.value = false;
-				document.querySelector(".loadingProgress").classList.remove("init");
-				document.querySelector("html").classList.remove("ovh");
-			});
-			// loadingProgress({
-			// 	countFN: function (count, length) {
-			// 		// console.log(length);
-			// 		num.value = Math.round((count / length) * 100);
-			// 		// console.log(Math.round((count / length) * 100));
-			// 	},
-			// 	loadedFN: function () {
-			// 		num.value = 100;
-			// 		showLoading.value = false;
-			// 		document.querySelector(".loadingProgress").classList.remove("init");
-			// 		// $(".loadingProgress").removeClass("init");
-			// 		document.querySelector("html").classList.remove("ovh");
-			// 		// console.log(100);
-			// 	},
-			// 	detectVideo: false,
-			// 	autoHide: true
-			// });
-		});
-		return {
-			mobile,
-			goPage,
-			handleCalender,
-			menuStatus,
-			goTop,
-			handleCalender,
-			currentPage,
-			handleMenu,
-			showLoading,
-			handleLoading,
-			mobileType,
-			event,
-			showCalender,
-			loadRightBar,
-			num,
-			loadRef
-		};
+		return { goLottery, lotteryLog, logoutBtn, currentPage };
 	},
 	components: {
-		sec1,
-		sec2,
-		sec3,
-		loading
-	}
+		page1,
+		page2,
+		page3,
+		menubar,
+	},
 });
-
+app.use(pinia);
 app.mount("#app");

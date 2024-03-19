@@ -3,13 +3,11 @@
 @import "./mixins/_mixins";
 // @import "./base/_layout";
 @import "./base/_base";
-// @import "./utils/_loading";
 @import "./base/_normalize";
 @import "./base/_init";
 @import "./utils/_gbox";
-@import "./utils/_loading";
 @import "./pages/_index";
-@import "./pages/_common";
-@import "./pages/_sec1";
-@import "./pages/_sec2";
-@import "./pages/_sec3";
+@import "./pages/_menu";
+@import "./pages/_page1";
+@import "./pages/_page2";
+@import "./pages/_page3";

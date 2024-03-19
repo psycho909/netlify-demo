@@ -1,0 +1,61 @@
+.page3 {
+	background-image: url("./images/page3-bg.jpg");
+	background-position: center 0;
+	background-repeat: no-repeat;
+	padding-top: 46px;
+	padding-bottom: 46px;
+	@include media {
+		background-image: url("./images/page3-bg-m.jpg");
+		padding-top: vw(60);
+		padding-bottom: vw(60);
+	}
+	&-content {
+		&-title {
+			width: 289px;
+			height: 72px;
+			margin-bottom: -30px;
+			background-size: cover;
+			background-image: url("./images/page3-content-title.png");
+			@include media {
+				width: vw(289);
+				height: vw(72);
+				margin-bottom: vw(-30);
+			}
+		}
+		&-img {
+			width: 1165px;
+			height: 1089px;
+			background-image: url("./images/page3-content-img.png");
+			background-size: cover;
+			@include media {
+				width: vw(566);
+				height: vw(2067);
+				background-image: url("./images/page3-content-img-m.png");
+			}
+		}
+		&-btn {
+			width: 512px;
+			height: 110px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 42px;
+			font-weight: bold;
+			color: #fff;
+			background-color: #e5006e;
+			border-radius: 100vmax;
+			text-decoration: none;
+			margin-top: 57px;
+			@include hover {
+				background-color: #f7f9e2;
+				color: #e5006e;
+			}
+			@include media {
+				width: vw(512);
+				height: vw(110);
+				font-size: vw(42);
+				margin-top: vw(60);
+			}
+		}
+	}
+}

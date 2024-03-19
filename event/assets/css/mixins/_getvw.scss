@@ -11,16 +11,8 @@
 @function vw($size, $breakpoint: 768) {
 	@return (strip-unit($size) / $breakpoint) * 100vw;
 }
-@function vw2($size, $breakpoint: 1080) {
-	@return (strip-unit($size) / $breakpoint) * 1 * 100vw;
-}
-@function vw3($size, $breakpoint: 1920) {
-	@return (strip-unit($size) / $breakpoint) * 1 * 100vw;
-}
-// 2620
-@function vw4($size, $breakpoint: 2620) {
-	// @return (strip-unit($size)) * 1px;
-	@return (strip-unit($size) / $breakpoint) * 1 * 100vw;
+@function vw2($size, $breakpoint: 1920) {
+	@return ($size / $breakpoint) * 100vw;
 }
 @function vh0($size, $breakpoint: 1080) {
 	@return ($size / $breakpoint) * 1.2 * 100vh;

@@ -1,57 +1,43 @@
-export const endEvent = "2023/6/20 00:00";
-export const removeCalenderTime = "2023/6/20 12:00";
-export const surveyCake = "https://survey.beanfun.com/s/0DGl3";
-export const step2Event = [
-	{
-		title: "究極燃燒",
-		info: "等級練1送2，升等速度狂飆300%，直衝LV250！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop1.png",
-		show: false,
-		calender: {
-			text: "6/20 究極燃燒，等級突破就是現在！",
-			begin: "2023/6/20 00:00",
-			end: "2023/6/20 23:59"
+// Loading顯示
+export function loadingShow() {
+	$("#loadingProgress").show();
+}
+// Loading隱藏
+export function loadingHide() {
+	$("#loadingProgress").hide();
+}
+// 刪除Cookie
+export function deleteCookie(name) {
+	return new Promise((resolve, reject) => {
+		// 將Cookie的過期日期設為過去的時間，使其失效
+		document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		// 檢查Cookie是否已刪除
+		if (!getCookie(name)) {
+			resolve();
+		} else {
+			reject("無法刪除Cookie");
 		}
-	},
-	{
-		title: "溫餐廳",
-		info: "活動限定地圖〈溫餐廳〉熱鬧開張，和冒險夥伴一起盡情探索吧！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop2.png",
-		show: false,
-		calender: {
-			text: "6/20 溫餐廳，熱鬧開張！",
-			begin: "2023/6/20 00:00",
-			end: "2023/6/20 23:59"
-		}
-	},
-	{
-		title: "卡莉的旅程",
-		info: "新職業〈卡莉〉席捲登場,快來享受全新冒險吧！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop3.png",
-		show: false,
-		calender: {
-			text: "7/5 全新職業-卡莉，席捲登場！",
-			begin: "2023/7/5 15:00",
-			end: "2023/7/5 23:59"
-		}
-	},
-	{
-		title: "桃花境咖凌",
-		info: "新地圖〈桃花境〉開放！超強Boss〈咖凌〉等你征服！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop4.jpg",
-		show: false,
-		calender: {
-			text: "8/9 桃花境咖凌，等你征服！",
-			begin: "2023/8/9 00:00",
-			end: "2023/8/9 23:59"
-		}
+	});
+}
+// 增加Cookie
+export function setCookie(name, value = true, hours = 1) {
+	let date = new Date();
+	date.setTime(date.getTime() + hours * 60 * 60 * 1000);
+	const expires = "expires=" + date.toUTCString();
+	document.cookie = name + "=" + value + "; " + expires + "; path=/";
+}
+// 獲取Cookie
+export function getCookie(name) {
+	var nameString = name + "=";
+	var value = document.cookie.split(";").filter(function (item) {
+		return item.indexOf(nameString) > -1;
+	});
+	if (value.length) {
+		return value[0].trim().substring(nameString.length, value[0].length);
+	} else {
+		return false;
 	}
-];
-
+}
 export const imgLoading = async (data) => {
 	let urlList = [];
 	let promiseAll = [];
@@ -111,14 +97,9 @@ export const imgLoading = async (data) => {
 	return await Promise.all(promiseAll);
 };
 
-export function loadingShow() {
-	$("#loadingProgress").show();
-}
-// Loading隱藏
-export function loadingHide() {
-	$("#loadingProgress").hide();
-}
-export function CanvasSprite(target, step, speed) {
+export function CanvasSprite(target, step, frameWidth, frameHeight, speed) {
+	this.frameWidth = frameWidth || 800; // 預設值為 800，如果未提供則使用預設值
+	this.frameHeight = frameHeight || 800; // 預設值為 800，如果未提供則使用預設值
 	this.imgArr = [];
 	this.index = 0;
 	this.loop = false;
@@ -132,162 +113,86 @@ export function CanvasSprite(target, step, speed) {
 }
 CanvasSprite.prototype.Init = function () {
 	this.el = this.target[0].getContext("2d");
+	this.el.imageSmoothingEnabled = false;
 	$(this.el.canvas).addClass("loading");
 };
-CanvasSprite.prototype.PreLoad = function (path, name = "") {
-	var count = 0;
+CanvasSprite.prototype.PreLoad = function (spriteImagePath) {
 	var _this = this;
 	return new Promise((resolve, reject) => {
-		for (var i = 0; i < this.step; i++) {
-			let numPart = name.substring(name.lastIndexOf("_") + 1);
-			let newName = name.replace(numPart, i.toString().padStart(numPart.length, "0"));
-			this.imgArr[i] = new Image();
-			this.imgArr[i].src = path + newName + ".png";
-			this.imgArr[i].onload = function () {
-				_this.width = this.width;
-				_this.height = this.height;
-				++count;
-				if (count == _this.step) {
-					$(_this.el.canvas).removeClass("loading");
-					_this.Draw(0);
-					resolve(true);
-				}
-			};
-			this.imgArr[i].onerror = function () {
-				++count;
-				if (count == _this.step) {
-					$(_this.el.canvas).removeClass("loading");
-					reject(true);
-				}
-			};
-		}
+		this.imgArr[0] = new Image();
+		this.imgArr[0].src = spriteImagePath;
+		this.imgArr[0].onload = function () {
+			_this.width = this.width;
+			_this.height = this.height / _this.step; // 確保高度是單個動畫幀的高度
+			$(_this.el.canvas).removeClass("loading");
+			_this.Draw(0);
+			resolve(true);
+		};
+		this.imgArr[0].onerror = function () {
+			$(_this.el.canvas).removeClass("loading");
+			reject(true);
+		};
 	});
 };
-CanvasSprite.prototype.Run = function (callback) {
+CanvasSprite.prototype.Run = function (durationInSeconds = 1) {
 	clearInterval(this.loop);
-	var _this = this;
-	this.loop = setInterval(function () {
-		if (_this.index > _this.step - 1) {
-			_this.index = 0;
-			clearInterval(_this.loop);
-			if (callback) {
-				callback();
+	const _this = this;
+	let startTime = performance.now();
+	let stepInterval = (durationInSeconds * 1000) / this.step;
+
+	return new Promise((resolve, reject) => {
+		function runAnimation(now) {
+			const elapsed = now - startTime;
+
+			if (elapsed > stepInterval * _this.index) {
+				_this.Draw(_this.index);
+				_this.index++;
+			}
+
+			if (_this.index < _this.step) {
+				requestAnimationFrame(runAnimation);
+			} else {
+				_this.index = 0;
+				resolve(); // 當動畫完成時解決 Promise
 			}
 		}
-		_this.Draw(_this.index);
-
-		_this.index++;
-	}, this.speed);
+		requestAnimationFrame(runAnimation);
+	});
 };
-CanvasSprite.prototype.Loop = function () {
-	clearInterval(this.loop);
-	this.loop = setInterval(() => {
-		if (this.index > this.step - 1) {
-			this.index = 0;
-		}
-		this.Draw(this.index);
 
-		this.index++;
-	}, this.speed);
+CanvasSprite.prototype.Loop = function (speedMultiplier = 1.5) {
+	cancelAnimationFrame(this.animationFrame);
+	const _this = this;
+	let then = performance.now();
+	// 根據速度乘數調整 fpsInterval
+	let fpsInterval = 1000 / this.speed / speedMultiplier;
+
+	function animate(now) {
+		_this.animationFrame = requestAnimationFrame(animate);
+
+		const elapsed = now - then;
+
+		if (elapsed > fpsInterval) {
+			then = now - (elapsed % fpsInterval);
+
+			_this.Draw(_this.index);
+			_this.index = (_this.index + 1) % _this.step;
+		}
+	}
+
+	animate(performance.now());
 };
 CanvasSprite.prototype.Stop = function () {
 	this.index = 0;
-	clearInterval(this.loop);
-	this.Draw(this.index);
+	cancelAnimationFrame(this.animationFrame); // 取消動畫幀請求
+	this.Draw(this.index); // 繪製第一幀（或任何應該顯示的幀）
 };
+
 CanvasSprite.prototype.Draw = function (index) {
-	this.el.clearRect(0, 0, this.width, this.height);
-	if (this.imgArr[index].complete) {
-		this.el.drawImage(this.imgArr[index], 0, 0);
-	}
+	// 清除整個 canvas
+	this.el.clearRect(0, 0, this.el.canvas.width, this.el.canvas.height);
+
+	let xPos = this.frameWidth * index; // 使用對象屬性來計算當前幀的 x 軸位置
+	// 從 sprite 圖片中提取正確的部分來顯示
+	this.el.drawImage(this.imgArr[0], xPos, 0, this.frameWidth, this.frameHeight, 0, 0, this.frameWidth, this.frameHeight);
 };
-export function particlesBg(id) {
-	particlesJS(id, {
-		particles: {
-			number: {
-				value: 40,
-				density: {
-					enable: false,
-					value_area: 0
-				}
-			},
-			color: {
-				value: "#fff"
-			},
-			shape: {
-				type: "image", //[image,circle,star...]如果是image以下不管用
-				stroke: {
-					width: 1, //筆畫
-					color: "#f0f" //筆畫顏色
-				},
-				polygon: {
-					nb_sides: 5
-				},
-				image: {
-					src: "./assets/css/images/gold.png",
-					width: 28,
-					height: 28
-				}
-			},
-			opacity: {
-				value: 0.5,
-				random: false,
-				anim: {
-					enable: true,
-					speed: 1,
-					opacity_min: 0,
-					sync: false
-				}
-			},
-			size: {
-				value: 5, //產生大小
-				random: false, //隨機
-				anim: {
-					enable: false, //產生閃爍
-					speed: 40,
-					size_min: 1,
-					sync: false
-				}
-			},
-			line_linked: {
-				enable: false //是否產生連線
-			},
-			move: {
-				enable: true, //true
-				speed: 3, //移動速度
-				direction: "bottom-top", //移動方向
-				random: true,
-				straight: false, //是否隨著方向固定移動
-				out_mode: "out", //移動出視窗
-				bounce: false,
-				attract: {
-					enable: false,
-					rotateX: 600,
-					rotateY: 1200
-				}
-			}
-		},
-		interactivity: {
-			detect_on: "canvas",
-			events: {
-				onhover: {
-					enable: false
-				},
-				onclick: {
-					enable: false
-				},
-				resize: true
-			},
-			modes: {
-				repulse: {
-					distance: 200,
-					duration: 0.4
-				},
-				remove: {
-					particles_nb: 10
-				}
-			}
-		},
-		retina_detect: true
-	});
-}

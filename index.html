@@ -23,6 +23,31 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-EWGLH0Z57V"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-EWGLH0Z57V");
+		</script>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-W3397MP");
+		</script>
+		<!-- End Google Tag Manager -->
 		<style>
 			* {
 				padding: 0;
@@ -46,6 +71,10 @@
 		</style>
 	</head>
 	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3397MP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
 		<iframe id="downloadFrame" style="display: none"></iframe>
 		<a href="https://www.w3schools.com/html/mov_bbb.mp4" download="video">Download Video</a>
 		<button onclick="downloadVideo()">Download Video</button>
@@ -67,6 +96,17 @@
 		</form>
 
 		<script>
+			document.querySelector("#btn").addEventListener("click", function (e) {
+				let el_tag = e.target.tagName; // 取得 tag 名稱
+				let el_id = e.target.tagName || "unset"; // 取得 id，如果沒有 id 就使用 unset
+				let el_class = e.target.getAttribute("class") || "unset"; // 取得 class，如果沒有 class 就使用 unset
+				console.log(el_tag, el_id, el_class);
+				gtag("event", "click_action", {
+					tag: el_tag,
+					id: el_id,
+					class: el_class
+				});
+			});
 			function downloadFileFromURL(url, fileName) {
 				fetch(url)
 					.then((response) => response.blob())

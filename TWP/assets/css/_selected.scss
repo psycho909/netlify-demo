@@ -403,6 +403,7 @@
 				padding: 0;
 				height: auto;
 				padding: vw(20) vw(154);
+				justify-content: center;
 			}
 			&:before {
 				@include media {

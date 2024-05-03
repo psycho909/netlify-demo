@@ -10,8 +10,8 @@
 		padding: 60px;
 		@include media {
 			max-width: vw(732);
-			margin-top: vw(80);
-			margin-bottom: vw(80);
+			margin-top: 0;
+			margin-bottom: 0;
 			box-shadow: inset 0 0 0 vw(4) #c69d7b;
 			padding: vw(60);
 		}
@@ -195,7 +195,7 @@
 		line-height: 1.5;
 		@include media {
 			padding-left: vw(50);
-			padding-right: vw(40);
+			padding-right: vw(52);
 		}
 	}
 }

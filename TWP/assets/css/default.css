@@ -36,8 +36,8 @@ body {
 @media screen and (max-width: 768px) {
   .default .gbox-wrap {
     max-width: 95.3125vw;
-    margin-top: 10.4166666667vw;
-    margin-bottom: 10.4166666667vw;
+    margin-top: 0;
+    margin-bottom: 0;
     -webkit-box-shadow: inset 0 0 0 0.5208333333vw #c69d7b;
             box-shadow: inset 0 0 0 0.5208333333vw #c69d7b;
     padding: 7.8125vw;
@@ -269,7 +269,7 @@ body {
 @media screen and (max-width: 768px) {
   .notice-list {
     padding-left: 6.5104166667vw;
-    padding-right: 5.2083333333vw;
+    padding-right: 6.7708333333vw;
   }
 }
 
@@ -951,7 +951,7 @@ body {
 }
 
 .nav-bar {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -1254,6 +1254,7 @@ body {
   bottom: 30px;
   right: 50%;
   margin-right: -700px;
+  z-index: 99;
 }
 @media screen and (max-width: 768px) {
   .top {
@@ -2053,6 +2054,9 @@ body {
     padding: 0;
     height: auto;
     padding: 2.6041666667vw 20.0520833333vw;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
 }
 @media screen and (max-width: 768px) {
@@ -3297,7 +3301,7 @@ body {
   }
 }
 .create-task__item-notice:before {
-  content: "去完成";
+  content: "未完成";
   display: inline-block;
 }
 .create-btn__mission {

@@ -9,6 +9,7 @@ const create = {
 	setup() {
 		let stopTimer;
 		let swiper = Vue.ref(null);
+		let splide = Vue.ref(null);
 		let canvasArr = Vue.ref([]);
 		let api = Vue.ref(false);
 		const store = useEventStore();
@@ -21,7 +22,7 @@ const create = {
 				if (isMobile.any) {
 					Vue.nextTick(() => {
 						console.log("watch titleData");
-						swiper.value.refresh();
+						splide.value.refresh();
 						// swiper.value = new Swiper(".create-hold__swiper", {
 						// 	slidesPerView: 3,
 						// 	spaceBetween: 30,
@@ -172,7 +173,7 @@ const create = {
 		Vue.onMounted(() => {
 			quickCountdown();
 			if (isMobile.any) {
-				swiper.value = new Splide(".splide", {
+				splide.value.value = new Splide(".splide", {
 					type: "loop",
 					padding: "20%",
 					pagination: false,
@@ -183,7 +184,7 @@ const create = {
 					}
 				});
 
-				swiper.value.mount();
+				splide.value.mount();
 				// swiper.value = new Swiper(".create-hold__swiper", {
 				// 	slidesPerView: 3,
 				// 	spaceBetween: 30,

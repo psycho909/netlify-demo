@@ -11,6 +11,7 @@
 	bottom: 30px;
 	right: 50%;
 	margin-right: -700px;
+	z-index: 99;
 	@include media {
 		width: vw(80);
 		height: vw(80);

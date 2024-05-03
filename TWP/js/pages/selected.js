@@ -5,85 +5,112 @@ import { isValidString } from "../utils.js";
 
 const listData = [
 	{
-		WorldSeq: 1,
-		WorldName: "扭曲的黃金港",
-		ServerSeq: 1,
-		ServerName: "扭曲的黃金港1",
-		Flag: 1,
-		IsAdminNew: 0,
+		worldSeq: 1,
+		worldName: "W1",
+		serverSeq: 1,
+		serverName: "W1S1",
+		flag: 3,
+		isAdminNew: 0,
 		isAdminRecommend: 0
 	},
 	{
-		WorldSeq: 1,
-		WorldName: "test01",
-		ServerSeq: 2,
-		ServerName: "扭曲的黃金港2",
-		Flag: 1,
-		IsAdminNew: 0,
+		worldSeq: 1,
+		worldName: "W1",
+		serverSeq: 2,
+		serverName: "W1S2",
+		flag: 3,
+		isAdminNew: 0,
 		isAdminRecommend: 0
 	},
 	{
-		WorldSeq: 1,
-		WorldName: "test01",
-		ServerSeq: 3,
-		ServerName: "扭曲的黃金港3",
-		Flag: 1,
-		IsAdminNew: 0,
+		worldSeq: 1,
+		worldName: "W1",
+		serverSeq: 3,
+		serverName: "W1S3",
+		flag: 3,
+		isAdminNew: 0,
 		isAdminRecommend: 0
 	},
 	{
-		WorldSeq: 1,
-		WorldName: "test01",
-		ServerSeq: 4,
-		ServerName: "扭曲的黃金港4",
-		Flag: 1,
-		IsAdminNew: 0,
-		isAdminRecommend: 0
-	},
-	{
-		WorldSeq: 1,
-		WorldName: "test01",
-		ServerSeq: 5,
-		ServerName: "扭曲的黃金港5",
-		Flag: 1,
-		IsAdminNew: 0,
-		isAdminRecommend: 0
-	},
-	{
-		WorldSeq: 2,
-		WorldName: "test02",
-		ServerSeq: 1,
-		ServerName: "扭曲的黃金港1",
-		Flag: 1,
-		IsAdminNew: 0,
-		isAdminRecommend: 0
-	},
-	{
-		WorldSeq: 2,
-		WorldName: "test02",
-		ServerSeq: 2,
-		ServerName: "扭曲的黃金港2",
-		Flag: 1,
-		IsAdminNew: 0,
-		isAdminRecommend: 0
-	},
-	{
-		WorldSeq: 3,
-		WorldName: "test03",
-		ServerSeq: 1,
-		ServerName: "扭曲的黃金港3-1",
-		Flag: 1,
-		IsAdminNew: 0,
+		worldSeq: 1,
+		worldName: "W1",
+		serverSeq: 4,
+		serverName: "W1S4",
+		flag: 3,
+		isAdminNew: 0,
 		isAdminRecommend: 1
 	},
 	{
-		WorldSeq: 3,
-		WorldName: "test03",
-		ServerSeq: 2,
-		ServerName: "扭曲的黃金港3-2",
-		Flag: 1,
-		IsAdminNew: 0,
+		worldSeq: 2,
+		worldName: "W2",
+		serverSeq: 5,
+		serverName: "W2S1",
+		flag: 3,
+		isAdminNew: 0,
 		isAdminRecommend: 0
+	},
+	{
+		worldSeq: 2,
+		worldName: "W2",
+		serverSeq: 6,
+		serverName: "W2S2",
+		flag: 3,
+		isAdminNew: 0,
+		isAdminRecommend: 1
+	},
+	{
+		worldSeq: 2,
+		worldName: "W2",
+		serverSeq: 7,
+		serverName: "W2S3",
+		flag: 3,
+		isAdminNew: 0,
+		isAdminRecommend: 1
+	},
+	{
+		worldSeq: 2,
+		worldName: "W2",
+		serverSeq: 8,
+		serverName: "W2S4",
+		flag: 3,
+		isAdminNew: 0,
+		isAdminRecommend: 1
+	},
+	{
+		worldSeq: 3,
+		worldName: "W3",
+		serverSeq: 9,
+		serverName: "W3S1",
+		flag: 3,
+		isAdminNew: 0,
+		isAdminRecommend: 0
+	},
+	{
+		worldSeq: 3,
+		worldName: "W3",
+		serverSeq: 10,
+		serverName: "W3S2",
+		flag: 3,
+		isAdminNew: 0,
+		isAdminRecommend: 1
+	},
+	{
+		worldSeq: 3,
+		worldName: "W3",
+		serverSeq: 11,
+		serverName: "W3S3",
+		flag: 3,
+		isAdminNew: 0,
+		isAdminRecommend: 1
+	},
+	{
+		worldSeq: 3,
+		worldName: "W3",
+		serverSeq: 12,
+		serverName: "W3S4",
+		flag: 3,
+		isAdminNew: 0,
+		isAdminRecommend: 1
 	}
 ];
 const selected = {
@@ -95,6 +122,7 @@ const selected = {
 		let nameError = Vue.ref("");
 		let status = Vue.ref(false);
 		let firstRecommendedServer = Vue.ref(null);
+		let currentWorldSeq = Vue.ref(false);
 		function groupedByWorldSeq(data) {
 			let groupedBy = {};
 			return (groupedBy = data.reduce((acc, obj) => {
@@ -105,7 +133,6 @@ const selected = {
 				return acc;
 			}, {}));
 		}
-
 		// 檢查名稱
 		let checkName = () => {
 			if (!isValidString(selectedName.value)) {
@@ -129,40 +156,40 @@ const selected = {
 			// API判斷名稱有無重複
 			let data = {
 				token: "",
-				WorldSeq: selectedRealm.value.split("-")[0],
-				ServerSeq: selectedRealm.value.split("-")[1],
-				Name: selectedName.value
+				worldSeq: selectedRealm.value.split("-")[0],
+				serverSeq: selectedRealm.value.split("-")[1],
+				name: selectedName.value
 			};
 			// 沒有重複
 			SelectCreate(data);
 		};
-		// 選擇領域id filter後顯示名稱
-		let filterWorldSeq = Vue.computed(() => {
-			if (selectedRealm.value == null) return [];
-			let [WorldSeq, ServerSeq] = selectedRealm.value.split("-");
-			return listData.filter((item) => item.WorldSeq == WorldSeq && item.ServerSeq == ServerSeq)[0];
-		});
 		let toggleStatus = () => {
 			status.value = !status.value;
+		};
+		let selectedRealmItem = () => {
+			Vue.nextTick(() => {
+				let offset = $(".selected-chosen").offset().top;
+				$("body,html").animate({ scrollTop: offset }, 500);
+			});
 		};
 		Vue.onMounted(() => {
 			// WorldSeq整理group
 			serverData.value = groupedByWorldSeq(listData);
+			// Loop through each world in serverData
 			for (let worldKey in serverData.value) {
 				if (serverData.value.hasOwnProperty(worldKey)) {
 					// Find the first server in the current world where isAdminRecommend is 1
-					let recommendedServer = serverData.value[worldKey].find((server) => server.isAdminRecommend === 1);
+					let recommendedServer = serverData.value[worldKey].find((server) => server.isAdminRecommend === 1 && server.flag != 4);
 					if (recommendedServer) {
 						firstRecommendedServer.value = recommendedServer;
 						break; // Stop the search once the first match is found
 					}
 				}
 			}
-			// currentWorldSeq.value = firstRecommendedServer.value.worldSeq;
-			// selectedRealm.value = firstRecommendedServer.value;
-			console.log(firstRecommendedServer.value);
+			currentWorldSeq.value = firstRecommendedServer.value.worldSeq;
+			selectedRealm.value = firstRecommendedServer.value;
 		});
-		return { Notice, serverData, selectedRealm, selectedName, checkName, filterWorldSeq, nameError, toggleStatus, status };
+		return { Notice, serverData, selectedRealm, selectedName, checkName, nameError, toggleStatus, status, selectedRealmItem };
 	},
 	template: `
 		<div class="selected-content">
@@ -185,7 +212,7 @@ const selected = {
 								<div class="selected-realm__inner-box">
 									<label v-for="(realm,realmIndex) in worlds" :key="realm.ServerSeq">
 										<input type="radio" name="realm" :value="realm" v-model="selectedRealm" />
-										<div class="selected-realm__item" :data-type="realm.flag"><span class="icon--circle"></span>{{realm.serverName}}<span class="icon--new" v-if="realm.isAdminNew"></span><span class="icon--recommend" v-if="realm.isAdminRecommend"></span></div>
+										<div class="selected-realm__item" @click="selectedRealmItem" :data-type="realm.flag"><span class="icon--circle"></span>{{realm.serverName}}<span class="icon--new" v-if="realm.isAdminNew"></span><span class="icon--recommend" v-if="realm.isAdminRecommend"></span></div>
 									</label>
 								</div>
 							</div>
@@ -193,7 +220,7 @@ const selected = {
 					</div>
 				</div>
 			</div>
-			<div class="selected-chosen" v-if="selectedRealm != null">
+			<div class="selected-chosen" v-show="selectedRealm != null">
 				<div class="selected-chosen__title">
 					<span class="selected-chosen__title-hexagon"></span>
 					

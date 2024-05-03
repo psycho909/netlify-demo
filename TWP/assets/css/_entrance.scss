@@ -1,0 +1,63 @@
+.entrance {
+	&-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	&-logo {
+		width: 232px;
+		height: 182px;
+		background-size: 100%;
+		background-image: url("./images/m-index-logo.png");
+		@include media {
+			width: vw(302);
+			height: vw(234);
+		}
+	}
+	&-slogan {
+		width: 741px;
+		height: 287px;
+		background-size: 100%;
+		background-image: url("./images/index-title-head.png");
+		margin-top: -82px;
+		margin-bottom: 30px;
+		@include media {
+			width: vw(708);
+			height: vw(361);
+			margin-bottom: vw(32);
+			margin-top: vw(-52);
+			background-image: url("./images/m-index-title-head.png");
+		}
+	}
+	&-date {
+		width: 251px;
+		height: 47px;
+		background-size: 100%;
+		background-image: url("./images/index-text-date.png");
+		margin-bottom: 30px;
+		background-repeat: no-repeat;
+		@include media {
+			width: vw(299);
+			height: vw(56);
+			margin-bottom: vw(100);
+		}
+	}
+	&-btn {
+		&__in {
+			width: 245px;
+			height: 60px;
+			background-size: 200%;
+			background-image: url("./images/btn-enter.png");
+			font-size: 0;
+			margin-bottom: 30px;
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				width: vw(490);
+				height: vw(120);
+				margin-bottom: vw(120);
+			}
+		}
+	}
+}

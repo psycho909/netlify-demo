@@ -2781,6 +2781,7 @@ body {
   .create-hold__box {
     width: 71.3541666667vw;
     overflow: hidden;
+    position: relative;
   }
 }
 .create-hold__swiper.swiper-container {
@@ -2796,7 +2797,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .create-hold__swiper.swiper {
-    width: 35.15625vw;
+    width: 71.3541666667vw;
     overflow: visible;
     margin: 0 auto;
   }
@@ -2832,7 +2833,6 @@ body {
 }
 @media screen and (max-width: 768px) {
   .create-hold__list .swiper-slide {
-    width: 35.15625vw;
     height: 45.5729166667vw;
   }
 }
@@ -2972,11 +2972,11 @@ body {
 }
 @media screen and (max-width: 768px) {
   .create-hold__item-next {
-    width: 5.9895833333vw;
+    width: 5.9895833333vw !important;
     height: 7.8125vw;
     right: 2.2135416667vw;
     display: block;
-    margin-top: -3.125vw;
+    margin-top: -5.9895833333vw;
   }
 }
 .create-hold__item-prev {
@@ -2995,11 +2995,11 @@ body {
 }
 @media screen and (max-width: 768px) {
   .create-hold__item-prev {
-    width: 5.9895833333vw;
+    width: 5.9895833333vw !important;
     height: 7.8125vw;
     left: 2.2135416667vw;
     display: block;
-    margin-top: -3.125vw;
+    margin-top: -5.9895833333vw;
   }
 }
 .create-hold .i--plus {
@@ -3336,6 +3336,21 @@ body {
   .create-btn__notice-box {
     display: none;
   }
+}
+
+.splide__pagination {
+  display: none;
+}
+
+.splide__arrow {
+  background-color: transparent;
+  border-radius: 0;
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+}
+.splide__arrow svg {
+  display: none;
 }
 
 .plunder-content {

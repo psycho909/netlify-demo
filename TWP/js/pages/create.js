@@ -21,10 +21,22 @@ const create = {
 				if (isMobile.any) {
 					Vue.nextTick(() => {
 						console.log("watch titleData");
-						swiper.value.update();
-						swiper.value.loopDestroy();
-						swiper.value.loopCreate();
-						swiper.value.slideTo(0);
+						swiper.value.refresh();
+						// swiper.value = new Swiper(".create-hold__swiper", {
+						// 	slidesPerView: 3,
+						// 	spaceBetween: 30,
+						// 	// centeredSlides: true,
+						// 	loop: true,
+						// 	// width: 270,
+						// 	navigation: {
+						// 		nextEl: ".create-hold__item-next",
+						// 		prevEl: ".create-hold__item-prev"
+						// 	}
+						// });
+						// swiper.value.update();
+						// swiper.value.loopDestroy();
+						// swiper.value.loopCreate();
+						// swiper.value.slideToLoop(1);
 					});
 				}
 			}
@@ -154,19 +166,34 @@ const create = {
 			let data = [];
 			Mission(data);
 		};
+		const slideToGo = (page) => {
+			swiper.value.go(page);
+		};
 		Vue.onMounted(() => {
 			quickCountdown();
 			if (isMobile.any) {
-				swiper.value = new Swiper(".create-hold__swiper", {
-					slidesPerView: 1,
-					spaceBetween: 30,
-					centeredSlides: true,
-					loop: true,
-					navigation: {
-						nextEl: ".create-hold__item-next",
-						prevEl: ".create-hold__item-prev"
+				swiper.value = new Splide(".splide", {
+					type: "loop",
+					padding: "7rem",
+					pagination: false,
+					arrows: false,
+					classes: {
+						prev: "splide__arrow--prev create-hold__item-prev",
+						next: "splide__arrow--next create-hold__item-next"
 					}
 				});
+
+				swiper.value.mount();
+				// swiper.value = new Swiper(".create-hold__swiper", {
+				// 	slidesPerView: 3,
+				// 	spaceBetween: 30,
+				// 	// centeredSlides: true,
+				// 	loop: true,
+				// 	navigation: {
+				// 		nextEl: ".create-hold__item-next",
+				// 		prevEl: ".create-hold__item-prev"
+				// 	}
+				// });
 			} else {
 				// $(".create-task__content").mCustomScrollbar({
 				// 	theme: "light",
@@ -185,7 +212,7 @@ const create = {
 				stopTimer.stop();
 			}
 		});
-		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem };
+		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem, slideToGo };
 	},
 	template: `
 		<div class="create-content">
@@ -217,10 +244,10 @@ const create = {
 						<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem"><div class="line"></div>召換天命</a>
 					</div>
 					<div class="create-hold">
-						<div class="create-hold__box">
-							<div class="create-hold__swiper swiper">
-								<div class="create-hold__list swiper-wrapper">
-									<div class="swiper-slide" v-for="i in titleData">
+						<div class="create-hold__box splide">
+							<div class="create-hold__swiper swiper splide__track">
+								<div class="create-hold__list swiper-wrapper splide__list">
+									<div class="swiper-slide splide__slide" v-for="i in titleData">
 										<div class="create-hold__item" :data-type="i.TitleLevel">
 											<template v-if="i.TitleLevel == 0">
 												<div class="create-hold__name">尚未持有天命</div>
@@ -234,8 +261,8 @@ const create = {
 								</div>
 							</div>
 						</div>
-						<div class="create-hold__item-prev"></div>
-						<div class="create-hold__item-next"></div>
+						<div class="create-hold__item-prev" @click="slideToGo('-1')"></div>
+						<div class="create-hold__item-next" @click="slideToGo('+1')"></div>
 					</div>
 				</div>
 			</div>

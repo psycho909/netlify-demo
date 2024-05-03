@@ -373,6 +373,7 @@
 			@include media {
 				width: vw(548);
 				overflow: hidden;
+				position: relative;
 			}
 		}
 		&__swiper {
@@ -385,7 +386,8 @@
 			&.swiper {
 				overflow: initial;
 				@include media {
-					width: vw(270);
+					// width: vw(270);
+					width: vw(548);
 					overflow: visible;
 					margin: 0 auto;
 				}
@@ -411,7 +413,7 @@
 				height: 158px;
 				display: flex;
 				@include media {
-					width: vw(270);
+					// width: vw(270) !important;
 					height: vw(350);
 				}
 			}
@@ -521,11 +523,11 @@
 				z-index: 99;
 				transform: translateY(-50%);
 				@include media {
-					width: vw(46);
+					width: vw(46) !important;
 					height: vw(60);
 					right: vw(17);
 					display: block;
-					margin-top: vw(-24);
+					margin-top: vw(-46);
 				}
 			}
 			&-prev {
@@ -540,11 +542,11 @@
 				z-index: 99;
 				transform: translateY(-50%);
 				@include media {
-					width: vw(46);
+					width: vw(46) !important;
 					height: vw(60);
 					left: vw(17);
 					display: block;
-					margin-top: vw(-24);
+					margin-top: vw(-46);
 				}
 			}
 		}
@@ -821,3 +823,16 @@
 	}
 }
 // @include spriteAnimation(play, 0.8s, 12, infinite, 0%, -1200%);
+.splide__pagination {
+	display: none;
+}
+.splide__arrow {
+	background-color: transparent;
+	border-radius: 0;
+	opacity: 1;
+	position: absolute;
+	width: 100%;
+	svg {
+		display: none;
+	}
+}

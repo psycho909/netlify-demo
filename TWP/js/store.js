@@ -44,7 +44,7 @@ const useEventStore = defineStore("event", {
 					Seq: 0
 				},
 				{
-					TitleName: "稱號2",
+					TitleName: "稱號3",
 					TitleLevel: 2,
 					Seq: 1
 				},

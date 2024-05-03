@@ -72,14 +72,14 @@ export function Notice() {
 		hasCloseBtn: true,
 		hasActionBtn: false,
 		afterOpen: function () {
-			$(".notice-content").mCustomScrollbar({
-				theme: "light",
-				contentTouchScroll: true,
-				mouseWheel: {
-					preventDefault: true
-				}
-				// advanced: { extraDraggableSelectors: ".notice-content" }
-			});
+			// $(".notice-content").mCustomScrollbar({
+			// 	theme: "light",
+			// 	contentTouchScroll: true,
+			// 	mouseWheel: {
+			// 		preventDefault: true
+			// 	}
+			// 	// advanced: { extraDraggableSelectors: ".notice-content" }
+			// });
 		},
 		afterClose: function () {
 			$.gbox.close();

@@ -174,7 +174,7 @@ const create = {
 			if (isMobile.any) {
 				swiper.value = new Splide(".splide", {
 					type: "loop",
-					padding: "7rem",
+					padding: "20%",
 					pagination: false,
 					arrows: false,
 					classes: {

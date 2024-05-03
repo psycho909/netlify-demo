@@ -3353,6 +3353,10 @@ body {
   display: none;
 }
 
+.splide {
+  visibility: visible;
+}
+
 .plunder-content {
   width: 1200px;
   margin: 0 auto;

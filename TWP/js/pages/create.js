@@ -22,80 +22,82 @@ const create = {
 			if (orientation.angle !== undefined) {
 				orientation = orientation.angle;
 			}
-			w.value = `${window.screen.width};${window.innerWidth}`;
-			switch (orientation) {
-				case 0:
-					// 裝置直立
-					if (window.innerWidth <= 768) {
-						if (isMobile.any) {
-							splide.value = new Splide(".splide", {
-								type: "loop",
-								padding: "20%",
-								pagination: false,
-								arrows: false,
-								classes: {
-									prev: "splide__arrow--prev create-hold__item-prev",
-									next: "splide__arrow--next create-hold__item-next"
-								}
-							});
+			setTimeout(() => {
+				w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.clientWidth}`;
+				switch (orientation) {
+					case 0:
+						// 裝置直立
+						if (document.documentElement.clientWidth <= 768) {
+							if (isMobile.any) {
+								splide.value = new Splide(".splide", {
+									type: "loop",
+									padding: "20%",
+									pagination: false,
+									arrows: false,
+									classes: {
+										prev: "splide__arrow--prev create-hold__item-prev",
+										next: "splide__arrow--next create-hold__item-next"
+									}
+								});
 
-							splide.value.mount();
+								splide.value.mount();
+							}
+						} else {
+							if (splide.value !== null) {
+								splide.value.destroy();
+							}
 						}
-					} else {
-						if (splide.value !== null) {
-							splide.value.destroy();
-						}
-					}
-					break;
-				case 90:
-				case -90:
-					// 裝置橫向
-					if (window.innerWidth <= 768) {
-						if (isMobile.phone) {
-							splide.value = new Splide(".splide", {
-								type: "loop",
-								padding: "20%",
-								pagination: false,
-								arrows: false,
-								classes: {
-									prev: "splide__arrow--prev create-hold__item-prev",
-									next: "splide__arrow--next create-hold__item-next"
-								}
-							});
+						break;
+					case 90:
+					case -90:
+						// 裝置橫向
+						if (document.documentElement.clientWidth <= 768) {
+							if (isMobile.phone) {
+								splide.value = new Splide(".splide", {
+									type: "loop",
+									padding: "20%",
+									pagination: false,
+									arrows: false,
+									classes: {
+										prev: "splide__arrow--prev create-hold__item-prev",
+										next: "splide__arrow--next create-hold__item-next"
+									}
+								});
 
-							splide.value.mount();
+								splide.value.mount();
+							}
+						} else {
+							if (splide.value !== null) {
+								splide.value.destroy();
+							}
 						}
-					} else {
-						if (splide.value !== null) {
-							splide.value.destroy();
-						}
-					}
 
-					break;
-				case 180:
-					// 裝置上下顛倒
-					if (window.innerWidth <= 768) {
-						if (isMobile.any) {
-							splide.value = new Splide(".splide", {
-								type: "loop",
-								padding: "20%",
-								pagination: false,
-								arrows: false,
-								classes: {
-									prev: "splide__arrow--prev create-hold__item-prev",
-									next: "splide__arrow--next create-hold__item-next"
-								}
-							});
+						break;
+					case 180:
+						// 裝置上下顛倒
+						if (document.documentElement.clientWidth <= 768) {
+							if (isMobile.any) {
+								splide.value = new Splide(".splide", {
+									type: "loop",
+									padding: "20%",
+									pagination: false,
+									arrows: false,
+									classes: {
+										prev: "splide__arrow--prev create-hold__item-prev",
+										next: "splide__arrow--next create-hold__item-next"
+									}
+								});
 
-							splide.value.mount();
+								splide.value.mount();
+							}
+						} else {
+							if (splide.value !== null) {
+								splide.value.destroy();
+							}
 						}
-					} else {
-						if (splide.value !== null) {
-							splide.value.destroy();
-						}
-					}
-					break;
-			}
+						break;
+				}
+			}, 100);
 		}
 		Vue.watch(
 			() => store.titleData,
@@ -236,7 +238,7 @@ const create = {
 			});
 			window.addEventListener("orientationchange", handleOrientationChange);
 			// alert(`${window.screen.width };${window.innerWidth};${document.documentElement.scrollWidth}`);
-			w.value = `${window.screen.width};${window.innerWidth}`;
+			w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.scrollWidth}`;
 			if (window.innerWidth <= 768) {
 				if (isMobile.any) {
 					splide.value = new Splide(".splide", {

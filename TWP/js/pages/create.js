@@ -232,7 +232,7 @@ const create = {
 				timer.value = update;
 			});
 			window.addEventListener("orientationchange", handleOrientationChange);
-			alert(window.screen.width);
+			alert(`${window.screen.width};${window.innerWidth};${document.documentElement.scrollWidth}`);
 			if (window.screen.width <= 768) {
 				if (isMobile.any) {
 					splide.value = new Splide(".splide", {

@@ -15,30 +15,95 @@ const create = {
 		const store = useEventStore();
 		const timer = Vue.ref({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: false });
 		const { titleData } = storeToRefs(store);
-		let CoolDownMin = Vue.ref(0);
+		let coolDownSec = Vue.ref("60");
+		function handleOrientationChange() {
+			var orientation = window.orientation || window.screen.orientation || window.screen.mozOrientation || window.screen.msOrientation;
+			if (orientation.angle !== undefined) {
+				orientation = orientation.angle;
+			}
+			switch (orientation) {
+				case 0:
+					// 裝置直立
+					if (window.screen.width <= 768) {
+						if (isMobile.any) {
+							splide.value = new Splide(".splide", {
+								type: "loop",
+								padding: "20%",
+								pagination: false,
+								arrows: false,
+								classes: {
+									prev: "splide__arrow--prev create-hold__item-prev",
+									next: "splide__arrow--next create-hold__item-next"
+								}
+							});
+
+							splide.value.mount();
+						}
+					} else {
+						splide.value.destroy();
+					}
+					break;
+				case 90:
+				case -90:
+					// 裝置橫向
+					if (window.screen.width <= 768) {
+						if (isMobile.phone) {
+							splide.value = new Splide(".splide", {
+								type: "loop",
+								padding: "20%",
+								pagination: false,
+								arrows: false,
+								classes: {
+									prev: "splide__arrow--prev create-hold__item-prev",
+									next: "splide__arrow--next create-hold__item-next"
+								}
+							});
+
+							splide.value.mount();
+						}
+					} else {
+						splide.value.destroy();
+						if (isMobile.tablet) {
+							if (splide.value !== null) {
+								splide.value.destroy();
+							}
+						}
+					}
+
+					break;
+				case 180:
+					// 裝置上下顛倒
+					if (window.screen.width <= 768) {
+						if (isMobile.any) {
+							splide.value = new Splide(".splide", {
+								type: "loop",
+								padding: "20%",
+								pagination: false,
+								arrows: false,
+								classes: {
+									prev: "splide__arrow--prev create-hold__item-prev",
+									next: "splide__arrow--next create-hold__item-next"
+								}
+							});
+
+							splide.value.mount();
+						}
+					} else {
+						splide.value.destroy();
+					}
+					break;
+			}
+		}
 		Vue.watch(
 			() => store.titleData,
 			() => {
-				if (isMobile.any) {
-					Vue.nextTick(() => {
-						console.log("watch titleData");
-						splide.value.refresh();
-						// swiper.value = new Swiper(".create-hold__swiper", {
-						// 	slidesPerView: 3,
-						// 	spaceBetween: 30,
-						// 	// centeredSlides: true,
-						// 	loop: true,
-						// 	// width: 270,
-						// 	navigation: {
-						// 		nextEl: ".create-hold__item-next",
-						// 		prevEl: ".create-hold__item-prev"
-						// 	}
-						// });
-						// swiper.value.update();
-						// swiper.value.loopDestroy();
-						// swiper.value.loopCreate();
-						// swiper.value.slideToLoop(1);
-					});
+				if (window.screen.width <= 768) {
+					if (isMobile.any) {
+						Vue.nextTick(() => {
+							splide.value.refresh();
+							splide.value.go(0);
+						});
+					}
 				}
 			}
 		);
@@ -72,50 +137,41 @@ const create = {
 			});
 		}
 		// 倒數計時
-		function countdown(initialEndTime, onUpdate) {
-			let endTime = new Date(initialEndTime).getTime();
+		function countdown(initialSeconds, onUpdate) {
+			let now = new Date().getTime();
+			let endTime = now + initialSeconds * 1000; // Convert seconds to milliseconds and add to current time
 			let frameId;
-
 			function stop() {
 				if (frameId) {
 					cancelAnimationFrame(frameId);
 					frameId = null;
 				}
 			}
-
 			function updateTimer() {
-				const now = new Date().getTime();
+				now = new Date().getTime();
 				const distance = endTime - now;
-
 				if (distance < 0) {
 					onUpdate({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: false });
 					stop();
 					return;
 				}
-
 				const days = Math.floor(distance / (1000 * 60 * 60 * 24));
 				const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 				const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 				const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
 				onUpdate({ days, hours, minutes, seconds, completed: true });
-
 				frameId = requestAnimationFrame(updateTimer);
 			}
-
-			function start(newEndTime) {
-				if (newEndTime) {
-					endTime = new Date(newEndTime).getTime();
+			function start(newMinutes) {
+				if (newMinutes !== undefined) {
+					now = new Date().getTime();
+					endTime = now + newMinutes * 60 * 1000;
 				}
 				if (!frameId) {
 					updateTimer();
 				}
 			}
-
-			// Initially start the timer
 			start();
-
-			// Return control methods
 			return { start, stop };
 		}
 
@@ -168,42 +224,30 @@ const create = {
 			Mission(data);
 		};
 		const slideToGo = (page) => {
-			swiper.value.go(page);
+			splide.value.go(page);
 		};
 		Vue.onMounted(() => {
 			quickCountdown();
-			if (isMobile.any) {
-				splide.value.value = new Splide(".splide", {
-					type: "loop",
-					padding: "20%",
-					pagination: false,
-					arrows: false,
-					classes: {
-						prev: "splide__arrow--prev create-hold__item-prev",
-						next: "splide__arrow--next create-hold__item-next"
-					}
-				});
+			stopTimer = countdown(coolDownSec.value, (update) => {
+				timer.value = update;
+			});
+			window.addEventListener("orientationchange", handleOrientationChange);
+			alert(window.screen.width);
+			if (window.screen.width <= 768) {
+				if (isMobile.any) {
+					splide.value = new Splide(".splide", {
+						type: "loop",
+						padding: "20%",
+						pagination: false,
+						arrows: false,
+						classes: {
+							prev: "splide__arrow--prev create-hold__item-prev",
+							next: "splide__arrow--next create-hold__item-next"
+						}
+					});
 
-				splide.value.mount();
-				// swiper.value = new Swiper(".create-hold__swiper", {
-				// 	slidesPerView: 3,
-				// 	spaceBetween: 30,
-				// 	// centeredSlides: true,
-				// 	loop: true,
-				// 	navigation: {
-				// 		nextEl: ".create-hold__item-next",
-				// 		prevEl: ".create-hold__item-prev"
-				// 	}
-				// });
-			} else {
-				// $(".create-task__content").mCustomScrollbar({
-				// 	theme: "light",
-				// 	contentTouchScroll: true,
-				// 	mouseWheel: {
-				// 		preventDefault: true
-				// 	}
-				// 	// advanced: { extraDraggableSelectors: ".notice-content" }
-				// });
+					splide.value.mount();
+				}
 			}
 		});
 
@@ -212,6 +256,7 @@ const create = {
 			if (stopTimer) {
 				stopTimer.stop();
 			}
+			window.removeEventListener("orientationchange", handleOrientationChange);
 		});
 		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem, slideToGo };
 	},

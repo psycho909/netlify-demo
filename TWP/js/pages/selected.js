@@ -10,8 +10,8 @@ const listData = [
 		serverSeq: 1,
 		serverName: "W1S1",
 		flag: 3,
-		isAdminNew: 0,
-		isAdminRecommend: 0
+		isAdminNew: 1,
+		isAdminRecommend: 1
 	},
 	{
 		worldSeq: 1,
@@ -154,14 +154,14 @@ const selected = {
 			// $("#loadingProgress").show();
 			// $("#loadingProgress").hide();
 			// API判斷名稱有無重複
-			let data = {
-				token: "",
-				worldSeq: selectedRealm.value.split("-")[0],
-				serverSeq: selectedRealm.value.split("-")[1],
-				name: selectedName.value
-			};
+			// let data = {
+			// 	token: "",
+			// 	worldSeq: selectedRealm.value.split("-")[0],
+			// 	serverSeq: selectedRealm.value.split("-")[1],
+			// 	name: selectedName.value
+			// };
 			// 沒有重複
-			SelectCreate(data);
+			SelectCreate();
 		};
 		let toggleStatus = () => {
 			status.value = !status.value;
@@ -205,14 +205,16 @@ const selected = {
 				</div>
 				<div class="selected-realm__row-group">
 					<div class="selected-realm__row" :class="[status?'-open':'']" v-for="(worlds,worldsKey,worldsIndex) in serverData" :key="worldsIndex">
-						<div class="selected-realm__title"><span>{{worlds[0]?.WorldName}}</span></div>
-						<a href="javascript:;" class="selected-realm__toggle" @click="toggleStatus"></a>
+						<div @click="toggleStatus">
+							<div class="selected-realm__title"><span>{{worlds[0]?.WorldName}}</span></div>
+							<a href="javascript:;" class="selected-realm__toggle"></a>
+						</div>
 						<div class="selected-realm__box">
 							<div class="selected-realm__inner">
 								<div class="selected-realm__inner-box">
 									<label v-for="(realm,realmIndex) in worlds" :key="realm.ServerSeq">
 										<input type="radio" name="realm" :value="realm" v-model="selectedRealm" />
-										<div class="selected-realm__item" @click="selectedRealmItem" :data-type="realm.flag"><span class="icon--circle"></span>{{realm.serverName}}<span class="icon--new" v-if="realm.isAdminNew"></span><span class="icon--recommend" v-if="realm.isAdminRecommend"></span></div>
+										<div class="selected-realm__item" @click="selectedRealmItem" :data-type="realm.flag"><span class="icon--circle"></span><span class="selected-realm__item-serverName">{{realm.serverName}}</span><span class="icon--new" v-if="realm.isAdminNew"></span><span class="icon--recommend" v-if="realm.isAdminRecommend"></span></div>
 									</label>
 								</div>
 							</div>
@@ -229,7 +231,7 @@ const selected = {
 					<input type="text" placeholder="請輸入1~10個字的角色名稱" maxlength="10" v-model="selectedName" />
 				</div>
 				<span class="selected-chosen__error" v-if="nameError !== ''">{{nameError}}</span>
-				<a href="javascript:;" class="selected-chosen__btn-submit" @click="checkName">檢查名稱</a>
+				<a href="javascript:;" class="selected-chosen__btn-submit" @click="checkName"><div class="line">創立角色</div></a>
 				<span class="selected-chosen__notice"><span>※ 請注意！</span><span>創立角色名稱後，</span><span>選定的伺服器與角色名稱將無法變更。</span></span>
 			</div>
 			<a href="javascript:;" class="selected-btn__notice btn-common" @click="()=>Notice()">注意事項</a>

@@ -1,4 +1,4 @@
-import { MessageLB, Notice, Warning, SelectNot, SelectPlundered, SelectPlunderSuccess, SelectPlunderFailed, SelectCreate, SelectCreated, PreProtect, PreCD, PlunderSuccess, Plundered, PlunderFailed } from "./lightbox.js";
+import { Guide, MessageLB, Notice, Warning, SelectNot, SelectPlundered, SelectPlunderSuccess, SelectPlunderFailed, SelectCreate, SelectCreated, PreProtect, PreCD, PlunderSuccess, Plundered, PlunderFailed } from "./lightbox.js";
 import navBar from "./components/navBar.js";
 import top from "./components/top.js";
 import entrance from "./pages/entrance.js";
@@ -11,8 +11,12 @@ import { getAndRemoveQueryStringInsensitive, setCookie, getCookie } from "./util
 // SelectPlunderFailed();
 // MessageLB("MessageLB");
 // Plundered();
+// Guide();
 const { storeToRefs } = Pinia;
-
+// 阻止瀏覽器預設scroll
+if (history.scrollRestoration) {
+	history.scrollRestoration = "manual";
+}
 let app = Vue.createApp({
 	components: {
 		"nav-bar": navBar,
@@ -26,9 +30,15 @@ let app = Vue.createApp({
 		const store = useEventStore();
 		const { titleData } = storeToRefs(store);
 		let token = Vue.ref("");
-		let currentPage = Vue.ref("selected");
+		let currentPage = Vue.ref("create");
 		Vue.watch(storeToRefs(store).currentPage, (val) => {
 			currentPage.value = val;
+			document.querySelector("#app").setAttribute("class", "");
+			document.querySelector("#app").classList.add(val);
+			window.scrollTo({
+				top: 0,
+				behavior: "smooth"
+			});
 		});
 		Vue.onMounted(() => {
 			let cookie = getCookie("TWPEvent");

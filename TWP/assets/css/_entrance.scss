@@ -30,14 +30,14 @@
 		}
 	}
 	&-date {
-		width: 251px;
+		width: 434px;
 		height: 47px;
 		background-size: 100%;
 		background-image: url("./images/index-text-date.png");
 		margin-bottom: 30px;
 		background-repeat: no-repeat;
 		@include media {
-			width: vw(299);
+			width: vw(517);
 			height: vw(56);
 			margin-bottom: vw(100);
 		}
@@ -51,7 +51,7 @@
 			font-size: 0;
 			margin-bottom: 30px;
 			@include hover {
-				background-position-x: 100%;
+				// background-position-x: 100%;
 			}
 			@include media {
 				width: vw(490);

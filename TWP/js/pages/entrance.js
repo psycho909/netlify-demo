@@ -5,7 +5,7 @@ const entrance = {
 		const store = useEventStore();
 		const toLogin = () => {
 			// https://galaxy.beanfun.com/webapi/view/login/{銀河配發之專案代碼}?redirect_url={接 收登入完成之網址}
-			store.setCurrentPage("login");
+			store.setCurrentPage("selected");
 		};
 		return { Notice, toLogin };
 	},

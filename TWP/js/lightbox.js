@@ -269,7 +269,7 @@ export function SelectPlunderFailed() {
 
 // 選擇領域 - 未創立
 export function SelectCreate(data) {
-	// const store = useEventStore(pinia);
+	const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -282,6 +282,8 @@ export function SelectCreate(data) {
 				text: "確定",
 				class: "btn",
 				click: function () {
+					store.setCurrentPage("create");
+					$.gbox.close();
 					// 打API
 					// InsertUserDataAndCharacter(data).then((res) => {
 					// 	$("#loadingProgress").hide();
@@ -443,6 +445,8 @@ export function PlunderSuccess(data) {
 		<div class="lb-plunder-content">
 			<p>已成功獲得天命</p>
 			<div class="lb-plunder-name">角色名稱最多十個文字</div>
+			<p>每隔24小時可獲得新的稱號，</p>
+			<p>收集稱號完成任務取得更多獎勵吧！</p>
 		</div>
 	`;
 	$.gbox.open(HTML, config);
@@ -591,18 +595,79 @@ export function RemoveTitle(Seq) {
 
 // 需強制出現跳窗告知玩家如何遊玩，且點擊按鈕後即可關閉跳窗(無需幫玩家抽取稱號)
 export function Guide() {
+	function handleOrientationChange() {
+		var orientation = window.orientation || window.screen.orientation || window.screen.mozOrientation || window.screen.msOrientation;
+
+		switch (orientation) {
+			case 0:
+				if (window.screen.width <= 768) {
+					if (isMobile.any) {
+						$(".lb-guide-step").mCustomScrollbar({
+							theme: "light",
+							contentTouchScroll: true,
+							mouseWheel: {
+								preventDefault: true
+							}
+						});
+					}
+				} else {
+					$(".lb-guide-step").mCustomScrollbar("disable", true);
+				}
+				break;
+			case 90:
+			case -90:
+				if (window.screen.width <= 768) {
+					if (isMobile.any) {
+						$(".lb-guide-step").mCustomScrollbar({
+							theme: "light",
+							contentTouchScroll: true,
+							mouseWheel: {
+								preventDefault: true
+							}
+						});
+					}
+				} else {
+					$(".lb-guide-step").mCustomScrollbar("disable", true);
+				}
+				break;
+			case 180:
+				if (window.screen.width <= 768) {
+					if (isMobile.any) {
+						$(".lb-guide-step").mCustomScrollbar({
+							theme: "light",
+							contentTouchScroll: true,
+							mouseWheel: {
+								preventDefault: true
+							}
+						});
+					}
+				} else {
+					$(".lb-guide-step").mCustomScrollbar("disable", true);
+				}
+				break;
+		}
+	}
 	var config = {
 		addClass: "default lb-guide",
-		hasCloseBtn: true,
+		hasCloseBtn: false,
 		hasActionBtn: true,
+		afterOpen: function () {
+			document.documentElement.style.overflow = "hidden";
+			// 在頁面加載時綁定事件監聽器
+			window.addEventListener("orientationchange", handleOrientationChange);
+		},
 		afterClose: function () {
+			document.documentElement.style.overflow = "auto";
+			window.removeEventListener("orientationchange", handleOrientationChange);
 			$.gbox.close();
 		},
 		actionBtns: [
 			{
 				text: "馬上進入稱號加冕",
-				class: "btn",
+				class: "btn lb-create-btn",
 				click: function () {
+					document.documentElement.style.overflow = "auto";
+					window.removeEventListener("orientationchange", handleOrientationChange);
 					$.gbox.close();
 				}
 			}

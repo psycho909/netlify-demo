@@ -24,7 +24,7 @@ const create = {
 			switch (orientation) {
 				case 0:
 					// 裝置直立
-					if (window.screen.width <= 768) {
+					if (window.innerWidth <= 768) {
 						if (isMobile.any) {
 							splide.value = new Splide(".splide", {
 								type: "loop",
@@ -46,7 +46,7 @@ const create = {
 				case 90:
 				case -90:
 					// 裝置橫向
-					if (window.screen.width <= 768) {
+					if (window.innerWidth <= 768) {
 						if (isMobile.phone) {
 							splide.value = new Splide(".splide", {
 								type: "loop",
@@ -63,17 +63,12 @@ const create = {
 						}
 					} else {
 						splide.value.destroy();
-						if (isMobile.tablet) {
-							if (splide.value !== null) {
-								splide.value.destroy();
-							}
-						}
 					}
 
 					break;
 				case 180:
 					// 裝置上下顛倒
-					if (window.screen.width <= 768) {
+					if (window.innerWidth <= 768) {
 						if (isMobile.any) {
 							splide.value = new Splide(".splide", {
 								type: "loop",
@@ -97,7 +92,7 @@ const create = {
 		Vue.watch(
 			() => store.titleData,
 			() => {
-				if (window.screen.width <= 768) {
+				if (window.innerWidth <= 768) {
 					if (isMobile.any) {
 						Vue.nextTick(() => {
 							splide.value.refresh();
@@ -232,8 +227,8 @@ const create = {
 				timer.value = update;
 			});
 			window.addEventListener("orientationchange", handleOrientationChange);
-			alert(`${window.screen.width};${window.innerWidth};${document.documentElement.scrollWidth}`);
-			if (window.screen.width <= 768) {
+			// alert(`${window.innerWidth};${window.innerWidth};${document.documentElement.scrollWidth}`);
+			if (window.innerWidth <= 768) {
 				if (isMobile.any) {
 					splide.value = new Splide(".splide", {
 						type: "loop",

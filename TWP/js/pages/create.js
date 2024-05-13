@@ -15,12 +15,14 @@ const create = {
 		const store = useEventStore();
 		const timer = Vue.ref({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: false });
 		const { titleData } = storeToRefs(store);
+		let w = Vue.ref(0);
 		let coolDownSec = Vue.ref("60");
 		function handleOrientationChange() {
 			var orientation = window.orientation || window.screen.orientation || window.screen.mozOrientation || window.screen.msOrientation;
 			if (orientation.angle !== undefined) {
 				orientation = orientation.angle;
 			}
+			w.value = `${window.screen.width};${window.innerWidth}`;
 			switch (orientation) {
 				case 0:
 					// 裝置直立
@@ -40,7 +42,9 @@ const create = {
 							splide.value.mount();
 						}
 					} else {
-						splide.value.destroy();
+						if (splide.value !== null) {
+							splide.value.destroy();
+						}
 					}
 					break;
 				case 90:
@@ -62,7 +66,9 @@ const create = {
 							splide.value.mount();
 						}
 					} else {
-						splide.value.destroy();
+						if (splide.value !== null) {
+							splide.value.destroy();
+						}
 					}
 
 					break;
@@ -84,7 +90,9 @@ const create = {
 							splide.value.mount();
 						}
 					} else {
-						splide.value.destroy();
+						if (splide.value !== null) {
+							splide.value.destroy();
+						}
 					}
 					break;
 			}
@@ -227,7 +235,8 @@ const create = {
 				timer.value = update;
 			});
 			window.addEventListener("orientationchange", handleOrientationChange);
-			// alert(`${window.innerWidth};${window.innerWidth};${document.documentElement.scrollWidth}`);
+			// alert(`${window.screen.width };${window.innerWidth};${document.documentElement.scrollWidth}`);
+			w.value = `${window.screen.width};${window.innerWidth}`;
 			if (window.innerWidth <= 768) {
 				if (isMobile.any) {
 					splide.value = new Splide(".splide", {
@@ -253,7 +262,7 @@ const create = {
 			}
 			window.removeEventListener("orientationchange", handleOrientationChange);
 		});
-		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem, slideToGo };
+		return { w, Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem, slideToGo };
 	},
 	template: `
 		<div class="create-content">
@@ -261,7 +270,7 @@ const create = {
 			<div class="create-event">
 				<div class="create-pre">
 					<div class="create-pre__title">角色名稱</div>
-					<div class="create-pre__name-box"><div class="create-pre__name">角色名稱最多十個文字</div><a href="javascript:;" class="create-pre__btn-logout">登出</a></div>
+					<div class="create-pre__name-box"><div class="create-pre__name">{{w}}</div><a href="javascript:;" class="create-pre__btn-logout">登出</a></div>
 					<div class="create-pre__realm">
 						<span>扭曲的黃金港01</span>
 					</div>
@@ -312,7 +321,7 @@ const create = {
 				<div class="create-task">
 					<div class="create-pre">
 						<div class="create-pre__title">角色名稱</div>
-						<div class="create-pre__name">角色名稱最多十個文字</div>
+						<div class="create-pre__name">{{w}}</div>
 						<div class="create-pre__realm">
 							<span>扭曲的黃金港01</span>
 						</div>

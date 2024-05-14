@@ -27,7 +27,7 @@ const create = {
 			setTimeout(() => {
 				w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.clientWidth}`;
 				if (document.documentElement.clientWidth <= 768) {
-					if (isMobile.phone) {
+					if (isMobile.any) {
 						alert("splide");
 						splide.value = new Splide(".splide", {
 							type: "loop",

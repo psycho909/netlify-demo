@@ -22,6 +22,8 @@ const create = {
 			if (orientation.angle !== undefined) {
 				orientation = orientation.angle;
 			}
+			alert(orientation);
+			console.log(123);
 			setTimeout(() => {
 				w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.clientWidth}`;
 				switch (orientation) {

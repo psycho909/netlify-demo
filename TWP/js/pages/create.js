@@ -241,7 +241,7 @@ const create = {
 			window.addEventListener("orientationchange", handleOrientationChange);
 			// alert(`${window.screen.width };${window.innerWidth};${document.documentElement.scrollWidth}`);
 			w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.scrollWidth}`;
-			if (window.innerWidth <= 768) {
+			if (window.innerWidth < 768) {
 				if (isMobile.any) {
 					splide.value = new Splide(".splide", {
 						type: "loop",

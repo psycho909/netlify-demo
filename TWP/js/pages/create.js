@@ -55,6 +55,7 @@ const create = {
 						// 裝置橫向
 						if (document.documentElement.clientWidth <= 768) {
 							if (isMobile.phone) {
+								alert(90);
 								splide.value = new Splide(".splide", {
 									type: "loop",
 									padding: "20%",

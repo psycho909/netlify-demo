@@ -26,50 +26,26 @@ const create = {
 			console.log(123);
 			setTimeout(() => {
 				w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.clientWidth}`;
-				if (orientation == 0 || orientation == 180) {
-					alert("0度");
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.any) {
-							splide.value = new Splide(".splide", {
-								type: "loop",
-								padding: "20%",
-								pagination: false,
-								arrows: false,
-								classes: {
-									prev: "splide__arrow--prev create-hold__item-prev",
-									next: "splide__arrow--next create-hold__item-next"
-								}
-							});
+				if (document.documentElement.clientWidth <= 768) {
+					if (isMobile.phone) {
+						alert("splide");
+						splide.value = new Splide(".splide", {
+							type: "loop",
+							padding: "20%",
+							pagination: false,
+							arrows: false,
+							classes: {
+								prev: "splide__arrow--prev create-hold__item-prev",
+								next: "splide__arrow--next create-hold__item-next"
+							}
+						});
 
-							splide.value.mount();
-						}
-					} else {
-						if (splide.value !== null) {
-							splide.value.destroy();
-						}
+						splide.value.mount();
 					}
-				}
-				if (orientation == 90 || orientation == -90) {
-					alert("90度");
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.phone) {
-							splide.value = new Splide(".splide", {
-								type: "loop",
-								padding: "20%",
-								pagination: false,
-								arrows: false,
-								classes: {
-									prev: "splide__arrow--prev create-hold__item-prev",
-									next: "splide__arrow--next create-hold__item-next"
-								}
-							});
-
-							splide.value.mount();
-						}
-					} else {
-						if (splide.value !== null) {
-							splide.value.destroy();
-						}
+				} else {
+					alert("destroy");
+					if (splide.value !== null) {
+						splide.value.destroy();
 					}
 				}
 			}, 100);

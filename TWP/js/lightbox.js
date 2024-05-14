@@ -601,53 +601,18 @@ export function Guide() {
 			orientation = orientation.angle;
 		}
 		setTimeout(() => {
-			switch (orientation) {
-				case 0:
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.any) {
-							$(".lb-guide-step").mCustomScrollbar({
-								theme: "light",
-								contentTouchScroll: true,
-								mouseWheel: {
-									preventDefault: true
-								}
-							});
+			if (document.documentElement.clientWidth <= 768) {
+				if (isMobile.any) {
+					$(".lb-guide-step").mCustomScrollbar({
+						theme: "light",
+						contentTouchScroll: true,
+						mouseWheel: {
+							preventDefault: true
 						}
-					} else {
-						$(".lb-guide-step").mCustomScrollbar("destroy");
-					}
-					break;
-				case 90:
-				case -90:
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.any) {
-							$(".lb-guide-step").mCustomScrollbar({
-								theme: "light",
-								contentTouchScroll: true,
-								mouseWheel: {
-									preventDefault: true
-								}
-							});
-						}
-					} else {
-						$(".lb-guide-step").mCustomScrollbar("destroy");
-					}
-					break;
-				case 180:
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.any) {
-							$(".lb-guide-step").mCustomScrollbar({
-								theme: "light",
-								contentTouchScroll: true,
-								mouseWheel: {
-									preventDefault: true
-								}
-							});
-						}
-					} else {
-						$(".lb-guide-step").mCustomScrollbar("destroy");
-					}
-					break;
+					});
+				}
+			} else {
+				$(".lb-guide-step").mCustomScrollbar("destroy");
 			}
 		}, 200);
 	}

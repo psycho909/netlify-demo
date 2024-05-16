@@ -2794,12 +2794,6 @@ body {
   width: 100%;
   position: relative;
 }
-@media screen and (max-width: 768px) {
-  .create-event-content {
-    height: 95.9635416667vw;
-    overflow: hidden;
-  }
-}
 .create-event-content:before {
   content: "";
   width: 100%;

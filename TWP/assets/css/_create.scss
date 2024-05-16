@@ -54,8 +54,8 @@
 			width: 100%;
 			position: relative;
 			@include media {
-				height: vw(737);
-				overflow: hidden;
+				// height: vw(737);
+				// overflow: hidden;
 			}
 			&:before {
 				content: "";

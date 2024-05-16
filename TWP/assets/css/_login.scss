@@ -1,0 +1,103 @@
+.login {
+	&-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+	}
+	&-title {
+		font-size: 0;
+		width: 260px;
+		height: 36px;
+		background-size: 100%;
+		background-image: url("./images/login-title.png");
+		margin-bottom: 32px;
+		@include media {
+			margin-bottom: vw(30);
+			width: vw(523);
+			height: vw(73);
+		}
+	}
+	&-btn {
+		&-list {
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+			margin-bottom: 30px;
+			@include media {
+				row-gap: vw(30);
+				margin-bottom: vw(120);
+			}
+		}
+		&__item {
+			width: 300px;
+			height: 60px;
+			box-shadow: inset 0 0 0 1px #504338;
+			background-color: #000;
+			background-repeat: no-repeat;
+			font-size: 0;
+			background-position: 55px center;
+			@include hover {
+				box-shadow: inset 0 0 0 1px #c2a779;
+			}
+			@include media {
+				width: vw(720);
+				height: vw(120);
+				box-shadow: none;
+				background-position: center;
+				background-size: 100%;
+			}
+			&[data-type="bf"] {
+				background-image: url("./images/btn-bf.png");
+				@include media {
+					background-image: url("./images/m-btn-bf.jpg");
+				}
+			}
+			&[data-type="apple"] {
+				background-image: url("./images/btn-apple.png");
+				@include media {
+					background-image: url("./images/m-btn-apple.jpg");
+				}
+			}
+			&[data-type="google"] {
+				background-image: url("./images/btn-g.png");
+				@include media {
+					background-image: url("./images/m-btn-g.jpg");
+				}
+			}
+			&[data-type="f"] {
+				background-image: url("./images/btn-f.png");
+				@include media {
+					background-image: url("./images/m-btn-f.jpg");
+				}
+			}
+		}
+	}
+	&-notice {
+		font-size: 16px;
+		color: #baa990;
+		text-align: center;
+		@include media {
+			font-size: vw(32);
+			padding: 0 vw(23);
+		}
+		&--en {
+			@include media {
+				margin-top: vw(46);
+			}
+		}
+		&--pc {
+			display: block;
+			@include media {
+				display: none;
+			}
+		}
+		&--mb {
+			display: none;
+			@include media {
+				display: block;
+			}
+		}
+	}
+}

@@ -1,0 +1,40 @@
+@function vw($px) {
+	@return ($px * 100vw) / 768;
+}
+@mixin media($breakpoint: 768px) {
+	@media screen and (max-width: $breakpoint) {
+		@content;
+	}
+}
+@mixin hover($breakpoint: 768px) {
+	@media screen and (min-width: $breakpoint) {
+		&:hover {
+			@content;
+		}
+	}
+}
+$fontFamily: "PingFangTC-Regular", "Heiti TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+// $fontFamily: "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	// font-family: $fontFamily;
+}
+
+html {
+	&.-ovh {
+		@include media {
+			overflow: hidden;
+		}
+	}
+}
+
+body {
+	min-width: 1200px;
+	background-color: #1c1b18;
+	@include media {
+		min-width: 100%;
+	}
+}

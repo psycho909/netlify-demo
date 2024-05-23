@@ -674,3 +674,90 @@ export function Guide() {
 	`;
 	$.gbox.open(HTML, config);
 }
+
+export function PrePhone() {
+	let error = "";
+	let data = {};
+	var config = {
+		addClass: "default lb-pre",
+		hasCloseBtn: true,
+		hasActionBtn: true,
+		afterClose: function () {
+			$.gbox.close();
+		},
+		afterOpen: function () {
+			$("#numberSelect").niceSelect();
+			inputNumber.addEventListener("input", function () {
+				this.value = this.value.replace(/[^\d]/g, "");
+			});
+		},
+		actionBtns: [
+			{
+				text: "立即預約",
+				class: "lb-pre-submit",
+				click: function () {
+					error = "";
+					if (primacyCheck.checked && inputNumber.value.length > 0) {
+						data.countryCode = $(".option.selected").attr("data-value");
+						data.phone = $("#inputNumber").val();
+						axios({
+							method: "post",
+							url: "https://warsofprasia-event.beanfun.com/api/E20240516Register/InitUserData",
+							data
+						}).then((res) => {
+							let { code, message, listData, url } = res.data;
+							if (code == -1) {
+								MessageLB(message);
+								return;
+							}
+							if (code == -2) {
+								MessageLB(message, url);
+								return;
+							}
+							if (isMobile.any) {
+								// 判斷裝置是IOS 導去連結 https://apps.apple.com/tw/app/%E6%B3%A2%E6%8B%89%E8%A5%BF%E4%BA%9E%E6%88%B0%E8%A8%98/id6451229143
+								if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+									window.location.href = "https://apps.apple.com/tw/app/%E6%B3%A2%E6%8B%89%E8%A5%BF%E4%BA%9E%E6%88%B0%E8%A8%98/id6451229143";
+								}
+								// 判斷裝置是Android 導去連結 https://play.google.com/store/apps/details?hl=zh-TW&id=com.gamania.twp&referrer=adjust_reftag%3DcspuCWWyxePHb%26utm_source%3D%25E6%25AD%25A3%25E5%25BC%258F%25E5%25AE%2598%25E7%25B6%25B2_AOS
+								if (/(Android)/i.test(navigator.userAgent)) {
+									window.location.href = "https://play.google.com/store/apps/details?hl=zh-TW&id=com.gamania.twp&referrer=adjust_reftag%3DcspuCWWyxePHb%26utm_source%3D%25E6%25AD%25A3%25E5%25BC%258F%25E5%25AE%2598%25E7%25B6%25B2_AOS";
+								}
+							} else {
+								$.gbox.close();
+							}
+						});
+					} else {
+						error += primacyCheck.checked ? "" : "請勾選同意相關隱私權政策<br/>";
+						error += inputNumber.value.length > 0 ? "" : "請輸入手機號碼";
+						document.querySelector(".error").innerHTML = error;
+					}
+				}
+			}
+		]
+	};
+
+	var HTML = `
+		<div class="lb-pre__content">
+			<div class="lb-pre__title">預約姐所絕版獎勵</div>
+			<div class="inputContent">
+				<select name="numberSelect" id="numberSelect">
+					<option value="886">台灣+886</option>
+					<option value="852">香港+852</option>
+					<option value="853">澳門+853</option>
+				</select>
+				<label class="inputNumber-label" for="inputNumber">
+					<input type="text" name="inputNumber" autocomplete="off" placeholder="請輸入手機號碼" id="inputNumber"  maxlength="10" />
+				</label>
+			</div>
+			<div class="checkboxContent">
+				<label for="primacyCheck" class="primacyCheck-label">
+					<input type="checkbox" name="primacyCheck" id="primacyCheck"/>
+					<span class="primacyCheck-style"></span>同意相關<a href="https://warsofprasia-event.beanfun.com/EventAD/EventAD?eventAdId=10199" target="_blank">隱私權政策</a>使用及接收獎勵消息
+				</label>
+			</div>
+			<div class="error">${error}</div>
+		</div>
+	`;
+	$.gbox.open(HTML, config);
+}

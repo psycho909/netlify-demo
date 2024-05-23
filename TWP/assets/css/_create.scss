@@ -882,7 +882,8 @@
 		width: vw(254);
 		height: vw(273);
 		position: fixed;
-		top: 50%;
+		top: unset;
+		bottom: vw(128);
 		right: vw(36);
 		transform: scale(1);
 	}

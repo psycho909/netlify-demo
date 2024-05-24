@@ -1,10 +1,11 @@
-import { Notice, MessageLB, Mission, RemoveTitle, Guide, SelectCreated } from "../lightbox.js";
+import { Notice, MessageLB, Mission, RemoveTitle, Guide, SelectCreated, PrePhone } from "../lightbox.js";
 import { GetUserCharacterData, InsertTitleLog, UpdateTitleLog } from "../api.js";
 import { CanvasSprite } from "../canvas.js";
 import useEventStore from "../store.js";
 const { storeToRefs } = Pinia;
 // Guide();
 // SelectCreated();
+// PrePhone();
 const create = {
 	setup() {
 		let stopTimer;
@@ -15,7 +16,6 @@ const create = {
 		const store = useEventStore();
 		const timer = Vue.ref({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: false });
 		const { titleData } = storeToRefs(store);
-		let w = Vue.ref(0);
 		let coolDownSec = Vue.ref("60");
 		function handleOrientationChange() {
 			var orientation = window.orientation || window.screen.orientation || window.screen.mozOrientation || window.screen.msOrientation;
@@ -23,86 +23,32 @@ const create = {
 				orientation = orientation.angle;
 			}
 			setTimeout(() => {
-				w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.clientWidth}`;
-				switch (orientation) {
-					case 0:
-						// 裝置直立
-						if (document.documentElement.clientWidth <= 768) {
-							if (isMobile.any) {
-								splide.value = new Splide(".splide", {
-									type: "loop",
-									padding: "20%",
-									pagination: false,
-									arrows: false,
-									classes: {
-										prev: "splide__arrow--prev create-hold__item-prev",
-										next: "splide__arrow--next create-hold__item-next"
-									}
-								});
+				if (document.documentElement.clientWidth <= 768) {
+					if (isMobile.any) {
+						splide.value = new Splide(".splide", {
+							type: "loop",
+							padding: "20%",
+							pagination: false,
+							arrows: false,
+							classes: {
+								prev: "splide__arrow--prev create-hold__item-prev",
+								next: "splide__arrow--next create-hold__item-next"
+							}
+						});
 
-								splide.value.mount();
-							}
-						} else {
-							if (splide.value !== null) {
-								splide.value.destroy();
-							}
-						}
-						break;
-					case 90:
-					case -90:
-						// 裝置橫向
-						if (document.documentElement.clientWidth <= 768) {
-							if (isMobile.phone) {
-								splide.value = new Splide(".splide", {
-									type: "loop",
-									padding: "20%",
-									pagination: false,
-									arrows: false,
-									classes: {
-										prev: "splide__arrow--prev create-hold__item-prev",
-										next: "splide__arrow--next create-hold__item-next"
-									}
-								});
-
-								splide.value.mount();
-							}
-						} else {
-							if (splide.value !== null) {
-								splide.value.destroy();
-							}
-						}
-
-						break;
-					case 180:
-						// 裝置上下顛倒
-						if (document.documentElement.clientWidth <= 768) {
-							if (isMobile.any) {
-								splide.value = new Splide(".splide", {
-									type: "loop",
-									padding: "20%",
-									pagination: false,
-									arrows: false,
-									classes: {
-										prev: "splide__arrow--prev create-hold__item-prev",
-										next: "splide__arrow--next create-hold__item-next"
-									}
-								});
-
-								splide.value.mount();
-							}
-						} else {
-							if (splide.value !== null) {
-								splide.value.destroy();
-							}
-						}
-						break;
+						splide.value.mount();
+					}
+				} else {
+					if (splide.value !== null) {
+						splide.value.destroy();
+					}
 				}
-			}, 100);
+			}, 200);
 		}
 		Vue.watch(
 			() => store.titleData,
 			() => {
-				if (window.innerWidth <= 768) {
+				if (window.screen.width <= 768) {
 					if (isMobile.any) {
 						Vue.nextTick(() => {
 							splide.value.refresh();
@@ -237,8 +183,6 @@ const create = {
 				timer.value = update;
 			});
 			window.addEventListener("orientationchange", handleOrientationChange);
-			// alert(`${window.screen.width };${window.innerWidth};${document.documentElement.scrollWidth}`);
-			w.value = `${window.screen.width};${window.innerWidth};${document.documentElement.scrollWidth}`;
 			if (window.innerWidth <= 768) {
 				if (isMobile.any) {
 					splide.value = new Splide(".splide", {
@@ -264,15 +208,18 @@ const create = {
 			}
 			window.removeEventListener("orientationchange", handleOrientationChange);
 		});
-		return { w, Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem, slideToGo };
+		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem, slideToGo };
 	},
 	template: `
 		<div class="create-content">
+			<a href="javascript:;" target="_blank" class="create-watermark">
+				<span class="create-watermark__box"><span></span></span>
+			</a>
 			<div class="create-title"><span></span></div>
 			<div class="create-event">
 				<div class="create-pre">
 					<div class="create-pre__title">角色名稱</div>
-					<div class="create-pre__name-box"><div class="create-pre__name">{{w}}</div><a href="javascript:;" class="create-pre__btn-logout">登出</a></div>
+					<div class="create-pre__name-box"><div class="create-pre__name">角色名稱最多十個文字</div><a href="javascript:;" class="create-pre__btn-logout">登出</a></div>
 					<div class="create-pre__realm">
 						<span>扭曲的黃金港01</span>
 					</div>
@@ -323,7 +270,7 @@ const create = {
 				<div class="create-task">
 					<div class="create-pre">
 						<div class="create-pre__title">角色名稱</div>
-						<div class="create-pre__name">{{w}}</div>
+						<div class="create-pre__name">角色名稱最多十個文字</div>
 						<div class="create-pre__realm">
 							<span>扭曲的黃金港01</span>
 						</div>

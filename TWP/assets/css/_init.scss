@@ -14,12 +14,13 @@
 	}
 }
 $fontFamily: "PingFangTC-Regular", "Heiti TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+// $fontFamily: "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: $fontFamily;
+	// font-family: $fontFamily;
 }
 
 html {

@@ -4,7 +4,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 88px;
+	height: 84px;
 	z-index: 100;
 	@include media {
 		height: auto;
@@ -57,26 +57,32 @@
 		}
 	}
 	&__wrap {
-		max-width: 1200px;
 		height: 100%;
 		margin: 0 auto;
+		width: 100%;
+		height: 100%;
 		display: flex;
+		justify-content: space-between;
 		align-items: center;
+		box-sizing: border-box;
+		padding: 0 40px;
 		@include media {
 			max-width: 100%;
 			height: auto;
 			flex-direction: column;
+			padding: 0;
 		}
 	}
 	&__content {
 		display: flex;
-		width: 100%;
 		height: 100%;
-		margin-left: 80px;
+		// margin-left: 80px;
+		row-gap: 100px;
 		@include media {
 			flex-direction: column;
 			margin-left: 0;
 			row-gap: vw(60);
+			width: 100%;
 			height: 100vh;
 			height: 100dvh;
 			display: none;
@@ -86,11 +92,10 @@
 		}
 	}
 	&__logo {
-		width: 53px;
-		height: 54px;
+		width: 50px;
+		height: 50px;
 		background-size: cover;
 		background-image: url("./images/icon-logo.png");
-		margin-left: 8px;
 		@include media {
 			width: vw(53);
 			height: vw(54);
@@ -101,7 +106,7 @@
 		&-list {
 			list-style-type: none;
 			display: flex;
-			column-gap: 46px;
+			column-gap: 100px;
 			@include media {
 				flex-direction: column;
 				justify-content: center;
@@ -114,13 +119,14 @@
 			a {
 				font-size: 20px;
 				color: #908f8e;
-				padding: 0px 8px;
+				// padding: 0px 8px;
 				position: relative;
 				text-decoration: none;
 				display: block;
 				display: flex;
 				height: 100%;
 				align-items: center;
+				font-weight: 700;
 				@include media {
 					width: auto;
 					font-size: vw(40);
@@ -162,61 +168,81 @@
 	&__social {
 		&-list {
 			display: flex;
-			margin-left: auto;
+			// margin-left: auto;
 			align-items: center;
+			gap: 40px;
 			@include media {
 				column-gap: vw(60);
 				justify-content: center;
 				margin-left: 0;
 			}
+			&[data-type="pc"] {
+				display: flex;
+				@include media {
+					display: none;
+				}
+			}
+			&[data-type="mb"] {
+				display: none;
+				@include media {
+					display: flex;
+				}
+			}
 		}
 		&-item {
+			filter: saturate(1.1) brightness(2) contrast(1.2);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			@include hover {
+				filter: saturate(1) brightness(1) contrast(1);
+			}
 			&[data-type="yt"] {
-				margin: 0 26px;
-				width: 29px;
-				height: 21px;
-				background-image: url("./images/icon-yt.png");
-				background-size: 200%;
+				// margin: 0 26px;
+				width: 40px;
+				height: 28px;
+				background-image: url("./images/header-y_t.png");
+				// background-size: 200%;
 				@include hover {
-					background-position-x: 100%;
+					// background-position-x: 100%;
 				}
 				@include media {
-					width: vw(102);
-					height: vw(72);
+					width: vw(77);
+					height: vw(77);
 					margin: 0 vw(10);
 					background-repeat: no-repeat;
 					order: 3;
 				}
 			}
 			&[data-type="f"] {
-				margin: 0 26px;
-				width: 29px;
-				height: 29px;
-				background-image: url("./images/icon-f.png");
-				background-size: 200%;
+				// margin: 0 26px;
+				width: 34px;
+				height: 34px;
+				background-image: url("./images/header-f_b.png");
+				// background-size: 200%;
 				@include hover {
-					background-position-x: 100%;
+					// background-position-x: 100%;
 				}
 				@include media {
-					width: vw(85);
-					height: vw(85);
+					width: vw(77);
+					height: vw(77);
 					margin: 0 vw(10);
 					background-repeat: no-repeat;
 					order: 2;
 				}
 			}
 			&[data-type="baha"] {
-				margin: 0 26px;
-				width: 30px;
-				height: 27px;
-				background-image: url("./images/icon-baha.png");
-				background-size: 200%;
+				// margin: 0 26px;
+				width: 38px;
+				height: 34px;
+				background-image: url("./images/header-b_h.png");
+				// background-size: 200%;
 				@include hover {
-					background-position-x: 100%;
+					// background-position-x: 100%;
 				}
 				@include media {
-					width: vw(102);
-					height: vw(90);
+					width: vw(77);
+					height: vw(77);
 					margin: 0 vw(10);
 					order: 1;
 				}

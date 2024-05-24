@@ -11,7 +11,7 @@ import { getAndRemoveQueryStringInsensitive, setCookie, getCookie } from "./util
 // SelectPlunderFailed();
 // MessageLB("MessageLB");
 // Plundered();
-Guide();
+// Guide();
 const { storeToRefs } = Pinia;
 // 阻止瀏覽器預設scroll
 if (history.scrollRestoration) {

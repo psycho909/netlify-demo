@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		<title>遊戲橘子進階驗證</title>
+		<meta name="description" content="遊戲橘子進階驗證" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width" />
+		<!-- <meta name="viewport" content="width=1200"> -->
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="open-default-browser" content="true" />
+
+		<!-- 社群資訊 -->
+		<meta property="og:title" content="遊戲橘子進階驗證" />
+		<meta property="og:description" content="遊戲橘子進階驗證" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="" />
+		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/opt/f_b.jpg" />
+
+		<!-- 外連檔案 -->
+		<link rel="stylesheet" type="text/css" href="https://tw.hicdn.beanfun.com/beanfun/promo/beanfunEvent/verificationWeb/assets/style/default.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-EWGLH0Z57V"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-EWGLH0Z57V");
+		</script>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-W3397MP");
+		</script>
+		<!-- End Google Tag Manager -->
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.common-list {
+				padding: 24px 12px 24px 0;
+				height: 730px;
+				overflow-y: auto;
+				background-color: #000;
+			}
+			.common-list::-webkit-scrollbar {
+				width: 11px;
+				background-color: rgba(255, 255, 255, 0.18);
+				border-radius: 100vmax;
+			}
+			.common-list::-webkit-scrollbar-thumb {
+				background: #fff;
+				border-radius: 100vmax;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3397MP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
+		<iframe id="downloadFrame" style="display: none"></iframe>
+		<a href="https://www.w3schools.com/html/mov_bbb.mp4" download="video">Download Video</a>
+		<button onclick="downloadVideo()">Download Video</button>
+		<form class="wrapper">
+			<input type="text" id="input" autocomplete="one-time-code" maxlength="6" placeholder="我有autocomplete" />
+			<input type="text" maxlength="6" placeholder="我沒有autocomplete" />
+			<div class="content" style="text-align: center">
+				<div class="row row-otp">
+					<div class="code-group">
+						<input class="input-otp a" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
+						<input class="input-otp b" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
+						<input class="input-otp c" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
+						<input class="input-otp d" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
+						<input class="input-otp e" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
+						<input class="input-otp f" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="1" />
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<script>
+			document.querySelector("#btn").addEventListener("click", function (e) {
+				let el_tag = e.target.tagName; // 取得 tag 名稱
+				let el_id = e.target.tagName || "unset"; // 取得 id，如果沒有 id 就使用 unset
+				let el_class = e.target.getAttribute("class") || "unset"; // 取得 class，如果沒有 class 就使用 unset
+				console.log(el_tag, el_id, el_class);
+				gtag("event", "click_action", {
+					tag: el_tag,
+					id: el_id,
+					class: el_class
+				});
+			});
+			function downloadFileFromURL(url, fileName) {
+				fetch(url)
+					.then((response) => response.blob())
+					.then((blob) => {
+						const link = document.createElement("a");
+						link.href = URL.createObjectURL(blob);
+						link.download = fileName;
+						link.click();
+					})
+					.catch((error) => console.error("Error downloading file:", error));
+			}
+
+			// Usage
+			// downloadFileFromURL("https://www.w3schools.com/html/mov_bbb.mp4", "desired_file_name.extension");
+			function downloadVideo() {
+				downloadFileFromURL("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg2.mp4", "video");
+				// var url = "https://www.w3schools.com/html/mov_bbb.mp4";
+				// var fileName = "your_video.mp4"; // 可以更改为你想要的文件名
+
+				// var link = document.createElement("a");
+				// link.href = url;
+				// link.download = fileName;
+
+				// // 兼容性处理，尝试使用click事件触发下载
+				// if (document.body) {
+				// 	document.body.appendChild(link);
+				// 	link.click();
+				// 	document.body.removeChild(link);
+				// } else {
+				// 	// 在没有body的情况下，将链接添加到documentElement中
+				// 	document.documentElement.appendChild(link);
+				// 	link.click();
+				// 	document.documentElement.removeChild(link);
+				// }
+			}
+			var vConsole = new VConsole();
+			/*************************** 輸入簡訊驗證碼 ***************************/
+			if (navigator.credentials) {
+				window.addEventListener("DOMContentLoaded", (e) => {
+					const input = document.querySelector("#input");
+					// Cancel the WebOTP API if the form is submitted manually.
+					const ac = new AbortController();
+					// Invoke the WebOTP API
+					navigator.credentials
+						.get({
+							otp: { transport: ["sms"] },
+							signal: ac.signal
+						})
+						.then((otp) => {
+							input.value = otp.code;
+						})
+						.catch((err) => {
+							console.log(err);
+						});
+				});
+			}
+
+			var otpVAL = "";
+			//輸入時只接受數字
+			$(".input-otp").on("focus", function () {
+				$(this).select();
+			});
+			$(".input-otp").on("keyup", function (e) {
+				console.log("keyup");
+				var keyEvt = e.originalEvent;
+				if (!(e.ctrlKey && e.key == "z")) {
+					if ($(this).val() != "" && /^[0-9]+$/.test($(this).val())) {
+						$(this).next().focus();
+					}
+				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+					if (isMobile.any) {
+						$(this).val("");
+						e.preventDefault();
+					}
+				}
+				checkVal();
+			});
+			$(".input-otp").on("keydown", function (e) {
+				console.log("keydown");
+				console.log(e);
+				if (/^[0-9]+$/.test(e.key) && !(e.ctrlKey && e.key == "z")) {
+					//
+				} else if (e.key == "Backspace") {
+					if ($(this).val() == "") {
+						$(this).prev().focus();
+					}
+				} else if (e.ctrlKey || e.key == "v") {
+				} else if ((e.key != "Tab" && e.key != "Delete" && e.keyCode != 37 && e.keyCode != 39) || (e.ctrlKey && e.key == "z") || e.keyCode == 32) {
+					$(this).val("");
+					e.preventDefault();
+				}
+				checkVal();
+			});
+			// //貼上時只接受數字
+			$(".input-otp").on("paste", function (e) {
+				console.log("paste");
+				var evtIdx = $(this).index();
+				var aryIdx = 0;
+				var clipboardDataObj = e.clipboardData || window.clipboardData || e.originalEvent.clipboardData;
+				var copiedText = clipboardDataObj.getData("Text");
+				var copiedTextAry = copiedText.split("");
+				console.log(copiedTextAry);
+				if (!/^[0-9]+$/.test(copiedText)) {
+					$(".row-otp .error").text("格式錯誤，貼上的文字不可包含數字以外的字元").show();
+					//$.gbox.open('格式錯誤，貼上的文字不可包含數字以外的字元');
+					$(this).val("");
+					return;
+				}
+				$(".input-otp").each(function (i) {
+					if (evtIdx == i) {
+						console.log(evtIdx, i);
+						if (copiedTextAry[aryIdx] != undefined) {
+							evtIdx++;
+							$(this).val(copiedTextAry[aryIdx]);
+							aryIdx++;
+							var _this = $(this);
+							setTimeout(function () {
+								console.log(e.target);
+								// e.target.focus()
+								_this.focus();
+							});
+						}
+					}
+				});
+				checkVal();
+			});
+
+			function checkVal() {
+				otpVAL = "";
+				$(".input-otp").each(function () {
+					otpVAL += $(this).val();
+				});
+				// console.log(otpVAL);
+				if (otpVAL.length == 6) {
+					$(".btn-send-otp").removeClass("disabled");
+					$(".row-otp .error").text("").hide();
+				} else {
+					$(".btn-send-otp").addClass("disabled");
+				}
+			}
+		</script>
+	</body>
+</html>

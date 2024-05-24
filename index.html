@@ -18,63 +18,22 @@
 		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/opt/f_b.jpg" />
 
 		<!-- 外連檔案 -->
-		<link rel="stylesheet" type="text/css" href="https://tw.hicdn.beanfun.com/beanfun/promo/beanfunEvent/verificationWeb/assets/style/default.css" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-EWGLH0Z57V"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
-
-			gtag("config", "G-EWGLH0Z57V");
-		</script>
-		<!-- Google Tag Manager -->
-		<script>
-			(function (w, d, s, l, i) {
-				w[l] = w[l] || [];
-				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-				var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s),
-					dl = l != "dataLayer" ? "&l=" + l : "";
-				j.async = true;
-				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-				f.parentNode.insertBefore(j, f);
-			})(window, document, "script", "dataLayer", "GTM-W3397MP");
-		</script>
 		<!-- End Google Tag Manager -->
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
 			}
-			.common-list {
-				padding: 24px 12px 24px 0;
-				height: 730px;
-				overflow-y: auto;
-				background-color: #000;
-			}
-			.common-list::-webkit-scrollbar {
-				width: 11px;
-				background-color: rgba(255, 255, 255, 0.18);
-				border-radius: 100vmax;
-			}
-			.common-list::-webkit-scrollbar-thumb {
-				background: #fff;
-				border-radius: 100vmax;
-			}
 		</style>
 	</head>
 	<body>
-		<form>
-			<label for="phone">Phone Number:</label>
-			<input type="text" id="phone" name="phone" autocomplete="tel" />
-			<button type="submit">Submit</button>
-		</form>
+		<!-- <form> -->
+		<input type="text" name="phone" id="input" inputmode="tel" placeholder="我沒有有autocomplete" />
+		<input type="text" name="phone" inputmode="tel" autocomplete="tel" placeholder="我有autocomplete" tel />
+		<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
+		<!-- </form> -->
 	</body>
 </html>

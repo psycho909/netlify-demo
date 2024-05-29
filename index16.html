@@ -23,7 +23,7 @@
 		</div>
 		<script>
 			window.addEventListener("pageshow", function (event) {
-				document.querySelector("#nav").innerHTML = `pageshow: ${event.persisted}`;
+				document.querySelector("#nav").innerHTML = `pageshow: ${event.persisted};performance: ${performance.getEntriesByType("navigation")[0].type}`;
 				console.log("after , pageshow :", event.persisted);
 			});
 		</script>

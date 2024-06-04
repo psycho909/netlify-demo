@@ -16,7 +16,7 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="" />
 		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/opt/f_b.jpg" />
-
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<!-- 外連檔案 -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
@@ -30,6 +30,7 @@
 		</style>
 	</head>
 	<body>
+		<div id="code"></div>
 		<form>
 			<input type="text" name="phone" id="input" inputmode="tel" placeholder="我沒有有autocomplete" />
 			<input type="text" name="phone" inputmode="tel" autocomplete="tel" placeholder="我有autocomplete" tel />
@@ -44,5 +45,9 @@
 			<input autocomplete="tel" type="tel" inputmode="tel" />
 			<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
 		</div>
+		<script>
+			// 自id code裡面顯示isMobile裡面所有資訊顯示在code裡面
+			document.querySelector("#code").innerHTML = JSON.stringify(isMobile, null, 4);
+		</script>
 	</body>
 </html>

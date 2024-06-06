@@ -21,6 +21,18 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-EWGLH0Z57V"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-EWGLH0Z57V");
+		</script>
 		<!-- End Google Tag Manager -->
 		<style>
 			* {
@@ -30,24 +42,66 @@
 		</style>
 	</head>
 	<body>
-		<div id="code"></div>
-		<form>
-			<input type="text" name="phone" id="input" inputmode="tel" placeholder="我沒有有autocomplete" />
-			<input type="text" name="phone" inputmode="tel" autocomplete="tel" placeholder="我有autocomplete" tel />
-			<input autocomplete="tel" type="tel" inputmode="tel" />
-			<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
-		</form>
+		<div id="app">
+			<div id="code"></div>
+			<form>
+				<input type="text" name="phone" id="input" inputmode="tel" placeholder="我沒有有autocomplete" />
+				<input type="text" name="phone" inputmode="tel" autocomplete="tel" placeholder="我有autocomplete" tel />
+				<input autocomplete="tel" type="tel" inputmode="tel" />
+				<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
+			</form>
 
-		<hr />
-		<div>
-			<input type="text" name="phone" id="input" inputmode="tel" placeholder="我沒有有autocomplete" />
-			<input type="text" name="phone" inputmode="tel" autocomplete="tel" placeholder="我有autocomplete" tel />
-			<input autocomplete="tel" type="tel" inputmode="tel" />
-			<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
+			<hr />
+			<div>
+				<input type="text" name="phone" id="input" inputmode="tel" placeholder="我沒有有autocomplete" />
+				<input type="text" name="phone" inputmode="tel" autocomplete="tel" placeholder="我有autocomplete" tel />
+				<input autocomplete="tel" type="tel" inputmode="tel" />
+				<button id="btn" class="btn_gtm">按鈕觸發GTM</button>
+			</div>
+			<script>
+				// 自id code裡面顯示isMobile裡面所有資訊顯示在code裡面
+				document.querySelector("#code").innerHTML = JSON.stringify(isMobile, null, 4);
+			</script>
 		</div>
 		<script>
-			// 自id code裡面顯示isMobile裡面所有資訊顯示在code裡面
-			document.querySelector("#code").innerHTML = JSON.stringify(isMobile, null, 4);
+			function getAndRemoveQueryStringInsensitive(key) {
+				// 假設當前URL是 https://example.com/login/callback?{key}=value
+				// 首先，創建一個URL對象
+				const currentUrl = new URL(window.location.href);
+
+				// 使用URLSearchParams獲取查詢參數
+				const searchParams = new URLSearchParams(currentUrl.searchParams);
+				const normalizedKey = key.toLowerCase();
+				let keyValue = null;
+
+				// 遍歷所有查詢參數，無視大小寫進行匹配
+				for (const [paramKey, paramValue] of searchParams) {
+					if (paramKey.toLowerCase() === normalizedKey) {
+						keyValue = paramValue;
+						searchParams.delete(paramKey); // 刪除匹配到的參數
+						break; // 假設每個鍵在URL中只出現一次
+					}
+				}
+
+				// 更新瀏覽器的URL，但不重新加載頁面
+				// 由於原始的searchParams已經被修改，所以這裡直接更新search部分
+				currentUrl.search = searchParams.toString();
+				window.history.pushState({}, "", currentUrl);
+
+				// 返回該鍵的值
+				return keyValue;
+			}
+			let app = new Vue({
+				el: "#app",
+				data: {},
+				mounted() {
+					console.log("first mounted");
+				}
+			});
+
+			window.addEventListener("load", function () {
+				console.log("window load");
+			});
 		</script>
 	</body>
 </html>

@@ -4,11 +4,28 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			img {
+				width: 100%;
+				height: auto;
+			}
+		</style>
 	</head>
 	<body>
+		<nav id="nav"></nav>
+		<a href="index15.html">下一頁</a>
 		<div>
-			<h2>Video 1</h2>
-			<video src="https://tw.hicdn.beanfun.com/beanfun/event/TWP/web/assets/career/css/img/skill-mp4/role-1-1-1.mp4" autoplay="true" loop playsinline muted></video>
+			<img src="./images/1.jpg" alt="" />
 		</div>
+		<script>
+			window.addEventListener("pageshow", function (event) {
+				document.querySelector("#nav").innerHTML = `pageshow: ${event.persisted};performance: ${performance.getEntriesByType("navigation")[0].type}`;
+				console.log("after , pageshow :", event.persisted);
+			});
+		</script>
 	</body>
 </html>

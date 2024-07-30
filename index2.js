@@ -1,40 +1,59 @@
 function createCustomScrollbar(container) {
-	// 創建虛擬滾動軸容器
-	const scrollbarContainer = document.createElement("div");
-	scrollbarContainer.className = "scrollbar-track";
+	let scrollbarContainer,
+		scrollbar,
+		isInitialized = false;
 
-	// 設置 scrollbar-track 的樣式
-	scrollbarContainer.style.cssText = `
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 10px;
-        height: ${container.clientHeight}px;
-        background-color: #f0f0f0;
-    `;
+	function initialize() {
+		if (isInitialized) return;
 
-	// 創建虛擬滾動軸
-	const scrollbar = document.createElement("div");
-	scrollbar.className = "scrollbar-thumb";
+		// 創建虛擬滾動軸容器
+		scrollbarContainer = document.createElement("div");
+		scrollbarContainer.className = "scrollbar-track";
 
-	// 設置 scrollbar-thumb 的基本樣式
-	scrollbar.style.cssText = `
-        position: absolute;
-        right: 0;
-        width: 100%;
-        border-radius: 5px;
-        background-color: #c1c1c1;
-        cursor: pointer;
-    `;
+		// 設置 scrollbar-track 的樣式
+		scrollbarContainer.style.cssText = `
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 10px;
+            height: ${container.clientHeight}px;
+            background-color: #f0f0f0;
+        `;
 
-	// 將虛擬滾動軸添加到容器中
-	scrollbarContainer.appendChild(scrollbar);
+		// 創建虛擬滾動軸
+		scrollbar = document.createElement("div");
+		scrollbar.className = "scrollbar-thumb";
 
-	// 將虛擬滾動軸容器添加到 container 旁邊
-	container.parentNode.insertBefore(scrollbarContainer, container.nextSibling);
-	container.style.marginRight = "10px"; // 為虛擬滾動軸騰出空間
+		// 設置 scrollbar-thumb 的基本樣式
+		scrollbar.style.cssText = `
+            position: absolute;
+            right: 0;
+            width: 100%;
+            border-radius: 5px;
+            background-color: #c1c1c1;
+            cursor: pointer;
+        `;
 
-	// 更新虛擬滾動軸的位置和大小
+		// 將虛擬滾動軸添加到容器中
+		scrollbarContainer.appendChild(scrollbar);
+
+		// 將虛擬滾動軸容器添加到 container 旁邊
+		container.parentNode.insertBefore(scrollbarContainer, container.nextSibling);
+		container.style.marginRight = "10px"; // 為虛擬滾動軸騰出空間
+
+		// 添加事件監聽器
+		container.addEventListener("scroll", updateScrollbar);
+		window.addEventListener("resize", updateScrollbar);
+		scrollbar.addEventListener("mousedown", onStart);
+		scrollbar.addEventListener("touchstart", onStart, { passive: false });
+		scrollbarContainer.addEventListener("click", onTrackClick);
+		scrollbarContainer.addEventListener("touchstart", onTrackClick, { passive: false });
+		scrollbarContainer.addEventListener("touchmove", preventDefaultScroll, { passive: false });
+
+		isInitialized = true;
+		updateScrollbar(); // 初始化滾動條位置
+	}
+
 	function updateScrollbar() {
 		const containerHeight = container.clientHeight;
 		const contentHeight = container.scrollHeight;
@@ -49,20 +68,10 @@ function createCustomScrollbar(container) {
 		scrollbarContainer.style.height = `${containerHeight}px`;
 	}
 
-	// 監聽滾動事件
-	container.addEventListener("scroll", updateScrollbar);
-
-	// 監聽窗口大小變化
-	window.addEventListener("resize", updateScrollbar);
-
-	// 初始化虛擬滾動軸
-	updateScrollbar();
-
-	// 拖動相關變量
+	// 拖動相關變量和函數
 	let isDragging = false;
 	let startY, startScrollTop;
 
-	// 鼠標和觸摸事件處理函數
 	function onStart(e) {
 		isDragging = true;
 		startY = (e.clientY || e.touches[0].clientY) - scrollbar.getBoundingClientRect().top;
@@ -90,11 +99,6 @@ function createCustomScrollbar(container) {
 		document.removeEventListener("touchend", onEnd);
 	}
 
-	// 添加鼠標和觸摸事件監聽器
-	scrollbar.addEventListener("mousedown", onStart);
-	scrollbar.addEventListener("touchstart", onStart, { passive: false });
-
-	// 點擊滾動條容器時，移動滾動條到點擊位置
 	function onTrackClick(e) {
 		if (e.target === scrollbar) return;
 		const clientY = e.clientY || (e.touches && e.touches[0].clientY);
@@ -103,31 +107,52 @@ function createCustomScrollbar(container) {
 		container.scrollTop = scrollPercentage * (container.scrollHeight - container.clientHeight);
 	}
 
-	scrollbarContainer.addEventListener("click", onTrackClick);
-	scrollbarContainer.addEventListener("touchstart", onTrackClick, { passive: false });
+	function preventDefaultScroll(e) {
+		e.preventDefault();
+	}
 
-	// 防止移動設備上的默認滾動行為
-	scrollbarContainer.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });
+	// 初始化滾動條
+	initialize();
 
-	// 返回清理函數
-	return function cleanup() {
-		container.removeEventListener("scroll", updateScrollbar);
-		window.removeEventListener("resize", updateScrollbar);
-		scrollbar.removeEventListener("mousedown", onStart);
-		scrollbar.removeEventListener("touchstart", onStart);
-		scrollbarContainer.removeEventListener("click", onTrackClick);
-		scrollbarContainer.removeEventListener("touchstart", onTrackClick);
-		scrollbarContainer.removeEventListener("touchmove", (e) => e.preventDefault());
-		container.parentNode.removeChild(scrollbarContainer);
-		container.style.marginRight = "";
+	// 返回包含 clear 和 reinitialize 方法的對象
+	return {
+		clear: function () {
+			if (!isInitialized) return;
+
+			container.removeEventListener("scroll", updateScrollbar);
+			window.removeEventListener("resize", updateScrollbar);
+			scrollbar.removeEventListener("mousedown", onStart);
+			scrollbar.removeEventListener("touchstart", onStart);
+			scrollbarContainer.removeEventListener("click", onTrackClick);
+			scrollbarContainer.removeEventListener("touchstart", onTrackClick);
+			scrollbarContainer.removeEventListener("touchmove", preventDefaultScroll);
+			container.parentNode.removeChild(scrollbarContainer);
+			container.style.marginRight = "";
+
+			isInitialized = false;
+		},
+		reinitialize: function () {
+			this.clear(); // 確保先清理任何現有的滾動條
+			initialize(); // 重新初始化
+		}
 	};
 }
 
 // 使用示例
+// const container = document.getElementById("myScrollContainer");
+// const customScrollbar = createCustomScrollbar(container);
+
+// 如果需要移除滾動條
+// customScrollbar.clear();
+
+// 如果需要重新初始化滾動條
+// customScrollbar.reinitialize();
+
+// 使用示例
 const container1 = document.getElementById("myScrollContainer1");
-const cleanupScrollbar1 = createCustomScrollbar(container1);
+const scrollbar1 = createCustomScrollbar(container1);
 
 const container2 = document.getElementById("myScrollContainer2");
-const cleanupScrollbar2 = createCustomScrollbar(container2);
+const scrollbar2 = createCustomScrollbar(container2);
 // 如果需要移除滾動條
 // cleanupScrollbar();

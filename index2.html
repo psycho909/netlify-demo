@@ -6,12 +6,15 @@
 		<title>Document</title>
 		<style>
 			#box {
-				width: 50%;
+				width: 100%;
 				height: 300px;
 				overflow: auto;
 				border: 1px solid #000;
+				position: relative;
 			}
-			.scrollbar-container {
+			#scrollbar-box {
+				width: 50%;
+				position: relative;
 			}
 			.scrollbar-thumb {
 				background-color: red;
@@ -24,26 +27,28 @@
 		</style>
 	</head>
 	<body>
-		<div id="box">
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
-			<p>內容</p>
+		<div id="scrollbar-box">
+			<div id="box">
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+				<p>內容</p>
+			</div>
 		</div>
 		<div class="box"></div>
 		<div class="box"></div>
@@ -62,6 +67,7 @@
 		<div class="box"></div>
 		<script>
 			// 獲取容器元素
+			const scrollbarBox = document.getElementById("scrollbar-box");
 			const box = document.getElementById("box");
 
 			// 創建虛擬滾動軸容器
@@ -93,7 +99,8 @@
 			scrollbarContainer.appendChild(scrollbar);
 
 			// 將虛擬滾動軸容器添加到box旁邊
-			box.parentNode.insertBefore(scrollbarContainer, box.nextSibling);
+			// box.parentNode.insertBefore(scrollbarContainer, box.nextSibling);
+			scrollbarBox.appendChild(scrollbarContainer);
 			box.style.marginRight = "10px"; // 為虛擬滾動軸騰出空間
 
 			// 更新虛擬滾動軸的高度和位置

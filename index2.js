@@ -1,0 +1,74 @@
+// 獲取容器元素
+const box = document.getElementById("box");
+
+// 創建虛擬滾動軸容器
+const scrollbarContainer = document.createElement("div");
+scrollbarContainer.className = "scrollbar-track";
+
+// 設置 scrollbar-track 的樣式
+scrollbarContainer.style.cssText = `
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10px;
+    height: ${box.clientHeight}px;
+    background-color: #f0f0f0;
+`;
+
+// 創建虛擬滾動軸
+const scrollbar = document.createElement("div");
+scrollbar.className = "scrollbar-thumb";
+
+// 設置 scrollbar-thumb 的基本樣式
+scrollbar.style.cssText = `
+    position: absolute;
+    right: 0;
+    width: 100%;
+    border-radius: 5px;
+`;
+
+// 將虛擬滾動軸添加到容器中
+scrollbarContainer.appendChild(scrollbar);
+
+// 將虛擬滾動軸容器添加到 box 旁邊
+box.parentNode.insertBefore(scrollbarContainer, box.nextSibling);
+box.style.marginRight = "10px"; // 為虛擬滾動軸騰出空間
+
+// 更新虛擬滾動軸的位置
+function updateScrollbar() {
+	// 獲取 .scrollbar-thumb 的計算樣式
+	const thumbStyle = window.getComputedStyle(scrollbar);
+	const thumbHeight = parseInt(thumbStyle.height, 10);
+
+	const scrollPercentage = box.scrollTop / (box.scrollHeight - box.clientHeight);
+
+	// 計算滾動軸的最大可滾動距離
+	const maxScrollbarTop = box.clientHeight - thumbHeight;
+
+	// 確保滾動軸不會超出容器底部
+	const scrollbarTop = Math.min(scrollPercentage * maxScrollbarTop, maxScrollbarTop);
+
+	scrollbar.style.top = `${scrollbarTop}px`;
+}
+
+// 監聽滾動事件
+box.addEventListener("scroll", updateScrollbar);
+
+// 監聽窗口大小變化，重新調整虛擬滾動軸容器的高度
+window.addEventListener("resize", () => {
+	scrollbarContainer.style.height = `${box.clientHeight}px`;
+	updateScrollbar();
+});
+
+// 初始化虛擬滾動軸
+updateScrollbar();
+
+// MutationObserver 來監視 .scrollbar-thumb 的樣式變化
+const observer = new MutationObserver(() => {
+	updateScrollbar();
+});
+
+observer.observe(scrollbar, {
+	attributes: true,
+	attributeFilter: ["style", "class"]
+});

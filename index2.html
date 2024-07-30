@@ -26,6 +26,9 @@
 				left: 50%;
 				transform: translateX(-50%);
 			}
+			.myScrollContainer2 .scrollbar-thumb {
+				height: 60px !important;
+			}
 			.box {
 				width: 100px;
 				height: 300px;
@@ -82,38 +85,8 @@
 		<div class="box"></div>
 		<div class="box"></div>
 		<div class="box"></div>
-		<div class="scrollbar-container">
+		<div class="scrollbar-container myScrollContainer2">
 			<div id="myScrollContainer2" class="my-scrollbar">
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
-				<p>內容</p>
 				<p>內容</p>
 				<p>內容</p>
 				<p>內容</p>
@@ -138,5 +111,12 @@
 		<div class="box"></div>
 		<div class="box"></div>
 		<script src="./index2.js"></script>
+		<script>
+			const container1 = document.getElementById("myScrollContainer1");
+			const scrollbar1 = createCustomScrollbar(container1);
+
+			const container2 = document.getElementById("myScrollContainer2");
+			const scrollbar2 = createCustomScrollbar(container2);
+		</script>
 	</body>
 </html>

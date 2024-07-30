@@ -6,11 +6,8 @@ function createCustomScrollbar(container) {
 	function initialize() {
 		if (isInitialized) return;
 
-		// 创建虚拟滚动条容器
 		scrollbarContainer = document.createElement("div");
 		scrollbarContainer.className = "scrollbar-track";
-
-		// 设置 scrollbar-track 的样式
 		scrollbarContainer.style.cssText = `
             position: absolute;
             right: 0;
@@ -20,11 +17,8 @@ function createCustomScrollbar(container) {
             background-color: #f0f0f0;
         `;
 
-		// 创建虚拟滚动条
 		scrollbar = document.createElement("div");
 		scrollbar.className = "scrollbar-thumb";
-
-		// 设置 scrollbar-thumb 的基本样式
 		scrollbar.style.cssText = `
             position: absolute;
             right: 0;
@@ -34,14 +28,10 @@ function createCustomScrollbar(container) {
             cursor: pointer;
         `;
 
-		// 将虚拟滚动条添加到容器中
 		scrollbarContainer.appendChild(scrollbar);
-
-		// 将虚拟滚动条容器添加到 container 旁边
 		container.parentNode.insertBefore(scrollbarContainer, container.nextSibling);
-		container.style.marginRight = "10px"; // 为虚拟滚动条腾出空间
+		container.style.marginRight = "10px";
 
-		// 添加事件监听器
 		container.addEventListener("scroll", updateScrollbar);
 		window.addEventListener("resize", updateScrollbar);
 		scrollbar.addEventListener("mousedown", onStart);
@@ -51,29 +41,36 @@ function createCustomScrollbar(container) {
 		scrollbarContainer.addEventListener("touchmove", preventDefaultScroll, { passive: false });
 
 		isInitialized = true;
-		updateScrollbar(); // 初始化滚动条位置
+		updateScrollbar();
 	}
 
 	function updateScrollbar() {
 		const containerHeight = container.clientHeight;
 		const contentHeight = container.scrollHeight;
-		if (contentHeight - containerHeight <= 0) {
+
+		// If the content height is less than or equal to the container height, hide the scrollbar
+		if (contentHeight <= containerHeight) {
 			scrollbarContainer.style.display = "none";
 		} else {
 			scrollbarContainer.style.display = "block";
+			// Retrieve the thumb height from the computed style
+			const thumbHeight = parseFloat(window.getComputedStyle(scrollbar).height);
+			// Ensure thumbHeight is a valid number and not zero
+			if (isNaN(thumbHeight) || thumbHeight <= 0) {
+				console.error("Invalid thumb height retrieved from CSS.");
+				return;
+			}
+			// Calculate the percentage of scrollable content that's visible
 			const scrollPercentage = container.scrollTop / (contentHeight - containerHeight);
-			const thumbHeight = Math.max(30, (containerHeight / contentHeight) * containerHeight);
-
-			scrollbar.style.height = `${thumbHeight}px`;
+			// Calculate the maximum top position for the scrollbar thumb
 			const maxScrollbarTop = containerHeight - thumbHeight;
+			// Calculate the top position of the scrollbar thumb
 			const scrollbarTop = Math.min(scrollPercentage * maxScrollbarTop, maxScrollbarTop);
 			scrollbar.style.top = `${scrollbarTop}px`;
-
 			scrollbarContainer.style.height = `${containerHeight}px`;
 		}
 	}
 
-	// 拖动相关变量和函数
 	let isDragging = false;
 	let startY, startScrollTop;
 
@@ -92,9 +89,10 @@ function createCustomScrollbar(container) {
 		e.preventDefault();
 		const clientY = e.clientY || (e.touches && e.touches[0].clientY);
 		const y = clientY - scrollbarContainer.getBoundingClientRect().top;
-		const thumbHeight = parseFloat(getComputedStyle(scrollbar).height);
-		const scrollPercentage = y / (scrollbarContainer.clientHeight - thumbHeight);
-		container.scrollTop = scrollPercentage * (container.scrollHeight - container.clientHeight);
+		const thumbHeight = scrollbar.clientHeight;
+		const scrollbarHeight = scrollbarContainer.clientHeight;
+		const scrollPercentage = (y - thumbHeight / 2) / (scrollbarHeight - thumbHeight);
+		container.scrollTop = Math.min(Math.max(0, scrollPercentage * (container.scrollHeight - container.clientHeight)), container.scrollHeight - container.clientHeight);
 	}
 
 	function onEnd() {
@@ -109,19 +107,18 @@ function createCustomScrollbar(container) {
 		if (e.target === scrollbar) return;
 		const clientY = e.clientY || (e.touches && e.touches[0].clientY);
 		const y = clientY - scrollbarContainer.getBoundingClientRect().top;
-		const thumbHeight = parseFloat(getComputedStyle(scrollbar).height);
-		const scrollPercentage = y / (scrollbarContainer.clientHeight - thumbHeight);
-		container.scrollTop = scrollPercentage * (container.scrollHeight - container.clientHeight);
+		const thumbHeight = scrollbar.clientHeight;
+		const scrollbarHeight = scrollbarContainer.clientHeight;
+		const scrollPercentage = (y - thumbHeight / 2) / (scrollbarHeight - thumbHeight);
+		container.scrollTop = Math.min(Math.max(0, scrollPercentage * (container.scrollHeight - container.clientHeight)), container.scrollHeight - container.clientHeight);
 	}
 
 	function preventDefaultScroll(e) {
 		e.preventDefault();
 	}
 
-	// 初始化滚动条
 	initialize();
 
-	// 返回包含 clear 和 reinitialize 方法的对象
 	return {
 		clear: function () {
 			if (!isInitialized) return;
@@ -139,8 +136,15 @@ function createCustomScrollbar(container) {
 			isInitialized = false;
 		},
 		reinitialize: function () {
-			this.clear(); // 确保先清理任何现有的滚动条
-			initialize(); // 重新初始化
+			this.clear();
+			initialize();
 		}
 	};
 }
+
+// 使用示例
+// const container1 = document.getElementById("myScrollContainer1");
+// const scrollbar1 = createCustomScrollbar(container1);
+
+// const container2 = document.getElementById("myScrollContainer2");
+// const scrollbar2 = createCustomScrollbar(container2);

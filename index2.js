@@ -72,3 +72,54 @@ observer.observe(scrollbar, {
 	attributes: true,
 	attributeFilter: ["style", "class"]
 });
+
+// 拖動相關變量
+let isDragging = false;
+let startY, startScrollTop;
+
+// 鼠標事件處理函數
+function onStart(e) {
+	isDragging = true;
+	startY = (e.clientY || e.touches[0].clientY) - scrollbar.getBoundingClientRect().top;
+	startScrollTop = box.scrollTop;
+	document.addEventListener("mousemove", onMove);
+	document.addEventListener("touchmove", onMove, { passive: false });
+	document.addEventListener("mouseup", onEnd);
+	document.addEventListener("touchend", onEnd);
+}
+
+function onMove(e) {
+	if (!isDragging) return;
+	e.preventDefault();
+	const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+	const y = clientY - scrollbarContainer.getBoundingClientRect().top;
+	const scrollPercentage = y / scrollbarContainer.clientHeight;
+	box.scrollTop = scrollPercentage * (box.scrollHeight - box.clientHeight);
+}
+
+function onEnd() {
+	isDragging = false;
+	document.removeEventListener("mousemove", onMove);
+	document.removeEventListener("touchmove", onMove);
+	document.removeEventListener("mouseup", onEnd);
+	document.removeEventListener("touchend", onEnd);
+}
+
+// 添加鼠標和觸摸事件監聽器
+scrollbar.addEventListener("mousedown", onStart);
+scrollbar.addEventListener("touchstart", onStart, { passive: false });
+
+// 點擊滾動條容器時，移動滾動條到點擊位置
+function onTrackClick(e) {
+	if (e.target === scrollbar) return;
+	const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+	const y = clientY - scrollbarContainer.getBoundingClientRect().top;
+	const scrollPercentage = y / scrollbarContainer.clientHeight;
+	box.scrollTop = scrollPercentage * (box.scrollHeight - box.clientHeight);
+}
+
+scrollbarContainer.addEventListener("click", onTrackClick);
+scrollbarContainer.addEventListener("touchstart", onTrackClick, { passive: false });
+
+// 防止移動設備上的默認滾動行為
+scrollbarContainer.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });

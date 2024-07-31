@@ -40,6 +40,19 @@ function createCustomScrollbar(container) {
 		scrollbarContainer.addEventListener("touchstart", onTrackClick, { passive: false });
 		scrollbarContainer.addEventListener("touchmove", preventDefaultScroll, { passive: false });
 
+		// Add a MutationObserver to watch for content changes
+		const observer = new MutationObserver(() => {
+			updateScrollbar();
+			// Scroll to the bottom when new content is added
+			container.scrollTop = container.scrollHeight - container.clientHeight;
+		});
+		observer.observe(container, {
+			childList: true,
+			subtree: true,
+			characterData: true,
+			attributes: true
+		});
+
 		isInitialized = true;
 		updateScrollbar();
 	}
@@ -141,10 +154,3 @@ function createCustomScrollbar(container) {
 		}
 	};
 }
-
-// 使用示例
-// const container1 = document.getElementById("myScrollContainer1");
-// const scrollbar1 = createCustomScrollbar(container1);
-
-// const container2 = document.getElementById("myScrollContainer2");
-// const scrollbar2 = createCustomScrollbar(container2);

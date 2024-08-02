@@ -100,8 +100,6 @@
 
 		<!-- Initialize Swiper -->
 		<script>
-			// 這一段只是要載入 yt api 的 script，不知道是因為 codepen 加載順序的關係還怎樣，直接在 html 上寫 script 就出事惹
-			// 實際在使用時，不用這麼麻煩，就直接下 <script src="https://www.youtube.com/iframe_api"> 就好了
 			(function (window, undefined) {
 				const eScript = document.createElement("script");
 				const firstScript = document.querySelector("script");
@@ -109,63 +107,33 @@
 				firstScript.parentNode.insertBefore(eScript, firstScript);
 			})(window);
 
-			// 真正開始的地方
 			(function (window, undefined) {
-				// 1. 首先當然要拿到所有你要拿去初始化的 DOM
 				const eYtIframe = document.querySelectorAll(".js-yt-iframe");
-
-				// 2. 接著你要在 window 上掛載這個方法，Youtube API 在加載完成後，他就會呼叫這個方法!!!
 				function onYouTubeIframeAPIReady() {
-					// 此時你就可以幹一些初始化 YT Iframe 的事
 					eYtIframe.forEach((dom) => initYtIframe(dom));
 				}
 
 				// 3. 初始化
 				function initYtIframe(dom) {
-					// 3.1 我個人習慣把他到時候 new 出來的 object 掛在整個 DOM 上，這樣拿就很方便，所以這裡先留一個 key
 					dom.ytPlayer = null;
-
-					// 3.2 初始化 YT
 					handleInitYtPlayer(dom);
-
-					// 3.3 初始化點擊事件
-					//     ( 這個就看自己個需求，我這裡有掩飾 iframe 被 pointer-events: none 了，
-					//     所以找個東西來啟動播放與暫停影片，所以我這裡就註冊點擊整個盒子的點擊來處理 )
 					handleInitClick(dom);
 				}
 
 				// 初始化 YT
 				function handleInitYtPlayer(dom) {
-					// 拿到上面留給 YT 的盒子
 					const YTWrapper = dom.querySelector(".yt-wrapper");
-
-					// 然後就丟到第一個參數就行了( 他其實還有另外一種就是給盒下 id，然後這裡直接給 id，不過我覺得自己拿 DOM 比較方便~ )
 					new YT.Player(YTWrapper, {
-						// 他有一些 callback 可以設置
 						events: {
-							// 因為我到時候要把東西都掛載到最外面的 DOM 上，所以這裡用 bind 來指定 this，這樣比較方便
 							onReady: onPlayerReady.bind(dom),
 							onStateChange: onPlayerStateChange.bind(dom)
 						},
-						// 這個就是上面說的給 yt id，他就會幫你塞 iframe 進去盒子裡
 						videoId: YTWrapper.dataset.id
 					});
 				}
-
-				// 當 YT 把東西都弄好之後，他就會調用上面你指定的 events 的 onReady 的回調
 				function onPlayerReady(e) {
-					// 此時就可以把他 new 出來的東西掛在 DOM 上面方便獲取
 					this.ytPlayer = e;
 				}
-
-				// 當每次影片狀態改變的時候他就會調用上面你指定的 events 的 onStateChange 的回調
-				// 影片播放的過程會有 6 個狀態
-				//   -1: 未開始
-				//   0 : 已開始
-				//   1 : 正在播放
-				//   2 : 暫停
-				//   3 : 正在緩衝
-				//   5 : 已插入 iframe
 				function onPlayerStateChange(e) {
 					if (e.data == 0) {
 						// 播放結束

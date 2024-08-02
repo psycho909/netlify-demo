@@ -2,44 +2,231 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Swiper demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+		<!-- Link Swiper's CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+		<!-- Demo styles -->
 		<style>
-			#calendar {
-				height: 20000px;
+			html,
+			body {
+				position: relative;
+				height: 100%;
 			}
-			.btn-top {
-				position: fixed;
-				bottom: 5%;
-				right: 5%;
-				width: 30px;
-				height: 30px;
-				background-color: red;
+
+			body {
+				background: #eee;
+				font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #000;
+				margin: 0;
+				padding: 0;
 			}
-			h1 {
-				font-size: calc(72 / 768 * 100vw);
+
+			.swiper {
+				width: 100%;
+				height: 100%;
 			}
-			h2 {
-				font-size: calc(48 / 768 * 100vw);
+
+			.swiper-slide {
+				text-align: center;
+				font-size: 18px;
+				background: #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.swiper-slide img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.yt-mask {
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+				background: no-repeat center/cover;
+			}
+
+			.yt-button {
+				width: 68px;
+				height: 48px;
+			}
+
+			.mask:hover .ytp-large-play-button-bg {
+				fill: #f00;
+			}
+
+			.js-yt-iframe iframe {
+				pointer-events: none;
 			}
 		</style>
 	</head>
+
 	<body>
-		<div id="calendar">
-			<h1>測試文字大小</h1>
-			<h2><a href="https://www.youtube.com/watch?v=8JA51YHIXJQ">https://www.youtube.com/watch?v=8JA51YHIXJQ</a></h2>
-			<h2><a href="https://youtu.be/8JA51YHIXJQ">https://youtu.be/8JA51YHIXJQ</a></h2>
-			<a href="https://www.facebook.com/TWDragonNest" class="btn-f" target="_blank">FB1</a>
-			<a href="https://www.facebook.com/TWDragonNest/" class="btn-f" target="_blank">FB2</a>
+		<!-- Swiper -->
+		<div class="swiper mySwiper">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="iframe-wrap hideIframeIcon js-yt-iframe">
+						<div class="yt-wrapper" data-id="4aQwT3n2c1Q"></div>
+						<div class="yt-mask"></div>
+					</div>
+				</div>
+				<div class="swiper-slide">slide2</div>
+				<div class="swiper-slide">Slide 3</div>
+				<div class="swiper-slide">Slide 4</div>
+				<div class="swiper-slide">Slide 5</div>
+				<div class="swiper-slide">Slide 6</div>
+				<div class="swiper-slide">Slide 7</div>
+				<div class="swiper-slide">Slide 8</div>
+				<div class="swiper-slide">Slide 9</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-pagination"></div>
 		</div>
-		<a href="javascript:;" class="btn-top"></a>
+
+		<!-- Swiper JS -->
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+		<!-- Initialize Swiper -->
 		<script>
-			// TOP
-			$(".btn-top").on("click", function () {
-				$("body,html").animate({
-					scrollTop: 0
-				});
+			// 這一段只是要載入 yt api 的 script，不知道是因為 codepen 加載順序的關係還怎樣，直接在 html 上寫 script 就出事惹
+			// 實際在使用時，不用這麼麻煩，就直接下 <script src="https://www.youtube.com/iframe_api"> 就好了
+			(function (window, undefined) {
+				const eScript = document.createElement("script");
+				const firstScript = document.querySelector("script");
+				eScript.src = "https://www.youtube.com/iframe_api";
+				firstScript.parentNode.insertBefore(eScript, firstScript);
+			})(window);
+
+			// 真正開始的地方
+			(function (window, undefined) {
+				// 1. 首先當然要拿到所有你要拿去初始化的 DOM
+				const eYtIframe = document.querySelectorAll(".js-yt-iframe");
+
+				// 2. 接著你要在 window 上掛載這個方法，Youtube API 在加載完成後，他就會呼叫這個方法!!!
+				function onYouTubeIframeAPIReady() {
+					// 此時你就可以幹一些初始化 YT Iframe 的事
+					eYtIframe.forEach((dom) => initYtIframe(dom));
+				}
+
+				// 3. 初始化
+				function initYtIframe(dom) {
+					// 3.1 我個人習慣把他到時候 new 出來的 object 掛在整個 DOM 上，這樣拿就很方便，所以這裡先留一個 key
+					dom.ytPlayer = null;
+
+					// 3.2 初始化 YT
+					handleInitYtPlayer(dom);
+
+					// 3.3 初始化點擊事件
+					//     ( 這個就看自己個需求，我這裡有掩飾 iframe 被 pointer-events: none 了，
+					//     所以找個東西來啟動播放與暫停影片，所以我這裡就註冊點擊整個盒子的點擊來處理 )
+					handleInitClick(dom);
+				}
+
+				// 初始化 YT
+				function handleInitYtPlayer(dom) {
+					// 拿到上面留給 YT 的盒子
+					const YTWrapper = dom.querySelector(".yt-wrapper");
+
+					// 然後就丟到第一個參數就行了( 他其實還有另外一種就是給盒下 id，然後這裡直接給 id，不過我覺得自己拿 DOM 比較方便~ )
+					new YT.Player(YTWrapper, {
+						// 他有一些 callback 可以設置
+						events: {
+							// 因為我到時候要把東西都掛載到最外面的 DOM 上，所以這裡用 bind 來指定 this，這樣比較方便
+							onReady: onPlayerReady.bind(dom),
+							onStateChange: onPlayerStateChange.bind(dom)
+						},
+						// 這個就是上面說的給 yt id，他就會幫你塞 iframe 進去盒子裡
+						videoId: YTWrapper.dataset.id
+					});
+				}
+
+				// 當 YT 把東西都弄好之後，他就會調用上面你指定的 events 的 onReady 的回調
+				function onPlayerReady(e) {
+					// 此時就可以把他 new 出來的東西掛在 DOM 上面方便獲取
+					this.ytPlayer = e;
+				}
+
+				// 當每次影片狀態改變的時候他就會調用上面你指定的 events 的 onStateChange 的回調
+				// 影片播放的過程會有 6 個狀態
+				//   -1: 未開始
+				//   0 : 已開始
+				//   1 : 正在播放
+				//   2 : 暫停
+				//   3 : 正在緩衝
+				//   5 : 已插入 iframe
+				function onPlayerStateChange(e) {
+					if (e.data == 0) {
+						// 播放結束
+						console.log("播放結束");
+					} else if (e.data == 1) {
+						// 播放中
+						console.log("播放中");
+					} else if (e.data == 2) {
+						// 暫停中
+						console.log("暫停中");
+					}
+				}
+
+				// 註冊點擊
+				function handleInitClick(dom) {
+					dom.addEventListener("click", handleClick);
+				}
+
+				// 處理點擊
+				function handleClick() {
+					const eMask = this.querySelector(".yt-mask");
+
+					// 這裡就是判斷他現在是不是播放狀態，如果是就要暫停
+					if (this.ytPlayer && this.ytPlayer.target.getPlayerState() == 1) {
+						return pause(this);
+					}
+
+					// 否則就要播放
+					play(this);
+				}
+
+				// 播放影片
+				function play(dom) {
+					// 這裡做這個判斷是因為避免時間差，就是 YT 還沒插入時，使用者就點擊了，那此時當然播放不了
+					if (dom.ytPlayer === null) {
+						setTimeout(() => {
+							play(dom);
+						}, 500);
+					} else {
+						dom.ytPlayer.target.playVideo();
+					}
+				}
+
+				// 暫停影片
+				function pause(dom) {
+					dom.ytPlayer.target.pauseVideo();
+				}
+
+				// 這個記得要掛在 window 上
+				window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+			})(window);
+			var swiper = new Swiper(".mySwiper", {
+				pagination: {
+					el: ".swiper-pagination",
+					type: "progressbar"
+				},
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev"
+				},
+				on: {}
 			});
 		</script>
 	</body>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Swiper demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+		<!-- Link Swiper's CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+		<!-- Demo styles -->
+		<style>
+			html,
+			body {
+				position: relative;
+				height: 100%;
+			}
+
+			body {
+				background: #eee;
+				font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #000;
+				margin: 0;
+				padding: 0;
+			}
+
+			.swiper {
+				width: 100%;
+				height: 100%;
+			}
+
+			.swiper-slide {
+				text-align: center;
+				font-size: 18px;
+				background: #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.swiper-slide img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.yt-mask {
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+			}
+
+			.js-yt-iframe iframe {
+				pointer-events: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Swiper -->
+		<div class="swiper mySwiper">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="iframe-wrap js-yt-iframe">
+						<div class="yt-wrapper" data-id="-36p4BpyenI"></div>
+						<div class="yt-mask"></div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="iframe-wrap js-yt-iframe">
+						<div class="yt-wrapper" data-id="1Zhr2p8frZA"></div>
+						<div class="yt-mask"></div>
+					</div>
+				</div>
+				<div class="swiper-slide">Slide 3</div>
+				<div class="swiper-slide">Slide 4</div>
+				<div class="swiper-slide">Slide 5</div>
+				<div class="swiper-slide">Slide 6</div>
+				<div class="swiper-slide">Slide 7</div>
+				<div class="swiper-slide">Slide 8</div>
+				<div class="swiper-slide">Slide 9</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<!-- Swiper JS -->
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+		<!-- Initialize Swiper -->
+		<script>
+			(function (window, undefined) {
+				const eScript = document.createElement("script");
+				const firstScript = document.querySelector("script");
+				eScript.src = "https://www.youtube.com/iframe_api";
+				firstScript.parentNode.insertBefore(eScript, firstScript);
+			})(window);
+
+			(function (window, undefined) {
+				const eYtIframe = document.querySelectorAll(".js-yt-iframe");
+				function onYouTubeIframeAPIReady() {
+					eYtIframe.forEach((dom) => initYtIframe(dom));
+				}
+				function initYtIframe(dom) {
+					dom.ytPlayer = null;
+					handleInitYtPlayer(dom);
+					handleInitClick(dom);
+				}
+
+				function handleInitYtPlayer(dom) {
+					const YTWrapper = dom.querySelector(".yt-wrapper");
+					new YT.Player(YTWrapper, {
+						events: {
+							onReady: onPlayerReady.bind(dom),
+							onStateChange: onPlayerStateChange.bind(dom)
+						},
+						videoId: YTWrapper.dataset.id
+					});
+				}
+				function onPlayerReady(e) {
+					this.ytPlayer = e;
+				}
+				function onPlayerStateChange(e) {}
+				function handleInitClick(dom) {
+					dom.addEventListener("click", handleClick);
+				}
+				function handleClick() {
+					const eMask = this.querySelector(".yt-mask");
+					if (this.ytPlayer && this.ytPlayer.target.getPlayerState() == 1) {
+						return pause(this);
+					}
+					play(this);
+				}
+
+				function play(dom) {
+					// 這裡做這個判斷是因為避免時間差，就是 YT 還沒插入時，使用者就點擊了，那此時當然播放不了
+					if (dom.ytPlayer === null) {
+						setTimeout(() => {
+							play(dom);
+						}, 500);
+					} else {
+						dom.ytPlayer.target.playVideo();
+					}
+				}
+				function pause(dom) {
+					dom.ytPlayer.target.pauseVideo();
+				}
+				window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+			})(window);
+
+			var swiper = new Swiper(".mySwiper", {
+				pagination: {
+					el: ".swiper-pagination",
+					type: "progressbar"
+				},
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev"
+				},
+				on: {}
+			});
+		</script>
+	</body>
+</html>

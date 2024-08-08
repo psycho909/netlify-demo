@@ -80,28 +80,23 @@
 				var info = "";
 
 				// 檢測是否為移動設備
-				if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())) {
-					info += "<p>這是一個移動設備。</p>";
-				} else {
-					info += "<p>這不是一個移動設備。</p>";
-				}
+				var isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+				info += isMobile ? "<p>這是一個移動設備。</p>" : "<p>這不是一個移動設備。</p>";
 
 				// 檢測特定瀏覽器
-				var browserName = "Safari";
-				if (/AppleWebKit/i.test(userAgent)) {
-					if (/CriOS/i.test(userAgent)) {
-						browserName = "Chrome on iOS";
-					} else if (/FxiOS/i.test(userAgent)) {
-						browserName = "Firefox on iOS";
-					} else if (/OPiOS/i.test(userAgent)) {
-						browserName = "Opera on iOS";
-					} else if (/FBIOS/i.test(userAgent)) {
-						browserName = "Facebook on iOS";
-					} else if (/Line/i.test(userAgent)) {
-						browserName = "Line";
-					} else if (/EdgiOS/i.test(userAgent)) {
-						browserName = "Edge on iOS";
-					}
+				var browserName = "其他";
+				if (/FBIOS/i.test(userAgent)) {
+					browserName = "FB";
+				} else if (/Line/i.test(userAgent)) {
+					browserName = "Line";
+				} else if (/CriOS/i.test(userAgent)) {
+					browserName = "Chrome on iOS";
+				} else if (/FxiOS/i.test(userAgent)) {
+					browserName = "Firefox on iOS";
+				} else if (/OPiOS/i.test(userAgent)) {
+					browserName = "Opera on iOS";
+				} else if (/EdgiOS/i.test(userAgent)) {
+					browserName = "Edge on iOS";
 				} else if (/Firefox/i.test(userAgent)) {
 					browserName = "Firefox";
 				} else if (/OPR\//i.test(userAgent)) {
@@ -110,16 +105,15 @@
 					browserName = "Edge";
 				} else if (/Chrome/i.test(userAgent)) {
 					browserName = "Chrome";
+				} else if (/Safari/i.test(userAgent)) {
+					browserName = "Safari";
 				} else if (/MSIE|Trident/i.test(userAgent)) {
 					browserName = "Internet Explorer";
 				} else if (/Android/i.test(userAgent)) {
 					browserName = "Android Browser";
 				}
 
-				// 只有在不是Safari時才顯示瀏覽器類型
-				if (browserName !== "Safari") {
-					info += "<p>瀏覽器類型：" + browserName + "</p>";
-				}
+				info += "<p>瀏覽器類型：" + browserName + "</p>";
 
 				// 獲取更多瀏覽器信息
 				info += "<p>瀏覽器名稱：" + navigator.appName + "</p>";

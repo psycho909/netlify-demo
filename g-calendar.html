@@ -76,12 +76,9 @@
 			});
 			function detectBrowser() {
 				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-				var result = document.getElementById("result");
-				var info = "";
 
 				// 檢測是否為移動設備
 				var isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-				info += isMobile ? "<p>這是一個移動設備。</p>" : "<p>這不是一個移動設備。</p>";
 
 				// 檢測特定瀏覽器
 				var browserName = "其他";
@@ -113,19 +110,21 @@
 					browserName = "Android Browser";
 				}
 
-				info += "<p>瀏覽器類型：" + browserName + "</p>";
-
-				// 獲取更多瀏覽器信息
-				info += "<p>瀏覽器名稱：" + navigator.appName + "</p>";
-				info += "<p>瀏覽器版本：" + navigator.appVersion + "</p>";
-				info += "<p>用戶代理字符串：" + navigator.userAgent + "</p>";
-				info += "<p>平台：" + navigator.platform + "</p>";
-
-				result.innerHTML = info;
+				return {
+					isMobile: isMobile,
+					browserName: browserName,
+					appName: navigator.appName,
+					appVersion: navigator.appVersion,
+					userAgent: navigator.userAgent,
+					platform: navigator.platform
+				};
 			}
-
-			// 頁面加載時執行檢測
-			window.onload = detectBrowser;
+			let browser = detectBrowser();
+			if (browser.isMobile) {
+				if (browser.browserName == "FB" || browser.browserName == "Line") {
+					$(".g-calendar-ios").hide();
+				}
+			}
 		</script>
 	</body>
 </html>

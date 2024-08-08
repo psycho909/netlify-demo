@@ -121,6 +121,9 @@
 			}
 			let browser = detectBrowser();
 			if (browser.isMobile) {
+				if (browser.browserName == "Chrome on iOS" || browser.browserName == "Firefox on iOS" || browser.browserName == "Opera on iOS" || browser.browserName == "Edge on iOS") {
+					$(".g-calendar-google").hide();
+				}
 				if (browser.browserName == "FB" || browser.browserName == "Line") {
 					$(".g-calendar-ios").hide();
 				}

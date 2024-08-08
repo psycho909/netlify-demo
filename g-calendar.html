@@ -27,6 +27,12 @@
 			a {
 				display: block;
 			}
+			#result {
+				margin-top: 20px;
+				padding: 10px;
+				border: 1px solid #ddd;
+				border-radius: 5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -52,7 +58,9 @@
 				<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒3</a>
 				<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒3</a>
 			</div>
+			<div id="result"></div>
 		</div>
+
 		<script type="module">
 			var html = `<h2>Test</h2>\
 					<div>
@@ -66,6 +74,29 @@
 			$("#btn").on("click", function () {
 				$.gbox.open(html);
 			});
+			function detectMobileBrowser() {
+				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+				var result = document.getElementById("result");
+				var info = "";
+
+				// 檢測是否為移動設備
+				if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())) {
+					info += "<p>這是一個移動設備。</p>";
+				} else {
+					info += "<p>這不是一個移動設備。</p>";
+				}
+
+				// 獲取更多瀏覽器信息
+				info += "<p>瀏覽器名稱：" + navigator.appName + "</p>";
+				info += "<p>瀏覽器版本：" + navigator.appVersion + "</p>";
+				info += "<p>用戶代理字符串：" + navigator.userAgent + "</p>";
+				info += "<p>平台：" + navigator.platform + "</p>";
+
+				result.innerHTML = info;
+			}
+
+			// 頁面加載時執行檢測
+			window.onload = detectMobileBrowser;
 		</script>
 	</body>
 </html>

@@ -74,7 +74,7 @@
 			$("#btn").on("click", function () {
 				$.gbox.open(html);
 			});
-			function detectMobileBrowser() {
+			function detectBrowser() {
 				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 				var result = document.getElementById("result");
 				var info = "";
@@ -84,6 +84,41 @@
 					info += "<p>這是一個移動設備。</p>";
 				} else {
 					info += "<p>這不是一個移動設備。</p>";
+				}
+
+				// 檢測特定瀏覽器
+				var browserName = "Safari";
+				if (/AppleWebKit/i.test(userAgent)) {
+					if (/CriOS/i.test(userAgent)) {
+						browserName = "Chrome on iOS";
+					} else if (/FxiOS/i.test(userAgent)) {
+						browserName = "Firefox on iOS";
+					} else if (/OPiOS/i.test(userAgent)) {
+						browserName = "Opera on iOS";
+					} else if (/FBIOS/i.test(userAgent)) {
+						browserName = "Facebook on iOS";
+					} else if (/Line/i.test(userAgent)) {
+						browserName = "Line";
+					} else if (/EdgiOS/i.test(userAgent)) {
+						browserName = "Edge on iOS";
+					}
+				} else if (/Firefox/i.test(userAgent)) {
+					browserName = "Firefox";
+				} else if (/OPR\//i.test(userAgent)) {
+					browserName = "Opera";
+				} else if (/Edg/i.test(userAgent)) {
+					browserName = "Edge";
+				} else if (/Chrome/i.test(userAgent)) {
+					browserName = "Chrome";
+				} else if (/MSIE|Trident/i.test(userAgent)) {
+					browserName = "Internet Explorer";
+				} else if (/Android/i.test(userAgent)) {
+					browserName = "Android Browser";
+				}
+
+				// 只有在不是Safari時才顯示瀏覽器類型
+				if (browserName !== "Safari") {
+					info += "<p>瀏覽器類型：" + browserName + "</p>";
 				}
 
 				// 獲取更多瀏覽器信息
@@ -96,7 +131,7 @@
 			}
 
 			// 頁面加載時執行檢測
-			window.onload = detectMobileBrowser;
+			window.onload = detectBrowser;
 		</script>
 	</body>
 </html>

@@ -56,8 +56,6 @@
 			<div class="g-calendar" begin="2022/07/19 23:00" end="2022/07/19 23:55" title="天堂活動頁" autoDetectDevice="true">
 				<a class="g-calendar-google" href="javascript:;" target="_blank">Google 活動行事曆提醒3</a>
 				<a class="g-calendar-ios" href="javascript:;" target="_blank">IOS 活動行事曆提醒4</a>
-				<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒3</a>
-				<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒3</a>
 			</div>
 			<div id="result"></div>
 		</div>
@@ -76,69 +74,77 @@
 				$.gbox.open(html);
 			});
 			function detectBrowser() {
-    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    // 檢測是否為移動設備
-    var isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+				// 檢測是否為移動設備
+				var isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
 
-    // 檢測裝置類型
-    var deviceType = "其他";
-    if (/android/i.test(userAgent)) {
-        deviceType = "Android";
-    } else if (/iphone|ipad|ipod/i.test(userAgent)) {
-        deviceType = "iOS";
-    }
+				// 檢測裝置類型
+				var deviceType = "其他";
+				if (/android/i.test(userAgent)) {
+					deviceType = "Android";
+				} else if (/iphone|ipad|ipod/i.test(userAgent)) {
+					deviceType = "iOS";
+				}
 
-    // 檢測特定瀏覽器
-    var browserName = "其他";
-    if (/FBIOS/i.test(userAgent)) {
-        browserName = "FB";
-    } else if (/Line/i.test(userAgent)) {
-        browserName = "Line";
-    } else if (/CriOS/i.test(userAgent)) {
-        browserName = "Chrome on iOS";
-    } else if (/FxiOS/i.test(userAgent)) {
-        browserName = "Firefox on iOS";
-    } else if (/OPiOS/i.test(userAgent)) {
-        browserName = "Opera on iOS";
-    } else if (/EdgiOS/i.test(userAgent)) {
-        browserName = "Edge on iOS";
-    } else if (/Firefox/i.test(userAgent)) {
-        browserName = "Firefox";
-    } else if (/OPR\//i.test(userAgent)) {
-        browserName = "Opera";
-    } else if (/Edg/i.test(userAgent)) {
-        browserName = "Edge";
-    } else if (/Chrome/i.test(userAgent)) {
-        browserName = "Chrome";
-    } else if (/Safari/i.test(userAgent)) {
-        browserName = "Safari";
-    } else if (/MSIE|Trident/i.test(userAgent)) {
-        browserName = "Internet Explorer";
-    } else if (/Android/i.test(userAgent)) {
-        browserName = "Android Browser";
-    }
+				// 檢測特定瀏覽器
+				var browserName = "其他";
+				if (/FBIOS/i.test(userAgent)) {
+					browserName = "FB";
+				} else if (/Line/i.test(userAgent)) {
+					browserName = "Line";
+				} else if (/CriOS/i.test(userAgent)) {
+					browserName = "Chrome on iOS";
+				} else if (/FxiOS/i.test(userAgent)) {
+					browserName = "Firefox on iOS";
+				} else if (/OPiOS/i.test(userAgent)) {
+					browserName = "Opera on iOS";
+				} else if (/EdgiOS/i.test(userAgent)) {
+					browserName = "Edge on iOS";
+				} else if (/Firefox/i.test(userAgent)) {
+					browserName = "Firefox";
+				} else if (/OPR\//i.test(userAgent)) {
+					browserName = "Opera";
+				} else if (/Edg/i.test(userAgent)) {
+					browserName = "Edge";
+				} else if (/Chrome/i.test(userAgent)) {
+					browserName = "Chrome";
+				} else if (/Safari/i.test(userAgent)) {
+					browserName = "Safari";
+				} else if (/MSIE|Trident/i.test(userAgent)) {
+					browserName = "Internet Explorer";
+				} else if (/Android/i.test(userAgent)) {
+					browserName = "Android Browser";
+				}
 
-    return {
-        isMobile: isMobile,
-        deviceType: deviceType,
-        browserName: browserName,
-        appName: navigator.appName,
-        appVersion: navigator.appVersion,
-        userAgent: navigator.userAgent,
-        platform: navigator.platform
-    };
-}
+				return {
+					isMobile: isMobile,
+					deviceType: deviceType,
+					browserName: browserName,
+					appName: navigator.appName,
+					appVersion: navigator.appVersion,
+					userAgent: navigator.userAgent,
+					platform: navigator.platform
+				};
+			}
 			let browser = detectBrowser();
 			if (browser.isMobile) {
-				if (browser.browserName == "Safari") {
-					$(".g-calendar-google").hide();
+				if (browser.deviceType == "IOS") {
+					if (browser.browserName == "Safari") {
+						$(".g-calendar-google").hide();
+					}
+					if (browser.browserName == "FB" || browser.browserName == "Line") {
+						$(".g-calendar-ios").hide();
+					}
 				}
-				if (browser.browserName == "FB" || browser.browserName == "Line") {
+				if (browser.deviceType == "Android") {
+					$(".g-calendar-ios").hide();
+				}
+			} else {
+				if (browser.deviceType == "其他") {
 					$(".g-calendar-ios").hide();
 				}
 			}
-			document.querySelector("#result").innerHTML = JSON.stringify(browser);
 		</script>
 	</body>
 </html>

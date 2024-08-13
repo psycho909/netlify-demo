@@ -76,50 +76,59 @@
 				$.gbox.open(html);
 			});
 			function detectBrowser() {
-				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-				// 檢測是否為移動設備
-				var isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+    // 檢測是否為移動設備
+    var isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
 
-				// 檢測特定瀏覽器
-				var browserName = "其他";
-				if (/FBIOS/i.test(userAgent)) {
-					browserName = "FB";
-				} else if (/Line/i.test(userAgent)) {
-					browserName = "Line";
-				} else if (/CriOS/i.test(userAgent)) {
-					browserName = "Chrome on iOS";
-				} else if (/FxiOS/i.test(userAgent)) {
-					browserName = "Firefox on iOS";
-				} else if (/OPiOS/i.test(userAgent)) {
-					browserName = "Opera on iOS";
-				} else if (/EdgiOS/i.test(userAgent)) {
-					browserName = "Edge on iOS";
-				} else if (/Firefox/i.test(userAgent)) {
-					browserName = "Firefox";
-				} else if (/OPR\//i.test(userAgent)) {
-					browserName = "Opera";
-				} else if (/Edg/i.test(userAgent)) {
-					browserName = "Edge";
-				} else if (/Chrome/i.test(userAgent)) {
-					browserName = "Chrome";
-				} else if (/Safari/i.test(userAgent)) {
-					browserName = "Safari";
-				} else if (/MSIE|Trident/i.test(userAgent)) {
-					browserName = "Internet Explorer";
-				} else if (/Android/i.test(userAgent)) {
-					browserName = "Android Browser";
-				}
+    // 檢測裝置類型
+    var deviceType = "其他";
+    if (/android/i.test(userAgent)) {
+        deviceType = "Android";
+    } else if (/iphone|ipad|ipod/i.test(userAgent)) {
+        deviceType = "iOS";
+    }
 
-				return {
-					isMobile: isMobile,
-					browserName: browserName,
-					appName: navigator.appName,
-					appVersion: navigator.appVersion,
-					userAgent: navigator.userAgent,
-					platform: navigator.platform
-				};
-			}
+    // 檢測特定瀏覽器
+    var browserName = "其他";
+    if (/FBIOS/i.test(userAgent)) {
+        browserName = "FB";
+    } else if (/Line/i.test(userAgent)) {
+        browserName = "Line";
+    } else if (/CriOS/i.test(userAgent)) {
+        browserName = "Chrome on iOS";
+    } else if (/FxiOS/i.test(userAgent)) {
+        browserName = "Firefox on iOS";
+    } else if (/OPiOS/i.test(userAgent)) {
+        browserName = "Opera on iOS";
+    } else if (/EdgiOS/i.test(userAgent)) {
+        browserName = "Edge on iOS";
+    } else if (/Firefox/i.test(userAgent)) {
+        browserName = "Firefox";
+    } else if (/OPR\//i.test(userAgent)) {
+        browserName = "Opera";
+    } else if (/Edg/i.test(userAgent)) {
+        browserName = "Edge";
+    } else if (/Chrome/i.test(userAgent)) {
+        browserName = "Chrome";
+    } else if (/Safari/i.test(userAgent)) {
+        browserName = "Safari";
+    } else if (/MSIE|Trident/i.test(userAgent)) {
+        browserName = "Internet Explorer";
+    } else if (/Android/i.test(userAgent)) {
+        browserName = "Android Browser";
+    }
+
+    return {
+        isMobile: isMobile,
+        deviceType: deviceType,
+        browserName: browserName,
+        appName: navigator.appName,
+        appVersion: navigator.appVersion,
+        userAgent: navigator.userAgent,
+        platform: navigator.platform
+    };
+}
 			let browser = detectBrowser();
 			if (browser.isMobile) {
 				if (browser.browserName == "Safari") {

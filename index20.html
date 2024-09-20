@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<a href="#" data-link="https://tw.hicdn.beanfun.com/beanfun/WebImage/20230706044949.png" onclick="downloadImage(); return false;" class="wallpaper-link">下載</a>
+		<script>
+			function downloadImage() {
+				let url = document.querySelector(".wallpaper-link").getAttribute("data-link");
+				fetch(url)
+					.then((response) => response.blob())
+					.then((blob) => {
+						const blobUrl = window.URL.createObjectURL(blob);
+						const a = document.createElement("a");
+						a.style.display = "none";
+						a.href = blobUrl;
+						a.download = "壁紙";
+						document.body.appendChild(a);
+						a.click();
+						window.URL.revokeObjectURL(blobUrl);
+						document.body.removeChild(a);
+					})
+					.catch((error) => console.error("下载出错:", error));
+			}
+		</script>
+	</body>
+</html>

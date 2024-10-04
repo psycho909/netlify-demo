@@ -6,9 +6,36 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<a href="#" data-link="https://tw.hicdn.beanfun.com/beanfun/WebImage/20230706044949.png" onclick="downloadImage(); return false;" class="wallpaper-link">下載</a>
+		<a href="#" data-link="https://tw.hicdn.beanfun.com/beanfun/WebImage/20230706044949.png" onclick="downloadImage1(); return false;" class="wallpaper-link">下載1</a>
+		<a href="#" data-link="https://tw.hicdn.beanfun.com/beanfun/WebImage/20230706044949.png" onclick="downloadImage2(); return false;" class="wallpaper-link">下載2</a>
 		<script>
-			function downloadImage() {
+			// 檢測是否為Android設備
+			function isAndroid() {
+				return /Android/i.test(navigator.userAgent);
+			}
+			function downloadForMobile(url) {
+				// 為移動設備創建一個新的窗口來打開圖片
+				window.open(url, "_blank");
+			}
+			// 桌面設備的下載處理
+			function downloadForDesktop(url) {
+				fetch(url)
+					.then((response) => response.blob())
+					.then((blob) => {
+						const blobUrl = window.URL.createObjectURL(blob);
+						const a = document.createElement("a");
+						a.style.display = "none";
+						a.href = blobUrl;
+						a.download = "壁紙";
+						document.body.appendChild(a);
+						a.click();
+						window.URL.revokeObjectURL(blobUrl);
+						document.body.removeChild(a);
+					})
+					.catch((error) => console.error("下载出错:", error));
+			}
+
+			function downloadImage1() {
 				let url = document.querySelector(".wallpaper-link").getAttribute("data-link");
 				fetch(url)
 					.then((response) => response.blob())
@@ -24,6 +51,15 @@
 						document.body.removeChild(a);
 					})
 					.catch((error) => console.error("下载出错:", error));
+			}
+
+			function downloadImage2() {
+				let url = document.querySelector(".wallpaper-link").getAttribute("data-link");
+				if (isAndroid()) {
+					downloadForMobile(url);
+				} else {
+					downloadForDesktop(url);
+				}
 			}
 		</script>
 	</body>

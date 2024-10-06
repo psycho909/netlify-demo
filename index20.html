@@ -64,21 +64,22 @@
 				}
 			}
 
-			document.addEventListener("DOMContentLoaded", function () {
-				if (isMobile.any) {
-					// .wallpaper-link3 增加download屬性
-					document.querySelector(".wallpaper-link3").setAttribute("download", "壁紙");
-					// 把 data-link 值放到href
-					document.querySelector(".wallpaper-link3").setAttribute("href", document.querySelector(".wallpaper-link3").getAttribute("data-link"));
-					// 並加上target _blank
-					document.querySelector(".wallpaper-link3").setAttribute("target", "_blank");
-				}
-			});
+			// document.addEventListener("DOMContentLoaded", function () {
+			// 	if (isMobile.any) {
+			// 		// .wallpaper-link3 增加download屬性
+			// 		document.querySelector(".wallpaper-link3").setAttribute("download", "壁紙");
+			// 		// 把 data-link 值放到href
+			// 		document.querySelector(".wallpaper-link3").setAttribute("href", document.querySelector(".wallpaper-link3").getAttribute("data-link"));
+			// 		// 並加上target _blank
+			// 		document.querySelector(".wallpaper-link3").setAttribute("target", "_blank");
+			// 	}
+			// });
 			function downloadImage3() {
 				let url = document.querySelector(".wallpaper-link").getAttribute("data-link");
 				if (!isMobile.any) {
-					console.log(123);
 					downloadForDesktop(url);
+				} else {
+					downloadForMobile(url);
 				}
 			}
 		</script>

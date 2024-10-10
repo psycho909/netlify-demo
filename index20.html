@@ -4,16 +4,15 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 	</head>
 	<body>
 		<a href="#" data-link="https://tw.hicdn.beanfun.com/beanfun/WebImage/20230706044949.png" onclick="downloadImage1(); return false;" class="wallpaper-link">下載1</a>
 		<a href="#" data-link="https://tw.hicdn.beanfun.com/beanfun/WebImage/20230706044949.png" onclick="downloadImage2(); return false;" class="wallpaper-link">下載2</a>
 		<a href="#" data-link="https://tw.hicdn.beanfun.com/beanfun/WebImage/20230706044949.png" onclick="downloadImage3(); return false;" class="wallpaper-link wallpaper-link3">下載3</a>
 		<script>
-			// 檢測是否為Android設備
-			function isAndroid() {
-				return /Android/i.test(navigator.userAgent);
+			function isMobile() {
+				// 偵測是否為手機裝置
+				return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 			}
 			function downloadForMobile(url) {
 				// 為移動設備創建一個新的窗口來打開圖片

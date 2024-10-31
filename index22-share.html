@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Share Image Generator</title>
+		<style>
+			/* Your existing CSS here */
+			.download-btn {
+				margin-top: 20px;
+				padding: 10px 20px;
+				font-size: 16px;
+				color: white;
+				background-color: #007bff;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="shareCanvas"></canvas>
+		<div id="error" class="error"></div>
+		<button class="download-btn" onclick="downloadImage()">Download Image</button>
+
+		<script>
+			const canvas = document.getElementById("shareCanvas");
+			const ctx = canvas.getContext("2d");
+			const errorDiv = document.getElementById("error");
+
+			canvas.width = 1200;
+			canvas.height = 630;
+
+			// Function to load an image with CORS support
+			function loadImage(src) {
+				return new Promise((resolve, reject) => {
+					const img = new Image();
+					img.crossOrigin = "anonymous";
+					img.onload = () => resolve(img);
+					img.onerror = (e) => reject(new Error(`Failed to load image: ${src}`));
+					img.src = src;
+				});
+			}
+
+			// Function to draw centered text
+			function drawCenteredText(text, x, y, font, color) {
+				ctx.font = font;
+				ctx.fillStyle = color;
+				ctx.textAlign = "center";
+				ctx.fillText(text, x, y);
+			}
+
+			// Function to draw growth rate text with dynamic positioning, only if growthRate is provided
+			function drawGrowthRate(cardX, baselineY, growthRate) {
+				if (!growthRate) return; // Hide growth rate if empty
+
+				const centerX = cardX + 139;
+				const normalFont = 'normal 28px "Microsoft JhengHei"';
+				const largeFont = 'normal 44px "Microsoft JhengHei"';
+
+				ctx.font = normalFont;
+				const prefix = "成長率";
+				const suffix = "%";
+				const prefixWidth = ctx.measureText(prefix).width;
+				const suffixWidth = ctx.measureText(suffix).width;
+
+				ctx.font = largeFont;
+				const numberWidth = ctx.measureText(growthRate).width;
+
+				const spacing = 2;
+				const totalWidth = prefixWidth + numberWidth + suffixWidth + spacing * 2;
+				let startX = centerX - totalWidth / 2;
+
+				ctx.font = normalFont;
+				ctx.fillStyle = "#ffebd1";
+				ctx.textAlign = "left";
+				ctx.fillText(prefix, startX, baselineY);
+
+				startX += prefixWidth + spacing;
+				ctx.font = largeFont;
+				ctx.fillText(growthRate, startX, baselineY);
+
+				startX += numberWidth + spacing;
+				ctx.font = normalFont;
+				ctx.fillText(suffix, startX, baselineY);
+			}
+
+			// Function to draw card content with custom values, with specific settings for "mabi" logo
+			function drawCardContent(cardX, cardY, { days2024, days2023, growthRate, show2024, show2023, desc2024Image, desc2023Image }, isMabi) {
+				// Adjust positions if "mabi" is the selected logo
+				const titleY = isMabi ? cardY + 105 : cardY + 90;
+				const desc2024Y = isMabi ? cardY + 209 : cardY + 174;
+
+				// Draw the "累積登入天數" label
+				drawCenteredText("累積登入天數", cardX + 139, titleY, 'bold 28px "Microsoft JhengHei"', "#ffebd1");
+
+				// Draw 2024 day count if specified
+				if (show2024 && days2024) {
+					if (isMabi) {
+						drawCenteredText(days2024, cardX + 139, cardY + 295, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
+					} else {
+						drawCenteredText(days2024, cardX + 139, cardY + 240, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
+					}
+				}
+
+				// Draw growth rate only if not "mabi" and growthRate is provided
+				if (!isMabi) drawGrowthRate(cardX, cardY + 300, growthRate);
+
+				// Draw 2023 day count and label only if show2023 is true and not "mabi"
+				if (show2023 && !isMabi) {
+					if (desc2023Image) ctx.drawImage(desc2023Image, cardX + 85, cardY + 322);
+					if (days2023) {
+						drawCenteredText(days2023, cardX + 139, cardY + 388, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
+					}
+				}
+
+				// Draw 2024 label image if applicable
+				if (show2024 && desc2024Image) {
+					ctx.drawImage(desc2024Image, cardX + 85, desc2024Y);
+				}
+			}
+
+			// Main function to draw everything with customizable settings
+			async function drawShareImage({
+				logo = "cso",
+				cardData = [
+					{ show2024: true, show2023: true, days2024: "123天", days2023: "100天", growthRate: "100" },
+					{ show2024: true, show2023: false, days2024: "456天", days2023: "", growthRate: "200" },
+					{ show2024: true, show2023: true, days2024: "789天", days2023: "200天", growthRate: "" }
+				]
+			} = {}) {
+				try {
+					const bgImage = await loadImage("https://tw.hicdn.beanfun.com/beanfun/promo/Test/images/share/bg-share.jpg");
+					const titleImage = await loadImage("https://tw.hicdn.beanfun.com/beanfun/promo/Test/images/share/share-title.png");
+					const logoImage = await loadImage(`https://tw.hicdn.beanfun.com/beanfun/promo/Test/images/share/share-logo-${logo}.png`);
+					const cardBgImage = await loadImage("https://tw.hicdn.beanfun.com/beanfun/promo/Test/images/share/share-card-bg.png");
+
+					ctx.drawImage(bgImage, 0, 0, 1200, 630);
+					ctx.drawImage(titleImage, 572, 80, 191, 33);
+					ctx.drawImage(logoImage, 375, 51, 195, 90);
+
+					const isMabi = logo === "mabi";
+					const cardPositions = [
+						{ x: 115, y: 165 },
+						{ x: 462, y: 165 },
+						{ x: 794, y: 165 }
+					];
+
+					for (let i = 0; i < cardData.length; i++) {
+						const { x, y } = cardPositions[i];
+						const card = cardData[i];
+
+						// Set shadow properties for the card
+						ctx.shadowColor = "rgba(81,44, 0, 0.75)"; // Shadow color
+						ctx.shadowOffsetX = 0; // Horizontal shadow offset
+						ctx.shadowOffsetY = 4; // Vertical shadow offset
+						ctx.shadowBlur = 11; // Blur amount
+						ctx.drawImage(cardBgImage, x, y, 278, 428);
+
+						const desc2024Image = card.show2024 ? await loadImage("https://tw.hicdn.beanfun.com/beanfun/promo/Test/images/share/share-desc-2024.png") : null;
+						const desc2023Image = card.show2023 ? await loadImage("https://tw.hicdn.beanfun.com/beanfun/promo/Test/images/share/share-desc-2023.png") : null;
+
+						drawCardContent(x, y, { ...card, desc2024Image, desc2023Image }, isMabi);
+					}
+				} catch (error) {
+					console.error("Error:", error);
+					errorDiv.textContent = error.message;
+				}
+			}
+
+			// Function to return the Base64 image string
+			function getBase64Image(format = "image/jpeg", quality = 0.7) {
+				return canvas.toDataURL(format, quality); // Use JPEG format with specified quality
+			}
+
+			// Function to generate a downloadable image
+			function downloadImage() {
+				const imageData = getBase64Image();
+				const downloadLink = document.createElement("a");
+				downloadLink.href = imageData;
+				downloadLink.download = "share_image.png";
+				downloadLink.click();
+			}
+			let obj = {
+				logo: "maple",
+				cardData: [
+					{ show2024: true, show2023: true, days2024: "123天", days2023: "100天", growthRate: "100" },
+					{ show2024: true, show2023: false, days2024: "456天", days2023: "", growthRate: "200" },
+					{ show2024: true, show2023: true, days2024: "789天", days2023: "200天", growthRate: "" }
+				]
+			};
+			// Initialize drawing with default settings
+			drawShareImage(obj);
+		</script>
+	</body>
+</html>

@@ -15,13 +15,15 @@
 		<meta property="og:description" content="遊戲橘子進階驗證" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="" />
-
-		<script src="./js/jquery.min.js"></script>
-		<script src="./js/jquery-migrate.min.js"></script>
+		<script src="https://frontend.beanfun.com/library/jquery/jquery-min.js"></script>
+		<script src="https://frontend.beanfun.com/library/jquery/jquery-migrate-min.js"></script>
 		<link rel="stylesheet" href="./style.css" />
 		<link href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://manos.malihu.gr/repository/custom-scrollbar/demo/examples/style.css" />
-		<script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+		<link rel="stylesheet" href="https://warsofprasia-event.beanfun.com/Exchange/assets/style/default.css" />
+		<script src="https://frontend.beanfun.com/plugins/gbox/gbox.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
+		<script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
 		<!-- End Google Tag Manager -->
 		<style>
 			* {
@@ -108,11 +110,62 @@
 			<div class="box"></div>
 		</div>
 		<script>
-			$("#content-1").mCustomScrollbar({
-				theme: "dark",
-				contentTouchScroll: true,
-				documentTouchScroll: false
-			});
+			function LB(data) {
+				var config = {
+					addClass: "exchange_popup",
+					hasCloseBtn: true,
+					hasActionBtn: false,
+					afterOpen: function () {
+						$(".exchange_popup .exchange_popup_content").mCustomScrollbar({
+							axis: "y", // vertical and horizontal scrollbar
+							setHeight: $(".exchange_popup .exchange_popup_content").height(),
+							scrollbarPosition: "outside",
+							autoDraggerLength: false,
+							theme: "light"
+						});
+					},
+					afterClose: function () {
+						$.gbox.close();
+					}
+				};
+				var HTML = `
+				<div class="exchange_popup_title">選擇要領取的角色</div>
+				<div class="exchange_popup_precautions_btn">
+					注意事項
+				</div>
+				<div class="exchange_popup_content">
+					<div class="exchange_popup_content_height">
+						<div class="exchange_popup_role_box">
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_role">AAA<br>BBBB</div>
+							<div class="exchange_popup_btn">兌換領獎</div>
+						</div>
+					</div>
+				</div>  
+				`;
+				$.gbox.open(HTML, config);
+			}
 		</script>
 	</body>
 </html>

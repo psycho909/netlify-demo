@@ -173,14 +173,15 @@ export function LBGuide(type) {
 				-2023個人遊戲數據資料撈取區間為<span class="datetime">2022/10/01 00:00~2023/09/30 23:59</span>。<br>
 				-2024個人遊戲數據資料撈取區間為<span class="datetime">2023/10/01 00:00~2024/09/30 23:59</span>。<br>
 				-新瑪奇個人遊戲數據資料撈取區間則為<span class="datetime">2024/01/01 00:00~2024/09/30 23:59</span>。<br>
-				-天堂M、新楓之谷、艾爾之光個人數據僅顯示6項。
+				-天堂M、新楓之谷、艾爾之光個人數據僅顯示6項。<br>
+				-若未使用beanfun!應用程式綁定遊戲帳號之玩家僅能顯示遊戲相關數據。
 				</li>
 				<li class="lb-guide__li">波拉西亞遊戲僅參與「高能打臉的時光之河」、「選擇障礙的高塔」任務活動。</li>
-				<li class="lb-guide__li">參加「鏡子迷宮的多重未來」任務前，請遊戲訪客帳號先完成 <a href='https://bfgame-gama-event.beanfun.com/index?Url=AE5393D2C80FD41E60A311BDF8590710.1134' target='_blank' rel='noopener noreferrer'>beanfun! 遊戲帳號綁定</a>。</li>
-				<li class="lb-guide__li">參與「鏡子迷宮的多重未來」任務的遊戲帳號請勿於<span class="datetime">2024/11/22 00:00 - 2024/12/31 23:59</span>內進行遊戲更名、更換伺服器、移民操作、beanfun!應用程式解除綁定、更換裝置操作，上述操作將會造成數據資料顯示異常或將無法正常登入觀看。</li>
+				<li class="lb-guide__li">參加「鏡子迷宮的多重未來」任務前，請遊戲訪客帳號先完成 <a href='https://bfgame-gama-event.beanfun.com/index?Url=AE5393D2C80FD41E60A311BDF8590710.1134' rel="noopener noreferrer" target='_blank'>beanfun! 遊戲帳號綁定</a>。</li>
+				<li class="lb-guide__li">參與「鏡子迷宮的多重未來」任務的遊戲帳號請勿於<span class="datetime">2024/10/01 00:00 -  2024/12/31 23:59</span>內進行遊戲更名、更換伺服器、移民操作、beanfun!應用程式解除綁定、更換裝置操作，上述操作將會造成數據資料顯示異常或將無法正常登入觀看。</li>
 				<li class="lb-guide__li">活動所標示之各項達成條件，將依本公司系統紀錄之數據為主，而非玩家自行判定是否達成活動條件。</li>
 				<li class="lb-guide__li">本活動僅限台灣地區遊戲橘子帳號用戶參加。</li>
-				<li class="lb-guide__li">如有發現任何活動BUG或其他問題，應立即向【<a href='https://service.antspw.com/MSGBoardUI/PCform/Index/ANNIV' target='_blank' rel='noopener noreferrer'>客服回報</a>】系統反映，不得利用活動bug或其他問題擅自破壞活動平衡，否則本公司得依網路連線遊戲服務定型化契約，向該玩家進行懲處並請求損害賠償。</li>
+				<li class="lb-guide__li">如有發現任何活動BUG或其他問題，應立即向【<a href='https://service.antspw.com/MSGBoardUI/PCform/Index/ANNIV' rel="noopener noreferrer" target='_blank'>客服回報</a>】系統反映，不得利用活動bug或其他問題擅自破壞活動平衡，否則本公司得依網路連線遊戲服務定型化契約，向該玩家進行懲處並請求損害賠償。</li>
 				<li class="lb-guide__li">中獎者應於<span class="datetime">2024/12/31(二) 23:59</span>前依中獎規定及其所附內容，填寫中獎資料並經本公司驗證無誤完成相關作業後，統一於<span class="datetime">2025/04/30(三) 23:59</span>前寄發贈品。</li>
 				<li class="lb-guide__li">得獎者需至指定之表單內，填妥中獎相關收件資訊，如因參加者所填寫、登錄或提供之資料有誤、不同意填寫或無法辨識而影響其得獎權益，視為自動棄權，不具得獎資格，本公司恕不負責。</li>
 				<li class="lb-guide__li">所有參加者保證提出之驗證資料為正確。若有假造，冒用、盜用第三人之資料或詐欺之情事時，本公司得取消其得獎資格並追回獎品，所產生之法律責任由參加者自行負擔，與本公司無關。</li>

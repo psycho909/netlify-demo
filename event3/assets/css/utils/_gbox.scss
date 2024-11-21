@@ -858,7 +858,7 @@
 		align-items: center;
 		@include media {
 			flex-direction: row;
-			column-gap: vw(20);
+			column-gap: vw(12);
 			justify-content: center;
 		}
 	}
@@ -898,6 +898,8 @@
 			color: #d1ac66;
 			@include media {
 				font-size: vw(26);
+				width: vw(175);
+				flex-shrink: 0;
 			}
 		}
 	}
@@ -914,6 +916,8 @@
 			font-size: vw(23);
 			margin-top: vw(-12);
 			margin-bottom: 0;
+			width: vw(208);
+			flex-shrink: 0;
 		}
 		span {
 			&:nth-child(2) {

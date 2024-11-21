@@ -31,6 +31,7 @@ const page1 = {
             <div class="page1-mirror__title">2024橘子周年慶</div>
             <a href="javascript:;" class="page1-mirror__btn-start" @click="handleGuide(1)">喚醒魔鏡</a>
             <a href="javascript:;" class="page1-mirror__btn-guide" @click="handleGuide">活動說明</a>
+			<span class="page1-mirror-bg"></span>
         </div>
         <a href="javascript:;" class="btn-scroll-down" @click="scrollDown"></a>
         <div class="page1-content">

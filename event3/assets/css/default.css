@@ -1931,9 +1931,7 @@ body {
   margin-top: 88px;
   position: relative;
 }
-.page1-mirror:before {
-  content: "";
-  display: block;
+.page1-mirror-bg {
   width: 100%;
   height: 100%;
   background-image: url("./images/mirror.png");
@@ -1943,9 +1941,10 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
 }
 @media screen and (max-width: 768px) {
-  .page1-mirror:before {
+  .page1-mirror-bg {
     -webkit-filter: drop-shadow(0 -3.125vw 6.25vw rgb(255, 255, 255)) drop-shadow(0 4.6875vw 5.2083333333vw #000);
             filter: drop-shadow(0 -3.125vw 6.25vw rgb(255, 255, 255)) drop-shadow(0 4.6875vw 5.2083333333vw #000);
   }
@@ -1969,6 +1968,7 @@ body {
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+  z-index: 1;
 }
 @media screen and (max-width: 768px) {
   .page1-mirror__title {
@@ -1989,6 +1989,7 @@ body {
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+  z-index: 1;
 }
 @media screen and (min-width: 768px) {
   .page1-mirror__btn-start:hover {
@@ -2018,6 +2019,7 @@ body {
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+  z-index: 1;
 }
 @media screen and (max-width: 768px) {
   .page1-mirror__btn-guide {

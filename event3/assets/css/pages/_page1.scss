@@ -14,9 +14,12 @@
 	height: 519px;
 	margin-top: 88px;
 	position: relative;
-	&:before {
-		content: "";
-		display: block;
+	// &:before {
+	// 	content: "";
+	// 	display: block;
+
+	// }
+	&-bg {
 		width: 100%;
 		height: 100%;
 		background-image: url("./images/mirror.png");
@@ -26,6 +29,7 @@
 		position: absolute;
 		top: 0;
 		left: 0;
+		z-index: 0;
 		@include media {
 			// filter: drop-shadow(0 vw(2px) vw(24px) #0b031b) drop-shadow(0 0 vw(24px) rgba(255, 255, 255, 0.47)) drop-shadow(0 0 vw(60px) rgba(255, 255, 255, 0.5));
 			filter: drop-shadow(0 vw(-24) vw(48) rgba(255, 255, 255, 1)) drop-shadow(0 vw(36) vw(40) #000);
@@ -46,6 +50,7 @@
 		top: 42px;
 		left: 50%;
 		transform: translateX(-50%);
+		z-index: 1;
 		@include media {
 			width: vw(502);
 			height: vw(330);
@@ -62,6 +67,7 @@
 		top: 308px;
 		left: 50%;
 		transform: translateX(-50%);
+		z-index: 1;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -84,6 +90,7 @@
 		top: 390px;
 		left: 50%;
 		transform: translateX(-50%);
+		z-index: 1;
 		@include media {
 			font-size: vw(30);
 			top: vw(586);

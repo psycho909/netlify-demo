@@ -59,8 +59,8 @@ const page2 = {
 						const achievementData = {
 							Title: gameList.value[`achvDataTitle${index}`],
 							Unit: gameList.value[`achvDataUnit${index}`],
-							T: Number(achievement.value[`dataLog0${index}T`]) > 9999999999 ? "9999999999" : Number(achievement.value[`dataLog0${index}T`]),
-							L: Number(achievement.value[`dataLog0${index}L`]) > 9999999999 ? "9999999999" : Number(achievement.value[`dataLog0${index}L`]),
+							T: achievement.value[`dataLog0${index}T`],
+							L: achievement.value[`dataLog0${index}L`],
 							Y: Number(achievement.value[`dataLog0${index}Y`]) > 9999 ? "9999" : Number(achievement.value[`dataLog0${index}Y`]) < -100 ? "-100" : Number(achievement.value[`dataLog0${index}Y`]),
 							share: shareList.includes(Number(index))
 						};

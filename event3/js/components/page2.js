@@ -25,6 +25,44 @@ const page2 = {
 		let handleShare = () => {
 			LBSDataShare(game.value, sharedAchievements.value, shareUrl.value);
 		};
+		function formatLargeNumber(input) {
+			// 判斷傳入的是不是帶有「億」或「萬」的字符串
+			let num = typeof input === "string" ? convertToNumber(input) : input;
+
+			// 如果數字是帶有「億」或「萬」，就進行單位處理
+			if (typeof input === "string" && (input.includes("兆") || input.includes("億") || input.includes("萬"))) {
+				if (num >= 1e12) {
+					return Math.round(num / 1e12).toLocaleString() + "兆";
+				} else if (num >= 1e8) {
+					return Math.round(num / 1e8).toLocaleString() + "億";
+				} else if (num >= 1e4) {
+					return Math.round(num / 1e4).toLocaleString() + "萬";
+				}
+			}
+
+			// 否則保留兩位小數
+			return formatNumberToTwoDecimalPlaces(num).toLocaleString();
+		}
+
+		function convertToNumber(str) {
+			// 處理帶有「億」或「萬」的輸入
+			if (str.includes("兆")) {
+				return parseFloat(str.replace("兆", "")) * 1e12;
+			}
+			if (str.includes("億")) {
+				return parseFloat(str.replace("億", "")) * 1e8;
+			}
+			if (str.includes("萬")) {
+				return parseFloat(str.replace("萬", "")) * 1e4;
+			}
+			return parseFloat(str);
+		}
+
+		function formatNumberToTwoDecimalPlaces(num) {
+			// 使用 toFixed 進行四捨五入並保留兩位小數
+			return parseFloat(num.toFixed(2));
+		}
+
 		// 註解: 掛載
 		Vue.onMounted(() => {
 			// 註解: 顯示loading
@@ -40,34 +78,34 @@ const page2 = {
 			Object.keys(gameList.value).forEach((key) => {
 				const match = key.match(/^achvDataTitle(\d+)$/);
 				if (match) {
-					const index = match[1]; // 獲得數字索引
+					const index = match[1];
 
 					// 檢查是否要隱藏此成就
 					let shouldHide = false;
 					if (!achievement.value.isBind) {
-						// gameSeq 2,5,9 不顯示5,6成就
 						if ([2, 5, 9].includes(store.gameSeq)) {
 							shouldHide = index === "5" || index === "6";
 						} else {
-							// 其他遊戲不顯示6,7成就
 							shouldHide = index === "6" || index === "7";
 						}
 					}
 
-					// 檢查 achvDataTitle 是否為空字串且不應該隱藏
-					if (gameList.value[`achvDataTitle${index}`] !== "" && !shouldHide) {
+					// 檢查 achievement.value 的資料是否為 null
+					const hasNullData = achievement.value[`dataLog0${index}T`] === null || achievement.value[`dataLog0${index}L`] === null || achievement.value[`dataLog0${index}Y`] === null;
+
+					// 檢查 achvDataTitle 是否為空字串、不應該隱藏、且資料不為 null
+					if (gameList.value[`achvDataTitle${index}`] !== "" && !shouldHide && !hasNullData) {
 						const achievementData = {
 							Title: gameList.value[`achvDataTitle${index}`],
 							Unit: gameList.value[`achvDataUnit${index}`],
-							T: achievement.value[`dataLog0${index}T`],
-							L: achievement.value[`dataLog0${index}L`],
+							T: formatLargeNumber(achievement.value[`dataLog0${index}T`]),
+							L: formatLargeNumber(achievement.value[`dataLog0${index}L`]),
 							Y: Number(achievement.value[`dataLog0${index}Y`]) > 9999 ? "9999" : Number(achievement.value[`dataLog0${index}Y`]) < -100 ? "-100" : Number(achievement.value[`dataLog0${index}Y`]),
 							share: shareList.includes(Number(index))
 						};
 
 						formattedAchievements.value[index] = achievementData;
 
-						// 若 share 為 true，則加入到 sharedAchievements 陣列中
 						if (achievementData.share) {
 							sharedAchievements.value.push(achievementData);
 						}
@@ -145,8 +183,8 @@ const page2 = {
         </div>
         <!-- 活動按鈕 -->
         <div class="page2-event">
-            <a href="javascript:;" class="page2-event__item" data-type="sn" @click="handleGetSn">領取抽獎序號</a>
-            <a href="javascript:;" class="page2-event__item" data-type="share" @click="handleShare">分享</a>
+            <a href="javascript:;" id="click_lotterycode" class="page2-event__item" data-type="sn" @click="handleGetSn">領取抽獎序號</a>
+            <a href="javascript:;" id="click_share" class="page2-event__item" data-type="share" @click="handleShare">分享</a>
         </div>
         <!-- 外導連結banner -->
         <div class="page2-banner">

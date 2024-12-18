@@ -61,7 +61,7 @@ $(document).ready(function () {
 						}
 					}
 				},
-				detectVideo: true,
+				detectVideo: false,
 				autoHide: false
 			});
 			return {};

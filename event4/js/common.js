@@ -62,8 +62,8 @@ const navBar = {
 const intro = {
 	template: `
 			<div class="intro" v-if="isIntro">
-				<div class="intro-content" data-type="dt"></div>
-				<div class="intro-content" data-type="mb"></div>
+				<div class="intro-content" data-type="dt" v-if="isIntroPlay"></div>
+				<div class="intro-content" data-type="mb" v-if="isIntroPlay"></div>
 			</div>
 		`,
 	setup(props) {

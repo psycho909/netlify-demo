@@ -20,9 +20,9 @@ const topBar = {
 			return store.getters.isMBSuffix;
 		});
 		return {
-			isMBSuffix,
+			isMBSuffix
 		};
-	},
+	}
 };
 const navBar = {
 	template: `
@@ -55,15 +55,15 @@ const navBar = {
 		return {
 			isNavOpen,
 			isNavShow,
-			isMBSuffix,
+			isMBSuffix
 		};
-	},
+	}
 };
 const intro = {
 	template: `
 			<div class="intro" v-if="isIntro">
-				<div class="intro-content" data-type="dt" v-if="isIntroPlay"></div>
-				<div class="intro-content" data-type="mb" v-if="isIntroPlay"></div>
+				<div class="intro-content" data-type="dt"></div>
+				<div class="intro-content" data-type="mb"></div>
 			</div>
 		`,
 	setup(props) {
@@ -77,9 +77,9 @@ const intro = {
 		});
 		return {
 			isIntro,
-			isIntroPlay,
+			isIntroPlay
 		};
-	},
+	}
 };
 const btnPlus = {
 	template: `
@@ -100,15 +100,15 @@ const btnPlus = {
 			</div>
 		`;
 			$.gbox.open(html, {
-				addClass: 'gbox-cards gbox-items gbox-items-plus',
-				titleBar: '',
+				addClass: "gbox-cards gbox-items gbox-items-plus",
+				titleBar: "",
 				hasCloseBtn: true,
 				hasActionBtn: false,
 				afterOpen: function () {
-					$('.gbox-content .content').addClass('scrollbar2');
+					$(".gbox-content .content").addClass("scrollbar2");
 				}
 			});
-		};
+		}
 		// store
 		const store = Vuex.useStore();
 		// suffix
@@ -116,19 +116,19 @@ const btnPlus = {
 			return store.getters.isMBSuffix;
 		});
 		// clipboard
-		var clipboard = new ClipboardJS('.btn-copy');
-		clipboard.on('success', function (e) {
+		var clipboard = new ClipboardJS(".btn-copy");
+		clipboard.on("success", function (e) {
 			// console.info('Text:', e.text);
 			e.clearSelection();
 		});
-		clipboard.on('error', function (e) {
+		clipboard.on("error", function (e) {
 			// console.error('Action:', e.action);
 			// console.error('Trigger:', e.trigger);
 		});
 		return {
 			isMBSuffix,
-			gboxPlus,
+			gboxPlus
 		};
-	},
+	}
 };
 export { topBar, navBar, intro, btnPlus };

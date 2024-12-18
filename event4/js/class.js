@@ -43,8 +43,8 @@ $(document).ready(function () {
 					$(".loadingProgress").fadeOut();
 					//
 					if (isMB) {
-						// store.commit('introPlay', false);
-						// store.commit('intro', false);
+						store.commit("introPlay", false);
+						store.commit("intro", false);
 						$("body").removeClass("ovh");
 					}
 					//
@@ -56,8 +56,8 @@ $(document).ready(function () {
 							setCookie("EventIntroMS20241218");
 						}, 1000);
 					} else {
-						// store.commit('introPlay', false);
-						// store.commit('intro', false);
+						store.commit("introPlay", false);
+						store.commit("intro", false);
 						$("body").removeClass("ovh");
 					}
 				},
@@ -332,6 +332,24 @@ $(document).ready(function () {
 		app.mount("#app");
 	}
 	afterInit();
+	//
+	function gboxDefault(text) {
+		$.gbox.open(text, {
+			addClass: "gbox-default",
+			hasCloseBtn: true
+		});
+	}
+	function gboxMsg(text, callback) {
+		$.gbox.open(text ? text : "", {
+			addClass: "gbox-default",
+			hasCloseBtn: true,
+			afterClose: callback
+				? callback
+				: function () {
+						$.gbox.close();
+				  }
+		});
+	}
 	// gboxVideo
 	function gboxVideo(num) {
 		let videoData = {

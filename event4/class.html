@@ -48,8 +48,31 @@
 		<!-- JS -->
 		<script type="module" src="./js/class.js"></script>
 		<style>
+			#app.wrapper .lightbox-character-3 {
+				overflow-y: hidden !important;
+				overflow-x: hidden !important;
+			}
 			#app.wrapper .lightbox-character-3 .text {
 				padding-bottom: calc(36 / 768 * 100vw);
+			}
+			.lightbox-character-3__wrap {
+				position: relative;
+				left: auto;
+				top: auto;
+				white-space: normal;
+				-webkit-transform: none;
+				transform: none;
+				vertical-align: middle;
+				display: inline-block;
+				box-sizing: border-box;
+				width: 100vw;
+				height: 100dvh;
+			}
+			.lightbox-character-3__wrap::before {
+				content: "";
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
 			}
 		</style>
 	</head>

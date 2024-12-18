@@ -263,17 +263,19 @@ $(document).ready(function () {
 			<div class="lightbox lightbox-character-3"
 				v-if="isOpenCharacter3"
 				:data-char="characterNum">
-				<div class="bg"></div>
-				<div class="image" :data-char="characterNum"></div>
-				<div class="text font-notoSerif" v-html="characterText"></div>
-				<div class="btn video">
-					<div class="btn-play" @click="openGboxVideo(characterNum)"
-					:id="'btn-character-video-' + characterNum + isMBSuffix"></div>
+				<div class="lightbox-character-3__wrap">
+					<div class="bg"></div>
+					<div class="image" :data-char="characterNum"></div>
+					<div class="text font-notoSerif" v-html="characterText"></div>
+					<div class="btn video">
+						<div class="btn-play" @click="openGboxVideo(characterNum)"
+						:id="'btn-character-video-' + characterNum + isMBSuffix"></div>
+					</div>
+					<a href="javascript:;"
+						class="btn btn-more"
+						:id="'btn-character-more-' + characterNum + isMBSuffix"></a>
+					<div class="btn btn-close" @click="closeLightboxCharacter"></div>
 				</div>
-				<a href="javascript:;"
-					class="btn btn-more"
-					:id="'btn-character-more-' + characterNum + isMBSuffix"></a>
-				<div class="btn btn-close" @click="closeLightboxCharacter"></div>
 			</div>
 		`,
 		setup(props) {

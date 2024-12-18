@@ -1,12 +1,12 @@
 ﻿/* import */
-import {topBar, navBar, intro, btnPlus } from "./common.js";
+import { topBar, navBar, intro, btnPlus } from "./common.js";
 /* Common */
 function setCookie(name, value = true, hours = 0.5) {
 	let date = new Date();
 	date.setTime(date.getTime() + hours * 60 * 60 * 1000);
 	const expires = "expires=" + date.toUTCString();
 	document.cookie = name + "=" + value + "; " + expires + "; path=/";
-};
+}
 function getCookie(name) {
 	var nameString = name + "=";
 	var value = document.cookie.split(";").filter(function (item) {
@@ -17,51 +17,51 @@ function getCookie(name) {
 	} else {
 		return false;
 	}
-};
+}
 //
 $(document).ready(function () {
 	// url
-	const cdnUrl = 'https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20241218L/';
+	const cdnUrl = "https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20241218L/";
 	// mobile
-	const isMB = (isMobile.any) ? true : false;
-	(isMB) ? $('body,.wrapper').addClass('mobile') : $('body,.wrapper').addClass('desktop');
+	const isMB = isMobile.any ? true : false;
+	isMB ? $("body,.wrapper").addClass("mobile") : $("body,.wrapper").addClass("desktop");
 	/* VM Set */
 	const app = Vue.createApp({
 		components: {
-			'top-bar': topBar,
-			'nav-bar': navBar,
-			'intro': intro,
+			"top-bar": topBar,
+			"nav-bar": navBar,
+			intro: intro
 			// 'btn-plus': btnPlus,
 		},
 		setup() {
-			$('body').addClass('ovh');
+			$("body").addClass("ovh");
 			//
 			const store = Vuex.useStore();
 			// loadingProgress
 			loadingProgress({
 				loadedFN: function () {
-					$('.loadingProgress').fadeOut();
-					if (!getCookie('EventIntroMS20241218')) {
-						store.commit('introPlay', true);
+					$(".loadingProgress").fadeOut();
+					if (!getCookie("EventIntroMS20241218")) {
+						store.commit("introPlay", true);
 						setTimeout(() => {
-							store.commit('intro', false);
-							$('body').removeClass('ovh');
-							setCookie('EventIntroMS20241218');
+							store.commit("intro", false);
+							$("body").removeClass("ovh");
+							setCookie("EventIntroMS20241218");
 							// init
 							if (store.state.tkn) {
-								store.dispatch('InsertUserData', { token: store.state.tkn });
+								store.dispatch("InsertUserData", { token: store.state.tkn });
 							}
 						}, 1000);
 					} else {
-						store.commit('introPlay', false);
-						store.commit('intro', false);
-						$('body').removeClass('ovh');
+						store.commit("introPlay", false);
+						store.commit("intro", false);
+						$("body").removeClass("ovh");
 						if (store.state.tkn) {
-							store.dispatch('InsertUserData', { token: store.state.tkn });
+							store.dispatch("InsertUserData", { token: store.state.tkn });
 						}
 					}
 				},
-				detectVideo: true,
+				detectVideo: false,
 				autoHide: false
 			});
 			return {};
@@ -71,7 +71,7 @@ $(document).ready(function () {
 	// state
 	const pageStates = {
 		//
-		tkn: $('#sdEventToken').val(),
+		tkn: $("#sdEventToken").val(),
 		//
 		isMB: isMB,
 		//
@@ -83,55 +83,55 @@ $(document).ready(function () {
 		lightbox: {
 			character2: {
 				isOpen: false,
-				character: 0,
-			},
+				character: 0
+			}
 		},
 		lightboxForm: {
-			isOpen: false,
+			isOpen: false
 		},
 		// page2
 		characters: {
 			1: {
-				name: '殺人鯨',
-				text: `原本是喜歡惡作劇的黑暗精靈，後來被白魔法師變成人類，加入黑魔法師的麾下，有一個雙胞胎弟弟史烏。和史烏合體之後可以共鳴出更為強大的力量，合稱「翼之主」。`,
+				name: "殺人鯨",
+				text: `原本是喜歡惡作劇的黑暗精靈，後來被白魔法師變成人類，加入黑魔法師的麾下，有一個雙胞胎弟弟史烏。和史烏合體之後可以共鳴出更為強大的力量，合稱「翼之主」。`
 			},
 			2: {
-				name: '史烏',
-				text: `原本是喜歡惡作劇的黑暗精靈，後來被白魔法師變成人類，加入黑魔法師的麾下，有一個雙胞胎姊姊殺人鯨。和殺人鯨合體之後可以共鳴出更為強大的力量，合稱「翼之主」。`,
+				name: "史烏",
+				text: `原本是喜歡惡作劇的黑暗精靈，後來被白魔法師變成人類，加入黑魔法師的麾下，有一個雙胞胎姊姊殺人鯨。和殺人鯨合體之後可以共鳴出更為強大的力量，合稱「翼之主」。`
 			},
 			3: {
-				name: '希拉',
-				text: `原本是納希沙漠-阿斯旺的大巫女，備受阿斯旺舉國的尊敬和王的喜愛。但為了永保年輕的容貌，背叛國家，加入黑魔法師陣營成為軍團長。`,
+				name: "希拉",
+				text: `原本是納希沙漠-阿斯旺的大巫女，備受阿斯旺舉國的尊敬和王的喜愛。但為了永保年輕的容貌，背叛國家，加入黑魔法師陣營成為軍團長。`
 			},
 			4: {
-				name: '凡雷恩',
-				text: `原本是冰原雪域中的城池獅子王城的城主，妻子是伊菲亞，在一場慶典中相遇而一見鍾情。聯盟軍攻打進獅子王城，將他的人民、他的妻子殺害了，悲憤的凡雷恩決定復仇，利用黑魔法師賦予他的能力，剿滅了聯盟並成為了軍團長。`,
+				name: "凡雷恩",
+				text: `原本是冰原雪域中的城池獅子王城的城主，妻子是伊菲亞，在一場慶典中相遇而一見鍾情。聯盟軍攻打進獅子王城，將他的人民、他的妻子殺害了，悲憤的凡雷恩決定復仇，利用黑魔法師賦予他的能力，剿滅了聯盟並成為了軍團長。`
 			},
 			5: {
-				name: '威爾',
-				text: `具有強烈的求知慾，外表看似是一位彬彬有禮的紳士，但實際上是一個城府極深的人。在數百年前，因景仰黑魔法師而成為了軍團長替他效勞。`,
+				name: "威爾",
+				text: `具有強烈的求知慾，外表看似是一位彬彬有禮的紳士，但實際上是一個城府極深的人。在數百年前，因景仰黑魔法師而成為了軍團長替他效勞。`
 			},
 			6: {
-				name: '阿卡伊農',
-				text: `軍團長中外貌最年長老的一位，嫉妒心極強，阿卡伊農身為女神的神官，卻遭到黑魔法師的蠱惑，成為了軍團長。`,
+				name: "阿卡伊農",
+				text: `軍團長中外貌最年長老的一位，嫉妒心極強，阿卡伊農身為女神的神官，卻遭到黑魔法師的蠱惑，成為了軍團長。`
 			},
 			7: {
-				name: '惡魔殺手',
-				text: `為了獲得力量守護母親與兄弟，而效忠黑魔法師，成為了軍團長。`,
+				name: "惡魔殺手",
+				text: `為了獲得力量守護母親與兄弟，而效忠黑魔法師，成為了軍團長。`
 			},
 			8: {
-				name: '露希妲',
-				text: `居住在櫻花處精靈族的少女，總是期望能得到精靈遊俠的認同。在某一次修練時，察覺了支配夢境的才能，在精靈族受到黑魔法師冰封的時候，感受到有股強大的力量召喚著她，下定了決心成為黑魔法師的手下。`,
+				name: "露希妲",
+				text: `居住在櫻花處精靈族的少女，總是期望能得到精靈遊俠的認同。在某一次修練時，察覺了支配夢境的才能，在精靈族受到黑魔法師冰封的時候，感受到有股強大的力量召喚著她，下定了決心成為黑魔法師的手下。`
 			},
 			9: {
-				name: '梅格耐斯',
-				text: `一心追求強大的力量，為達目標不擇手段，在入侵了超新星的首都-赫力席姆受了重傷後，為了養傷的梅格耐斯，穿越了傳送門，從那天起梅格耐斯加入了黑魔法師的手下。`,
+				name: "梅格耐斯",
+				text: `一心追求強大的力量，為達目標不擇手段，在入侵了超新星的首都-赫力席姆受了重傷後，為了養傷的梅格耐斯，穿越了傳送門，從那天起梅格耐斯加入了黑魔法師的手下。`
 			},
 			10: {
-				name: '戴米安',
-				text: `被阿卡伊農製造的母親的幻象欺騙，並誘使戴米安成為黑魔法師的軍團長。`,
+				name: "戴米安",
+				text: `被阿卡伊農製造的母親的幻象欺騙，並誘使戴米安成為黑魔法師的軍團長。`
 			}
-		},
+		}
 	};
 	// mutations // 同步方法
 	const pageMutations = {
@@ -158,31 +158,32 @@ $(document).ready(function () {
 		// lightboxForm
 		controlLightboxForm(state, payload) {
 			state.lightboxForm.isOpen = payload;
-		},
+		}
 	};
 	// getters // state運算
 	const pageGetters = {
 		isMBSuffix(state, getters) {
 			// return (state.isMB) ? '-mb' : '-pc';
-			return (state.isMB) ? '' : '';
-		},
+			return state.isMB ? "" : "";
+		}
 	};
 	// actions // 非同步方法
 	const pageActions = {
 		// InsertUserData
 		InsertUserData(context, payload) {
-			let url = '/api/E20241218/InsertUserData';
+			let url = "/api/E20241218/InsertUserData";
 			let data = {
-				token: payload.token,
+				token: payload.token
 			};
-			axios.post(url, data)
-				.then(res => {
-					$('.loadingProgress').hide();
+			axios
+				.post(url, data)
+				.then((res) => {
+					$(".loadingProgress").hide();
 					let resData = res.data;
 					if (resData.code == 1) {
 						gboxMain(1, resData.data.outCreateTime);
-						context.dispatch('GetEventMediaSetting');
-					} else if(resData.code == 2) {
+						context.dispatch("GetEventMediaSetting");
+					} else if (resData.code == 2) {
 						gboxMain(2, resData.data.outCreateTime);
 					} else if (resData.code == -1) {
 						gboxMsg(resData.message);
@@ -190,28 +191,29 @@ $(document).ready(function () {
 						gboxMsg(resData.message, resData.url);
 					}
 				})
-				.catch(error => {
+				.catch((error) => {
 					console.log(error);
 				});
 		},
 		// InsertUserReward
 		InsertUserReward(context, payload) {
-			let url = '/api/E20241218/InsertUserReward';
+			let url = "/api/E20241218/InsertUserReward";
 			let data = {
 				token: context.state.tkn,
 				name: payload.name,
-				phone: '09' + payload.phone,
+				phone: "09" + payload.phone,
 				email: payload.mail,
 				address: payload.address
 			};
-			axios.post(url, data)
-				.then(res => {
+			axios
+				.post(url, data)
+				.then((res) => {
 					let resData = res.data;
 					if (resData.code == 1) {
-						gboxMsg('填寫成功');
+						gboxMsg("填寫成功");
 						closeLightboxForm();
 						setTimeout(() => {
-							window.location = '../../E20241218/logout';
+							window.location = "../../E20241218/logout";
 						}, 0);
 					} else if (resData.code == -1) {
 						gboxMsg(resData.message);
@@ -219,30 +221,30 @@ $(document).ready(function () {
 						gboxMsg(resData.message, resData.url);
 					}
 				})
-				.catch(error => {
+				.catch((error) => {
 					console.log(error);
 				});
-		},
+		}
 	};
 	//建立 store
 	const pageStore = Vuex.createStore({
 		state: {
-			...pageStates,
+			...pageStates
 		},
 		mutations: {
-			...pageMutations,
+			...pageMutations
 		},
 		getters: {
-			...pageGetters,
+			...pageGetters
 		},
 		actions: {
-			...pageActions,
-		},
+			...pageActions
+		}
 	});
 
 	/* Components */
-	app.component('btn-plus', btnPlus);
-	app.component('page-0', {
+	app.component("btn-plus", btnPlus);
+	app.component("page-0", {
 		template: `
 			<div class="page page-0" id="page-0">
 				<div class="bg">
@@ -288,37 +290,36 @@ $(document).ready(function () {
 			});
 			// changeNavShow
 			const changeNavShow = (control) => {
-				store.commit('changeNavShow', control);
+				store.commit("changeNavShow", control);
 			};
 
 			let isOpenAwardsMB = Vue.ref(false);
-			function openAwardsMB(){
-				if(isOpenAwardsMB.value){
+			function openAwardsMB() {
+				if (isOpenAwardsMB.value) {
 					closeAwardsMB();
 					return;
-				};
+				}
 				isOpenAwardsMB.value = true;
 				changeNavShow(false);
-			};
-			function closeAwardsMB(){
+			}
+			function closeAwardsMB() {
 				isOpenAwardsMB.value = false;
 				changeNavShow(true);
-			};
+			}
 			// MB
-			if (isMB.value){
+			if (isMB.value) {
 				isOpenAwardsMB.value = true;
 				changeNavShow(false);
-			};
+			}
 			//
-			function openGboxItems(num){
-				if (num == 1){
+			function openGboxItems(num) {
+				if (num == 1) {
 					gboxItems1();
-				}else if(num == 2){
+				} else if (num == 2) {
 					gboxItems2();
 				}
-
 			}
-			function openGboxRule(){
+			function openGboxRule() {
 				gboxRule();
 			}
 			return {
@@ -328,11 +329,11 @@ $(document).ready(function () {
 				openGboxRule,
 				openAwardsMB,
 				isOpenAwardsMB,
-				closeAwardsMB,
+				closeAwardsMB
 			};
-		},
+		}
 	});
-	app.component('page-1', {
+	app.component("page-1", {
 		template: `
 			<div class="page page-1" id="page-1">
 				<div class="bg">
@@ -362,19 +363,22 @@ $(document).ready(function () {
 				return store.getters.isMBSuffix;
 			});
 			function scrollToPage2() {
-				let target = $('.page-2');
+				let target = $(".page-2");
 				let targetTop = target.offset().top;
-				$('html,body').animate({
-					scrollTop: targetTop
-				}, 300);
-			};
+				$("html,body").animate(
+					{
+						scrollTop: targetTop
+					},
+					300
+				);
+			}
 			return {
 				scrollToPage2,
-				isMBSuffix,
+				isMBSuffix
 			};
-		},
+		}
 	});
-	app.component('page-2', {
+	app.component("page-2", {
 		template: `
 			<div class="page page-2" id="page-2">
 				<div class="bg">
@@ -418,7 +422,7 @@ $(document).ready(function () {
 			// isMB
 			let isMB = Vue.computed(() => {
 				return store.state.isMB;
-			})
+			});
 			// isMBSuffix
 			let isMBSuffix = Vue.computed(() => {
 				return store.getters.isMBSuffix;
@@ -434,11 +438,11 @@ $(document).ready(function () {
 			// click
 			function selectCharacter(num) {
 				characterNum.value = num;
-				if(!isMB.value) return;
+				if (!isMB.value) return;
 				// MB
-				store.commit('openLightbox', {
-					type: 'character2',
-					char: num,
+				store.commit("openLightbox", {
+					type: "character2",
+					char: num
 				});
 			}
 			return {
@@ -447,11 +451,11 @@ $(document).ready(function () {
 				characterNum,
 				characterData,
 				activeCharacter,
-				selectCharacter,
+				selectCharacter
 			};
-		},
+		}
 	});
-	app.component('lightbox-character-2', {
+	app.component("lightbox-character-2", {
 		template: `
 			<div class="lightbox lightbox-character-2"
 				v-if="isOpenCharacter2"
@@ -474,7 +478,7 @@ $(document).ready(function () {
 			let isOpenCharacter2 = Vue.computed(() => {
 				let isOpen = store.state.lightbox.character2.isOpen;
 				if (isOpen) {
-					$('body').addClass('ovh');
+					$("body").addClass("ovh");
 				}
 				return isOpen;
 			});
@@ -485,20 +489,20 @@ $(document).ready(function () {
 				return store.state.characters[characterNum.value];
 			});
 			function closeLightboxCharacter() {
-				store.commit('closeLightbox', 'character2');
-				$('body').removeClass('ovh');
+				store.commit("closeLightbox", "character2");
+				$("body").removeClass("ovh");
 			}
 			//
 			return {
 				isOpenCharacter2,
 				characterNum,
 				characterData,
-				closeLightboxCharacter,
+				closeLightboxCharacter
 			};
-		},
+		}
 	});
 	// lightboxForm
-	app.component('lightbox-form', {
+	app.component("lightbox-form", {
 		template: `
 			<div class="lightbox lightbox-form" v-if="isOpenForm">
 				<div class="lightbox-form-wrap">
@@ -563,17 +567,17 @@ $(document).ready(function () {
 				return store.state.lightboxForm.isOpen;
 			});
 			let formData = Vue.reactive({
-				name: '',
-				phone: '',
-				mail: '',
-				address: '',
-				isCheck: false,
+				name: "",
+				phone: "",
+				mail: "",
+				address: "",
+				isCheck: false
 			});
 			// 電話處理
 			function checkInputNumberPhone() {
 				const rules = /^[0-9]+$/;
 				let str = formData.phone;
-				let arr = str.split('');
+				let arr = str.split("");
 				for (let i = 0; i < arr.length; i++) {
 					if (!rules.test(arr[i])) {
 						str = str.slice(0, i);
@@ -581,7 +585,7 @@ $(document).ready(function () {
 						return;
 					}
 				}
-			};
+			}
 			// 驗證信箱
 			function verifyInputEmail() {
 				const rules = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
@@ -590,31 +594,31 @@ $(document).ready(function () {
 				} else {
 					return false;
 				}
-			};
+			}
 			//
 			function closeLightbox() {
 				closeLightboxForm();
 			}
 			// 送出抽獎資料
 			function submitForm() {
-				if (formData.name == '') {
-					gboxDefault('請輸入姓名');
-				} else if (formData.phone == '') {
-					gboxDefault('請輸入手機號碼');
-				} else if (formData.mail == '') {
-					gboxDefault('請輸入信箱');
+				if (formData.name == "") {
+					gboxDefault("請輸入姓名");
+				} else if (formData.phone == "") {
+					gboxDefault("請輸入手機號碼");
+				} else if (formData.mail == "") {
+					gboxDefault("請輸入信箱");
 				} else if (!verifyInputEmail()) {
-					gboxDefault('請輸入正確的信箱');
-				} else if (formData.address == '') {
-					gboxDefault('請輸入寄件地址');
+					gboxDefault("請輸入正確的信箱");
+				} else if (formData.address == "") {
+					gboxDefault("請輸入寄件地址");
 				} else if (!formData.isCheck) {
-					gboxDefault('請勾選同意個資使用');
+					gboxDefault("請勾選同意個資使用");
 				} else {
 					// 送出
-					store.dispatch('InsertUserReward', Vue.toRaw(formData));
+					store.dispatch("InsertUserReward", Vue.toRaw(formData));
 					// closeLightboxForm();
 				}
-			};
+			}
 			let isMBSuffix = Vue.computed(() => {
 				return store.getters.isMBSuffix;
 			});
@@ -624,29 +628,33 @@ $(document).ready(function () {
 				checkInputNumberPhone,
 				submitForm,
 				closeLightbox,
-				isMBSuffix,
+				isMBSuffix
 			};
-		},
-	})
+		}
+	});
 	/* VM Mount */
 	// 執行VM
 	function afterInit() {
 		app.use(pageStore);
-		app.mount('#app');
-	};
+		app.mount("#app");
+	}
 	afterInit();
 	//
 	function gboxDefault(text) {
-		$.gbox.open(text,{
-			addClass: 'gbox-default',
-			hasCloseBtn: true,
+		$.gbox.open(text, {
+			addClass: "gbox-default",
+			hasCloseBtn: true
 		});
-	};
+	}
 	function gboxMsg(text, callback) {
-		$.gbox.open((text) ? text : '', {
-			addClass: 'gbox-default',
+		$.gbox.open(text ? text : "", {
+			addClass: "gbox-default",
 			hasCloseBtn: true,
-			afterClose: (callback) ? callback : function () { $.gbox.close() },
+			afterClose: callback
+				? callback
+				: function () {
+						$.gbox.close();
+				  }
 		});
 	}
 	// gboxRule
@@ -680,15 +688,15 @@ $(document).ready(function () {
 			</ul>
 		`;
 		$.gbox.open(html, {
-			addClass: 'gbox-rule',
-			titleBar: '活動說明',
+			addClass: "gbox-rule",
+			titleBar: "活動說明",
 			hasCloseBtn: true,
 			hasActionBtn: false,
 			afterOpen: function () {
-				$('.gbox-content').addClass('scrollbar');
+				$(".gbox-content").addClass("scrollbar");
 			}
 		});
-	};
+	}
 	function gboxRule2() {
 		let html = `
 			<ul>
@@ -712,144 +720,146 @@ $(document).ready(function () {
 			</ul>
 		`;
 		$.gbox.open(html, {
-			addClass: 'gbox-rule gbox-rule2',
-			titleBar: '實體抽獎注意事項',
+			addClass: "gbox-rule gbox-rule2",
+			titleBar: "實體抽獎注意事項",
 			hasCloseBtn: true,
 			afterOpen: function () {
-				$('.gbox-content').addClass('scrollbar');
+				$(".gbox-content").addClass("scrollbar");
 			},
-			actionBtns: [{
-				text: '立即參加',
-				click: function () {
-					openLightboxForm();
-					$.gbox.close();
+			actionBtns: [
+				{
+					text: "立即參加",
+					click: function () {
+						openLightboxForm();
+						$.gbox.close();
+					}
 				}
-			}]
+			]
 		});
-	};
+	}
 	// gboxCards
 	function gboxCards() {
 		let contentCards = {
 			1: [
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
-				},
+					cardId: 0
+				}
 			],
 			2: [
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
-				},
+					cardId: 0
+				}
 			],
 			3: [
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				}
 			],
 			4: [
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
-				},
+					cardId: 0
+				}
 			],
 			5: [
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
+					cardId: 0
 				},
 				{
-					cardId: 0,
-				},
+					cardId: 0
+				}
 			]
 		};
 		let title1 = '<div class="title" data-type="1"></div>';
@@ -857,41 +867,57 @@ $(document).ready(function () {
 		let title3 = '<div class="title" data-type="3"></div>';
 		let title4 = '<div class="title" data-type="4"></div>';
 		let title5 = '<div class="title" data-type="5"></div>';
-		let content1Cards = contentCards[1].map((item, index) => {
-			return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
-		}).toString().split(',').join('');
-		let content2Cards = contentCards[2].map((item, index) => {
-			return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
-		}).toString().split(',').join('');
-		let content3Cards = contentCards[3].map((item, index) => {
-			return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
-		}).toString().split(',').join('');
-		let content4Cards = contentCards[4].map((item, index) => {
-			return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
-		}).toString().split(',').join('');
-		let content5Cards = contentCards[5].map((item, index) => {
-			return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
-		}).toString().split(',').join('');
+		let content1Cards = contentCards[1]
+			.map((item, index) => {
+				return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
+			})
+			.toString()
+			.split(",")
+			.join("");
+		let content2Cards = contentCards[2]
+			.map((item, index) => {
+				return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
+			})
+			.toString()
+			.split(",")
+			.join("");
+		let content3Cards = contentCards[3]
+			.map((item, index) => {
+				return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
+			})
+			.toString()
+			.split(",")
+			.join("");
+		let content4Cards = contentCards[4]
+			.map((item, index) => {
+				return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
+			})
+			.toString()
+			.split(",")
+			.join("");
+		let content5Cards = contentCards[5]
+			.map((item, index) => {
+				return `<div class="content-card"><img src="${url}assets/image/lightbox/cards/card-${item.cardId}.png" alt=""></div>`;
+			})
+			.toString()
+			.split(",")
+			.join("");
 		let content1 = `<div class="content" data-type="1">${content1Cards}</div>`;
 		let content2 = `<div class="content" data-type="2">${content2Cards}</div>`;
 		let content3 = `<div class="content" data-type="3">${content3Cards}</div>`;
 		let content4 = `<div class="content" data-type="4">${content4Cards}</div>`;
 		let content5 = `<div class="content" data-type="5">${content5Cards}</div>`;
-		let html = title1 + content1
-			+ title2 + content2
-			+ title3 + content3
-			+ title4 + content4
-			+ title5 + content5;
+		let html = title1 + content1 + title2 + content2 + title3 + content3 + title4 + content4 + title5 + content5;
 		$.gbox.open(html, {
-			addClass: 'gbox-cards',
-			titleBar: '卡牌內容',
+			addClass: "gbox-cards",
+			titleBar: "卡牌內容",
 			hasCloseBtn: true,
 			hasActionBtn: false,
 			afterOpen: function () {
-				$('.gbox-content').addClass('scrollbar2');
+				$(".gbox-content").addClass("scrollbar2");
 			}
 		});
-	};
+	}
 	// gboxItems1
 	function gboxItems1() {
 		let html = `
@@ -911,15 +937,15 @@ $(document).ready(function () {
 			</div>
 		`;
 		$.gbox.open(html, {
-			addClass: 'gbox-cards gbox-items gbox-items-1',
-			titleBar: '',
+			addClass: "gbox-cards gbox-items gbox-items-1",
+			titleBar: "",
 			hasCloseBtn: true,
 			hasActionBtn: false,
 			afterOpen: function () {
-				$('.gbox-content .content').addClass('scrollbar2');
+				$(".gbox-content .content").addClass("scrollbar2");
 			}
 		});
-	};
+	}
 	// gboxItems2
 	function gboxItems2() {
 		let html = `
@@ -930,15 +956,15 @@ $(document).ready(function () {
 			</div>
 		`;
 		$.gbox.open(html, {
-			addClass: 'gbox-cards gbox-items gbox-items-2',
-			titleBar: '',
+			addClass: "gbox-cards gbox-items gbox-items-2",
+			titleBar: "",
 			hasCloseBtn: true,
 			hasActionBtn: false,
 			afterOpen: function () {
-				$('.gbox-content').addClass('scrollbar2');
+				$(".gbox-content").addClass("scrollbar2");
 			}
 		});
-	};
+	}
 	// gboxMain
 	function gboxMain(num, date) {
 		let numIn = num;
@@ -951,41 +977,45 @@ $(document).ready(function () {
 			<span class="text-main fz0">前往預約獎勵抽獎活動</span>
 		`;
 		$.gbox.open(html, {
-			addClass: 'gbox-default gbox-main',
+			addClass: "gbox-default gbox-main",
 			hasCloseBtn: true,
-			actionBtns: [{
-				text: '立即參加',
-				click: function () {
-					if(numIn == 1){
-						gboxRule2();
-					}else{
-						$.gbox.open(`
+			actionBtns: [
+				{
+					text: "立即參加",
+					click: function () {
+						if (numIn == 1) {
+							gboxRule2();
+						} else {
+							$.gbox.open(
+								`
 								已完成參加實體抽獎活動<br>
 								將於2024/12/27、2025/01/06、2025/01/10<br>
 								在官方網站與官方粉絲團公開得獎名單<br>
 								<br>
 								敬請期待
-							`,{
-								addClass: 'gbox-default gbox-main',
-								hasCloseBtn: true,
-								afterClose: function(){
-									window.location = '../../E20241218/logout';
+							`,
+								{
+									addClass: "gbox-default gbox-main",
+									hasCloseBtn: true,
+									afterClose: function () {
+										window.location = "../../E20241218/logout";
+									}
 								}
-							}
-						);
+							);
+						}
 					}
 				}
-			}],
+			],
 			afterOpen: function () {}
 		});
-	};
+	}
 	// lightboxForm
-	function openLightboxForm(){
-		$('body').addClass('ovh');
-		pageStore.commit('controlLightboxForm', true);
-	};
-	function closeLightboxForm(){
-		$('body').removeClass('ovh');
-		pageStore.commit('controlLightboxForm', false);
-	};
-})
+	function openLightboxForm() {
+		$("body").addClass("ovh");
+		pageStore.commit("controlLightboxForm", true);
+	}
+	function closeLightboxForm() {
+		$("body").removeClass("ovh");
+		pageStore.commit("controlLightboxForm", false);
+	}
+});

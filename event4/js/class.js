@@ -243,7 +243,8 @@ app.component("page-3", {
 		}
 		return {
 			activeCharacter,
-			openLightboxCharacter
+			openLightboxCharacter,
+			isMB
 		};
 	}
 });

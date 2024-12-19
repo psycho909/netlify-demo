@@ -324,10 +324,8 @@ app.component("lightbox-character-3", {
 });
 /* VM Mount */
 // 執行VM
-function afterInit() {
-	app.use(pageStore);
-	app.mount("#app");
-	$(".gbox-video").hide();
-}
-afterInit();
+
+app.use(pageStore);
+app.mount("#app");
+$(".gbox-video").hide();
 // gboxVideo

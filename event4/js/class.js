@@ -175,6 +175,7 @@ app.component("page-3", {
 				char: num
 			});
 		}
+		alert(isMB.value);
 		// particles
 		if (!isMB.value) {
 			setTimeout(() => {

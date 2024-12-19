@@ -87,73 +87,6 @@ app.component("page-3", {
 		const store = Vuex.useStore();
 		const activeCharacter = Vue.ref(0);
 		const isMB = Vue.computed(() => store.state.isMB);
-		const initParticles = () => {
-			if (!isMB.value) {
-				Vue.nextTick(() => {
-					particlesJS("particles-cover", {
-						particles: {
-							number: { value: 30, density: { enable: true, value_area: isMB.value ? 768 : 1920 } },
-							color: { value: "#fff" },
-							shape: {
-								type: "image",
-								stroke: { width: 0, color: "#000000" },
-								polygon: { nb_sides: 5 },
-								image: {
-									src: "https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20241218L/assets/image/float/float-3.png",
-									width: 47,
-									height: 58
-								}
-							},
-							opacity: {
-								value: 1,
-								random: false,
-								anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
-							},
-							size: {
-								value: isMB.value ? 20 : 40,
-								random: true,
-								anim: { enable: false, speed: 30, size_min: isMB.value ? 10 : 20, sync: false }
-							},
-							rotate: {
-								value: 45,
-								random: true,
-								anim: {
-									enable: true,
-									speed: 10
-								}
-							},
-							line_linked: { enable: false, distance: 500, color: "#ffffff", opacity: 0.4, width: 2 },
-							move: {
-								enable: true,
-								speed: isMB.value ? 10 : 5,
-								direction: "none",
-								random: true,
-								straight: false,
-								out_mode: "out",
-								bounce: false,
-								attract: {
-									enable: false,
-									rotateX: 200,
-									rotateY: 400
-								}
-							}
-						},
-						interactivity: {
-							detect_on: "canvas",
-							events: { onhover: { enable: false, mode: "bubble" }, onclick: { enable: false, mode: "repulse" }, resize: true },
-							modes: {
-								grab: { distance: 400, line_linked: { opacity: 0.5 } },
-								bubble: { distance: 120, size: 5, duration: 0.4, opacity: 1, speed: 3 },
-								repulse: { distance: 200, duration: 0.4 },
-								push: { particles_nb: 4 },
-								remove: { particles_nb: 2 }
-							}
-						},
-						retina_detect: false
-					});
-				});
-			}
-		};
 
 		const openLightboxCharacter = (num) => {
 			store.commit("openLightbox", {
@@ -161,12 +94,6 @@ app.component("page-3", {
 				char: num
 			});
 		};
-
-		// 初始化粒子效果
-		Vue.onMounted(() => {
-			initParticles();
-		});
-
 		return {
 			activeCharacter,
 			openLightboxCharacter,

@@ -1,5 +1,5 @@
 ﻿/* import */
-import { topBar, navBar, intro, btnPlus } from "./common.js";
+// import { topBar, navBar, intro, btnPlus } from "./common.js";
 /* Common */
 function setCookie(name, value = true, hours = 0.5) {
 	let date = new Date();
@@ -26,10 +26,10 @@ isMB ? $("body,.wrapper").addClass("mobile") : $("body,.wrapper").addClass("desk
 /* VM Set */
 const app = Vue.createApp({
 	components: {
-		"top-bar": topBar,
-		"nav-bar": navBar,
-		intro: intro,
-		"btn-plus": btnPlus
+		// "top-bar": topBar,
+		// "nav-bar": navBar,
+		// intro: intro,
+		// "btn-plus": btnPlus
 	},
 	setup() {
 		$("body").addClass("ovh");

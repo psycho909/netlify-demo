@@ -38,7 +38,7 @@ export function LBVideo(data) {
 				});
 				FB.Event.subscribe("xfbml.ready", function (msg) {
 					if (msg.type === "video") {
-						msg.instance.unmute();
+						msg.instance.mute();
 					}
 				});
 				resolve();

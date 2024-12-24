@@ -214,21 +214,12 @@
 
 				// 在影片載入後設置靜音
 				FB.Event.subscribe("xfbml.ready", function (msg) {
+					console.log(msg);
 					if (msg.type === "video") {
-						msg.instance.unmute(); // 可用 mute() 設置靜音
+						msg.instance.mute(); // 可用 mute() 設置靜音
 					}
 				});
 			};
-
-			// (function (d, s, id) {
-			// 	var js,
-			// 		fjs = d.getElementsByTagName(s)[0];
-			// 	if (d.getElementById(id)) return;
-			// 	js = d.createElement(s);
-			// 	js.id = id;
-			// 	js.src = "https://connect.facebook.net/en_US/sdk.js";
-			// 	fjs.parentNode.insertBefore(js, fjs);
-			// })(document, "script", "facebook-jssdk");
 		</script>
 	</body>
 </html>

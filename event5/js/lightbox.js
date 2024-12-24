@@ -15,8 +15,6 @@ export function LBVideo(data) {
             <div class="lb-video__box">
                 <div class="fb-video" 
                      data-href="${data.fb}" 
-                     data-width="560" 
-                     data-height="314" 
                      data-allowfullscreen="false">
                 </div>
             </div>`;
@@ -36,6 +34,11 @@ export function LBVideo(data) {
 					appId: "YOUR_APP_ID",
 					xfbml: true,
 					version: "v17.0"
+				});
+				FB.Event.subscribe("xfbml.ready", function (msg) {
+					if (msg.type === "video") {
+						msg.instance.unmute();
+					}
 				});
 				resolve();
 			};

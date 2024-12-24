@@ -124,7 +124,7 @@
 
 	<body>
 		<!-- Swiper -->
-
+		<div id="size"></div>
 		<div class="content">
 			<div class="swiper mySwiper">
 				<div class="swiper-wrapper">
@@ -169,6 +169,10 @@
 					alert(index);
 				});
 			});
+
+			// size
+			var size = document.getElementById("size");
+			size.innerHTML = "width: " + window.innerWidth + ", height: " + window.innerHeight;
 		</script>
 	</body>
 </html>

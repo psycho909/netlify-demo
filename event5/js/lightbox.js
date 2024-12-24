@@ -24,7 +24,12 @@ export function LBVideo(data) {
 		</div>`;
 	} else if (data.fb) {
 		HTMLContent = `<div class="lb-video__box">
-			<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=${data.fb}&show_text=false&width=560&t=0" width="560" height="314" style="border: none; overflow: hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen=""></iframe>
+			<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=${data.fb}&show_text=false&width=560&t=0"        width="560" 
+        height="314" 
+        style="border:none;overflow:hidden" 
+        scrolling="no" 
+        frameborder="0" 
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 		</div>`;
 	}
 	$.gbox.open(HTMLContent, {

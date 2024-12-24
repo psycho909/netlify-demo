@@ -1370,7 +1370,6 @@ body {
   .header {
     height: 13.0208333333vw;
     overflow: visible;
-    background-color: rgba(0, 0, 0, 0.6);
   }
 }
 .header-bf .header-logo,

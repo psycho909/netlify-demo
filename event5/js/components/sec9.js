@@ -60,8 +60,8 @@ let sec9 = {
             <div class="sec9-content sec-content">
                 <div class="sec9-swiper swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="(slide, index) in slides" :key="index">
-                            <div class="sec9-slide__img" @click="handleVideoClick(slide)"><img :src="slide.image" alt="" /></div>
+                        <div class="swiper-slide" v-for="(slide, index) in slides" :key="index" @click="handleVideoClick(slide)">
+                            <div class="sec9-slide__img"><img :src="slide.image" alt="" /></div>
                         </div>
                     </div>
                 </div>

@@ -4401,6 +4401,8 @@ body {
   .sec9-content .swiper-slide {
     width: 77.34375vw;
     pointer-events: none;
+    -webkit-backface-visibility: visible;
+            backface-visibility: visible;
   }
 }
 .sec9-content .swiper-slide.swiper-slide-active {

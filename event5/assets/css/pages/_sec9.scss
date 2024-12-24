@@ -92,6 +92,7 @@
 			@include media {
 				width: vw(594);
 				pointer-events: none;
+				backface-visibility: visible;
 			}
 			filter: brightness(0.65);
 			&.swiper-slide-active {

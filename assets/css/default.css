@@ -245,7 +245,8 @@ button {
 .text-ellipsis {
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
 }
 
 .default .gbox-wrap {
@@ -1429,6 +1430,7 @@ body {
       -ms-transform: translateX(-15.9895833333vw);
           transform: translateX(-15.9895833333vw);
   -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
   transition: all 0.3s;
 }
 .left-bar:before {
@@ -5610,7 +5612,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .install-section .tutorial-swiper-button-next,
-  .install-section .tutorial-swiper-button-prev {
+.install-section .tutorial-swiper-button-prev {
     top: 38.0208333333vw;
     -webkit-transform: translateY(0);
         -ms-transform: translateY(0);
@@ -7342,6 +7344,9 @@ body {
 .part3-main-title {
   width: 50.3125vw;
   height: 15.2083333333vw;
+  background-position-x: 0%;
+  background-size: 1400%;
+  background-image: url("./images/part3/part3-main-title.png");
   position: absolute;
   top: 29.1666666667vw;
   left: 50%;
@@ -7530,6 +7535,7 @@ body {
   display: grid;
   grid-template-rows: 0fr;
   -webkit-transition: 0.25s grid-template-rows ease;
+  -o-transition: 0.25s grid-template-rows ease;
   transition: 0.25s grid-template-rows ease;
   transition: 0.25s grid-template-rows ease, 0.25s -ms-grid-rows ease;
 }

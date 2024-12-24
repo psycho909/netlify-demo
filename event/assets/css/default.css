@@ -253,7 +253,8 @@ button {
 .text-ellipsis {
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
 }
 
 .default .gbox-wrap {
@@ -955,6 +956,7 @@ body {
 .fade-enter-active,
 .fade-leave-active {
   -webkit-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
 }
 

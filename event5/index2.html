@@ -152,7 +152,7 @@
 
 		<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https://www.facebook.com/Gamania.LineageTW/videos/424452461497049/&show_text=false&width=560&t=0" width="560" height="314" style="border: none; overflow: hidden; max-width: 100%; max-height: 314px; aspect-ratio: 560/314" scrolling="no" frameborder="0" allowfullscreen="false" webkitallowfullscreen="false" mozallowfullscreen="false" allow="autoplay; clipboard-write; encrypted-media; web-share"></iframe>
 
-		<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https://www.facebook.com/Gamania.LineageTW/videos/424452461497049/&show_text=false&width=560&t=0" width="560" height="314" style="border: none; overflow: hidden; max-width: 100%; max-height: 314px; aspect-ratio: 560/314" scrolling="no" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; web-share; playsinline" webkitallowfullscreen="false" mozallowfullscreen="false"> </iframe>
+		<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https://www.facebook.com/Gamania.LineageTW/videos/424452461497049/&show_text=false&width=560&t=0&mute=1" width="560" height="314" style="border: none; overflow: hidden; max-width: 100%; max-height: 314px; aspect-ratio: 560/314" scrolling="no" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; web-share; playsinline" webkitallowfullscreen="false" mozallowfullscreen="false"> </iframe>
 
 		<!-- Swiper -->
 		<div id="size"></div>
@@ -209,20 +209,26 @@
 				FB.init({
 					appId: "YOUR_APP_ID", // 替換為你的 Facebook 應用程式 ID，如果沒有，可以留空
 					xfbml: true,
-					version: "v17.0" // 確保使用的是最新版本
+					version: "v17.0"
 				});
-				FB.XFBML.parse(); // 解析嵌入的 Facebook 內容
+
+				// 在影片載入後設置靜音
+				FB.Event.subscribe("xfbml.ready", function (msg) {
+					if (msg.type === "video") {
+						msg.instance.unmute(); // 可用 mute() 設置靜音
+					}
+				});
 			};
 
-			(function (d, s, id) {
-				var js,
-					fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-				js = d.createElement(s);
-				js.id = id;
-				js.src = "https://connect.facebook.net/en_US/sdk.js";
-				fjs.parentNode.insertBefore(js, fjs);
-			})(document, "script", "facebook-jssdk");
+			// (function (d, s, id) {
+			// 	var js,
+			// 		fjs = d.getElementsByTagName(s)[0];
+			// 	if (d.getElementById(id)) return;
+			// 	js = d.createElement(s);
+			// 	js.id = id;
+			// 	js.src = "https://connect.facebook.net/en_US/sdk.js";
+			// 	fjs.parentNode.insertBefore(js, fjs);
+			// })(document, "script", "facebook-jssdk");
 		</script>
 	</body>
 </html>

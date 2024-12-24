@@ -91,14 +91,17 @@
 			}
 			@include media {
 				width: vw(594);
+				pointer-events: none;
 			}
 			filter: brightness(0.65);
 			&.swiper-slide-active {
 				filter: drop-shadow(0 0 vw2(12) rgba(#000, 0.55));
+				z-index: 10 !important;
 				@include media2 {
 					filter: drop-shadow(0 0 vh(12) rgba(#000, 0.55));
 				}
 				@include media {
+					pointer-events: auto;
 					filter: drop-shadow(0 0 vw(12) rgba(#000, 0.55));
 				}
 			}

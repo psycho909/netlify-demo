@@ -55,8 +55,6 @@ let sec9 = {
 	template: `
     <section class="sec sec9" data-anchor="sec9">
         <div class="sec-info">
-            <div class="sec-title sec9-title1">天堂REMASTERED 等你回歸</div>
-            <div class="sec-title sec9-title2">重新敲響，潛藏深處的回憶之中</div>
             <div class="sec9-content sec-content">
                 <div class="sec9-swiper swiper">
                     <div class="swiper-wrapper">

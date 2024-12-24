@@ -96,11 +96,28 @@
 				margin: 0 auto;
 			}
 			.content .swiper {
-				/* width: calc(594 / 768 * 100vw); */
-				height: calc(336 / 768 * 100vw);
-				width: 80%;
-				/* height: 336px; */
+				width: 594px;
+				height: 336px;
 				overflow: visible;
+			}
+			/* <= 768 */
+			@media (max-width: 768px) {
+				.content .swiper {
+					width: 594px;
+					height: 336px;
+				}
+			}
+			@media (max-width: 576px) {
+				.content .swiper {
+					width: 439px;
+					height: 249px;
+				}
+			}
+			@media (max-width: 375px) {
+				.content .swiper {
+					width: 291px;
+					height: 165px;
+				}
 			}
 		</style>
 	</head>

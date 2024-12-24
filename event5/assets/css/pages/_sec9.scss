@@ -90,9 +90,39 @@
 				width: vh(793);
 			}
 			@include media {
-				width: vw(594);
+				// width: vw(594);
 				pointer-events: none;
 				backface-visibility: visible;
+			}
+			@media (max-width: 320px) {
+				.content .swiper {
+					width: 280px;
+					height: 157px;
+				}
+			}
+			@media (min-width: 321px) and (max-width: 375px) {
+				.content .swiper {
+					width: 291px;
+					height: 165px;
+				}
+			}
+			@media (min-width: 414px) and (max-width: 540px) {
+				.content .swiper {
+					width: 322px;
+					height: 182px;
+				}
+			}
+			@media (max-width: 576px) {
+				.content .swiper {
+					width: 439px;
+					height: 249px;
+				}
+			}
+			@media (max-width: 768px) {
+				.content .swiper {
+					width: 594px;
+					height: 336px;
+				}
 			}
 			filter: brightness(0.65);
 			&.swiper-slide-active {

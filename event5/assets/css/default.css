@@ -1431,10 +1431,39 @@ body {
 }
 @media screen and (max-width: 768px) {
   .sec9-content .swiper-slide {
-    width: 77.34375vw;
     pointer-events: none;
     -webkit-backface-visibility: visible;
             backface-visibility: visible;
+  }
+}
+@media (max-width: 320px) {
+  .sec9-content .swiper-slide .content .swiper {
+    width: 280px;
+    height: 157px;
+  }
+}
+@media (min-width: 321px) and (max-width: 375px) {
+  .sec9-content .swiper-slide .content .swiper {
+    width: 291px;
+    height: 165px;
+  }
+}
+@media (min-width: 414px) and (max-width: 540px) {
+  .sec9-content .swiper-slide .content .swiper {
+    width: 322px;
+    height: 182px;
+  }
+}
+@media (max-width: 576px) {
+  .sec9-content .swiper-slide .content .swiper {
+    width: 439px;
+    height: 249px;
+  }
+}
+@media (max-width: 768px) {
+  .sec9-content .swiper-slide .content .swiper {
+    width: 594px;
+    height: 336px;
   }
 }
 .sec9-content .swiper-slide.swiper-slide-active {

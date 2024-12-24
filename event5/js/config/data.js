@@ -107,7 +107,7 @@ export const sec8Slides = [
 
 export const sec9Slides = [
 	{ image: `${BASE_PATH}sec9/sec9-slide3.jpg`, yt: "", fb: "https://www.facebook.com/Gamania.LineageTW/videos/424452461497049/" },
-	{ image: `${BASE_PATH}sec9/sec9-slide1.jpg`, yt: "C9ILnSQ7-", fb: "" },
+	{ image: `${BASE_PATH}sec9/sec9-slide1.jpg`, yt: "", fb: "https://www.facebook.com/ebcstar/videos/890539423257260/" },
 	{ image: `${BASE_PATH}sec9/sec9-slide2.jpg`, yt: "C9ILnSQ7-", fb: "" },
 	{ image: `${BASE_PATH}sec9/sec9-slide3.jpg`, yt: "C9ILnSQ7-", fb: "" },
 	{ image: `${BASE_PATH}sec9/sec9-slide1.jpg`, yt: "C9ILnSQ7-", fb: "" },

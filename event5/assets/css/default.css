@@ -1387,6 +1387,7 @@ body {
     width: 132.4074074074vh;
     top: 35.5555555556vh;
     margin-left: -66.4814814815vh;
+    overflow: visible;
   }
 }
 @media screen and (max-width: 768px) {
@@ -1431,39 +1432,10 @@ body {
 }
 @media screen and (max-width: 768px) {
   .sec9-content .swiper-slide {
+    width: 100%;
     pointer-events: none;
     -webkit-backface-visibility: visible;
             backface-visibility: visible;
-  }
-}
-@media (max-width: 320px) {
-  .sec9-content .swiper-slide .content .swiper {
-    width: 280px;
-    height: 157px;
-  }
-}
-@media (min-width: 321px) and (max-width: 375px) {
-  .sec9-content .swiper-slide .content .swiper {
-    width: 291px;
-    height: 165px;
-  }
-}
-@media (min-width: 414px) and (max-width: 540px) {
-  .sec9-content .swiper-slide .content .swiper {
-    width: 322px;
-    height: 182px;
-  }
-}
-@media (max-width: 576px) {
-  .sec9-content .swiper-slide .content .swiper {
-    width: 439px;
-    height: 249px;
-  }
-}
-@media (max-width: 768px) {
-  .sec9-content .swiper-slide .content .swiper {
-    width: 594px;
-    height: 336px;
   }
 }
 .sec9-content .swiper-slide.swiper-slide-active {
@@ -1508,5 +1480,42 @@ body {
 @media screen and (max-width: 768px) {
   .sec9-content .swiper-button-next {
     right: 2.0833333333vw;
+  }
+}
+
+@media (max-width: 320px) {
+  .sec9-content .swiper {
+    width: 280px;
+    height: 157px;
+  }
+}
+@media (min-width: 321px) and (max-width: 375px) {
+  .sec9-content .swiper {
+    width: 291px;
+    height: 165px;
+  }
+}
+@media (min-width: 376px) and (max-width: 413px) {
+  .sec9-content .swiper {
+    width: 322px;
+    height: 182px;
+  }
+}
+@media (min-width: 414px) and (max-width: 540px) {
+  .sec9-content .swiper {
+    width: 322px;
+    height: 182px;
+  }
+}
+@media (min-width: 541px) and (max-width: 576px) {
+  .sec9-content .swiper {
+    width: 439px;
+    height: 249px;
+  }
+}
+@media (min-width: 577px) and (max-width: 768px) {
+  .sec9-content .swiper {
+    width: 594px;
+    height: 336px;
   }
 }

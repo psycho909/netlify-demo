@@ -15,7 +15,8 @@ export function LBVideo(data) {
             <div class="lb-video__box">
                 <div class="fb-video" 
                      data-href="${data.fb}" 
-                     data-allowfullscreen="false">
+                     data-allowfullscreen="false"
+					 >
                 </div>
             </div>`;
 	}

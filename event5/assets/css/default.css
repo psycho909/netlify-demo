@@ -1031,6 +1031,19 @@ button {
 @media screen and (max-width: 768px) {
   .lb-video__box {
     width: 93.8802083333vw;
+    height: 100%;
+  }
+  .lb-video__box .fb-video {
+    width: 100%;
+    height: 100%;
+  }
+  .lb-video__box .fb-video span {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .lb-video__box .fb-video span iframe {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 .lb-video__box:before {

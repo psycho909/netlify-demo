@@ -1,0 +1,125 @@
+.sec9 {
+	background-image: url("./images/sec9/sec9-bg.jpg");
+	@include media {
+		background-image: url("./images/sec9/sec9-bg-m.jpg");
+	}
+	&-title1 {
+		width: vw2(1196);
+		height: vw2(88);
+		background-image: url("./images/sec9/sec9-title1.png");
+		background-size: 100%;
+		filter: drop-shadow(0 vw2(6) vw2(12) rgba(0, 0, 0, 0.73));
+		position: absolute;
+		top: vw2(180);
+		left: 50%;
+		margin-left: vw2(-598);
+		@include media2 {
+			width: vh(1196);
+			height: vh(88);
+			top: vh(180);
+			margin-left: vh(-598);
+			filter: drop-shadow(0 vh(6) vh(12) rgba(0, 0, 0, 0.73));
+		}
+		@include media {
+			width: vw(709);
+			height: vw(320);
+			background-image: url("./images/sec9/sec9-title-m.png");
+			margin-left: 0;
+			transform: translateX(-50%);
+			top: vw(48);
+			filter: none;
+		}
+	}
+	&-title2 {
+		width: vw2(358);
+		height: vw2(25);
+		background-image: url("./images/sec9/sec9-title2.png");
+		background-size: 100%;
+		filter: drop-shadow(0 vw2(5) vw2(6) rgba(0, 0, 0, 0.84));
+		position: absolute;
+		top: vw2(282);
+		left: 50%;
+		margin-left: vw2(-179);
+		@include media2 {
+			width: vh(358);
+			height: vh(25);
+			top: vh(282);
+			margin-left: vh(-179);
+			filter: drop-shadow(0 vh(5) vh(6) rgba(0, 0, 0, 0.84));
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&-content {
+		width: vw2(1430);
+		position: absolute;
+		top: vw2(384);
+		left: 50%;
+		margin-left: vw2(-718);
+		@include media2 {
+			width: vh(1430);
+			top: vh(384);
+			margin-left: vh(-718);
+		}
+		@include media {
+			width: vw(736);
+			top: vw(406);
+			margin-left: 0;
+			transform: translateX(-50%);
+			overflow: hidden;
+			padding-top: vw(60);
+		}
+		.swiper {
+			width: vw2(1430);
+			@include media2 {
+				width: vh(1430);
+			}
+			@include media {
+				width: vw(736);
+				overflow: visible;
+			}
+			img {
+				width: 100%;
+				display: block;
+			}
+		}
+		.swiper-slide {
+			width: vw2(793);
+			@include media2 {
+				width: vh(793);
+			}
+			@include media {
+				width: vw(594);
+			}
+			filter: brightness(0.65);
+			&.swiper-slide-active {
+				filter: drop-shadow(0 0 vw2(12) rgba(#000, 0.55));
+				@include media2 {
+					filter: drop-shadow(0 0 vh(12) rgba(#000, 0.55));
+				}
+				@include media {
+					filter: drop-shadow(0 0 vw(12) rgba(#000, 0.55));
+				}
+			}
+		}
+		.swiper-button-prev {
+			left: vw2(246);
+			@include media2 {
+				left: vh(246);
+			}
+			@include media {
+				left: vw(16);
+			}
+		}
+		.swiper-button-next {
+			right: vw2(246);
+			@include media2 {
+				right: vh(246);
+			}
+			@include media {
+				right: vw(16);
+			}
+		}
+	}
+}

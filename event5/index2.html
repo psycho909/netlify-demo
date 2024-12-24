@@ -101,16 +101,16 @@
 				overflow: visible;
 			}
 			/* <= 768 */
-			@media (max-width: 768px) {
+			@media (max-width: 320px) {
 				.content .swiper {
-					width: 594px;
-					height: 336px;
+					width: 280px;
+					height: 157px;
 				}
 			}
-			@media (max-width: 576px) {
+			@media (min-width: 321px) and (max-width: 375px) {
 				.content .swiper {
-					width: 439px;
-					height: 249px;
+					width: 291px;
+					height: 165px;
 				}
 			}
 			@media (min-width: 414px) and (max-width: 540px) {
@@ -119,10 +119,16 @@
 					height: 182px;
 				}
 			}
-			@media (max-width: 375px) {
+			@media (max-width: 576px) {
 				.content .swiper {
-					width: 291px;
-					height: 165px;
+					width: 439px;
+					height: 249px;
+				}
+			}
+			@media (max-width: 768px) {
+				.content .swiper {
+					width: 594px;
+					height: 336px;
 				}
 			}
 		</style>

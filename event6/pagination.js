@@ -33,10 +33,11 @@ const pagination = {
 		const isFirstPage = Vue.computed(() => currentPage.value === 1);
 		const isLastPage = Vue.computed(() => currentPage.value === pageMax.value);
 
-		const setPages = () => {
-			currentPage.value = 1;
-			pagination.maxPageNumberLimit = pageNumberLimit.value;
-			pagination.minPageNumberLimit = 0;
+		const setPages = (newPage = 1) => {
+			currentPage.value = newPage;
+			const startPage = Math.floor((newPage - 1) / pageNumberLimit.value) * pageNumberLimit.value;
+			pagination.minPageNumberLimit = Math.max(0, startPage);
+			pagination.maxPageNumberLimit = Math.min(pageMax.value, startPage + pageNumberLimit.value);
 		};
 
 		const updatePageAndEmit = (newPage) => {
@@ -92,7 +93,9 @@ const pagination = {
 			pagination.minPageNumberLimit = Math.max(0, startPage);
 			pagination.maxPageNumberLimit = pageMax.value;
 		};
-
+		const resetPagination = (page) => {
+			setPages(page);
+		};
 		Vue.watchEffect(() => {
 			if (totalPage.value) {
 				setPages();
@@ -109,22 +112,23 @@ const pagination = {
 			handlePrevClick,
 			handleNextClick,
 			goToFirstPage,
-			goToLastPage
+			goToLastPage,
+			resetPagination
 		};
 	},
 	template: `
         <div class="pagination-content" v-bind="$attrs">
-            <ul class="pagination-numbers" style="display:flex;color:#fff;list-style:none;">
-                <li class="pagination-numbers__symbol" :class="{ disabled: isFirstPage }" v-if="showFirstPageButton"><span class="pagination-numbers__symbol-first" @click="goToFirstPage"></span></li>
-                <li class="pagination-numbers__symbol" :class="{ disabled: isFirstPage }"><span class="pagination-numbers__symbol-prev" @click="handlePrevClick"></span></li>
+            <ul class="pagination-numbers" style="display:flex;list-style:none;">
+                <li class="pagination-numbers__symbol" :class="{ disabled: isFirstPage }" v-if="showFirstPageButton"><span class="pagination-numbers__symbol-first" @click="goToFirstPage"><<</span></li>
+                <li class="pagination-numbers__symbol" :class="{ disabled: isFirstPage }"><span class="pagination-numbers__symbol-prev" @click="handlePrevClick"><</span></li>
                 <li v-for="page in pagesList" :key="page" v-memo="[page, page === currentPage]"
                     :id="page" class="pagination-numbers__item" 
                     :class="{ active: page === currentPage }" 
                     @click="handleClick(page)">
                     {{ page }}
                 </li>
-                <li class="pagination-numbers__symbol" :class="{ disabled: isLastPage }"><span class="pagination-numbers__symbol-next" @click="handleNextClick"></span></li>
-                <li class="pagination-numbers__symbol" v-if="showLastPageButton" :class="{ disabled: isLastPage }"><span class="pagination-numbers__symbol-last" @click="goToLastPage"></span></li>
+                <li class="pagination-numbers__symbol" :class="{ disabled: isLastPage }"><span class="pagination-numbers__symbol-next" @click="handleNextClick">></span></li>
+                <li class="pagination-numbers__symbol" v-if="showLastPageButton" :class="{ disabled: isLastPage }"><span class="pagination-numbers__symbol-last" @click="goToLastPage">>></span></li>
             </ul>
         </div>
     `

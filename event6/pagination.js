@@ -15,16 +15,12 @@ const pagination = {
 		showLastPageButton: {
 			type: Boolean,
 			default: true
-		},
-		modelValue: {
-			type: Number,
-			default: 1
 		}
 	},
 	emits: ["update:current-page"],
 	setup(props, { emit }) {
 		const { totalPage, pageNumberLimit } = Vue.toRefs(props);
-		const currentPage = Vue.ref(props.modelValue);
+		const currentPage = Vue.ref(1);
 		const api = Vue.ref(false);
 		const pagination = Vue.reactive({
 			maxPageNumberLimit: pageNumberLimit.value,
@@ -102,13 +98,6 @@ const pagination = {
 				setPages();
 			}
 		});
-		Vue.watch(
-			() => props.modelValue,
-			(newValue) => {
-				console.log(newValue);
-				currentPage.value = newValue;
-			}
-		);
 		return {
 			currentPage,
 			api,

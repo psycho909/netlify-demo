@@ -5,179 +5,85 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<style>
-			.event .tt {
-				background-image: url(./img/tt.png);
-				background-size: contain;
-				width: 61.71875vw;
-				height: 8.6458333333vw;
-				margin: 0 auto 2.6041666667vw;
+			* {
+				padding: 0;
+				margin: 0;
 			}
-			@media screen and (max-width: 768px) {
-				.event .tt {
-					background-image: url(./img/tt_m.png);
-					width: 100vw;
-					height: 21.6145833333vw;
-					margin: 0 auto 9.1145833333vw;
-				}
+			body {
+				background-color: #3e301e;
 			}
-			.event .exchange_area {
-				background-image: url(./img/content_bg_mid.png);
-				background-size: 56.1979166667vw 2.0833333333vw;
-				background-repeat: repeat-y;
-				width: 56.1979166667vw;
-				margin: 0 auto;
+			select {
+				border: none;
+				appearance: none;
+				-moz-appearance: none;
+				-webkit-appearance: none;
+			}
+			select::-ms-expand {
+				display: none;
+			}
+			select {
+				background: transparent;
+				outline: none;
+				border: none;
+			}
+			option {
+				background: transparent;
+				outline: none;
+				border: none;
+			}
+			.select-box {
+				width: 560px;
 				position: relative;
-				padding: 4.6875vw 0;
-				box-shadow: 0vw 0vw 1.5625vw rgb(0, 0, 0);
 			}
-			@media screen and (max-width: 768px) {
-				.event .exchange_area {
-					background-image: url(./img/content_bg_mid_m.png);
-					background-size: 86.1979166667vw 5.2083333333vw;
-					width: 86.1979166667vw;
-					padding: 15.625vw 0 6.5104166667vw;
-				}
+			label {
+				display: block;
 			}
-			.event .exchange_area::before {
+			.select-account {
+				width: 560px;
+				height: 100px;
+				font-size: 36px;
+				border: 1px solid #fff;
+				background-color: #1a1a1a;
+				color: #737373;
+				position: relative;
+			}
+			.select-box::after {
 				content: "";
-				background-image: url(./img/content_bg_top.png);
-				background-size: 56.1979166667vw 2.0833333333vw;
-				width: 56.1979166667vw;
-				height: 2.0833333333vw;
 				position: absolute;
-				top: -0.5208333333vw;
-				left: 0;
-			}
-			@media screen and (max-width: 768px) {
-				.event .exchange_area::before {
-					background-image: url(./img/content_bg_top_m.png);
-					background-size: 86.1979166667vw 5.2083333333vw;
-					width: 86.1979166667vw;
-					height: 5.2083333333vw;
-					top: -1.3020833333vw;
-				}
-			}
-			.event .exchange_area::after {
-				content: "";
-				background-image: url(./img/content_bg_bot.png);
-				background-size: 56.1979166667vw 2.0833333333vw;
-				width: 56.1979166667vw;
-				height: 2.0833333333vw;
-				position: absolute;
-				bottom: -0.5208333333vw;
-				left: 0;
-			}
-			@media screen and (max-width: 768px) {
-				.event .exchange_area::after {
-					background-image: url(./img/content_bg_bot_m.png);
-					background-size: 86.1979166667vw 5.2083333333vw;
-					width: 86.1979166667vw;
-					height: 5.2083333333vw;
-					bottom: -1.3020833333vw;
-				}
-			}
-			.event .sever,
-			.event .role,
-			.event .exchange {
-				text-align: center;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				margin-bottom: 1.5625vw;
-			}
-			@media screen and (max-width: 768px) {
-				.event .sever,
-				.event .role,
-				.event .exchange {
-					margin-bottom: 6.5104166667vw;
-				}
-			}
-			.event label {
-				font-size: 1.25vw;
-				color: #392410;
-				font-weight: bold;
-				width: 6.25vw;
-				display: inline-block;
-				text-align: left;
-			}
-			@media screen and (max-width: 768px) {
-				.event label {
-					font-size: 3.6458333333vw;
-					width: 18.2291666667vw;
-				}
-			}
-			.event label[for="role_sever"] {
-				letter-spacing: 0.625vw;
-			}
-			@media screen and (max-width: 768px) {
-				.event label[for="role_sever"] {
-					letter-spacing: 1.5625vw;
-				}
-			}
-			.event select,
-			.event input {
-				width: 20.3125vw;
-				height: 2.0833333333vw;
-				border-radius: 0.2604166667vw;
-				border: 0.0520833333vw solid #000;
-				font-size: 1.25vw;
-				background-color: #fff;
-				color: #000;
-				height: 2.0833333333vw;
-				padding: 0 0 0 0.5208333333vw;
-			}
-			@media screen and (max-width: 768px) {
-				.event select,
-				.event input {
-					width: 50.78125vw;
-					height: 5.2083333333vw;
-					border-radius: 0.6510416667vw;
-					border: 0.1302083333vw solid #000;
-					font-size: 3.6458333333vw;
-					padding: 0 0 0 1.3020833333vw;
-					height: 5.2083333333vw;
-				}
-			}
-			.event select {
-				background-image: url(./img/arrow.png);
-				background-size: 0.7291666667vw 0.5729166667vw;
-				background-position: 18.75vw center;
-				background-repeat: no-repeat;
-			}
-			@media screen and (max-width: 768px) {
-				.event select {
-					background-size: 1.8229166667vw 1.4322916667vw;
-					background-position: 46.875vw center;
-				}
-			}
-			.event .point_non {
-				/* pointer-events: none; */
+				top: 50%;
+				right: 0;
+				pointer-events: none;
+				width: 0px;
+				height: 0px;
+				border-style: solid;
+				border-width: 30px 20px 0 20px;
+				border-color: #757575 transparent transparent transparent;
+				transform: rotate(0deg) translate(0%, -50%);
 			}
 		</style>
 	</head>
 	<body>
-		<div class="event">
-			<div class="tt"></div>
-			<div class="exchange_area">
-				<div class="sever">
-					<label for="role_sever" class="point_non">伺服器</label>
-					<select name="" id="role_sever" class="point_non">
-						<option>1sadasdasdas</option>
-						<option>2sadasdasdasd</option>
-					</select>
-				</div>
-				<div class="role">
-					<label for="role_name" class="point_non">家族名稱</label>
-					<select name="" id="role_name" class="point_non">
-						<option>1sadasdasdas</option>
-						<option>2sadasdasdasd</option>
-					</select>
-				</div>
-				<div class="exchange">
-					<label for="exchange_code" class="point_non">輸入序號</label>
-					<input type="text" id="exchange_code" class="point_non" />
-				</div>
-			</div>
+		<div class="select-box">
+			<label for="account">
+				<select class="select-account" name="" id="account">
+					<option value="1">abcd12345677890abcs1</option>
+					<option value="2">abcd12345677890abcs2</option>
+					<option value="3">abcd12345677890abcs3</option>
+					<option value="4">abcd12345677890abcs4</option>
+					<option value="5">abcd12345677890abcs5</option>
+				</select>
+			</label>
+		</div>
+		<div class="select-box">
+			<label for="phone">
+				<select class="select-item" name="" id="phone">
+					<option value="1">abcd12345677890</option>
+					<option value="2">abcd12345677891</option>
+					<option value="3">abcd12345677892</option>
+					<option value="4">abcd12345677893</option>
+					<option value="5">abcd12345677894</option>
+				</select>
+			</label>
 		</div>
 	</body>
 </html>

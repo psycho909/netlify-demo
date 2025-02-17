@@ -10,7 +10,7 @@
 				margin: 0;
 				box-sizing: border-box;
 			}
-			body {
+			#app {
 				background-color: #3e301e;
 			}
 			select {
@@ -168,32 +168,34 @@
 		</style>
 	</head>
 	<body>
-		<div class="input-box">
-			<label for="">
-				<input type="text" class="input-name" value="abcd12345677890abcs1" />
-			</label>
-		</div>
-		<div class="select-box">
-			<label for="account">
-				<select class="select-account" name="" id="account">
-					<option value="1">abcd12345677890abcs1</option>
-					<option value="2">abcd12345677890abcs2</option>
-					<option value="3">abcd12345677890abcs3</option>
-					<option value="4">abcd12345677890abcs4</option>
-					<option value="5">abcd12345677890abcs5</option>
-				</select>
-			</label>
-		</div>
-		<div class="select-box2">
-			<label for="phone">
-				<select class="select-item" name="" id="phone">
-					<option value="1">abcd12345677890</option>
-					<option value="2">abcd12345677891</option>
-					<option value="3">abcd12345677892</option>
-					<option value="4">abcd12345677893</option>
-					<option value="5">abcd12345677894</option>
-				</select>
-			</label>
+		<div id="app">
+			<div class="input-box">
+				<label for="">
+					<input type="text" class="input-name" value="abcd12345677890abcs1" />
+				</label>
+			</div>
+			<div class="select-box">
+				<label for="account">
+					<select class="select-account" name="" id="account">
+						<option value="1">abcd12345677890abcs1</option>
+						<option value="2">abcd12345677890abcs2</option>
+						<option value="3">abcd12345677890abcs3</option>
+						<option value="4">abcd12345677890abcs4</option>
+						<option value="5">abcd12345677890abcs5</option>
+					</select>
+				</label>
+			</div>
+			<div class="select-box2">
+				<label for="phone">
+					<select class="select-item" name="" id="phone">
+						<option value="1">abcd12345677890</option>
+						<option value="2">abcd12345677891</option>
+						<option value="3">abcd12345677892</option>
+						<option value="4">abcd12345677893</option>
+						<option value="5">abcd12345677894</option>
+					</select>
+				</label>
+			</div>
 		</div>
 	</body>
 </html>

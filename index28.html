@@ -16,5 +16,29 @@
 	<body>
 		<input type="text" class="input1" />
 		<input type="text" class="input2" />
+		<div id="status"></div>
+		<video id="video" src="https://tw.hicdn.beanfun.com/beanfun/promo/Mabi/20250213C/assets/review/1.mp4" autoplay muted playsinline></video>
+		<script>
+			const videoElement = document.getElementById("video");
+			let statusElement = document.getElementById("status");
+			function updateStatus(message) {
+				statusElement.textContent = "狀態：" + message;
+				console.log("Video 狀態：" + message);
+			}
+
+			// 監聽各種 video 事件
+			video.addEventListener("play", () => updateStatus("播放中"));
+			video.addEventListener("pause", () => updateStatus("已暫停"));
+			video.addEventListener("ended", () => updateStatus("播放結束"));
+			video.addEventListener("waiting", () => updateStatus("緩衝中..."));
+			video.addEventListener("playing", () => updateStatus("緩衝完成，繼續播放"));
+			video.addEventListener("stalled", () => updateStatus("影片載入中斷"));
+			video.addEventListener("error", () => updateStatus("發生錯誤"));
+			video.addEventListener("seeked", () => updateStatus("跳轉完成"));
+			video.addEventListener("seeking", () => updateStatus("跳轉中..."));
+			video.addEventListener("timeupdate", () => updateStatus(`播放時間：${video.currentTime.toFixed(2)} 秒`));
+			video.addEventListener("volumechange", () => updateStatus(`音量變更: ${video.volume * 100}%`));
+			video.addEventListener("ratechange", () => updateStatus(`播放速度變更: ${video.playbackRate}x`));
+		</script>
 	</body>
 </html>

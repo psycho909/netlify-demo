@@ -8,7 +8,7 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>		
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 	</head>
 	<body>
 		<a href="javascript:;" class="btn-play">播放影片</a>
@@ -35,9 +35,7 @@
 				});
 				function onPlayerReady(e) {
 					e.target.playVideo();
-					if (isMobile.any) {
-						e.target.mute();
-					}
+					e.target.mute();
 				}
 			}
 
@@ -93,7 +91,8 @@
 			// 	$.gbox.open(videoLB, config);
 			// }
 			function OpenVideo() {
-				var videoLB = '<div class="video-lb">\
+				var videoLB =
+					'<div class="video-lb">\
 		<div class="video-lb__content"><div id="player" data-video="UdiUHkJsQU0"></div></div>\
 	</div>';
 

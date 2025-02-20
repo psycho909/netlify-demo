@@ -61,6 +61,9 @@
 			// 額外資訊（根據不同事件顯示不同的狀態資訊）
 			function getExtraInfo(event) {
 				switch (event) {
+					case "canplaythrough":
+						video.play();
+						return;
 					case "timeupdate":
 						return `播放時間：${video.currentTime.toFixed(2)} 秒`;
 					case "volumechange":

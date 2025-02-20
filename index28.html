@@ -21,24 +21,59 @@
 		<script>
 			const videoElement = document.getElementById("video");
 			let statusElement = document.getElementById("status");
-			function updateStatus(message) {
-				statusElement.textContent = "狀態：" + message;
-				console.log("Video 狀態：" + message);
+			function updateStatus(eventType, extraMessage = "") {
+				let message = `狀態：${eventType} ${extraMessage}`;
+				statusElement.textContent = message;
+				console.log(`Video 事件：[${eventType}] ${extraMessage}`);
 			}
 
-			// 監聽各種 video 事件
-			video.addEventListener("play", () => updateStatus("播放中"));
-			video.addEventListener("pause", () => updateStatus("已暫停"));
-			video.addEventListener("ended", () => updateStatus("播放結束"));
-			video.addEventListener("waiting", () => updateStatus("緩衝中..."));
-			video.addEventListener("playing", () => updateStatus("緩衝完成，繼續播放"));
-			video.addEventListener("stalled", () => updateStatus("影片載入中斷"));
-			video.addEventListener("error", () => updateStatus("發生錯誤"));
-			video.addEventListener("seeked", () => updateStatus("跳轉完成"));
-			video.addEventListener("seeking", () => updateStatus("跳轉中..."));
-			video.addEventListener("timeupdate", () => updateStatus(`播放時間：${video.currentTime.toFixed(2)} 秒`));
-			video.addEventListener("volumechange", () => updateStatus(`音量變更: ${video.volume * 100}%`));
-			video.addEventListener("ratechange", () => updateStatus(`播放速度變更: ${video.playbackRate}x`));
+			// 監聽所有 video 事件
+			const events = [
+				"abort", // 影片載入中斷
+				"canplay", // 影片可以開始播放，但可能還需要緩衝
+				"canplaythrough", // 影片可以播放到結束，不需要緩衝
+				"durationchange", // 影片長度變更
+				"emptied", // 影片媒體資源為空
+				"ended", // 影片播放結束
+				"error", // 播放錯誤
+				"loadeddata", // 影片的第一幀載入完成
+				"loadedmetadata", // 影片元數據（長度、尺寸等）載入完成
+				"loadstart", // 開始載入影片
+				"pause", // 影片暫停
+				"play", // 影片開始播放（不一定會有畫面）
+				"playing", // 影片開始播放（已經有畫面）
+				"progress", // 影片正在下載緩衝中
+				"ratechange", // 播放速度變更
+				"seeked", // 跳轉完成
+				"seeking", // 正在跳轉
+				"stalled", // 影片載入中斷
+				"suspend", // 影片載入被瀏覽器暫停
+				"timeupdate", // 播放時間更新
+				"volumechange", // 音量變更
+				"waiting" // 影片緩衝中
+			];
+
+			// 綁定事件監聽
+			events.forEach((event) => {
+				video.addEventListener(event, () => updateStatus(event, getExtraInfo(event)));
+			});
+
+			// 額外資訊（根據不同事件顯示不同的狀態資訊）
+			function getExtraInfo(event) {
+				switch (event) {
+					case "timeupdate":
+						return `播放時間：${video.currentTime.toFixed(2)} 秒`;
+					case "volumechange":
+						return `音量：${(video.volume * 100).toFixed(0)}%`;
+					case "ratechange":
+						return `播放速度：${video.playbackRate}x`;
+					case "seeked":
+					case "seeking":
+						return `跳轉時間：${video.currentTime.toFixed(2)} 秒`;
+					default:
+						return "";
+				}
+			}
 		</script>
 	</body>
 </html>

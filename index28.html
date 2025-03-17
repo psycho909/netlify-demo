@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.input1 {
+				font-size: 12px;
+			}
+			.input2 {
+				font-size: 28px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" class="input1" />
+		<input type="text" class="input2" />
+		<div id="status"></div>
+		<video id="video" src="https://tw.hicdn.beanfun.com/beanfun/promo/Mabi/20250213C/assets/review/1.mp4" autoplay muted playsinline></video>
+		<script>
+			const videoElement = document.getElementById("video");
+			let statusElement = document.getElementById("status");
+			function updateStatus(eventType, extraMessage = "") {
+				let message = `狀態：${eventType} ${extraMessage}`;
+				statusElement.textContent = message;
+				console.log(`Video 事件：[${eventType}] ${extraMessage}`);
+			}
+
+			// 監聽所有 video 事件
+			const events = [
+				"abort", // 影片載入中斷
+				"canplay", // 影片可以開始播放，但可能還需要緩衝
+				"canplaythrough", // 影片可以播放到結束，不需要緩衝
+				"durationchange", // 影片長度變更
+				"emptied", // 影片媒體資源為空
+				"ended", // 影片播放結束
+				"error", // 播放錯誤
+				"loadeddata", // 影片的第一幀載入完成
+				"loadedmetadata", // 影片元數據（長度、尺寸等）載入完成
+				"loadstart", // 開始載入影片
+				"pause", // 影片暫停
+				"play", // 影片開始播放（不一定會有畫面）
+				"playing", // 影片開始播放（已經有畫面）
+				"progress", // 影片正在下載緩衝中
+				"ratechange", // 播放速度變更
+				"seeked", // 跳轉完成
+				"seeking", // 正在跳轉
+				"stalled", // 影片載入中斷
+				"suspend", // 影片載入被瀏覽器暫停
+				"timeupdate", // 播放時間更新
+				"volumechange", // 音量變更
+				"waiting" // 影片緩衝中
+			];
+
+			// 綁定事件監聽
+			events.forEach((event) => {
+				video.addEventListener(event, () => updateStatus(event, getExtraInfo(event)));
+			});
+
+			// 額外資訊（根據不同事件顯示不同的狀態資訊）
+			function getExtraInfo(event) {
+				switch (event) {
+					case "canplaythrough":
+						video.play();
+						return;
+					case "timeupdate":
+						return `播放時間：${video.currentTime.toFixed(2)} 秒`;
+					case "volumechange":
+						return `音量：${(video.volume * 100).toFixed(0)}%`;
+					case "ratechange":
+						return `播放速度：${video.playbackRate}x`;
+					case "seeked":
+					case "seeking":
+						return `跳轉時間：${video.currentTime.toFixed(2)} 秒`;
+					default:
+						return "";
+				}
+			}
+		</script>
+	</body>
+</html>

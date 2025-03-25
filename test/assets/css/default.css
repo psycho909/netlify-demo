@@ -666,6 +666,11 @@ body.com .section-wrap {
   background: url(https://lwi.nexon.com/maplestory/2024/1121_demonSlayer_7473AA30E74CE34A/main_bg_a74dd9a3dfd09237.jpg) no-repeat center center/cover;
   pointer-events: none;
 }
+@media screen and (max-width: 768px) {
+  .fixed-box .img-box {
+    display: none;
+  }
+}
 .fixed-box .img-box .img {
   position: absolute;
   left: 50%;

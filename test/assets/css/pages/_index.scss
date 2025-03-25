@@ -275,6 +275,9 @@ body {
 	background: url(https://lwi.nexon.com/maplestory/2024/1121_demonSlayer_7473AA30E74CE34A/main_bg_a74dd9a3dfd09237.jpg) no-repeat center center / cover;
 	pointer-events: none;
 	.img-box {
+		@include media {
+			display: none;
+		}
 		.img {
 			position: absolute;
 			left: 50%;

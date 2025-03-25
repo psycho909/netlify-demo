@@ -51,11 +51,11 @@ let app = Vue.createApp({
 			const canvas = document.getElementsByClassName("particle")[0];
 			if (!isMobile.any) {
 				initLeafAnimation(canvas);
-				// 直接使用
-				ZoomAdapter({ baseWidth: 1920, elementSelector: "#app" });
 			}
 
 			scale();
+			// 直接使用
+			ZoomAdapter({ baseWidth: 1920, elementSelector: "#app" });
 		});
 		return {};
 	}

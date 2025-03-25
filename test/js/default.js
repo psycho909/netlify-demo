@@ -33,12 +33,14 @@ let app = Vue.createApp({
 				const scrollTop = window.scrollY || window.pageYOffset;
 				const clientHeight = document.documentElement.clientHeight;
 
-				// 當滾動到底部時（考慮 50px 的緩衝區）
-				if (scrollHeight - (scrollTop + clientHeight) == 0) {
-					document.querySelector("body").classList.add("show");
-				} else {
-					// 如果需要在離開底部時移除 class，可以取消註解下一行
-					document.querySelector("body").classList.remove("show");
+				if (!isMobile.any) {
+					// 當滾動到底部時（考慮 50px 的緩衝區）
+					if (scrollHeight - (scrollTop + clientHeight) == 0) {
+						document.querySelector("body").classList.add("show");
+					} else {
+						// 如果需要在離開底部時移除 class，可以取消註解下一行
+						document.querySelector("body").classList.remove("show");
+					}
 				}
 			});
 
@@ -49,11 +51,16 @@ let app = Vue.createApp({
 
 			const initLeafAnimation = createLeafAnimation();
 			const canvas = document.getElementsByClassName("particle")[0];
-			if (!isMobile.any) {
-				initLeafAnimation(canvas);
+			// if (!isMobile.any) {
+			// 	initLeafAnimation(canvas);
+			// }
+			initLeafAnimation(canvas);
+			if (isMobile.any) {
+				document.querySelector("#scale").style.display = "none";
+			} else {
+				scale();
 			}
 
-			scale();
 			// 直接使用
 			ZoomAdapter({ baseWidth: 1920, elementSelector: "#app" });
 		});

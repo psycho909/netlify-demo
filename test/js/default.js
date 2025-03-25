@@ -8,7 +8,7 @@ if (history.scrollRestoration) {
 
 let app = Vue.createApp({
 	components: {
-		"aside-menu": asideMenu,
+		"aside-menu": asideMenu
 	},
 	setup() {
 		Vue.onMounted(() => {
@@ -19,12 +19,12 @@ let app = Vue.createApp({
 						document.querySelector("body").classList.add("com");
 					}, 200);
 				},
-				autoHide: false,
+				autoHide: false
 			});
 			document.querySelector(".top").addEventListener("click", function () {
 				window.scrollTo({
 					top: 0,
-					behavior: "smooth",
+					behavior: "smooth"
 				});
 			});
 
@@ -49,12 +49,15 @@ let app = Vue.createApp({
 
 			const initLeafAnimation = createLeafAnimation();
 			const canvas = document.getElementsByClassName("particle")[0];
-			initLeafAnimation(canvas);
+			if (!isMobile.any) {
+				initLeafAnimation(canvas);
+			}
+
 			scale();
 			// 直接使用
 			ZoomAdapter({ baseWidth: 1920, elementSelector: "#app" });
 		});
 		return {};
-	},
+	}
 });
 app.mount("#app");

@@ -1,0 +1,57 @@
+root:
+  bg: 'ui/_canvas/uiwindow2/item_backgrnd.png'
+  pos: [ 50, 50 ]
+  children:
+    - type: 'DragBar'
+      height: 20
+    - type: 'Image'
+      pos: [ 6, 23 ]
+      imagePath: 'ui/_canvas/uiwindow2/item_backgrnd2.png'
+    - type: 'Image'
+      pos: [ 7, 43 ]
+      imagePath: 'ui/_canvas/uiwindow2/item_backgrnd3.png'
+    - type: 'Button'
+      pos: [ 9, 307 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttoncoin'
+      enable: false
+    - type: 'Button'
+      pos: [ 9, 325 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonpoint'
+      enable: false
+    - type: 'Button'
+      pos: [ 154, 307 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonsort'
+      enable: false
+    - type: 'Button'
+      pos: [ 172, 307 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonfull'
+      enable: false
+    - type: 'Button'
+      pos: [ 10, 344 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttondisassemble'
+      enable: false
+    - type: 'Button'
+      pos: [ 36, 344 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonextract'
+      enable: false
+    - type: 'Button'
+      pos: [ 62, 344 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonappraise'
+      enable: false
+    - type: 'Button'
+      pos: [ 88, 344 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonprotectgreenzone'
+      enable: false
+    - type: 'Button'
+      pos: [ 114, 344 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_anibuttontoad'
+      enable: false
+    - type: 'Button'
+      pos: [ 140, 344 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonupgrade'
+      enable: false
+    - type: 'Button'
+      pos: [ 166, 344 ]
+      skinMaple: 'ui/_canvas/uiwindow2/item_autobuild_buttonpotentialreset'
+      enable: false
+

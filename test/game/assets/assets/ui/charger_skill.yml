@@ -1,0 +1,35 @@
+root:
+  bg: 'ui/2024_collabo/gauge_bg.png'
+  children:
+    - type: 'Image'
+      name: 'charging01'
+      pos: [ 125, 12 ]
+      imagePath: 'ui/2024_collabo/glow.png'
+
+    - type: 'Image'
+      name: 'charging02'
+      pos: [ 206, 12 ]
+      imagePath: 'ui/2024_collabo/glow.png'
+
+    - type: 'Image'
+      name: 'charging03'
+      pos: [ 284, 12 ]
+      imagePath: 'ui/2024_collabo/glow.png'
+
+    - type: 'Image'
+      name: 'skill_121002000_disabled'
+      pos: [ 200, 13 ]
+      size: [ 64, 64 ]
+      imagePath: 'skill/_canvas/12100/skill_121002000_icondisabled.png'
+
+    - type: 'Image'
+      name: 'skill_121002001_disabled'
+      pos: [ 350, 13 ]
+      size: [ 64, 64 ]
+      imagePath: 'ui/2024_collabo/skill_121002001_icondisabled.png'
+
+    - type: 'Image'
+      name: 'bar'
+      pos: [ 120, 0 ]
+      size: [ 300, 8 ]
+      imagePath: 'ui/bg_sound_on_controller_bar.png'

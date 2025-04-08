@@ -1,0 +1,356 @@
+.sec3 {
+	@include media {
+		background-image: url("./images/sec3-bg1-m.jpg");
+	}
+	&-bg2 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-image: url("./images/sec3-bg2.jpg");
+		opacity: 0;
+		transition: all 0.3s;
+		&.active {
+			opacity: 1;
+		}
+		@include media {
+			background-image: url("./images/sec3-bg2-m.jpg");
+		}
+	}
+	&-title {
+		width: vw2(638px);
+		height: vw2(128px);
+		background-size: cover;
+		background-image: url("./images/sec3-title.png");
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: vw2(-319px);
+		margin-top: vw2(-364px);
+		@include media2 {
+		}
+		@include media {
+			width: vw(541);
+			height: vw(165);
+			background-image: url("./images/sec3-title-m.png");
+			top: vw(227);
+			margin-left: 0;
+			margin-top: 0;
+			transform: translateX(-50%);
+		}
+	}
+	&-time {
+		width: vw2(334px);
+		height: vw2(25px);
+		background-size: cover;
+		background-image: url("./images/sec3-time.png");
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: vw2(-167px);
+		margin-top: vw2(-216px);
+		@include media2 {
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&-tab {
+		&__btn {
+			&-list {
+				width: vw2(764px);
+				height: vw2(54px);
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: vw2(-382px);
+				margin-top: vw2(-154px);
+				font-size: 0;
+				white-space: nowrap;
+				@include media2 {
+					width: vh(764);
+					height: vh(54);
+					margin-left: vh(-382);
+					margin-top: vh(-154);
+				}
+				@include media {
+					width: vw(616);
+					height: vw(60);
+					margin-top: 0;
+					margin-left: 0;
+					top: vw(438);
+					transform: translateX(-50%);
+				}
+				&:before {
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 50%;
+					width: vw2(1054px);
+					height: vw2(470px);
+					margin-left: vw2(-527px);
+					background-image: url("./images/sec-tab-bg.png");
+					background-size: cover;
+					@include media2 {
+						width: vh(1054);
+						height: vh(470);
+						margin-left: vh(-527);
+					}
+					@include media {
+						width: vw(768);
+						height: vw(477);
+						background-image: url("./images/sec-tab-bg-m.png");
+						margin-left: -50vw;
+					}
+				}
+			}
+			&-item {
+				background-size: 200%;
+				z-index: 1;
+				position: relative;
+				&.active {
+					background-position-x: 100%;
+				}
+				&--1 {
+					width: vw2(256px);
+					height: vw2(54px);
+					background-image: url("./images/sec3-tab1-btn.png");
+					margin-left: vw2(20px);
+					@include media2 {
+						width: vh(256);
+						height: vh(54);
+						margin-left: vh(20);
+					}
+					@include media {
+						width: vw(205);
+						height: vw(60);
+						background-image: url("./images/sec3-tab1-btn-m.png");
+						margin-left: 0;
+					}
+				}
+				&--2 {
+					width: vw2(206px);
+					height: vw2(54px);
+					background-image: url("./images/sec3-tab2-btn.png");
+					margin-left: vw2(2px);
+					@include media2 {
+						width: vh(206);
+						height: vh(54);
+						margin-left: vh(2);
+					}
+					@include media {
+						width: vw(202);
+						height: vw(60);
+						background-image: url("./images/sec3-tab2-btn-m.png");
+						margin-left: 0;
+					}
+				}
+				&--3 {
+					width: vw2(296px);
+					height: vw2(54px);
+					background-image: url("./images/sec3-tab3-btn.png");
+					margin-left: vw2(2px);
+					@include media2 {
+						width: vh(296);
+						height: vh(54);
+						margin-left: vh(2);
+					}
+					@include media {
+						width: vw(205);
+						height: vw(60);
+						background-image: url("./images/sec3-tab3-btn-m.png");
+						margin-left: 0;
+					}
+				}
+			}
+		}
+		&__content {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			margin-top: vw2(-103px);
+			z-index: 3;
+			@include media2 {
+				margin-top: vh(-103);
+			}
+			@include media {
+				top: vw(522);
+				margin-top: 0;
+			}
+			&-box {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				z-index: 0;
+				display: none;
+				&.active {
+					z-index: 1;
+					display: block;
+				}
+			}
+		}
+		&__con1 {
+			&-title {
+				width: vw2(254px);
+				height: vw2(87px);
+				background-size: cover;
+				background-image: url("./images/sec3-tab1-title.png");
+				position: absolute;
+				top: vw2(29px);
+				left: 50%;
+				margin-left: vw2(-127px);
+				z-index: 1;
+				@include media2 {
+					width: vh(254);
+					height: vh(87);
+					top: vh(29);
+					margin-left: vh(-127);
+				}
+				@include media {
+					width: vw(313);
+					height: vw(102);
+					background-image: url("./images/sec3-tab1-title-m.png");
+					top: 0;
+					margin-left: 0;
+					transform: translateX(-50%);
+				}
+			}
+			&-map {
+				width: vw2(948px);
+				height: vw2(508px);
+				position: absolute;
+				top: vw2(26px);
+				left: 50%;
+				margin-left: vw2(-474px);
+				@include media2 {
+					width: vh(948);
+					height: vh(508);
+					top: vh(26);
+					margin-left: vh(-474);
+				}
+				@include media {
+					width: vw(730);
+					height: vw(595);
+					top: 0;
+					margin-left: 0;
+					transform: translateX(-50%);
+				}
+				&-item {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					opacity: 0;
+					transition: 0.3s;
+					background-size: cover;
+					&.active {
+						opacity: 1;
+					}
+					@include media {
+						width: vw(730);
+						height: vw(595);
+					}
+				}
+				&--1 {
+					background-image: url("./images/sec3-tab1-1.png");
+					@include media {
+						background-image: url("./images/sec3-tab1-1-m.png");
+					}
+				}
+				&--2 {
+					background-image: url("./images/sec3-tab1-2.png");
+					@include media {
+						background-image: url("./images/sec3-tab1-2-m.png");
+					}
+				}
+				&--3 {
+					background-image: url("./images/sec3-tab1-3.png");
+					@include media {
+						background-image: url("./images/sec3-tab1-3-m.png");
+					}
+				}
+			}
+		}
+		&__con2 {
+			position: absolute;
+			top: vw2(-77px);
+			left: 50%;
+			width: vw2(1366px);
+			height: vw2(549px);
+			margin-left: vw2(-658px);
+			background-image: url("./images/sec3-tab2.png");
+			background-size: cover;
+			@include media2 {
+				top: vh(-77);
+				width: vh(1366px);
+				height: vh(549px);
+				margin-left: vh(-658px);
+			}
+			@include media {
+				width: vw(768);
+				height: vw(868);
+				background-image: url("./images/sec3-tab2-m.png");
+				margin-left: -50vw;
+				top: vw(-154);
+			}
+		}
+		&__con3 {
+			position: absolute;
+			top: vw2(-10px);
+			left: 50%;
+			margin-left: vw2(-656px);
+			width: vw2(1312px);
+			height: vw2(427px);
+			background-size: cover;
+			background-image: url("./images/sec3-tab3.png");
+			@include media2 {
+				top: vh(-10px);
+				margin-left: vh(-656px);
+				width: vh(1312px);
+				height: vh(427px);
+			}
+			@include media {
+				width: vw(768);
+				height: vw(730);
+				background-image: url("./images/sec3-tab3-m.png");
+				margin-left: -50vw;
+				top: vw(-84);
+			}
+		}
+	}
+	&-btn {
+		width: vw2(217px);
+		height: vw2(46px);
+		background-size: cover;
+		background-image: url("./images/sec-btn.png");
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: vw2(-108.5px);
+		margin-top: vw2(366px);
+		z-index: 9;
+		@include media2 {
+			width: vh(217px);
+			height: vh(46px);
+			margin-left: vh(-108.5px);
+			margin-top: vh(366px);
+		}
+		@include media {
+			width: vw(321);
+			height: vw(61);
+			background-image: url("./images/sec-btn-m.png");
+			margin-top: 0;
+			margin-left: 0;
+			top: vw(1112);
+			transform: translateX(-50%);
+		}
+	}
+}

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+/* 中文 */
+@import "./mixins/_mixins";
+// @import "./base/_layout";
+@import "./base/_base";
+@import "./base/_normalize";
+@import "./base/_init";
+@import "./utils/_gbox";
+@import "./pages/_header";
+@import "./pages/_fixed-social";
+@import "./pages/_index";
+@import "./pages/_nav";
+@import "./pages/_sec1";
+@import "./pages/_sec2";
+@import "./pages/_sec3";
+@import "./pages/_sec4";

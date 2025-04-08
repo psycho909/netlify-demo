@@ -1,0 +1,26 @@
+root:
+  children:
+    - type: 'Button'
+      name: 'btnReplay'
+      pos: [ 0, 0 ]
+      skinMultiImages:
+        - 'ui/2024_collabo/btn_replay_normal_0.png'
+        - 'ui/2024_collabo/btn_replay_mouseover_0.png'
+        - 'ui/2024_collabo/btn_replay_pressed_0.png'
+        - 'ui/2024_collabo/btn_replay_normal_0.png'
+    - type: 'Button'
+      name: 'btnHome'
+      pos: [ 0, 60 ]
+      skinMultiImages:
+        - 'ui/2024_collabo/btn_orange_normal_0.png'
+        - 'ui/2024_collabo/btn_orange_mouseover_0.png'
+        - 'ui/2024_collabo/btn_orange_pressed_0.png'
+        - 'ui/2024_collabo/btn_orange_normal_0.png'
+    - type: 'Button'
+      name: 'btnInstall'
+      pos: [ 0, 0 ]
+      skinMultiImages:
+        - 'ui/2024_collabo/btn_install_normal_0.png'
+        - 'ui/2024_collabo/btn_install_mouseover_0.png'
+        - 'ui/2024_collabo/btn_install_pressed_0.png'
+        - 'ui/2024_collabo/btn_install_normal_0.png'

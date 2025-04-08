@@ -1,0 +1,11 @@
+table:
+  - id: 1 # 스톰윙
+    teamId: 1
+    moveSpeed: 220
+    moveAccel: 900
+    jumpPower: 660
+    maxHp: 200
+    maxMp: 100
+    attackPower: 1
+    colliderSize: 33, 68
+    spriteDataId: 1

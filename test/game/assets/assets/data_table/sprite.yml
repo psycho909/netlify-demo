@@ -1,0 +1,124 @@
+table:
+  - id: 1 # Player1
+    resPath: "animation/character/1"
+    singleSprite: false
+    frameCounts: 6, 7
+    anchorOffset: 62, 78
+    spriteAnimationDataId: 1
+
+  - id: 2 # 바이퍼
+    resPath: "animation/character/2"
+    singleSprite: false
+    frameCounts: 6, 7
+    anchorOffset: 62, 78
+    spriteAnimationDataId: 2
+
+  - id: 3 # 바이퍼
+    resPath: "animation/character/3"
+    singleSprite: false
+    frameCounts: 6, 7
+    anchorOffset: 62, 78
+    spriteAnimationDataId: 2
+
+  - id: 4 # 바이퍼
+    resPath: "animation/character/4"
+    singleSprite: false
+    frameCounts: 6, 7
+    anchorOffset: 62, 78
+    spriteAnimationDataId: 2
+
+  - id: 5 # 바이퍼
+    resPath: "animation/character/5"
+    singleSprite: false
+    frameCounts: 6, 7
+    anchorOffset: 62, 78
+    spriteAnimationDataId: 2
+
+  - id: 6 # 바이퍼
+    resPath: "animation/character/6"
+    singleSprite: false
+    frameCounts: 6, 7
+    anchorOffset: 62, 78
+    spriteAnimationDataId: 2
+
+  - id: 7 # 바이퍼
+    resPath: "animation/character/7"
+    singleSprite: false
+    frameCounts: 6, 7
+    anchorOffset: 62, 78
+    spriteAnimationDataId: 2
+
+  - id: 205 # npc admin
+    resPath: "animation/npc/npc_admin.png"
+    frameCounts: 9, 1
+    anchorOffset: 22, 75
+    spriteAnimationDataId: 205
+
+  - id: 206 # 미믹
+    resPath: "animation/npc/rune_npc_mimic.png"
+    frameCounts: 1, 1
+    anchorOffset: 60, 87
+    spriteAnimationDataId: 206
+
+  - id: 302 # 예티
+    resPath: "animation/monster/yeti.png"
+    frameCounts: 5, 3
+    anchorOffset: 83, 118
+    colliderOffset: 38, 14
+    spriteAnimationDataId: 5
+
+  - id: 303 # 스톤고렘
+    resPath: "animation/monster/303"
+    singleSprite: false
+    frameCounts: 5, 5
+    anchorOffset: 136, 178
+    spriteAnimationDataId: 6
+
+  - id: 304 # 스톰윙
+    resPath: "animation/monster/stormwing.png"
+    frameCounts: 5, 3
+    anchorOffset: 101, 116
+    spriteAnimationDataId: 7
+
+  - id: 2001 # 하얀포탈
+    resPath: "animation/object/stormwing_whiteportal_01.png"
+    frameCounts: 8, 1
+    anchorOffset: 51, 240
+    spriteAnimationDataId: 8
+
+  - id: 2002 # 노란포탈
+    resPath: "animation/object/stormwing_yellowportal_01.png"
+    frameCounts: 7, 1
+    anchorOffset: 65, 120
+    spriteAnimationDataId: 9
+
+  - id: 2003 # 하얀포탈 (테스트)
+    resPath: "animation/object/stormwing_whiteportal_01.png"
+    frameCounts: 8, 1
+    anchorOffset: 51, 240
+    spriteAnimationDataId: 10
+
+  - id: 3001 # 시작기점
+    resPath: "animation/object/checkPoint_start.png"
+    frameCounts: 1, 1
+    anchorOffset: 150, 330
+    spriteAnimationDataId: 11
+
+
+  - id: 3002 # 중간기점
+    resPath: "animation/object/checkPoint_middle.png"
+    frameCounts: 9, 2
+    anchorOffset: 26, 120
+    spriteAnimationDataId: 12
+
+  - id: 3003 # 도착기점
+    resPath: "animation/object/checkPoint_end.png"
+    frameCounts: 1, 1
+    anchorOffset: 94, 195
+    spriteAnimationDataId: 11
+
+  - id: 3004 # 점프대
+    resPath: "animation/object/jump.png"
+    frameCounts: 2, 2
+    anchorOffset: 50, 100
+    spriteAnimationDataId: 13

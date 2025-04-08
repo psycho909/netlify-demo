@@ -1,0 +1,51 @@
+table:
+  - id: 201
+    teamId: 1
+    colliderSize: 51, 68
+    spriteDataId: 205
+  - id: 202
+    teamId: 1
+    colliderSize: 51, 68
+    spriteDataId: 206
+    moveSpeed: 200
+    aiDataId: 3
+    singleSprite: true
+  - id: 3 # Monster
+    teamId: 2
+    colliderSize: 84, 108
+    moveSpeed: 120
+    moveAccel: 500
+    jumpPower: 400
+    maxHp: 1
+    attackPower: 1
+    spriteDataId: 301
+  - id: 301 # 예티 가만히 있음
+    teamId: 2
+    colliderSize: 91, 104
+    maxHp: 1
+    spriteDataId: 302
+  - id: 302 # 예티
+    teamId: 2
+    colliderSize: 91, 104
+    moveSpeed: 120
+    moveAccel: 500
+    maxHp: 1
+    spriteDataId: 302
+    aiDataId: 1
+  - id: 303 # 스톤고렘
+    teamId: 2
+    colliderSize: 140, 134
+    moveSpeed: 120
+    moveAccel: 500
+    maxHp: 1
+    spriteDataId: 303
+    aiDataId: 1
+  - id: 304 # 스톰윙
+    teamId: 2
+    colliderSize: 35, 31
+    moveSpeed: 500
+    moveAccel: 1500
+    maxHp: 1
+    spriteDataId: 304
+    aiDataId: 2
+    addTime: 6 # 죽을때 시간 추가 (추가작업이 더 필요할떄 확장 예정)

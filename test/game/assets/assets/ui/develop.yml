@@ -1,0 +1,12 @@
+root:
+  bg: 'ui/common/bg_round_black.png'
+  pos: [ 100, 50 ]
+  children:
+    - type: 'Button'
+      name: 'btClose'
+      pos: [ 840, 5 ]
+      skinMaple: 'ui/_canvas/uibasic/btclose3'
+    - type: 'Button'
+      name: 'btRegister'
+      pos: [ 335, 100 ]
+      skinDivision4: 'ui/button/btn_input.png'

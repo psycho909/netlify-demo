@@ -1,0 +1,26 @@
+root:
+  children:
+    - type: 'Button'
+      name: 'skill1'
+      pos: [ -290, 0 ]
+      skinMultiImages:
+        - 'ui/2024_collabo/btn_skill_up_a.png'
+        - 'ui/2024_collabo/btn_skill_up_a_over.png'
+        - 'ui/2024_collabo/btn_skill_up_a_press.png'
+        - 'ui/2024_collabo/btn_skill_up_a.png'
+    - type: 'Button'
+      name: 'skill2'
+      pos: [ -90, 0 ]
+      skinMultiImages:
+        - 'ui/2024_collabo/btn_skill_up_s.png'
+        - 'ui/2024_collabo/btn_skill_up_s_over.png'
+        - 'ui/2024_collabo/btn_skill_up_s_press.png'
+        - 'ui/2024_collabo/btn_skill_up_s.png'
+    - type: 'Button'
+      name: 'skill3'
+      pos: [ 110, 0 ]
+      skinMultiImages:
+        - 'ui/2024_collabo/btn_skill_up_ctrl.png'
+        - 'ui/2024_collabo/btn_skill_up_ctrl_over.png'
+        - 'ui/2024_collabo/btn_skill_up_ctrl_press.png'
+        - 'ui/2024_collabo/btn_skill_up_ctrl.png'

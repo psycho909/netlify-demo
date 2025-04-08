@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#wrap {
+				position: relative;
+				width: 100%;
+				max-width: 2560px;
+				margin: 0 auto;
+			}
+			.if_wrap {
+				position: sticky;
+				/* opacity: 0; */
+				top: 0;
+				z-index: -1;
+				transition: opacity 0.4slinear, z-index 0.4slinear;
+			}
+			.if_wrap iframe {
+				width: 2560px;
+				height: 850px;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.container {
+				width: 100%;
+				top: 0;
+				padding-top: 0;
+			}
+			.container .fixed_box {
+				position: fixed;
+				left: 50%;
+				bottom: 0;
+				transform: translateX(-50%);
+				width: 2560px;
+				height: 100%;
+				min-height: 1036px;
+				background: url(https://lwi.nexon.com/maplestory/2024/1121_demonSlayer_7473AA30E74CE34A/main_bg_a74dd9a3dfd09237.jpg) no-repeat center center / cover;
+				pointer-events: none;
+			}
+			.particle {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="fixed_box"><canvas class="particle" width="1920" height="1036"></canvas></div>
+		</div>
+		<div id="wrap">
+			<div id="scale" class="if_wrap">
+				<iframe src="./index.html" frameborder="0"></iframe>
+			</div>
+		</div>
+		<script>
+			function scale() {
+				// 獲取要縮放的元素
+				const scaleElement = document.getElementById("scale");
+
+				// 獲取當前視窗寬度
+				const windowWidth = document.documentElement.clientWidth;
+
+				// 計算縮放比例（基於2560px的寬度）
+				const scaleFactor = windowWidth / 2560;
+
+				// 獲取文檔根元素的最小寬度
+				const rootElement = document.documentElement;
+				const rootStyles = window.getComputedStyle(rootElement);
+				const minWidth = parseFloat(rootStyles.getPropertyValue("min-width"));
+
+				// 根據條件應用縮放
+				if (windowWidth <= 2560) {
+					// 當視窗寬度小於等於2560px時，按比例縮放
+					scaleElement.style.transform = `scale(${scaleFactor})`;
+				} else if (windowWidth > 2560 && windowWidth > minWidth) {
+					// 當視窗寬度大於2560px且大於最小寬度時，不縮放（比例為1）
+					scaleElement.style.transform = "scale(1)";
+				}
+				// 隱含的else：如果窗口寬度小於等於最小寬度，不做任何處理
+			}
+			// scale();
+
+			function ZoomAdapter({ baseWidth = 1920, elementSelector = "body", debounceDelay = 100 } = {}) {
+				function adjustZoom() {
+					// 獲取要縮放的元素
+					const scaleElement = document.querySelector(elementSelector);
+
+					// 獲取當前視窗寬度
+					const windowWidth = document.documentElement.clientWidth;
+
+					// 計算縮放比例（基於baseWidth的寬度）
+					const scaleFactor = windowWidth / baseWidth;
+
+					// 獲取文檔根元素的最小寬度
+					const rootElement = document.documentElement;
+					const rootStyles = window.getComputedStyle(rootElement);
+					const minWidth = parseFloat(rootStyles.getPropertyValue("min-width"));
+
+					// 根據條件應用縮放
+					if (windowWidth <= baseWidth) {
+						// 當視窗寬度小於等於baseWidth時，按比例縮放
+						// scaleElement.style.transform = `scale(${scaleFactor})`;
+						scaleElement.style.zoom = scaleFactor;
+					} else if (windowWidth > baseWidth && windowWidth > minWidth) {
+						// 當視窗寬度大於baseWidth且大於最小寬度時，不縮放（比例為1）
+						// scaleElement.style.transform = "scale(1)";
+						scaleElement.style.zoom = 1;
+					}
+					// 隱含的else：如果窗口寬度小於等於最小寬度，不做任何處理
+				}
+
+				function debounce(func, delay) {
+					let timeout;
+					return () => {
+						clearTimeout(timeout);
+						timeout = setTimeout(func, delay);
+					};
+				}
+
+				// 初始化縮放
+				adjustZoom();
+
+				// 監聽視窗大小變化
+				window.addEventListener(
+					"resize",
+					debounce(() => adjustZoom(), debounceDelay)
+				);
+			}
+
+			// 直接使用
+			ZoomAdapter({ baseWidth: 2560, elementSelector: "#scale" });
+
+			// Canvas 元素與上下文
+			let canvas, canvasWidth, canvasHeight, ctx;
+
+			// 圖片資源
+			let images = [];
+			let particles = [];
+			let imagesLoaded = 0;
+			let imageIndex = 0;
+			let rotationValues = [];
+
+			// 配置選項
+			const config = {
+				objCnt: 20, // 粒子數量
+				dx: 0, // X軸移動速度
+				dy: 0.3, // Y軸移動速度
+				dispersion: 2, // 粒子分散程度
+				swingX: 1.2, // X軸擺動幅度
+				swingY: 0, // Y軸擺動幅度
+				cycleX: 1, // X軸周期
+				cycleY: 1, // Y軸周期
+				imgBaseSizeW: 96, // 圖片基本寬度
+				imgBaseSizeH: 96, // 圖片基本高度
+				scaleMax: 1, // 最大縮放比例
+				scaleMin: 0.5, // 最小縮放比例
+				rootImg: "https://lwi.nexon.com/maplestory/2024/1121_demonSlayer_7473AA30E74CE34A/exception/",
+				imgSrc: ["leaf_1.png", "leaf_2.png"], // 圖片源
+				accelerate: 100, // 加速度
+				alpha: 0, // 透明度設置
+				rotate: 1 // 是否旋轉
+			};
+
+			// 當前動畫參數
+			let particleCount = config.objCnt;
+			let currentDx = config.dx;
+			let currentDy = config.dy;
+			let currentSwingX = config.swingX;
+			let currentSwingY = config.swingY;
+			let currentCycleX = config.cycleX;
+			let currentCycleY = config.cycleY;
+
+			/**
+			 * 初始化畫布和加載圖片
+			 */
+			function initialize() {
+				// 獲取畫布和設置大小
+				canvas = document.getElementsByClassName("particle")[0];
+				ctx = canvas.getContext("2d");
+				canvasWidth = 1920;
+				canvasHeight = 1036;
+				canvas.width = canvasWidth;
+				canvas.height = canvasHeight;
+
+				// 加載所有圖片
+				for (let i = 0; i < config.imgSrc.length; i++) {
+					images[i] = new Image();
+					images[i].src = config.rootImg + config.imgSrc[i];
+					setupImageLoadHandler(i);
+				}
+			}
+
+			/**
+			 * 設置圖片加載事件處理
+			 * @param {number} index - 圖片索引
+			 */
+			function setupImageLoadHandler(index) {
+				images[index].onload = function () {
+					imagesLoaded++;
+					if (imagesLoaded === config.imgSrc.length) {
+						createParticles();
+					}
+				};
+			}
+
+			/**
+			 * 創建粒子
+			 */
+			function createParticles() {
+				for (let i = 0; i < particleCount; i++) {
+					// 計算隨機縮放比例
+					const scale = Math.ceil(100 * (Math.random() * (config.scaleMax - config.scaleMin) + config.scaleMin)) / 100;
+
+					// 隨機選擇圖片
+					imageIndex = Math.floor(Math.random() * config.imgSrc.length);
+
+					// 添加粒子
+					particles.push({
+						posx: Math.round(Math.random() * canvasWidth),
+						posy: Math.round(Math.random() * canvasHeight * 2),
+						anglex: Math.ceil(Math.random() * config.dispersion),
+						angley: Math.ceil(Math.random() * config.dispersion),
+						sizew: config.imgBaseSizeW * scale,
+						sizeh: config.imgBaseSizeH * scale,
+						speed: scale,
+						deg: Math.floor(360 * Math.random()),
+						deg2: Math.floor(20 * Math.random()),
+						img: images[imageIndex]
+					});
+				}
+
+				// 開始動畫
+				animate();
+			}
+
+			/**
+			 * 動畫循環
+			 */
+			function animate() {
+				// 清除畫布
+				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+				// 平滑地更新動畫參數值
+				updateAnimationParameters();
+
+				// 繪製每個粒子
+				for (let i = 0; i < particleCount; i++) {
+					ctx.save();
+
+					// 更新粒子角度
+					particles[i].deg = particles[i].deg >= 360 ? 0 : particles[i].deg + 0.5;
+
+					// 更新粒子位置
+					updateParticlePosition(particles[i]);
+
+					// 設置透明度（如果啟用）
+					if (config.alpha === 1) {
+						ctx.globalAlpha = particles[i].speed;
+					}
+
+					// 檢查粒子是否超出邊界，如果是則重置位置
+					handleBoundaries(particles[i]);
+
+					// 旋轉粒子（如果啟用）
+					if (config.rotate === 1) {
+						rotateParticle(i, particles[i]);
+					}
+
+					// 繪製粒子
+					ctx.drawImage(particles[i].img, particles[i].posx, particles[i].posy, particles[i].sizew, particles[i].sizeh);
+
+					ctx.restore();
+				}
+
+				// 請求下一幀
+				window.requestAnimationFrame(animate);
+			}
+
+			/**
+			 * 平滑地更新動畫參數
+			 */
+			function updateAnimationParameters() {
+				// 更新 X 方向速度
+				if (currentDx !== config.dx) {
+					currentDx = smoothUpdateValue(currentDx, config.dx);
+				}
+
+				// 更新 Y 方向速度
+				if (currentDy !== config.dy) {
+					currentDy = smoothUpdateValue(currentDy, config.dy);
+				}
+
+				// 更新 X 擺動
+				if (currentSwingX !== config.swingX) {
+					currentSwingX = smoothUpdateValue(currentSwingX, config.swingX);
+				}
+
+				// 更新 Y 擺動
+				if (currentSwingY !== config.swingY) {
+					currentSwingY = smoothUpdateValue(currentSwingY, config.swingY);
+				}
+
+				// 更新 X 周期
+				if (currentCycleX !== config.cycleX) {
+					currentCycleX = smoothUpdateValue(currentCycleX, config.cycleX);
+				}
+
+				// 更新 Y 周期
+				if (currentCycleY !== config.cycleY) {
+					currentCycleY = smoothUpdateValue(currentCycleY, config.cycleY);
+				}
+			}
+
+			/**
+			 * 平滑更新值
+			 * @param {number} current - 當前值
+			 * @param {number} target - 目標值
+			 * @return {number} - 更新後的值
+			 */
+			function smoothUpdateValue(current, target) {
+				let newValue;
+				if (current - target < 0) {
+					newValue = current + (Math.abs(current - target) / 100) * config.accelerate;
+				} else {
+					newValue = current - (Math.abs(current - target) / 100) * config.accelerate;
+				}
+				return Math.round(1000 * newValue) / 1000;
+			}
+
+			/**
+			 * 更新粒子位置
+			 * @param {object} particle - 粒子對象
+			 */
+			function updateParticlePosition(particle) {
+				particle.posx += particle.speed * currentDx * particle.anglex + Math.sin((Math.PI / 180) * particle.deg * config.cycleX) * particle.speed * currentSwingX;
+
+				particle.posy += particle.speed * currentDy * particle.angley + Math.sin((Math.PI / 180) * particle.deg * config.cycleY) * particle.speed * currentSwingY;
+			}
+
+			/**
+			 * 處理粒子邊界檢查
+			 * @param {object} particle - 粒子對象
+			 */
+			function handleBoundaries(particle) {
+				// X 軸邊界檢查
+				if (currentDx > 0 && particle.posx > canvasWidth + config.imgBaseSizeW) {
+					particle.posx = 0 - config.imgBaseSizeW;
+					particle.posy = Math.round(Math.random() * canvasHeight);
+				} else if (currentDx < 0 && particle.posx < 0 - config.imgBaseSizeW) {
+					particle.posx = canvasWidth + config.imgBaseSizeW;
+					particle.posy = Math.round(Math.random() * canvasHeight);
+				}
+
+				// Y 軸邊界檢查
+				if (currentDy > 0 && particle.posy > canvasHeight + config.imgBaseSizeH) {
+					particle.posy = 0 - config.imgBaseSizeH;
+					particle.posx = Math.round(Math.random() * canvasWidth);
+				} else if (currentDy < 0 && particle.posy < 0 - config.imgBaseSizeH) {
+					particle.posy = canvasHeight + config.imgBaseSizeH;
+					particle.posx = Math.round(Math.random() * canvasWidth);
+				}
+			}
+
+			/**
+			 * 旋轉粒子
+			 * @param {number} index - 粒子索引
+			 * @param {object} particle - 粒子對象
+			 */
+			function rotateParticle(index, particle) {
+				// 更新旋轉角度
+				particle.deg2 = particle.deg2 <= 0 ? 360 : particle.deg2 - 0.01;
+
+				// 計算旋轉值
+				rotationValues[index] = Math.floor(100 * Math.sin(particle.deg2)) / 100;
+
+				// 應用旋轉變換
+				const centerX = particle.posx + particle.sizew / 2;
+				const centerY = particle.posy + particle.sizew / 2;
+
+				ctx.translate(centerX, centerY);
+				ctx.rotate((30 * rotationValues[index] * Math.PI) / 180);
+				ctx.translate(-centerX, -centerY);
+			}
+
+			// 啟動動畫
+			initialize();
+		</script>
+	</body>
+</html>

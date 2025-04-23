@@ -11,10 +11,13 @@
 		<script>
 			document.querySelector(".time1").addEventListener("click", function () {
 				var time = new Date("2025-04-23 12:00:00");
+				this.innerHTML = time.getTime();
 				alert(time);
 			});
 			document.querySelector(".time2").addEventListener("click", function () {
 				var time = new Date("2025-04-23T13:00:00");
+				this.innerHTML = time.getTime();
+
 				alert(time);
 			});
 		</script>

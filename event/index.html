@@ -164,18 +164,19 @@
 						// 	link.href = canvas.toDataURL("image/png");
 						// 	link.click();
 						// });
-						const ua = navigator.userAgent || navigator.vendor || window.opera;
-
-						if (/Line/i.test(ua)) {
-							// 是 LINE 裡面
-							alert("請使用 Safari 或 Chrome 開啟本頁面以下載圖片。");
-						}
 
 						document.getElementById("downloadBtn").addEventListener("click", function () {
-							const canvas = document.getElementById("myCanvas");
-							canvas.toBlob(function (blob) {
-								saveAs(blob, "canvas-image.png");
-							}, "image/png");
+							const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+							if (/Line/i.test(ua)) {
+								// 是 LINE 裡面
+								alert("請使用 Safari 或 Chrome 開啟本頁面以下載圖片。");
+							} else {
+								const canvas = document.getElementById("myCanvas");
+								canvas.toBlob(function (blob) {
+									saveAs(blob, "canvas-image.png");
+								}, "image/png");
+							}
 						});
 						// Base64 按鈕
 						document.getElementById("base64Btn").addEventListener("click", function () {

@@ -178,25 +178,7 @@
 							// 判斷是否為 iOS 裝置
 							const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-							if (isIOS) {
-								// 嘗試開啟 Facebook App
-								const fbAppUrl = `fb://share?href=${encodeURIComponent(shareData.url)}`;
-								const webUrl = shareLink.facebook;
-
-								// 使用 timeout 檢查是否成功開啟 FB App
-								const timeout = setTimeout(() => {
-									window.location.href = webUrl;
-								}, 2000);
-
-								window.location.href = fbAppUrl;
-
-								// 如果頁面還在，表示沒有安裝 FB App
-								window.addEventListener("blur", () => {
-									clearTimeout(timeout);
-								});
-							} else {
-								window.open(shareLink.facebook, "_blank");
-							}
+							window.open(shareLink.facebook, "_blank");
 						});
 					}
 				};

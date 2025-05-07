@@ -4,11 +4,67 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background-color: #2e3136;
+			}
+			.masked-element {
+				position: relative;
+				width: 751px;
+				height: 601px;
+				background-color: red;
+				border: 1px solid #fff;
+				-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='751' height='601'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
+				mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='751' height='601'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
+				-webkit-mask-size: 100% 100%;
+				mask-size: 100% 100%;
+			}
+			.masked-element-inner {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 647px;
+				height: 597px;
+				-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='647' height='597'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
+				mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='647' height='597'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
+				-webkit-mask-size: 100% 100%;
+				mask-size: 100% 100%;
+				background-color: green;
+			}
+			.clipped-element {
+				position: relative;
+				width: 751px;
+				height: 601px;
+				background-color: #adadad;
+				clip-path: polygon(0% 0%, /* 左上角 */ 88.3% 0%, /* 右上角前 */ 100% 8.4%, /* 右上角 */ 100% 25%, /* 右上部分 */ 96.5% 27.6%, /* 右侧凹入点1 */ 96.5% 44%, /* 右侧中间部分 */ 100% 46%, /* 右侧凹入点2 */ 100% 100%, /* 右下角 */ 11.5% 100%, /* 左下角前 */ 0% 91.5% /* 左下角 */);
+			}
+			.clipped-element-inner {
+				width: 751px;
+				height: 601px;
+				background-color: rgba(0, 0, 0, 0.5);
+				clip-path: polygon(0% 0%, /* 左上角 */ 88.3% 0%, /* 右上角前 */ 100% 8.4%, /* 右上角 */ 100% 25%, /* 右上部分 */ 96.5% 27.6%, /* 右侧凹入点1 */ 96.5% 44%, /* 右侧中间部分 */ 100% 46%, /* 右侧凹入点2 */ 100% 100%, /* 右下角 */ 11.5% 100%, /* 左下角前 */ 0% 91.5% /* 左下角 */);
+			}
+		</style>
 	</head>
 	<body>
+		<div class="masked-element">
+			<div class="masked-element-inner"></div>
+		</div>
+		<div class="clipped-element">
+			<div class="clipped-element-inner"></div>
+		</div>
+
 		<div class="time1">time1</div>
 		<div class="time2">time2</div>
 		<script>
+			let kind = new URLSearchParams(location.search).get("kind");
+			console.log(kind);
 			document.querySelector(".time1").addEventListener("click", function () {
 				var time = new Date("2025-04-23 12:00:00");
 				this.innerHTML = time.getTime();

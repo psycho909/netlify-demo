@@ -168,11 +168,7 @@
 
 						if (/Line/i.test(ua)) {
 							// 是 LINE 裡面
-							document.getElementById("downloadBtn").addEventListener("click", function () {
-								const canvas = document.getElementById("myCanvas");
-								const dataURL = canvas.toDataURL("image/png");
-								window.open(dataURL, "_blank");
-							});
+							alert("請使用 Safari 或 Chrome 開啟本頁面以下載圖片。");
 						}
 
 						document.getElementById("downloadBtn").addEventListener("click", function () {

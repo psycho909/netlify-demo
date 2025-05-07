@@ -164,6 +164,17 @@
 						// 	link.href = canvas.toDataURL("image/png");
 						// 	link.click();
 						// });
+						const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+						if (/Line/i.test(ua)) {
+							// 是 LINE 裡面
+							document.getElementById("downloadBtn").addEventListener("click", function () {
+								const canvas = document.getElementById("myCanvas");
+								const dataURL = canvas.toDataURL("image/png");
+								window.open(dataURL, "_blank");
+							});
+						}
+
 						document.getElementById("downloadBtn").addEventListener("click", function () {
 							const canvas = document.getElementById("myCanvas");
 							canvas.toBlob(function (blob) {

@@ -6,6 +6,8 @@
 		<title>Document</title>
 		<script src="./js/gbox.js"></script>
 		<script src="https://frontend.beanfun.com/plugins/g-share/g-share.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 		<style>
 			* {
 				padding: 0;
@@ -155,14 +157,19 @@
 						};
 						createCanvasImage(textSettings);
 						// 下載按鈕
+						// document.getElementById("downloadBtn").addEventListener("click", function () {
+						// 	const canvas = document.getElementById("myCanvas");
+						// 	const link = document.createElement("a");
+						// 	link.download = "canvas-image.png";
+						// 	link.href = canvas.toDataURL("image/png");
+						// 	link.click();
+						// });
 						document.getElementById("downloadBtn").addEventListener("click", function () {
 							const canvas = document.getElementById("myCanvas");
-							const link = document.createElement("a");
-							link.download = "canvas-image.png";
-							link.href = canvas.toDataURL("image/png");
-							link.click();
+							canvas.toBlob(function (blob) {
+								saveAs(blob, "canvas-image.png");
+							}, "image/png");
 						});
-
 						// Base64 按鈕
 						document.getElementById("base64Btn").addEventListener("click", function () {
 							const canvas = document.getElementById("myCanvas");

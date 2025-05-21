@@ -79,7 +79,7 @@
 				const { text1 = "角色IDIDID", text2 = "戰士戰士", text3 = "LV.999", text4 = "已經加入新楓之谷9999天" } = options;
 
 				try {
-					const [bgImg, roleBgImg, logoImg] = await Promise.all([loadImageWithCors("./images/share/share-bg.png"), loadImageWithCors("./images/share/share-role-bg.png"), loadImageWithCors("./images/share/share-logo.png")]);
+					const [bgImg, roleBgImg, logoImg] = await Promise.all([loadImageWithCors("https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20250514C/images/share/share-bg.png"), loadImageWithCors("https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20250514C/images/share/share-role-bg.png"), loadImageWithCors("https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20250514C/images/share/share-logo.png")]);
 
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
 					ctx.drawImage(bgImg, 0, 0, 685, 714);

@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="最強改版來襲，六轉系統強大開放！超豐富新故事內容、新地圖，New Age全新六轉等你來探索！" />
+		<meta property="og:title" content="《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！" />
+		<meta property="og:description" content="最強改版來襲，六轉系統強大開放！超豐富新故事內容、新地圖，New Age全新六轉等你來探索！" />
+		<title>《新楓之谷Maplestory》New Age六轉全新改版，12/6搶先預約，1/10盛大開放！</title>
+		<script src="https://frontend.beanfun.com/plugins/g-share/g-share.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="g-share" data-url="https://tw.beanfun.com/" data-title="波拉西亞戰記：地城遺跡探險》等你來探險⚔️輸入我的邀請碼【XXXXX】即可獲得活動金幣兌換虛寶！👉立即加入探險旅程：*活動網址*" data-desc="我是描述" data-hashtag="Maple,MD" data-copy-text="已經複製了~">
+				<a href="javascript:;" target="_blank" data-title="波拉西亞戰記：地城遺跡探險》等你來探險⚔️輸入我的邀請碼【XXXXX】即可獲得活動金幣兌換虛寶！👉立即加入探險旅程：*活動網址*" data-desc="我是描述" data-hashtag="BBBBB" class="g-share-fb">fb</a>
+				<a href="javascript:;" target="_blank" data-hashtag="BBBBB" class="g-share-meta">meta</a>
+				<a href="javascript:;" target="_blank" class="g-share-line">line</a>
+				<a href="javascript:;" data-url="https://tinyjpg.com/" target="_blank" data-hashtag="Maple,MD" class="g-share-twitter">twitter</a>
+				<a href="javascript:;" target="_blank" class="g-share-native">native</a>
+				<a href="javascript:;" class="g-share-copy">COPY</a>
+			</div>
+			<hr />
+			<div class="g-share" data-url="https://warsofprasia.beanfun.com/Main" data-title="我是標題2" data-desc="我是描述2" data-hashtag="Maple,MD">
+				<a href="javascript:;" target="_blank" data-hashtag="BBBBB" class="g-share-fb">fb</a>
+				<a href="javascript:;" target="_blank" class="g-share-line">line</a>
+				<a href="javascript:;" data-url="https://tinyjpg.com/" target="_blank" data-hashtag="Maple,MD" class="g-share-twitter">twitter</a>
+				<a href="javascript:;" target="_blank" class="g-share-native"></a>
+				<a href="javascript:;" class="g-share-copy">COPY</a>
+			</div>
+			<hr />
+			<div class="g-share" data-url="https://tw.beanfun.com/" data-title="我是標題" data-desc="我是描述" data-hashtag="Maple,MD">
+				<a href="javascript:;" data-url="https://maplestory.beanfun.com/main" target="_blank" data-hashtag="BBBBB" class="g-share-fb">fb</a>
+				<a href="javascript:;" target="_blank" class="g-share-line">line</a>
+				<a href="javascript:;" target="_blank" data-hashtag="Maple,MD" class="g-share-twitter">twitter</a>
+				<a href="javascript:;" target="_blank" class="g-share-native"></a>
+				<a href="javascript:;" class="g-share-copy">COPY</a>
+			</div>
+			<hr />
+			<div class="g-share">
+				<a href="javascript:;" target="_blank" data-hashtag="BBBBB" class="g-share-fb">fb</a>
+				<a href="javascript:;" target="_blank" class="g-share-line">line</a>
+				<a href="javascript:;" target="_blank" data-hashtag="Maple,MD" class="g-share-twitter">twitter</a>
+				<a href="javascript:;" target="_blank" class="g-share-native"></a>
+				<a href="javascript:;" class="g-share-copy">COPY</a>
+			</div>
+		</div>
+		<script>
+			// vue2初始
+			var app = new Vue({
+				el: "#app",
+				data: {}
+			});
+			// LB();
+			function LB(msg, url, callback) {
+				var config = {
+					addClass: "default",
+					hasCloseBtn: true,
+					hasActionBtn: true,
+					afterClose: function () {
+						$.gbox.close();
+					},
+					actionBtns: [
+						{
+							text: "text1",
+							class: "btn",
+							click: function () {
+								$.gbox.close();
+							}
+						},
+						{
+							text: "text2",
+							class: "btn",
+							click: function () {
+								$.gbox.close();
+							}
+						}
+					]
+				};
+
+				var HTML = `
+					<div class="g-box-content">
+						<div class="g-share">
+							<a href="javascript:;" class="g-share-line">LINE</a>
+							<a href="javascript:;" class="g-share-fb">FB</a>
+							<a href="javascript:;" class="g-share-twitter">twitter</a>
+							<a href="javascript:;" class="g-share-native">Share</a>
+							<a href="javascript:;" class="g-share-copy">Copy Link</a>
+						</div>
+					</div>
+				`;
+				$.gbox.open(HTML, config);
+			}
+		</script>
+	</body>
+</html>

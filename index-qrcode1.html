@@ -402,13 +402,6 @@
 						background: "#ecf0f1"
 					});
 
-					// 添加下載按鈕
-					const downloadBtn = document.createElement("button");
-					downloadBtn.className = "download-btn";
-					downloadBtn.textContent = "📥 下載";
-					downloadBtn.onclick = () => downloadCanvas(canvas, "qrious-qr.png");
-					container.appendChild(downloadBtn);
-
 					container.classList.add("generated");
 				} catch (error) {
 					container.innerHTML = `<div class="error-message">❌ 生成失敗: ${error.message}</div>`;
@@ -444,17 +437,6 @@
 						const img = qrDiv.querySelector("img");
 
 						if (canvas || img) {
-							const downloadBtn = document.createElement("button");
-							downloadBtn.className = "download-btn";
-							downloadBtn.textContent = "📥 下載";
-							downloadBtn.onclick = () => {
-								if (canvas) {
-									downloadCanvas(canvas, "qrcode-qr.png");
-								} else if (img) {
-									downloadImage(img, "qrcode-qr.png");
-								}
-							};
-							container.appendChild(downloadBtn);
 							container.classList.add("generated");
 						}
 					}, 100);
@@ -495,13 +477,6 @@
 
 					if (qrCanvas) {
 						container.appendChild(qrCanvas);
-
-						// 添加下載按鈕
-						const downloadBtn = document.createElement("button");
-						downloadBtn.className = "download-btn";
-						downloadBtn.textContent = "📥 下載";
-						downloadBtn.onclick = () => downloadCanvas(qrCanvas, "kjua-qr.png");
-						container.appendChild(downloadBtn);
 
 						container.classList.add("generated");
 					} else {

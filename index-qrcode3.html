@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>QR Code 庫比較範例</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+				background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+				min-height: 100vh;
+				padding: 20px;
+			}
+
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+				background: white;
+				border-radius: 15px;
+				overflow: hidden;
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+			}
+
+			.header {
+				background: linear-gradient(45deg, #667eea, #764ba2);
+				color: white;
+				padding: 30px;
+				text-align: center;
+			}
+
+			.header h1 {
+				font-size: 2.5em;
+				margin-bottom: 10px;
+			}
+
+			.header p {
+				font-size: 1.2em;
+				opacity: 0.9;
+			}
+
+			.controls {
+				padding: 30px;
+				background: #f8f9fa;
+				border-bottom: 2px solid #e9ecef;
+			}
+
+			.input-group {
+				display: flex;
+				gap: 15px;
+				align-items: end;
+				flex-wrap: wrap;
+				margin-bottom: 20px;
+			}
+
+			.input-field {
+				flex: 1;
+				min-width: 200px;
+			}
+
+			label {
+				display: block;
+				margin-bottom: 5px;
+				font-weight: bold;
+				color: #495057;
+			}
+
+			input,
+			textarea,
+			select {
+				width: 100%;
+				padding: 12px;
+				border: 2px solid #dee2e6;
+				border-radius: 8px;
+				font-size: 16px;
+				transition: border-color 0.3s;
+			}
+
+			input:focus,
+			textarea:focus,
+			select:focus {
+				outline: none;
+				border-color: #667eea;
+			}
+
+			textarea {
+				height: 60px;
+				resize: vertical;
+			}
+
+			.generate-all-btn {
+				padding: 12px 30px;
+				background: linear-gradient(45deg, #28a745, #20c997);
+				color: white;
+				border: none;
+				border-radius: 8px;
+				font-size: 16px;
+				font-weight: bold;
+				cursor: pointer;
+				transition: transform 0.2s;
+				min-width: 150px;
+			}
+
+			.generate-all-btn:hover {
+				transform: translateY(-2px);
+			}
+
+			.libraries {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+				gap: 0;
+			}
+
+			.library {
+				padding: 30px;
+				border-right: 2px solid #e9ecef;
+				position: relative;
+			}
+
+			.library:last-child {
+				border-right: none;
+			}
+
+			.library-header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 20px;
+				padding-bottom: 15px;
+				border-bottom: 2px solid #e9ecef;
+			}
+
+			.library-title {
+				font-size: 1.5em;
+				font-weight: bold;
+				color: #343a40;
+			}
+
+			.library-badge {
+				padding: 5px 12px;
+				border-radius: 20px;
+				font-size: 12px;
+				font-weight: bold;
+				color: white;
+			}
+
+			.badge-qrious {
+				background: #e74c3c;
+			}
+			.badge-qrcode {
+				background: #3498db;
+			}
+			.badge-kjua {
+				background: #9b59b6;
+			}
+
+			.qr-container {
+				min-height: 280px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				background: #f8f9fa;
+				border-radius: 10px;
+				padding: 20px;
+				margin-bottom: 20px;
+				border: 2px dashed #dee2e6;
+				transition: all 0.3s;
+			}
+
+			.qr-container.generated {
+				border-color: #28a745;
+				background: #f8fff9;
+			}
+
+			.features {
+				list-style: none;
+			}
+
+			.features li {
+				padding: 8px 0;
+				color: #6c757d;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.features .check {
+				color: #28a745;
+				font-weight: bold;
+			}
+			.features .cross {
+				color: #dc3545;
+				font-weight: bold;
+			}
+
+			.code-example {
+				background: #f8f9fa;
+				border: 1px solid #e9ecef;
+				border-radius: 8px;
+				padding: 15px;
+				margin-top: 15px;
+				font-family: "Consolas", "Monaco", "Courier New", monospace;
+				font-size: 14px;
+				overflow-x: auto;
+			}
+
+			.download-btn {
+				margin-top: 10px;
+				padding: 8px 15px;
+				background: #6c757d;
+				color: white;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				font-size: 14px;
+				transition: background 0.3s;
+			}
+
+			.download-btn:hover {
+				background: #5a6268;
+			}
+
+			.error-message {
+				color: #dc3545;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+
+			.loading {
+				color: #6c757d;
+				font-style: italic;
+			}
+
+			@media (max-width: 768px) {
+				.libraries {
+					grid-template-columns: 1fr;
+				}
+
+				.library {
+					border-right: none;
+					border-bottom: 2px solid #e9ecef;
+				}
+
+				.library:last-child {
+					border-bottom: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="libraries">
+				<!-- qr-easy -->
+				<div class="library">
+					<div class="library-header">
+						<div class="library-title">qr-easy</div>
+					</div>
+
+					<div id="qr-easy" class="qr-container">
+						<div class="loading">準備生成...</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.6.2/dist/easy.qrcode.min.js"></script>
+		<script>
+			new QRCode(document.getElementById("qr-easy"), {
+				text: "https://example.com",
+				width: 220,
+				height: 220,
+				colorDark: "#111",
+				colorLight: "#fff",
+				correctLevel: QRCode.CorrectLevel.M
+				// 可選：置中 logo（跨網域請注意 CORS）
+				// logo: "https://your.cdn/logo.png",
+				// logoWidth: 48, logoHeight: 48, logoBackgroundTransparent: true,
+			});
+		</script>
+	</body>
+</html>

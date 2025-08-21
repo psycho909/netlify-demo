@@ -255,11 +255,6 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="header">
-				<h1>🔳 QR Code 庫比較</h1>
-				<p>QRious vs QRCode.js vs Kjua 功能與效能比較</p>
-			</div>
-
 			<div class="controls">
 				<div class="input-group">
 					<div class="input-field">
@@ -293,31 +288,10 @@
 				<div class="library">
 					<div class="library-header">
 						<div class="library-title">QRious</div>
-						<div class="library-badge badge-qrious">輕量級</div>
 					</div>
 
 					<div id="qrious-container" class="qr-container">
 						<div class="loading">準備生成...</div>
-					</div>
-
-					<ul class="features">
-						<li><span class="check">✓</span> 純 JavaScript，無依賴</li>
-						<li><span class="check">✓</span> 只用 Canvas 渲染</li>
-						<li><span class="check">✓</span> API 簡潔易用</li>
-						<li><span class="check">✓</span> 體積小 (~25KB)</li>
-						<li><span class="cross">✗</span> 功能較基本</li>
-					</ul>
-
-					<div class="code-example">
-						<pre>
-// QRious 範例
-const qr = new QRious({
-  element: canvas,
-  value: 'Hello World',
-  size: 200,
-  level: 'M'
-});</pre
-						>
 					</div>
 				</div>
 
@@ -325,31 +299,10 @@ const qr = new QRious({
 				<div class="library">
 					<div class="library-header">
 						<div class="library-title">QRCode.js</div>
-						<div class="library-badge badge-qrcode">多功能</div>
 					</div>
 
 					<div id="qrcode-container" class="qr-container">
 						<div class="loading">準備生成...</div>
-					</div>
-
-					<ul class="features">
-						<li><span class="check">✓</span> 支援多種渲染方式</li>
-						<li><span class="check">✓</span> Canvas 和 Table 渲染</li>
-						<li><span class="check">✓</span> 豐富的設定選項</li>
-						<li><span class="check">✓</span> 廣泛使用，穩定</li>
-						<li><span class="cross">✗</span> 體積較大 (~40KB)</li>
-					</ul>
-
-					<div class="code-example">
-						<pre>
-// QRCode.js 範例  
-const qrCode = new QRCode(element, {
-  text: 'Hello World',
-  width: 200,
-  height: 200,
-  correctLevel: QRCode.CorrectLevel.M
-});</pre
-						>
 					</div>
 				</div>
 
@@ -357,31 +310,29 @@ const qrCode = new QRCode(element, {
 				<div class="library">
 					<div class="library-header">
 						<div class="library-title">Kjua</div>
-						<div class="library-badge badge-kjua">自訂性高</div>
 					</div>
 
 					<div id="kjua-container" class="qr-container">
 						<div class="loading">準備生成...</div>
 					</div>
+				</div>
 
-					<ul class="features">
-						<li><span class="check">✓</span> 高度可自訂</li>
-						<li><span class="check">✓</span> 支援圖片和 Canvas</li>
-						<li><span class="check">✓</span> 豐富的樣式選項</li>
-						<li><span class="check">✓</span> 可調整模組樣式</li>
-						<li><span class="cross">✗</span> 學習曲線較陡</li>
-					</ul>
+				<div class="library">
+					<div class="library-header">
+						<div class="library-title">qr-style</div>
+					</div>
 
-					<div class="code-example">
-						<pre>
-// Kjua 範例
-const qr = kjua({
-  text: 'Hello World',
-  size: 200,
-  ecLevel: 'M',
-  render: 'canvas'
-});</pre
-						>
+					<div id="qr-style" class="qr-container">
+						<div class="loading">準備生成...</div>
+					</div>
+				</div>
+				<div class="library">
+					<div class="library-header">
+						<div class="library-title">qr-bwip</div>
+					</div>
+
+					<div class="qr-container">
+						<canvas id="qr-bwip" width="260" height="260"></canvas>
 					</div>
 				</div>
 			</div>
@@ -391,8 +342,32 @@ const qr = kjua({
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20221223/assets/js/qrcode.min.js"></script>
 		<script src="./js/kjua-0.10.0.min.js"></script>
-
+		<script src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
+		<script src="https://unpkg.com/bwip-js/dist/bwip-js-min.js"></script>
 		<script>
+			try {
+				// 直接畫到 canvas；bcid 指定條碼類型（這裡用 qrcode）
+				bwipjs.toCanvas(document.getElementById("qr-bwip"), {
+					bcid: "qrcode",
+					text: "https://example.com",
+					scale: 6, // 模組像素大小
+					includetext: false // QR 一般不顯示文字
+				});
+			} catch (e) {
+				console.error(e);
+			}
+			const qr = new QRCodeStyling({
+				width: 260,
+				height: 260,
+				data: "https://example.com",
+				qrOptions: { errorCorrectionLevel: "M" },
+				dotsOptions: { type: "rounded" }, // dots: 'rounded' | 'dots' | 'classy'...
+				cornersSquareOptions: { type: "extra-rounded" },
+				backgroundOptions: { color: "#ffffff" }
+				// image: "https://your.cdn/logo.png",    // 可選：logo
+				// imageOptions: { hideBackgroundDots: true, margin: 6 }
+			});
+			qr.append(document.getElementById("qr-style"));
 			function generateAll() {
 				const text = document.getElementById("text").value.trim();
 				const size = parseInt(document.getElementById("size").value);

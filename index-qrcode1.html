@@ -302,7 +302,9 @@
 						height: 320,
 						correctLevel: QRCode.CorrectLevel.M
 					});
-					qrCode.makeCode(text.padEnd(220));
+					setTimeout(() => {
+						qrCode.makeCode(text.padEnd(220));
+					}, 3000);
 				} catch (error) {
 					container.innerHTML = `<div class="error-message">❌ 生成失敗: ${error.message}</div>`;
 					console.error("QRCode.js error:", error);

@@ -13,7 +13,6 @@
 
 			body {
 				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-				background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
 				min-height: 100vh;
 				padding: 20px;
 			}
@@ -21,10 +20,7 @@
 			.container {
 				max-width: 1200px;
 				margin: 0 auto;
-				background: white;
-				border-radius: 15px;
 				overflow: hidden;
-				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 			}
 
 			.header {
@@ -46,8 +42,6 @@
 
 			.controls {
 				padding: 30px;
-				background: #f8f9fa;
-				border-bottom: 2px solid #e9ecef;
 			}
 
 			.input-group {
@@ -70,32 +64,8 @@
 				color: #495057;
 			}
 
-			input,
-			textarea,
-			select {
-				width: 100%;
-				padding: 12px;
-				border: 2px solid #dee2e6;
-				border-radius: 8px;
-				font-size: 16px;
-				transition: border-color 0.3s;
-			}
-
-			input:focus,
-			textarea:focus,
-			select:focus {
-				outline: none;
-				border-color: #667eea;
-			}
-
-			textarea {
-				height: 60px;
-				resize: vertical;
-			}
-
 			.generate-all-btn {
 				padding: 12px 30px;
-				background: linear-gradient(45deg, #28a745, #20c997);
 				color: white;
 				border: none;
 				border-radius: 8px;
@@ -118,7 +88,6 @@
 
 			.library {
 				padding: 30px;
-				border-right: 2px solid #e9ecef;
 				position: relative;
 			}
 
@@ -148,17 +117,6 @@
 				font-weight: bold;
 				color: white;
 			}
-
-			.badge-qrious {
-				background: #e74c3c;
-			}
-			.badge-qrcode {
-				background: #3498db;
-			}
-			.badge-kjua {
-				background: #9b59b6;
-			}
-
 			.qr-container {
 				min-height: 280px;
 				display: flex;
@@ -172,12 +130,6 @@
 				border: 2px dashed #dee2e6;
 				transition: all 0.3s;
 			}
-
-			.qr-container.generated {
-				border-color: #28a745;
-				background: #f8fff9;
-			}
-
 			.features {
 				list-style: none;
 			}
@@ -197,39 +149,6 @@
 			.features .cross {
 				color: #dc3545;
 				font-weight: bold;
-			}
-
-			.code-example {
-				background: #f8f9fa;
-				border: 1px solid #e9ecef;
-				border-radius: 8px;
-				padding: 15px;
-				margin-top: 15px;
-				font-family: "Consolas", "Monaco", "Courier New", monospace;
-				font-size: 14px;
-				overflow-x: auto;
-			}
-
-			.download-btn {
-				margin-top: 10px;
-				padding: 8px 15px;
-				background: #6c757d;
-				color: white;
-				border: none;
-				border-radius: 5px;
-				cursor: pointer;
-				font-size: 14px;
-				transition: background 0.3s;
-			}
-
-			.download-btn:hover {
-				background: #5a6268;
-			}
-
-			.error-message {
-				color: #dc3545;
-				font-size: 14px;
-				margin-top: 10px;
 			}
 
 			.loading {
@@ -255,34 +174,6 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="controls">
-				<div class="input-group">
-					<div class="input-field">
-						<label for="text">輸入內容：</label>
-						<textarea id="text" placeholder="輸入要生成 QR Code 的內容...">https://github.com</textarea>
-					</div>
-
-					<div class="input-field" style="max-width: 120px">
-						<label for="size">大小：</label>
-						<input type="number" id="size" value="200" min="100" max="400" />
-					</div>
-
-					<div class="input-field" style="max-width: 150px">
-						<label for="errorLevel">錯誤修正：</label>
-						<select id="errorLevel">
-							<option value="L">低 (L)</option>
-							<option value="M" selected>中 (M)</option>
-							<option value="Q">高 (Q)</option>
-							<option value="H">最高 (H)</option>
-						</select>
-					</div>
-
-					<div style="align-self: end">
-						<button class="generate-all-btn" onclick="generateAll()">🚀 全部生成</button>
-					</div>
-				</div>
-			</div>
-
 			<div class="libraries">
 				<!-- QRious -->
 				<div class="library">
@@ -368,16 +259,10 @@
 				// imageOptions: { hideBackgroundDots: true, margin: 6 }
 			});
 			qr.append(document.getElementById("qr-style"));
+			const text = "https://maplestory.nexon.com/promotion/event/2024/20241010/event01";
+			const size = parseInt(200);
+			const errorLevel = "M";
 			function generateAll() {
-				const text = document.getElementById("text").value.trim();
-				const size = parseInt(document.getElementById("size").value);
-				const errorLevel = document.getElementById("errorLevel").value;
-
-				if (!text) {
-					alert("請輸入要生成 QR Code 的內容！");
-					return;
-				}
-
 				generateQRious(text, size, errorLevel);
 				generateQRCode(text, size, errorLevel);
 				generateKjua(text, size, errorLevel);
@@ -423,23 +308,11 @@
 
 					// 使用 QRCode 構造函數
 					const qrCode = new QRCode(qrDiv, {
-						text: text,
-						width: size,
-						height: size,
-						colorDark: "#8e44ad",
-						colorLight: "#f8f9fa",
-						correctLevel: QRCode.CorrectLevel[errorLevel]
+						width: 320,
+						height: 320,
+						correctLevel: QRCode.CorrectLevel.M
 					});
-
-					// 等待生成完成後添加下載按鈕
-					setTimeout(() => {
-						const canvas = qrDiv.querySelector("canvas");
-						const img = qrDiv.querySelector("img");
-
-						if (canvas || img) {
-							container.classList.add("generated");
-						}
-					}, 100);
+					qrCode.makeCode(text.padEnd(220));
 				} catch (error) {
 					container.innerHTML = `<div class="error-message">❌ 生成失敗: ${error.message}</div>`;
 					console.error("QRCode.js error:", error);
@@ -488,28 +361,6 @@
 				}
 			}
 
-			// 下載 Canvas
-			function downloadCanvas(canvas, filename) {
-				const link = document.createElement("a");
-				link.download = filename;
-				link.href = canvas.toDataURL();
-				link.click();
-			}
-
-			// 下載圖片
-			function downloadImage(img, filename) {
-				const canvas = document.createElement("canvas");
-				const ctx = canvas.getContext("2d");
-				canvas.width = img.naturalWidth;
-				canvas.height = img.naturalHeight;
-				ctx.drawImage(img, 0, 0);
-
-				const link = document.createElement("a");
-				link.download = filename;
-				link.href = canvas.toDataURL();
-				link.click();
-			}
-
 			// 頁面載入時自動生成
 			window.onload = function () {
 				// 等待庫載入完成，增加等待時間
@@ -521,23 +372,6 @@
 					generateAll();
 				}, 1000);
 			};
-
-			// 支援 Enter 鍵生成
-			document.getElementById("text").addEventListener("keydown", function (e) {
-				if (e.key === "Enter" && !e.shiftKey) {
-					e.preventDefault();
-					generateAll();
-				}
-			});
-
-			// 即時生成（輸入時延遲生成）
-			let generateTimer;
-			["text", "size", "errorLevel"].forEach((id) => {
-				document.getElementById(id).addEventListener("input", function () {
-					clearTimeout(generateTimer);
-					generateTimer = setTimeout(generateAll, 1000);
-				});
-			});
 		</script>
 	</body>
 </html>

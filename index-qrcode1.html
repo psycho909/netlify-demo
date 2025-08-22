@@ -192,9 +192,7 @@
 						<div class="library-title">QRCode.js</div>
 					</div>
 
-					<div id="qrcode-container" class="qr-container">
-						<div class="loading">準備生成...</div>
-					</div>
+					<div id="qrcode-container" class="qr-container"></div>
 				</div>
 
 				<!-- Kjua -->
@@ -296,18 +294,10 @@
 			// QRCode.js 生成
 			function generateQRCode(text, size, errorLevel) {
 				const container = document.getElementById("qrcode-container");
-				container.innerHTML = "";
-				container.classList.remove("generated");
 
 				try {
-					// 創建一個 div 容器，因為這個庫會自動創建 canvas 或 table
-					const qrDiv = document.createElement("div");
-					qrDiv.style.display = "flex";
-					qrDiv.style.justifyContent = "center";
-					container.appendChild(qrDiv);
-
 					// 使用 QRCode 構造函數
-					const qrCode = new QRCode(qrDiv, {
+					const qrCode = new QRCode(container, {
 						width: 320,
 						height: 320,
 						correctLevel: QRCode.CorrectLevel.M

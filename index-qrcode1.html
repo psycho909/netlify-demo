@@ -302,6 +302,7 @@
 						height: 320,
 						correctLevel: QRCode.CorrectLevel.M
 					});
+					qrCode.clear();
 					setTimeout(() => {
 						qrCode.makeCode(text.padEnd(220));
 					}, 3000);

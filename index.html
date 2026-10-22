@@ -1,81 +1,256 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-			body {
-				background-color: #2e3136;
-			}
-			.masked-element {
-				position: relative;
-				width: 751px;
-				height: 601px;
-				background-color: red;
-				border: 1px solid #fff;
-				-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='751' height='601'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
-				mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='751' height='601'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
-				-webkit-mask-size: 100% 100%;
-				mask-size: 100% 100%;
-			}
-			.masked-element-inner {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				width: 647px;
-				height: 597px;
-				-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='647' height='597'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
-				mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='647' height='597'%3E%3Cpath fill-rule='evenodd' d='M86.1000,600.1000 L86.1000,600.709 L0.229,549.1000 L-0.000,549.1000 L-0.000,-0.000 L0.1000,-0.000 L663.1000,-0.000 L663.1000,0.097 L750.437,50.1000 L750.1000,50.1000 L750.1000,150.1000 L750.774,150.1000 L725.1000,165.705 L725.1000,264.094 L750.424,276.1000 L750.1000,276.1000 L750.1000,599.1000 L750.1000,600.1000 L86.1000,600.1000 Z'/%3E%3C/svg%3E");
-				-webkit-mask-size: 100% 100%;
-				mask-size: 100% 100%;
-				background-color: green;
-			}
-			.clipped-element {
-				position: relative;
-				width: 751px;
-				height: 601px;
-				background-color: #adadad;
-				clip-path: polygon(0% 0%, /* 左上角 */ 88.3% 0%, /* 右上角前 */ 100% 8.4%, /* 右上角 */ 100% 25%, /* 右上部分 */ 96.5% 27.6%, /* 右侧凹入点1 */ 96.5% 44%, /* 右侧中间部分 */ 100% 46%, /* 右侧凹入点2 */ 100% 100%, /* 右下角 */ 11.5% 100%, /* 左下角前 */ 0% 91.5% /* 左下角 */);
-			}
-			.clipped-element-inner {
-				width: 751px;
-				height: 601px;
-				background-color: rgba(0, 0, 0, 0.5);
-				clip-path: polygon(0% 0%, /* 左上角 */ 88.3% 0%, /* 右上角前 */ 100% 8.4%, /* 右上角 */ 100% 25%, /* 右上部分 */ 96.5% 27.6%, /* 右侧凹入点1 */ 96.5% 44%, /* 右侧中间部分 */ 100% 46%, /* 右侧凹入点2 */ 100% 100%, /* 右下角 */ 11.5% 100%, /* 左下角前 */ 0% 91.5% /* 左下角 */);
-			}
-		</style>
-	</head>
-	<body>
-		<div class="masked-element">
-			<div class="masked-element-inner"></div>
-		</div>
-		<div class="clipped-element">
-			<div class="clipped-element-inner"></div>
-		</div>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0c10">
+  <meta name="description" content="THE GOLDEN AGE｜哈爾巴斯的回憶－活動分享頁。快速分享至 Facebook 或 Threads。">
+  <meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/event/LineageM/20260930C/assets/images/og-image.jpg" />
+  <title>THE GOLDEN AGE｜哈爾巴斯的回憶 — 分享活動</title>
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --surface: #13161d;
+      --surface-raised: #1b1f28;
+      --gold: #d9b47b;
+      --gold-light: #f0dfb4;
+      --gold-dim: #8a7353;
+      --text: #f4f0e8;
+      --muted: #acacb3;
+      --line: rgba(232,204,157,.18);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+    .page {
+      min-height: 100vh;
+      min-height: 100svh;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 65% 65% at 50% 27%, rgba(126,89,41,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 42% 55% at 8% 88%, rgba(39,52,68,.30) 0%, transparent 70%),
+        linear-gradient(140deg, #11151c 0%, #0a0c10 57%, #101116 100%);
+    }
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .28;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(236,212,170,.7) .7px, transparent 1px);
+      background-size: 79px 89px;
+      mask-image: linear-gradient(to bottom, #000, transparent 82%);
+    }
+    .aura {
+      width: 660px;
+      height: 660px;
+      border: 1px solid rgba(235,201,144,.13);
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 5%;
+      translate: -50% 0;
+      pointer-events: none;
+      z-index: -1;
+      box-shadow: inset 0 0 0 48px rgba(206,170,108,.016), 0 0 110px rgba(211,163,77,.042);
+    }
+    .aura::before, .aura::after { content: ""; position: absolute; border-radius: 50%; inset: 50px; border: 1px solid rgba(235,201,144,.09); }
+    .aura::after { inset: 118px; border-style: dashed; transform: rotate(45deg); }
+    .layout { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .topbar { height: 100px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: Georgia, "Times New Roman", serif; font-size: 13px; letter-spacing: .25em; font-weight: 700; color: var(--gold-light); }
+    .wordmark .crest { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(235,194,121,.65); transform: rotate(45deg); }
+    .crest span { transform: rotate(-45deg); font-size: 16px; letter-spacing: 0; }
+    .top-link { text-decoration: none; color: var(--muted); font-size: 13px; display: inline-flex; align-items: center; gap: 8px; transition: color .2s; }
+    .top-link:hover { color: var(--gold-light); }
+    .top-link svg { width: 16px; height: 16px; }
+    main { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(340px, .8fr); gap: 70px; align-items: center; min-height: calc(100svh - 171px); padding-block: 110px 130px; }
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: .34em; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 16px; }
+    .eyebrow::before { content: ""; display: block; width: 30px; height: 1px; background: var(--gold); }
+    .hero h1 { margin: 35px 0 6px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(54px, 7.4vw, 112px); font-weight: 500; letter-spacing: -.055em; line-height: .96; text-wrap: balance; background: linear-gradient(170deg, #fff4d7 5%, #e1bc7e 40%, #7d5735 90%); color: transparent; background-clip: text; }
+    .hero .subtitle { font-family: Georgia, "Noto Serif TC", "PMingLiU", serif; font-size: clamp(23px, 3.2vw, 39px); letter-spacing: .10em; margin: 27px 0 0; font-weight: 400; }
+    .ornament { display: flex; align-items: center; gap: 9px; width: 150px; margin: 40px 0 31px; color: var(--gold); }
+    .ornament::before, .ornament::after { content: ""; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim)); flex: 1; }
+    .ornament::after { transform: scaleX(-1); }
+    .ornament span { width: 7px; height: 7px; transform: rotate(45deg); border: 1px solid currentColor; }
+    .hero .description { max-width: 420px; color: var(--muted); font-size: 15px; line-height: 2; letter-spacing: .025em; }
+    .event-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; text-decoration: none; color: var(--gold-light); font-size: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(240,223,180,.45); }
+    .event-link:hover { border-color: currentColor; }
+    .event-link svg { width: 16px; height: 16px; }
+    .share-panel { min-width: 0; position: relative; width: 100%; border: 1px solid rgba(226,195,143,.22); background: linear-gradient(145deg, rgba(31,34,42,.96), rgba(17,19,25,.97)); box-shadow: 0 30px 90px rgba(0,0,0,.38), 0 0 0 6px rgba(220,179,115,.025); padding: 37px; }
+    .share-panel::before, .share-panel::after { content: ""; position: absolute; height: 19px; width: 19px; pointer-events: none; }
+    .share-panel::before { top: -1px; left: -1px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+    .share-panel::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+    .panel-index { font-family: Georgia, serif; color: var(--gold-dim); font-size: 12px; letter-spacing: .22em; }
+    .panel-heading { font-size: 25px; font-weight: 600; margin: 18px 0 8px; letter-spacing: .06em; }
+    .panel-desc { font-size: 14px; color: var(--muted); margin: 0 0 30px; line-height: 1.8; }
+    .info-card { min-width: 0; border: 1px solid var(--line); background: rgba(255,255,255,.025); padding: 18px; margin-bottom: 28px; }
+    .info-label { color: var(--gold); letter-spacing: .18em; font-size: 10px; margin-bottom: 9px; }
+    .info-title { font-size: 15px; font-weight: 600; line-height: 1.6; margin-bottom: 7px; }
+    .info-url { font-size: 12px; color: #9295a1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .social-btn { border: 1px solid transparent; min-height: 55px; width: 100%; padding: 0 18px; border-radius: 3px; display: flex; align-items: center; gap: 14px; cursor: pointer; font-size: 14px; font-weight: 700; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+    .social-btn:hover { transform: translateY(-2px); }
+    .social-btn:active { transform: translateY(0); }
+    .social-btn .symbol { width: 22px; font-size: 25px; line-height: 1; text-align: center; font-weight: 800; }
+    .social-btn .arrow { margin-left: auto; width: 17px; height: 17px; }
+    .threads { color: #17181a; background: #f4f1e9; margin-bottom: 12px; }
+    .threads:hover { background: #fff; box-shadow: 0 7px 24px rgba(255,255,255,.12); }
+    .facebook { background: #2264bd; color: white; margin-bottom: 12px; }
+    .facebook:hover { background: #3177d6; box-shadow: 0 7px 24px rgba(22,101,221,.2); }
+    .copy { background: transparent; border-color: rgba(239,215,176,.24); color: var(--gold-light); }
+    .copy:hover { background: rgba(239,215,176,.07); }
+    .copy .symbol svg { width: 21px; height: 21px; }
+    .hint { margin: 24px 0 0; color: #858995; font-size: 11px; line-height: 1.8; }
+    .status { min-height: 18px; margin: 12px 0 0; color: var(--gold-light); font-size: 12px; }
+    .footer { height: 71px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #757986; font-size: 11px; letter-spacing: .05em; }
+    .footer a { text-decoration: none; color: #b69b71; }
+    .footer a:hover { text-decoration: underline; }
+    @media (max-width: 900px) {
+      main { grid-template-columns: minmax(0, 1fr); gap: 55px; padding: 85px 0 95px; min-height: auto; }
+      .hero { min-width: 0; text-align: center; }
+      .hero .eyebrow { justify-content: center; }
+      .hero .subtitle { margin-top: 22px; }
+      .ornament { margin-inline: auto; }
+      .hero .description { margin-inline: auto; }
+      .share-panel { max-width: 520px; margin-inline: auto; }
+      .aura { top: 0; }
+    }
+    @media (max-width: 540px) {
+      .layout { width: min(100% - 36px, 1120px); }
+      .topbar { height: 78px; }
+      .wordmark { font-size: 11px; letter-spacing: .18em; }
+      .wordmark .crest { width: 27px; height: 27px; }
+      .top-link { font-size: 12px; }
+      main { padding: 66px 0 75px; gap: 51px; }
+      .hero h1 { font-size: clamp(55px, 15vw, 75px); }
+      .hero .subtitle { font-size: 25px; letter-spacing: .035em; }
+      .share-panel { padding: 28px 22px; }
+      .footer { height: auto; min-height: 76px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 7px; padding-block: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="aura" aria-hidden="true"></div>
+    <header class="topbar layout">
+      <a class="wordmark" href="https://lineagem-event.beanfun.com/Event/E20260930" target="_blank" rel="noopener noreferrer" aria-label="開啟天堂M活動網站">
+        <span class="crest" aria-hidden="true"><span>✦</span></span>
+        <span>THE GOLDEN AGE</span>
+      </a>
+      <a class="top-link" href="https://lineagem-event.beanfun.com/Event/E20260930" target="_blank" rel="noopener noreferrer">
+        官方活動頁
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </header>
+    <main class="layout">
+      <section class="hero" aria-labelledby="event-title">
+        <div class="eyebrow">LINEAGE M · EVENT</div>
+        <h1 id="event-title">THE<br>GOLDEN<br>AGE</h1>
+        <h2 class="subtitle">哈爾巴斯的回憶</h2>
+        <div class="ornament" aria-hidden="true"><span></span></div>
+        <p class="description">把活動分享給朋友。選擇 Threads 或 Facebook，即可帶入活動標題與連結，前往社群平台完成發布。</p>
+        <a class="event-link" href="https://lineagem-event.beanfun.com/Event/E20260930" target="_blank" rel="noopener noreferrer">
+          前往活動網站
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </section>
+      <section class="share-panel" aria-labelledby="share-title">
+        <div class="panel-index">SOCIAL / SHARE</div>
+        <h2 class="panel-heading" id="share-title">分享這個活動</h2>
+        <p class="panel-desc">選擇分享平台，將活動資訊傳給更多朋友。</p>
+        <div class="info-card">
+          <div class="info-label">SHARE CONTENT</div>
+          <div class="info-title">THE GOLDEN AGE｜哈爾巴斯的回憶</div>
+          <div class="info-url" title="https://lineagem-event.beanfun.com/Event/E20260930">https://lineagem-event.beanfun.com/Event/E20260930</div>
+        </div>
+        <button class="social-btn threads" type="button" id="share-threads">
+          <span class="symbol" aria-hidden="true">@</span>
+          分享至 Threads
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </button>
+        <button class="social-btn facebook" type="button" id="share-facebook">
+          <span class="symbol" aria-hidden="true" style="font-family: Arial, sans-serif">f</span>
+          分享至 Facebook
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </button>
+        <button class="social-btn copy" type="button" id="copy-link">
+          <span class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></span>
+          複製活動連結
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+        </button>
+        <div class="status" id="share-status" role="status" aria-live="polite"></div>
+        <p class="hint">社群連結預覽圖由原始活動網頁的 Open Graph（og:image）決定。本頁無法強制更換分享時顯示的圖片。</p>
+      </section>
+    </main>
+    <footer class="footer layout">
+      <span>THE GOLDEN AGE · SOCIAL SHARE</span>
+      <span>非官方分享操作示範頁 · <a href="https://lineagem-event.beanfun.com/Event/E20260930" target="_blank" rel="noopener noreferrer">查看活動來源</a></span>
+    </footer>
+  </div>
+  <script>
+    (() => {
+      'use strict';
+      const eventUrl = 'https://lineagem-event.beanfun.com/Event/E20260930';
+      const eventTitle = 'THE GOLDEN AGE｜哈爾巴斯的回憶';
+      const status = document.getElementById('share-status');
 
-		<div class="time1">time1</div>
-		<div class="time2">time2</div>
-		<script>
-			let kind = new URLSearchParams(location.search).get("kind");
-			console.log(kind);
-			document.querySelector(".time1").addEventListener("click", function () {
-				var time = new Date("2025-04-23 12:00:00");
-				this.innerHTML = time.getTime();
-				alert(time);
-			});
-			document.querySelector(".time2").addEventListener("click", function () {
-				var time = new Date("2025-04-23T13:00:00");
-				this.innerHTML = time.getTime();
+      const threadsShareUrl = new URL('https://www.threads.com/intent/post');
+      threadsShareUrl.searchParams.set('text', eventTitle);
+      threadsShareUrl.searchParams.set('url', eventUrl);
 
-				alert(time);
-			});
-		</script>
-	</body>
+      const facebookShareUrl = new URL('https://www.facebook.com/sharer/sharer.php');
+      facebookShareUrl.searchParams.set('u', eventUrl);
+
+      function openShare(url) {
+        // 必須在使用者點擊事件中直接開啟，以避免瀏覽器阻擋彈出視窗。
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+
+      document.getElementById('share-threads').addEventListener('click', () => {
+        status.textContent = '';
+        openShare(threadsShareUrl.toString());
+      });
+      document.getElementById('share-facebook').addEventListener('click', () => {
+        status.textContent = '';
+        openShare(facebookShareUrl.toString());
+      });
+      document.getElementById('copy-link').addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(eventUrl);
+          } else {
+            const field = document.createElement('textarea');
+            field.value = eventUrl;
+            field.style.position = 'fixed';
+            field.style.opacity = '0';
+            document.body.appendChild(field);
+            field.select();
+            const copied = document.execCommand('copy');
+            field.remove();
+            if (!copied) throw new Error('copy failed');
+          }
+          status.textContent = '已複製活動連結。';
+        } catch (_) {
+          status.textContent = '無法自動複製，請開啟活動網站並複製網址。';
+        }
+      });
+    })();
+  </script>
+</body>
 </html>

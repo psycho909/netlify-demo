@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>驗證失敗 | Netlify SRI 測試</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, "Noto Sans TC", sans-serif; }
+    body { background: #f5f7fa; color: #192333; margin: 0; padding: 36px 16px; }
+    main { background: white; border: 1px solid #dfe5ed; border-radius: 18px; padding: 26px; max-width: 740px; margin: 0 auto; box-shadow: 0 8px 40px #15263a0b; }
+    h1 { font-size: 1.55rem; margin-top: 0; }
+    p { line-height: 1.7; }
+    nav { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0; }
+    nav a { display: inline-block; border: 1px solid #b8c6da; border-radius: 9px; padding: 10px 16px; color: #1a527e; text-decoration: none; }
+    nav a[aria-current="page"] { background: #e8efff; font-weight: 650; border-color: #a2bbe8; }
+    .result { border-radius: 12px; padding: 18px; border: 1px solid #b9c5d3; background: #f7f9fc; }
+    .result.success { background: #edf9f0; border-color: #8ad0a1; color: #136439; }
+    .result.error { background: #fff0f0; border-color: #e5a5a5; color: #a22323; }
+    pre { background: #192333; color: #f5f7ff; font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; padding: 16px; border-radius: 10px; }
+    .small { font-size: 0.91rem; color: #506075; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Netlify 靜態網站 SRI 測試</h1>
+  <p>這個專案的 <code>app.js</code> 在兩個頁面完全相同；只有 HTML 的 <code>integrity</code> 不同。</p>
+  <nav aria-label="測試情境">
+    <a href="./index.html" >測試 A：正確 Hash</a>
+    <a href="./fail.html" aria-current="page">測試 B：錯誤 Hash</a>
+  </nav>
+  <div id="result" class="result" role="status" aria-live="polite">正在檢查外部 JavaScript 是否執行……</div>
+  <p id="external-script-result" class="small">外部 app.js 尚未執行。</p>
+  <h2>此頁的 SRI 設定</h2>
+  <pre>&lt;script src="./app.js" integrity="sha384-EFfezzo8oBH0bxOErMsdSWwT7ZKyVsHkpAm1XYaO4iVZ6NiwBi4PUHVJOImSZayU"&gt;&lt;/script&gt;</pre>
+  <p class="small">開啟 F12 → Console。失敗頁應出現類似「Failed to find a valid digest in the 'integrity' attribute」的瀏覽器錯誤訊息。原始檔可直接檢查與修改。</p>
+</main>
+<script src="./app.js" integrity="sha384-EFfezzo8oBH0bxOErMsdSWwT7ZKyVsHkpAm1XYaO4iVZ6NiwBi4PUHVJOImSZayU"></script>
+<script>
+  // 這段 inline script 沒有使用 SRI，只負責顯示測試結果。
+  const result = document.getElementById('result');
+  if (window.sriAppLoaded === true) {
+    result.className = 'result success';
+    result.textContent = '✅ 驗證成功：app.js 的 SHA-384 與 HTML integrity 相同，已執行。';
+  } else {
+    result.className = 'result error';
+    result.textContent = '❌ 驗證失敗：integrity 與 app.js 的 SHA-384 不同，瀏覽器阻擋執行。';
+  }
+</script>
+</body>
+</html>

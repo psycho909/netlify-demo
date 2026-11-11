@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sessionStorage：A-1 只提醒一次</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, 'Noto Sans TC', sans-serif; color-scheme: light; }
+    body { max-width: 640px; margin: 48px auto; padding: 0 20px; line-height: 1.7; color: #202a35; }
+    h1 { font-size: 1.5rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+    a, button { font: inherit; border-radius: 8px; padding: 9px 15px; }
+    a { text-decoration: none; background: #e7edf9; color: #174c98; }
+    a[aria-current="page"] { background: #174c98; color: #fff; }
+    button { border: 1px solid #c7cdd4; background: #fff; cursor: pointer; }
+    .status { padding: 16px; background: #f4f6fa; border-radius: 10px; margin: 16px 0; }
+    code { background: #eef1f5; border-radius: 4px; padding: 1px 4px; }
+    .hint { color: #65717e; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>sessionStorage 範例</h1>
+  <p>測試順序：A-2 → A-1（跳出 alert）→ A-3 → A-1（不再跳出）。</p>
+  <nav>
+    <a href="?page=2" data-page="2">A-2 頁面</a>
+    <a href="?page=1" data-page="1">A-1 頁面</a>
+    <a href="?page=3" data-page="3">A-3 頁面</a>
+  </nav>
+  <div class="status">
+    <strong id="currentPage"></strong>
+    <div id="seenStatus"></div>
+  </div>
+  <button type="button" id="reset">清除紀錄，重新測試</button>
+  <p class="hint">sessionStorage 僅在相同來源（協定／網域／連接埠）及同一分頁內共用。關閉分頁後，該分頁的資料通常就會清除。</p>
+  <script>
+    const KEY = 'a1_alert_shown';
+    const page = new URLSearchParams(location.search).get('page') || '2';
+
+    document.querySelector('#currentPage').textContent = `目前是 A-${page} 頁面`;
+    document.querySelectorAll('nav a').forEach((link) => {
+      if (link.dataset.page === page) link.setAttribute('aria-current', 'page');
+    });
+
+    // 只有進入 A-1，且同一分頁尚未顯示過時，才提醒一次。
+    if (page === '1' && sessionStorage.getItem(KEY) !== '1') {
+      sessionStorage.setItem(KEY, '1');
+      alert('第一次進入 A-1！');
+    }
+
+    document.querySelector('#seenStatus').textContent =
+      sessionStorage.getItem(KEY) === '1'
+        ? '本分頁已顯示過 A-1 的 alert，之後再進 A-1 不會顯示。'
+        : '本分頁尚未顯示過 A-1 的 alert。';
+
+    document.querySelector('#reset').addEventListener('click', () => {
+      sessionStorage.removeItem(KEY);
+      location.href = '?page=2';
+    });
+  </script>
+</body>
+</html>
